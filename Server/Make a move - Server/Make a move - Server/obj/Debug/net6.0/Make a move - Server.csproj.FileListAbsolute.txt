@@ -1,0 +1,8 @@
+C:\Users\terne\Documents\שנה ד תעשייה וניהול\פרויקט גמר\code\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.csproj.AssemblyReference.cache
+C:\Users\terne\Documents\שנה ד תעשייה וניהול\פרויקט גמר\code\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\terne\Documents\שנה ד תעשייה וניהול\פרויקט גמר\code\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.AssemblyInfoInputs.cache
+C:\Users\terne\Documents\שנה ד תעשייה וניהול\פרויקט גמר\code\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.AssemblyInfo.cs
+C:\Users\terne\Documents\שנה ד תעשייה וניהול\פרויקט גמר\code\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.csproj.CoreCompileInputs.cache
+C:\Users\terne\Documents\שנה ד תעשייה וניהול\פרויקט גמר\code\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\terne\Documents\שנה ד תעשייה וניהול\פרויקט גמר\code\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\terne\Documents\שנה ד תעשייה וניהול\פרויקט גמר\code\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.sourcelink.json
