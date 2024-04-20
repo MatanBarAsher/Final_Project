@@ -19,83 +19,85 @@ namespace Make_a_move___Server.DAL
         // This method Inserts a User to the Users table 
         //--------------------------------------------------------------------------------------------------
 
-        public int InsertFlat(User user)
-        {
+        //public int InsertFlat(User user)
+        //{
 
-            SqlConnection con;
-            SqlCommand cmd;
+        //    SqlConnection con;
+        //    SqlCommand cmd;
 
-            try
-            {
-                // create the connection
-                con = connect("myProjDB");
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                throw (ex);
-            }
+        //    try
+        //    {
+        //        // create the connection
+        //        con = connect("myProjDB");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // write to log
+        //        throw (ex);
+        //    }
 
-            cmd = CreateUserInsertCommandWithStoredProcedure("SP_InsertNewUser", con, user);             // create the command
+        //    cmd = CreateUserInsertCommandWithStoredProcedure("SP_InsertNewUser", con, user);             // create the command
 
-            try
-            {
-                // execute the command
-                int numEffected = cmd.ExecuteNonQuery(); 
-                return numEffected;
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                throw (ex);
-            }
+        //    try
+        //    {
+        //        // execute the command
+        //        int numEffected = cmd.ExecuteNonQuery(); 
+        //        return numEffected;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // write to log
+        //        throw (ex);
+        //    }
 
-            finally
-            {
-                if (con != null)
-                {
-                    // close the db connection
-                    con.Close();
-                }
-            }
+        //    finally
+        //    {
+        //        if (con != null)
+        //        {
+        //            // close the db connection
+        //            con.Close();
+        //        }
+        //    }
 
-        }
+        //}
 
-        //---------------------------------------------------------------------------------
-        // Create the SqlCommand for insrting new user using a stored procedure
-        //---------------------------------------------------------------------------------
+        ////---------------------------------------------------------------------------------
+        //// Create the SqlCommand for insrting new user using a stored procedure
+        ////---------------------------------------------------------------------------------
 
-        private SqlCommand CreateFlatInsertCommandWithStoredProcedure(String spName, SqlConnection con, User user)
-        {
+        //private SqlCommand CreateFlatInsertCommandWithStoredProcedure(String spName, SqlConnection con, User user)
+        //{
 
-            SqlCommand cmd = new SqlCommand(); // create the command object
+        //    SqlCommand cmd = new SqlCommand(); // create the command object
 
-            cmd.Connection = con;              // assign the connection to the command object
+        //    cmd.Connection = con;              // assign the connection to the command object
 
-            cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+        //    cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
 
-            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+        //    cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
 
-            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+        //    cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
-            cmd.Parameters.AddWithValue("@email", user.Email);
+        //    cmd.Parameters.AddWithValue("@email", user.Email);
 
-            cmd.Parameters.AddWithValue("@firstName", user.FirstName);
+        //    cmd.Parameters.AddWithValue("@firstName", user.FirstName);
 
-            cmd.Parameters.AddWithValue("@lastName", user.LastName );
+        //    cmd.Parameters.AddWithValue("@lastName", user.LastName );
 
-            cmd.Parameters.AddWithValue("@password", user.Password);
+        //    cmd.Parameters.AddWithValue("@password", user.Password);
 
-            cmd.Parameters.AddWithValue("@image", user.Image );
+        //    cmd.Parameters.AddWithValue("@gender", user.Gender);
 
-            cmd.Parameters.AddWithValue("@height", user.Height );
+        //    cmd.Parameters.AddWithValue("@image", user.Image );
 
-            cmd.Parameters.AddWithValue("@birthday", user.Birthday );
+        //    cmd.Parameters.AddWithValue("@height", user.Height );
 
-            cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber );
+        //    cmd.Parameters.AddWithValue("@birthday", user.Birthday );
 
-            return cmd;
-        }
+        //    cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber );
+
+        //    return cmd;
+        //}
 
 
     }

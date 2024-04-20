@@ -12,6 +12,7 @@
         private DateTime birthday;
         private string phoneNumber;
         private bool isActive;
+        private static List<User> usersList = new List<User>();
 
         public User() { }
 
@@ -39,5 +40,35 @@
         public DateTime Birthday { get => birthday; set => birthday = value; }
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public bool IsActive { get => isActive; set => isActive = value; }
+    }
+
+
+    public int InsertUser()
+    {
+        try
+        {
+            DBservicesUser dbs = new DBservicesUser();
+            usersList.Add(this);
+            return dbs.InsertUser(this);
+        }
+        catch (Exception ex)
+        {
+            // Log or handle the exception appropriately
+            throw new Exception("Error inserting user", ex);
+        }
+    }
+
+    public List<User> ReadUsers()
+    {
+        try
+        {
+            DBservicesUser dbs = new DBservicesUser();
+            return dbs.ReadUsers();
+        }
+        catch (Exception ex)
+        {
+            // Log or handle the exception appropriately
+            throw new Exception("Error reading users", ex);
+        }
     }
 }
