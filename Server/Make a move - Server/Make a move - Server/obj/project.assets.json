@@ -896,20 +896,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\matan\\.nuget\\packages\\": {}
+    "C:\\Users\\נטע\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\matan\\OneDrive\\שולחן העבודה\\לימודים\\שנה ד'\\פרויקט גמר\\Code\\Server\\Make a move - Server\\Make a move - Server\\Make a move - Server.csproj",
+      "projectUniqueName": "C:\\Users\\נטע\\Documents\\GitHub\\Final_Project\\Server\\Make a move - Server\\Make a move - Server\\Make a move - Server.csproj",
       "projectName": "Make a move - Server",
-      "projectPath": "C:\\Users\\matan\\OneDrive\\שולחן העבודה\\לימודים\\שנה ד'\\פרויקט גמר\\Code\\Server\\Make a move - Server\\Make a move - Server\\Make a move - Server.csproj",
-      "packagesPath": "C:\\Users\\matan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\matan\\OneDrive\\שולחן העבודה\\לימודים\\שנה ד'\\פרויקט גמר\\Code\\Server\\Make a move - Server\\Make a move - Server\\obj\\",
+      "projectPath": "C:\\Users\\נטע\\Documents\\GitHub\\Final_Project\\Server\\Make a move - Server\\Make a move - Server\\Make a move - Server.csproj",
+      "packagesPath": "C:\\Users\\נטע\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\נטע\\Documents\\GitHub\\Final_Project\\Server\\Make a move - Server\\Make a move - Server\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "C:\\Users\\matan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\נטע\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -928,11 +936,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -967,7 +970,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
