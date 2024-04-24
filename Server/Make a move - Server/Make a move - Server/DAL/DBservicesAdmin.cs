@@ -4,7 +4,7 @@ using Make_a_move___Server.BL;
 
 namespace Make_a_move___Server.DAL
 {
-    public class DBservicesUser
+    public class DBservicesAdmin
     {
         public SqlConnection connect(String conString)
         {
@@ -16,12 +16,11 @@ namespace Make_a_move___Server.DAL
             return con;
         }
 
-      
-       //--------------------------------------------------------------------------------------------------
-       // This method Inserts a User to the Users table 
-       // --------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------
+        // This method Inserts a Admin to the Admin table 
+        // --------------------------------------------------------------------------------------------------
 
-        public int InsertUser(User user)
+        public int InsertAdmin(Admin admin)
         {
 
             SqlConnection con;
@@ -38,7 +37,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateUserInsertCommandWithStoredProcedure("SP_InsertNewUser", con, user);  // create the command
+            cmd = CreateAdminInsertCommandWithStoredProcedure("SP_InsertAdmin", con, admin);  // create the command
 
             try
             {
@@ -64,10 +63,10 @@ namespace Make_a_move___Server.DAL
         }
 
         //---------------------------------------------------------------------------------
-        // Create the SqlCommand for insrting new user using a stored procedure
+        // Create the SqlCommand for insrting new admin using a stored procedure
         //---------------------------------------------------------------------------------
 
-        private SqlCommand CreateUserInsertCommandWithStoredProcedure(String spName, SqlConnection con, User user)
+        private SqlCommand CreateAdminInsertCommandWithStoredProcedure(String spName, SqlConnection con, Admin admin)
         {
 
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -80,36 +79,22 @@ namespace Make_a_move___Server.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
-            cmd.Parameters.AddWithValue("@email", user.Email);
+            cmd.Parameters.AddWithValue("@adminCode", admin.AdminCode);
 
-            cmd.Parameters.AddWithValue("@firstName", user.FirstName);
-
-            cmd.Parameters.AddWithValue("@lastName", user.LastName);
-
-            cmd.Parameters.AddWithValue("@password", user.Password);
-
-            cmd.Parameters.AddWithValue("@gender", user.Gender);
-
-            cmd.Parameters.AddWithValue("@image", user.Image);
-
-            cmd.Parameters.AddWithValue("@height", user.Height);
-
-            cmd.Parameters.AddWithValue("@birthday", user.Birthday);
-
-            cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
+            cmd.Parameters.AddWithValue("@adminName", admin.AdminName);
 
             return cmd;
         }
 
         //--------------------------------------------------------------------------------------------------
-        // This method reads users from the database 
+        // This method reads admins from the database 
         //--------------------------------------------------------------------------------------------------
-        public List<User> ReadUsers()
+        public List<Admin> ReadAdmin()
         {
 
             SqlConnection con;
             SqlCommand cmd;
-            List<User> usersList = new List<User>();
+            List<Admin> admimList = new List<Admin>();
 
             try
             {
@@ -121,7 +106,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateSelectUserWithStoredProcedure("SP_ReadUsers", con);             // create the command
+            cmd = CreateSelectAdminWithStoredProcedure("SP_ReadAdmin", con);             // create the command
 
             try
             {
@@ -129,22 +114,13 @@ namespace Make_a_move___Server.DAL
 
                 while (dataReader.Read())
                 {
-                    User u = new User();
-                    u.Email = dataReader["email"].ToString();
-                    u.FirstName = dataReader["firstName"].ToString();
-                    u.LastName = dataReader["lastName"].ToString();
-                    u.Password = dataReader["password"].ToString();
-                    //u.Image = dataReader["image"].ToString();
-                    u.Gender = Convert.ToInt32(dataReader["gender"]);
-                    u.Height = Convert.ToInt32(dataReader["height"]);
-                    u.Birthday = Convert.ToDateTime(dataReader["birthday"]);
-                    u.PhoneNumber = dataReader["phoneNumber"].ToString();
-                    u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
-                    // should read FK?
-                   
-                    usersList.Add(u);
+                    Admin a = new Admin();
+                    a.AdminCode = Convert.ToInt32(dataReader["adminCode"]);
+                    a.AdminName = dataReader["adminName"].ToString();
+
+                    admimList.Add(a);
                 }
-                return usersList;
+                return admimList;
             }
             catch (Exception ex)
             {
@@ -165,7 +141,7 @@ namespace Make_a_move___Server.DAL
         //---------------------------------------------------------------------------------
         // Create the SqlCommand using a stored procedure
         //---------------------------------------------------------------------------------
-        private SqlCommand CreateSelectUserWithStoredProcedure(String spName, SqlConnection con)
+        private SqlCommand CreateSelectAdminWithStoredProcedure(String spName, SqlConnection con)
         {
 
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -182,10 +158,10 @@ namespace Make_a_move___Server.DAL
         }
 
         //--------------------------------------------------------------------------------------------------
-        // This method Updates a user at user table 
+        // This method Updates a admin at admin table 
         //--------------------------------------------------------------------------------------------------
 
-        public User UpdateUser(User user)
+        public Admin UpdateAdmin(Admin admin)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -200,36 +176,28 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateUserUpdateCommandWithStoredProcedure("SP_UpdateUser", con, user);             // create the command
+            cmd = CreateAdminUpdateCommandWithStoredProcedure("SP_UpdateAdmin", con, admin);             // create the command
 
             try
             {
                 SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
-                User u = null; // Initialize the User object
+                Admin a = null; // Initialize the admin object
 
                 while (dataReader.Read())
                 {
-                    u = new User
+                    a = new Admin
                     {
-                        Email = dataReader["email"].ToString(),
-                        FirstName = dataReader["firstName"].ToString(),
-                        LastName = dataReader["familyName"].ToString(),
-                        Password = dataReader["password"].ToString(),
-                        //Image = dataReader["image"].ToString(),
-                        Gender = Convert.ToInt32(dataReader["gender"]),
-                        Height = Convert.ToInt32(dataReader["height"]),
-                        Birthday = Convert.ToDateTime(dataReader["birthday"]),
-                        PhoneNumber = dataReader["phoneNumber"].ToString(),
-                        IsActive = Convert.ToBoolean(dataReader["isActive"]) 
+                        AdminCode = Convert.ToInt32(dataReader["adminCode"]),
+                        AdminName = dataReader["adminName"].ToString()
 
-                };
+                    };
                 }
 
-                if (u != null)
+                if (a != null)
                 {
                     // Login successful
-                    return u;
+                    return a;
                 }
                 else
                 {
@@ -254,12 +222,11 @@ namespace Make_a_move___Server.DAL
 
         }
 
-
         //---------------------------------------------------------------------------------
         // Create the SqlCommand using a stored procedure
         //---------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------
-        private SqlCommand CreateUserUpdateCommandWithStoredProcedure(String spName, SqlConnection con, User user)
+        private SqlCommand CreateAdminUpdateCommandWithStoredProcedure(String spName, SqlConnection con, Admin admin)
         {
 
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -272,32 +239,18 @@ namespace Make_a_move___Server.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
-            cmd.Parameters.AddWithValue("@email", user.Email);
+            cmd.Parameters.AddWithValue("@adminCode", admin.AdminCode);
 
-            cmd.Parameters.AddWithValue("@firstName", user.FirstName);
-
-            cmd.Parameters.AddWithValue("@lastName", user.LastName);
-
-            cmd.Parameters.AddWithValue("@password", user.Password);
-
-            cmd.Parameters.AddWithValue("@gender", user.Gender);
-
-            cmd.Parameters.AddWithValue("@image", user.Image);
-
-            cmd.Parameters.AddWithValue("@height", user.Height);
-
-            cmd.Parameters.AddWithValue("@birthday", user.Birthday);
-
-            cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
+            cmd.Parameters.AddWithValue("@adminName", admin.AdminName);
 
 
             return cmd;
         }
 
-        
-        
+
 
 
 
     }
 }
+

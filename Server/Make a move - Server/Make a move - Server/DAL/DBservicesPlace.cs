@@ -4,7 +4,7 @@ using Make_a_move___Server.BL;
 
 namespace Make_a_move___Server.DAL
 {
-    public class DBservicesUser
+    public class DBservicesPlace
     {
         public SqlConnection connect(String conString)
         {
@@ -16,12 +16,11 @@ namespace Make_a_move___Server.DAL
             return con;
         }
 
-      
-       //--------------------------------------------------------------------------------------------------
-       // This method Inserts a User to the Users table 
-       // --------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------
+        // This method Inserts a Place to the Places table 
+        // --------------------------------------------------------------------------------------------------
 
-        public int InsertUser(User user)
+        public int InsertPlace(Place place)
         {
 
             SqlConnection con;
@@ -38,7 +37,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateUserInsertCommandWithStoredProcedure("SP_InsertNewUser", con, user);  // create the command
+            cmd = CreatePlaceInsertCommandWithStoredProcedure("SP_InsertPlace", con, place);  // create the command
 
             try
             {
@@ -64,10 +63,10 @@ namespace Make_a_move___Server.DAL
         }
 
         //---------------------------------------------------------------------------------
-        // Create the SqlCommand for insrting new user using a stored procedure
+        // Create the SqlCommand for insrting new place using a stored procedure
         //---------------------------------------------------------------------------------
 
-        private SqlCommand CreateUserInsertCommandWithStoredProcedure(String spName, SqlConnection con, User user)
+        private SqlCommand CreatePlaceInsertCommandWithStoredProcedure(String spName, SqlConnection con, Place place)
         {
 
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -80,36 +79,26 @@ namespace Make_a_move___Server.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
-            cmd.Parameters.AddWithValue("@email", user.Email);
+            cmd.Parameters.AddWithValue("@placeCode", place.PlaceCode);
 
-            cmd.Parameters.AddWithValue("@firstName", user.FirstName);
+            cmd.Parameters.AddWithValue("@name", place.Name);
 
-            cmd.Parameters.AddWithValue("@lastName", user.LastName);
+            cmd.Parameters.AddWithValue("@adress", place.Adress);
 
-            cmd.Parameters.AddWithValue("@password", user.Password);
-
-            cmd.Parameters.AddWithValue("@gender", user.Gender);
-
-            cmd.Parameters.AddWithValue("@image", user.Image);
-
-            cmd.Parameters.AddWithValue("@height", user.Height);
-
-            cmd.Parameters.AddWithValue("@birthday", user.Birthday);
-
-            cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
+            cmd.Parameters.AddWithValue("@userIds", place.UserIds);
 
             return cmd;
         }
 
         //--------------------------------------------------------------------------------------------------
-        // This method reads users from the database 
+        // This method reads places from the database 
         //--------------------------------------------------------------------------------------------------
-        public List<User> ReadUsers()
+        public List<Place> ReadPlaces()
         {
 
             SqlConnection con;
             SqlCommand cmd;
-            List<User> usersList = new List<User>();
+            List<Place> placeList = new List<Place>();
 
             try
             {
@@ -121,7 +110,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateSelectUserWithStoredProcedure("SP_ReadUsers", con);             // create the command
+            cmd = CreateSelectPlaceWithStoredProcedure("SP_ReadPlaces", con);             // create the command
 
             try
             {
@@ -129,22 +118,15 @@ namespace Make_a_move___Server.DAL
 
                 while (dataReader.Read())
                 {
-                    User u = new User();
-                    u.Email = dataReader["email"].ToString();
-                    u.FirstName = dataReader["firstName"].ToString();
-                    u.LastName = dataReader["lastName"].ToString();
-                    u.Password = dataReader["password"].ToString();
-                    //u.Image = dataReader["image"].ToString();
-                    u.Gender = Convert.ToInt32(dataReader["gender"]);
-                    u.Height = Convert.ToInt32(dataReader["height"]);
-                    u.Birthday = Convert.ToDateTime(dataReader["birthday"]);
-                    u.PhoneNumber = dataReader["phoneNumber"].ToString();
-                    u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
-                    // should read FK?
-                   
-                    usersList.Add(u);
+                    Place p = new Place();
+                    p.PlaceCode = Convert.ToInt32(dataReader["placeCode"]);
+                    p.Name = dataReader["name"].ToString();
+                    p.Adress = dataReader["adress"].ToString();
+                    p.UserIds = dataReader["userIds"].ToString();
+
+                    placeList.Add(p);
                 }
-                return usersList;
+                return placeList;
             }
             catch (Exception ex)
             {
@@ -165,7 +147,7 @@ namespace Make_a_move___Server.DAL
         //---------------------------------------------------------------------------------
         // Create the SqlCommand using a stored procedure
         //---------------------------------------------------------------------------------
-        private SqlCommand CreateSelectUserWithStoredProcedure(String spName, SqlConnection con)
+        private SqlCommand CreateSelectPlaceWithStoredProcedure(String spName, SqlConnection con)
         {
 
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -182,10 +164,10 @@ namespace Make_a_move___Server.DAL
         }
 
         //--------------------------------------------------------------------------------------------------
-        // This method Updates a user at user table 
+        // This method Updates a place at Places table 
         //--------------------------------------------------------------------------------------------------
 
-        public User UpdateUser(User user)
+        public Place UpdatePlace(Place place)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -200,36 +182,30 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateUserUpdateCommandWithStoredProcedure("SP_UpdateUser", con, user);             // create the command
+            cmd = CreatePlaceUpdateCommandWithStoredProcedure("SP_UpdatePlace", con, place);             // create the command
 
             try
             {
                 SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
-                User u = null; // Initialize the User object
+                Place p = null; // Initialize the Place object
 
                 while (dataReader.Read())
                 {
-                    u = new User
+                    p = new Place
                     {
-                        Email = dataReader["email"].ToString(),
-                        FirstName = dataReader["firstName"].ToString(),
-                        LastName = dataReader["familyName"].ToString(),
-                        Password = dataReader["password"].ToString(),
-                        //Image = dataReader["image"].ToString(),
-                        Gender = Convert.ToInt32(dataReader["gender"]),
-                        Height = Convert.ToInt32(dataReader["height"]),
-                        Birthday = Convert.ToDateTime(dataReader["birthday"]),
-                        PhoneNumber = dataReader["phoneNumber"].ToString(),
-                        IsActive = Convert.ToBoolean(dataReader["isActive"]) 
+                        PlaceCode = Convert.ToInt32(dataReader["placeCode"]),
+                        Name = dataReader["name"].ToString(),
+                        Adress = dataReader["adress"].ToString(),
+                        UserIds = dataReader["userIds"].ToString()
 
-                };
+                    };
                 }
 
-                if (u != null)
+                if (p != null)
                 {
                     // Login successful
-                    return u;
+                    return p;
                 }
                 else
                 {
@@ -259,7 +235,7 @@ namespace Make_a_move___Server.DAL
         // Create the SqlCommand using a stored procedure
         //---------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------
-        private SqlCommand CreateUserUpdateCommandWithStoredProcedure(String spName, SqlConnection con, User user)
+        private SqlCommand CreatePlaceUpdateCommandWithStoredProcedure(String spName, SqlConnection con, Place place)
         {
 
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -272,30 +248,18 @@ namespace Make_a_move___Server.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
-            cmd.Parameters.AddWithValue("@email", user.Email);
+            cmd.Parameters.AddWithValue("@placeCode", place.PlaceCode);
 
-            cmd.Parameters.AddWithValue("@firstName", user.FirstName);
+            cmd.Parameters.AddWithValue("@name", place.Name);
 
-            cmd.Parameters.AddWithValue("@lastName", user.LastName);
+            cmd.Parameters.AddWithValue("@adress", place.Adress);
 
-            cmd.Parameters.AddWithValue("@password", user.Password);
-
-            cmd.Parameters.AddWithValue("@gender", user.Gender);
-
-            cmd.Parameters.AddWithValue("@image", user.Image);
-
-            cmd.Parameters.AddWithValue("@height", user.Height);
-
-            cmd.Parameters.AddWithValue("@birthday", user.Birthday);
-
-            cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
+            cmd.Parameters.AddWithValue("@userIds", place.UserIds);
 
 
             return cmd;
         }
 
-        
-        
 
 
 
