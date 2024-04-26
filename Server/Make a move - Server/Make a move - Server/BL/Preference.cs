@@ -1,4 +1,7 @@
-﻿namespace Make_a_move___Server.BL
+﻿using Make_a_move___Server.DAL;
+using System;
+using System.Security.Cryptography.Xml;
+namespace Make_a_move___Server.BL
 {
     public class Preference
     {
@@ -9,6 +12,7 @@
         private string thirdOption;
         private string fourthdOption;
         private bool required;
+        private static List<Preference> preferencesList = new List<Preference>();
 
         public Preference() { }
         public Preference(int preferenceCode, string preferenceDescription, string firstOption, string secontOption, string thirdOption, string fourthdOption, bool required)
@@ -29,5 +33,34 @@
         public string ThirdOption { get => thirdOption; set => thirdOption = value; }
         public string FourthdOption { get => fourthdOption; set => fourthdOption = value; }
         public bool Required { get => required; set => required = value; }
+
+        public int InsertPreference()
+        {
+            try
+            {
+                DBservicesPreferences dbs = new DBservicesPreferences();
+                preferencesList.Add(this);
+                return dbs.InsertPreference(this);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error inserting preference", ex);
+            }
+        }
+
+        public List<Preference> ReadPreference()
+        {
+            try
+            {
+                DBservicesPreferences dbs = new DBservicesPreferences();
+                return dbs.ReadPreference();
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error reading preferences", ex);
+            }
+        }
     }
 }

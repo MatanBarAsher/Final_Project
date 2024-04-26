@@ -22,7 +22,7 @@ namespace Make_a_move___Server.DAL
         // This method Inserts a preferences to the Preferences table 
         // --------------------------------------------------------------------------------------------------
 
-        public int InsertFeedback(Preference preference)
+        public int InsertPreference(Preference preference)
         {
 
             SqlConnection con;
