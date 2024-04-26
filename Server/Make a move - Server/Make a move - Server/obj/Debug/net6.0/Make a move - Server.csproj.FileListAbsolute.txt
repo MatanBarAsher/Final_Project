@@ -45,3 +45,14 @@ C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרו
 C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרויקט גמר\Code\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.pdb
 C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרויקט גמר\Code\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.genruntimeconfig.cache
 C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרויקט גמר\Code\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\ref\Make a move - Server.dll
+C:\Users\נטע\Documents\GitHub\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.csproj.AssemblyReference.cache
+C:\Users\נטע\Documents\GitHub\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\נטע\Documents\GitHub\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.AssemblyInfoInputs.cache
+C:\Users\נטע\Documents\GitHub\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.AssemblyInfo.cs
+C:\Users\נטע\Documents\GitHub\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.csproj.CoreCompileInputs.cache
+C:\Users\נטע\Documents\GitHub\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\נטע\Documents\GitHub\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\נטע\Documents\GitHub\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.sourcelink.json
+C:\Users\נטע\Documents\GitHub\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.dll
+C:\Users\נטע\Documents\GitHub\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\refint\Make a move - Server.dll
+C:\Users\נטע\Documents\GitHub\Final_Project\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.pdb

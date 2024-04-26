@@ -1,10 +1,11 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using System.Security.Cryptography.Xml;
 using Make_a_move___Server.BL;
 
 namespace Make_a_move___Server.DAL
 {
-    public class DBservicesUser
+    public class DBservicesPreferences
     {
         public SqlConnection connect(String conString)
         {
@@ -16,12 +17,12 @@ namespace Make_a_move___Server.DAL
             return con;
         }
 
-      
-       //--------------------------------------------------------------------------------------------------
-       // This method Inserts a User to the Users table 
-       // --------------------------------------------------------------------------------------------------
 
-        public int InsertUser(User user)
+        //--------------------------------------------------------------------------------------------------
+        // This method Inserts a preferences to the Preferences table 
+        // --------------------------------------------------------------------------------------------------
+
+        public int InsertFeedback(Preference preference)
         {
 
             SqlConnection con;
@@ -38,7 +39,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateUserInsertCommandWithStoredProcedure("SP_InsertNewUser", con, user);  // create the command
+            cmd = CreatePreferenceInsertCommandWithStoredProcedure("SP_InsertPreferences", con, preference);  // create the command
 
             try
             {
@@ -64,10 +65,10 @@ namespace Make_a_move___Server.DAL
         }
 
         //---------------------------------------------------------------------------------
-        // Create the SqlCommand for insrting new user using a stored procedure
+        // Create the SqlCommand for insrting new preferences using a stored procedure
         //---------------------------------------------------------------------------------
 
-        private SqlCommand CreateUserInsertCommandWithStoredProcedure(String spName, SqlConnection con, User user)
+        private SqlCommand CreatePreferenceInsertCommandWithStoredProcedure(String spName, SqlConnection con, Preference preference)
         {
 
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -80,36 +81,26 @@ namespace Make_a_move___Server.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
-            cmd.Parameters.AddWithValue("@email", user.Email);
-
-            cmd.Parameters.AddWithValue("@firstName", user.FirstName);
-
-            cmd.Parameters.AddWithValue("@lastName", user.LastName);
-
-            cmd.Parameters.AddWithValue("@password", user.Password);
-
-            cmd.Parameters.AddWithValue("@gender", user.Gender);
-
-            cmd.Parameters.AddWithValue("@image", user.Image);
-
-            cmd.Parameters.AddWithValue("@height", user.Height);
-
-            cmd.Parameters.AddWithValue("@birthday", user.Birthday);
-
-            cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
+            cmd.Parameters.AddWithValue("@preferenceCode", preference.PreferenceCode);
+            cmd.Parameters.AddWithValue("@preferenceDescription", preference.PreferenceDescription);
+            cmd.Parameters.AddWithValue("@firstOption", preference.FirstOption);
+            cmd.Parameters.AddWithValue("@secontOption", preference.SecontOption);
+            cmd.Parameters.AddWithValue("@thirdOption", preference.ThirdOption);
+            cmd.Parameters.AddWithValue("@fourthdOption", preference.FourthdOption);
+            cmd.Parameters.AddWithValue("@required", preference.Required);
 
             return cmd;
         }
 
         //--------------------------------------------------------------------------------------------------
-        // This method reads users from the database 
+        // This method reads preference from the database 
         //--------------------------------------------------------------------------------------------------
-        public List<User> ReadUsers()
+        public List<Preference> ReadPreference()
         {
 
             SqlConnection con;
             SqlCommand cmd;
-            List<User> usersList = new List<User>();
+            List<Preference> preferenceList = new List<Preference>();
 
             try
             {
@@ -121,7 +112,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateSelectUserWithStoredProcedure("SP_ReadUsers", con);             // create the command
+            cmd = CreateSelectPreferenceListWithStoredProcedure("SP_ReadPreference", con);             // create the command
 
             try
             {
@@ -129,22 +120,21 @@ namespace Make_a_move___Server.DAL
 
                 while (dataReader.Read())
                 {
-                    User u = new User();
-                    u.Email = dataReader["email"].ToString();
-                    u.FirstName = dataReader["firstName"].ToString();
-                    u.LastName = dataReader["lastName"].ToString();
-                    u.Password = dataReader["password"].ToString();
-                    //u.Image = dataReader["image"].ToString();
-                    u.Gender = Convert.ToInt32(dataReader["gender"]);
-                    u.Height = Convert.ToInt32(dataReader["height"]);
-                    u.Birthday = Convert.ToDateTime(dataReader["birthday"]);
-                    u.PhoneNumber = dataReader["phoneNumber"].ToString();
-                    u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
-                    // should read FK?
-                   
-                    usersList.Add(u);
+                    Preference p = new Preference();
+                    p.PreferenceCode = Convert.ToInt32(dataReader["preferenceCode"]);
+                    p.PreferenceDescription = dataReader["preferenceDescription"].ToString();
+                    p.FirstOption = dataReader["firstOption"].ToString();
+                    p.SecontOption = dataReader["secontOption"].ToString();
+                    p.ThirdOption = dataReader["thirdOption"].ToString();
+                    p.FourthdOption = dataReader["FourthdOption"].ToString();
+                    p.Required = Convert.ToBoolean(dataReader["fddbackDescription"]);
+
+
+
+
+                    preferenceList.Add(p);
                 }
-                return usersList;
+                return preferenceList;
             }
             catch (Exception ex)
             {
@@ -165,7 +155,7 @@ namespace Make_a_move___Server.DAL
         //---------------------------------------------------------------------------------
         // Create the SqlCommand using a stored procedure
         //---------------------------------------------------------------------------------
-        private SqlCommand CreateSelectUserWithStoredProcedure(String spName, SqlConnection con)
+        private SqlCommand CreateSelectPreferenceListWithStoredProcedure(String spName, SqlConnection con)
         {
 
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -182,10 +172,10 @@ namespace Make_a_move___Server.DAL
         }
 
         //--------------------------------------------------------------------------------------------------
-        // This method Updates a user at user table 
+        // This method Updates a preference at Preference table 
         //--------------------------------------------------------------------------------------------------
 
-        public User UpdateUser(User user)
+        public Preference UpdateFeedback(Preference preference)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -200,36 +190,33 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateUserUpdateCommandWithStoredProcedure("SP_UpdateUser", con, user);             // create the command
+            cmd = CreateprefrefernceUpdateCommandWithStoredProcedure("SP_UpdatePreference", con, preference);             // create the command
 
             try
             {
                 SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
-                User u = null; // Initialize the User object
+                Preference p = null; // Initialize the Feedback object
 
                 while (dataReader.Read())
                 {
-                    u = new User
+                    p = new Preference
                     {
-                        Email = dataReader["email"].ToString(),
-                        FirstName = dataReader["firstName"].ToString(),
-                        LastName = dataReader["familyName"].ToString(),
-                        Password = dataReader["password"].ToString(),
-                        //Image = dataReader["image"].ToString(),
-                        Gender = Convert.ToInt32(dataReader["gender"]),
-                        Height = Convert.ToInt32(dataReader["height"]),
-                        Birthday = Convert.ToDateTime(dataReader["birthday"]),
-                        PhoneNumber = dataReader["phoneNumber"].ToString(),
-                        IsActive = Convert.ToBoolean(dataReader["isActive"]) 
+                        PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
+                        PreferenceDescription = dataReader["fddbackDescription"].ToString(),
+                        FirstOption = dataReader["firstOption"].ToString(),
+                        SecontOption = dataReader["secontOption"].ToString(),
+                        ThirdOption = dataReader["thirdOption"].ToString(),
+                        FourthdOption = dataReader["FourthdOption"].ToString(),
+                        Required = Convert.ToBoolean(dataReader["fddbackDescription"])
 
-                };
+                    };
                 }
 
-                if (u != null)
+                if (p != null)
                 {
                     // Login successful
-                    return u;
+                    return p;
                 }
                 else
                 {
@@ -254,12 +241,11 @@ namespace Make_a_move___Server.DAL
 
         }
 
-
         //---------------------------------------------------------------------------------
         // Create the SqlCommand using a stored procedure
         //---------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------
-        private SqlCommand CreateUserUpdateCommandWithStoredProcedure(String spName, SqlConnection con, User user)
+        private SqlCommand CreateprefrefernceUpdateCommandWithStoredProcedure(String spName, SqlConnection con, Preference preference)
         {
 
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -272,30 +258,19 @@ namespace Make_a_move___Server.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
-            cmd.Parameters.AddWithValue("@email", user.Email);
-
-            cmd.Parameters.AddWithValue("@firstName", user.FirstName);
-
-            cmd.Parameters.AddWithValue("@lastName", user.LastName);
-
-            cmd.Parameters.AddWithValue("@password", user.Password);
-
-            cmd.Parameters.AddWithValue("@gender", user.Gender);
-
-            cmd.Parameters.AddWithValue("@image", user.Image);
-
-            cmd.Parameters.AddWithValue("@height", user.Height);
-
-            cmd.Parameters.AddWithValue("@birthday", user.Birthday);
-
-            cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
+            cmd.Parameters.AddWithValue("@preferenceCode", preference.PreferenceCode);
+            cmd.Parameters.AddWithValue("@preferenceDescription", preference.PreferenceDescription);
+            cmd.Parameters.AddWithValue("@firstOption", preference.FirstOption);
+            cmd.Parameters.AddWithValue("@secontOption", preference.SecontOption);
+            cmd.Parameters.AddWithValue("@thirdOption", preference.ThirdOption);
+            cmd.Parameters.AddWithValue("@fourthdOption", preference.FourthdOption);
+            cmd.Parameters.AddWithValue("@required", preference.Required);
 
 
             return cmd;
         }
 
-        
-        
+
 
 
 

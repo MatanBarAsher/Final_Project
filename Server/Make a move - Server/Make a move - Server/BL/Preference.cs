@@ -3,7 +3,7 @@
     public class Preference
     {
         private int preferenceCode;
-        private string feedbackDescription;
+        private string preferenceDescription;
         private string firstOption;
         private string secontOption;
         private string thirdOption;
@@ -11,10 +11,10 @@
         private bool required;
 
         public Preference() { }
-        public Preference(int preferenceCode, string feedbackDescription, string firstOption, string secontOption, string thirdOption, string fourthdOption, bool required)
+        public Preference(int preferenceCode, string preferenceDescription, string firstOption, string secontOption, string thirdOption, string fourthdOption, bool required)
         {
             this.preferenceCode = preferenceCode;
-            this.feedbackDescription = feedbackDescription;
+            this.preferenceDescription = preferenceDescription;
             this.firstOption = firstOption;
             this.secontOption = secontOption;
             this.thirdOption = thirdOption;
@@ -23,7 +23,7 @@
         }
 
         public int PreferenceCode { get => preferenceCode; set => preferenceCode = value; }
-        public string FeedbackDescription { get => feedbackDescription; set => feedbackDescription = value; }
+        public string PreferenceDescription { get => preferenceDescription; set => preferenceDescription = value; }
         public string FirstOption { get => firstOption; set => firstOption = value; }
         public string SecontOption { get => secontOption; set => secontOption = value; }
         public string ThirdOption { get => thirdOption; set => thirdOption = value; }

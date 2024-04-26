@@ -4,7 +4,7 @@ using Make_a_move___Server.BL;
 
 namespace Make_a_move___Server.DAL
 {
-    public class DBservicesUser
+    public class DBservicesFeedback
     {
         public SqlConnection connect(String conString)
         {
@@ -16,12 +16,12 @@ namespace Make_a_move___Server.DAL
             return con;
         }
 
-      
-       //--------------------------------------------------------------------------------------------------
-       // This method Inserts a User to the Users table 
-       // --------------------------------------------------------------------------------------------------
 
-        public int InsertUser(User user)
+        //--------------------------------------------------------------------------------------------------
+        // This method Inserts a feedback to the Feedback table 
+        // --------------------------------------------------------------------------------------------------
+
+        public int InsertFeedback(Feedback feedback)
         {
 
             SqlConnection con;
@@ -38,7 +38,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateUserInsertCommandWithStoredProcedure("SP_InsertNewUser", con, user);  // create the command
+            cmd = CreateFeedbackInsertCommandWithStoredProcedure("SP_InsertFeedback", con, feedback);  // create the command
 
             try
             {
@@ -64,10 +64,10 @@ namespace Make_a_move___Server.DAL
         }
 
         //---------------------------------------------------------------------------------
-        // Create the SqlCommand for insrting new user using a stored procedure
+        // Create the SqlCommand for insrting new feedback using a stored procedure
         //---------------------------------------------------------------------------------
 
-        private SqlCommand CreateUserInsertCommandWithStoredProcedure(String spName, SqlConnection con, User user)
+        private SqlCommand CreateFeedbackInsertCommandWithStoredProcedure(String spName, SqlConnection con, Feedback feedback)
         {
 
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -80,36 +80,26 @@ namespace Make_a_move___Server.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
-            cmd.Parameters.AddWithValue("@email", user.Email);
-
-            cmd.Parameters.AddWithValue("@firstName", user.FirstName);
-
-            cmd.Parameters.AddWithValue("@lastName", user.LastName);
-
-            cmd.Parameters.AddWithValue("@password", user.Password);
-
-            cmd.Parameters.AddWithValue("@gender", user.Gender);
-
-            cmd.Parameters.AddWithValue("@image", user.Image);
-
-            cmd.Parameters.AddWithValue("@height", user.Height);
-
-            cmd.Parameters.AddWithValue("@birthday", user.Birthday);
-
-            cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
+            cmd.Parameters.AddWithValue("@serialNumber", feedback.SerialNumber);
+            cmd.Parameters.AddWithValue("@feddbackDescription", feedback.FeddbackDescription);
+            cmd.Parameters.AddWithValue("@firstOption", feedback.FirstOption);
+            cmd.Parameters.AddWithValue("@secontOption", feedback.SecontOption);
+            cmd.Parameters.AddWithValue("@thirdOption", feedback.ThirdOption);
+            cmd.Parameters.AddWithValue("@fourthdOption", feedback.FourthdOption);
+            cmd.Parameters.AddWithValue("@required", feedback.Required);
 
             return cmd;
         }
 
         //--------------------------------------------------------------------------------------------------
-        // This method reads users from the database 
+        // This method reads feedback from the database 
         //--------------------------------------------------------------------------------------------------
-        public List<User> ReadUsers()
+        public List<Feedback> ReadFeedabck()
         {
 
             SqlConnection con;
             SqlCommand cmd;
-            List<User> usersList = new List<User>();
+            List<Feedback> feedbackList = new List<Feedback>();
 
             try
             {
@@ -121,7 +111,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateSelectUserWithStoredProcedure("SP_ReadUsers", con);             // create the command
+            cmd = CreateSelectFeedbackWithStoredProcedure("SP_ReadFeedback", con);             // create the command
 
             try
             {
@@ -129,22 +119,21 @@ namespace Make_a_move___Server.DAL
 
                 while (dataReader.Read())
                 {
-                    User u = new User();
-                    u.Email = dataReader["email"].ToString();
-                    u.FirstName = dataReader["firstName"].ToString();
-                    u.LastName = dataReader["lastName"].ToString();
-                    u.Password = dataReader["password"].ToString();
-                    //u.Image = dataReader["image"].ToString();
-                    u.Gender = Convert.ToInt32(dataReader["gender"]);
-                    u.Height = Convert.ToInt32(dataReader["height"]);
-                    u.Birthday = Convert.ToDateTime(dataReader["birthday"]);
-                    u.PhoneNumber = dataReader["phoneNumber"].ToString();
-                    u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
-                    // should read FK?
-                   
-                    usersList.Add(u);
+                    Feedback f = new Feedback();
+                    f.SerialNumber= Convert.ToInt32(dataReader["serialNumber"]);
+                    f.FeddbackDescription = dataReader["fddbackDescription"].ToString();
+                    f.FirstOption = dataReader["firstOption"].ToString();
+                    f.SecontOption = dataReader["secontOption"].ToString();
+                    f.ThirdOption = dataReader["thirdOption"].ToString();
+                    f.FourthdOption = dataReader["FourthdOption"].ToString();
+                    f.Required = Convert.ToBoolean(dataReader["fddbackDescription"]);
+                    
+    
+
+
+                    feedbackList.Add(f);
                 }
-                return usersList;
+                return feedbackList;
             }
             catch (Exception ex)
             {
@@ -165,7 +154,7 @@ namespace Make_a_move___Server.DAL
         //---------------------------------------------------------------------------------
         // Create the SqlCommand using a stored procedure
         //---------------------------------------------------------------------------------
-        private SqlCommand CreateSelectUserWithStoredProcedure(String spName, SqlConnection con)
+        private SqlCommand CreateSelectFeedbackWithStoredProcedure(String spName, SqlConnection con)
         {
 
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -182,10 +171,10 @@ namespace Make_a_move___Server.DAL
         }
 
         //--------------------------------------------------------------------------------------------------
-        // This method Updates a user at user table 
+        // This method Updates a feedback at Feedback table 
         //--------------------------------------------------------------------------------------------------
 
-        public User UpdateUser(User user)
+        public Feedback UpdateFeedback(Feedback feedback)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -200,36 +189,33 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateUserUpdateCommandWithStoredProcedure("SP_UpdateUser", con, user);             // create the command
+            cmd = CreateFeedbackUpdateCommandWithStoredProcedure("SP_UpdateFeedback", con, feedback);             // create the command
 
             try
             {
                 SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
-                User u = null; // Initialize the User object
+                Feedback f = null; // Initialize the Feedback object
 
                 while (dataReader.Read())
                 {
-                    u = new User
+                    f = new Feedback            
                     {
-                        Email = dataReader["email"].ToString(),
-                        FirstName = dataReader["firstName"].ToString(),
-                        LastName = dataReader["familyName"].ToString(),
-                        Password = dataReader["password"].ToString(),
-                        //Image = dataReader["image"].ToString(),
-                        Gender = Convert.ToInt32(dataReader["gender"]),
-                        Height = Convert.ToInt32(dataReader["height"]),
-                        Birthday = Convert.ToDateTime(dataReader["birthday"]),
-                        PhoneNumber = dataReader["phoneNumber"].ToString(),
-                        IsActive = Convert.ToBoolean(dataReader["isActive"]) 
+                     SerialNumber = Convert.ToInt32(dataReader["serialNumber"]),
+                    FeddbackDescription = dataReader["fddbackDescription"].ToString(),
+                    FirstOption = dataReader["firstOption"].ToString(),
+                    SecontOption = dataReader["secontOption"].ToString(),
+                    ThirdOption = dataReader["thirdOption"].ToString(),
+                    FourthdOption = dataReader["FourthdOption"].ToString(),
+                    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
 
                 };
                 }
 
-                if (u != null)
+                if (f != null)
                 {
                     // Login successful
-                    return u;
+                    return f;
                 }
                 else
                 {
@@ -254,12 +240,11 @@ namespace Make_a_move___Server.DAL
 
         }
 
-
         //---------------------------------------------------------------------------------
         // Create the SqlCommand using a stored procedure
         //---------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------
-        private SqlCommand CreateUserUpdateCommandWithStoredProcedure(String spName, SqlConnection con, User user)
+        private SqlCommand CreateFeedbackUpdateCommandWithStoredProcedure(String spName, SqlConnection con, Feedback feedback)
         {
 
             SqlCommand cmd = new SqlCommand(); // create the command object
@@ -272,30 +257,19 @@ namespace Make_a_move___Server.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
-            cmd.Parameters.AddWithValue("@email", user.Email);
-
-            cmd.Parameters.AddWithValue("@firstName", user.FirstName);
-
-            cmd.Parameters.AddWithValue("@lastName", user.LastName);
-
-            cmd.Parameters.AddWithValue("@password", user.Password);
-
-            cmd.Parameters.AddWithValue("@gender", user.Gender);
-
-            cmd.Parameters.AddWithValue("@image", user.Image);
-
-            cmd.Parameters.AddWithValue("@height", user.Height);
-
-            cmd.Parameters.AddWithValue("@birthday", user.Birthday);
-
-            cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
+            cmd.Parameters.AddWithValue("@serialNumber", feedback.SerialNumber);
+            cmd.Parameters.AddWithValue("@feddbackDescription", feedback.FeddbackDescription);
+            cmd.Parameters.AddWithValue("@firstOption", feedback.FirstOption);
+            cmd.Parameters.AddWithValue("@secontOption", feedback.SecontOption);
+            cmd.Parameters.AddWithValue("@thirdOption", feedback.ThirdOption);
+            cmd.Parameters.AddWithValue("@fourthdOption", feedback.FourthdOption);
+            cmd.Parameters.AddWithValue("@required", feedback.Required);
 
 
             return cmd;
         }
 
-        
-        
+
 
 
 
