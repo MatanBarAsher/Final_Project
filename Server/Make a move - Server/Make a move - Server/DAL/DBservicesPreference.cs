@@ -84,9 +84,9 @@ namespace Make_a_move___Server.DAL
             cmd.Parameters.AddWithValue("@preferenceCode", preference.PreferenceCode);
             cmd.Parameters.AddWithValue("@preferenceDescription", preference.PreferenceDescription);
             cmd.Parameters.AddWithValue("@firstOption", preference.FirstOption);
-            cmd.Parameters.AddWithValue("@secontOption", preference.SecontOption);
+            cmd.Parameters.AddWithValue("@secondOption", preference.secondOption);
             cmd.Parameters.AddWithValue("@thirdOption", preference.ThirdOption);
-            cmd.Parameters.AddWithValue("@fourthdOption", preference.FourthdOption);
+            cmd.Parameters.AddWithValue("@fourthOption", preference.FourthOption);
             cmd.Parameters.AddWithValue("@required", preference.Required);
 
             return cmd;
@@ -124,9 +124,9 @@ namespace Make_a_move___Server.DAL
                     p.PreferenceCode = Convert.ToInt32(dataReader["preferenceCode"]);
                     p.PreferenceDescription = dataReader["preferenceDescription"].ToString();
                     p.FirstOption = dataReader["firstOption"].ToString();
-                    p.SecontOption = dataReader["secontOption"].ToString();
+                    p.SecondOption = dataReader["secondOption"].ToString();
                     p.ThirdOption = dataReader["thirdOption"].ToString();
-                    p.FourthdOption = dataReader["FourthdOption"].ToString();
+                    p.FourthOption = dataReader["FourthOption"].ToString();
                     p.Required = Convert.ToBoolean(dataReader["fddbackDescription"]);
 
 
@@ -205,9 +205,9 @@ namespace Make_a_move___Server.DAL
                         PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
                         PreferenceDescription = dataReader["fddbackDescription"].ToString(),
                         FirstOption = dataReader["firstOption"].ToString(),
-                        SecontOption = dataReader["secontOption"].ToString(),
+                        SecondOption = dataReader["secondOption"].ToString(),
                         ThirdOption = dataReader["thirdOption"].ToString(),
-                        FourthdOption = dataReader["FourthdOption"].ToString(),
+                        FourthOption = dataReader["FourthOption"].ToString(),
                         Required = Convert.ToBoolean(dataReader["fddbackDescription"])
 
                     };
@@ -261,9 +261,9 @@ namespace Make_a_move___Server.DAL
             cmd.Parameters.AddWithValue("@preferenceCode", preference.PreferenceCode);
             cmd.Parameters.AddWithValue("@preferenceDescription", preference.PreferenceDescription);
             cmd.Parameters.AddWithValue("@firstOption", preference.FirstOption);
-            cmd.Parameters.AddWithValue("@secontOption", preference.SecontOption);
+            cmd.Parameters.AddWithValue("@secondOption", preference.SecondOption);
             cmd.Parameters.AddWithValue("@thirdOption", preference.ThirdOption);
-            cmd.Parameters.AddWithValue("@fourthdOption", preference.FourthdOption);
+            cmd.Parameters.AddWithValue("@fourthOption", preference.FourthOption);
             cmd.Parameters.AddWithValue("@required", preference.Required);
 
 
