@@ -1,4 +1,6 @@
-﻿namespace Make_a_move___Server.BL
+﻿using Make_a_move___Server.DAL;
+using System;
+namespace Make_a_move___Server.BL
 {
     public class User
     {
@@ -40,7 +42,7 @@
         public DateTime Birthday { get => birthday; set => birthday = value; }
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public bool IsActive { get => isActive; set => isActive = value; }
-    }
+   
 
 
     public int InsertUser()
@@ -70,5 +72,19 @@
             // Log or handle the exception appropriately
             throw new Exception("Error reading users", ex);
         }
+    }
+        //public User CheckLogin()
+        //{
+        //    try
+        //    {
+        //        DBservicesUser dbs = new DBservicesUser();
+        //        return dbs.CheckLogin(this);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log or handle the exception appropriately
+        //        throw new Exception("Error checking login", ex);
+        //    }
+        //}
     }
 }

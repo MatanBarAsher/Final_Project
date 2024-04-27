@@ -94,7 +94,7 @@ namespace Make_a_move___Server.DAL
         //--------------------------------------------------------------------------------------------------
         // This method reads feedback from the database 
         //--------------------------------------------------------------------------------------------------
-        public List<Feedback> ReadFeedabck()
+        public List<Feedback> ReadFeedback()
         {
 
             SqlConnection con;
