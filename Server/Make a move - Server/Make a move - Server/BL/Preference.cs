@@ -20,18 +20,18 @@ namespace Make_a_move___Server.BL
             this.preferenceCode = preferenceCode;
             this.preferenceDescription = preferenceDescription;
             this.firstOption = firstOption;
-            this.secontOption = secontOption;
+            this.secondOption = secondOption;
             this.thirdOption = thirdOption;
-            this.fourthdOption = fourthdOption;
+            this.fourthOption = fourthOption;
             this.required = required;
         }
 
         public int PreferenceCode { get => preferenceCode; set => preferenceCode = value; }
         public string PreferenceDescription { get => preferenceDescription; set => preferenceDescription = value; }
         public string FirstOption { get => firstOption; set => firstOption = value; }
-        public string secondOption { get => secondOption; set => secondOption = value; }
+        public string SecondOption { get => secondOption; set => secondOption = value; }
         public string ThirdOption { get => thirdOption; set => thirdOption = value; }
-        public string FourthdOption { get => fourthOption; set => fourthOption = value; }
+        public string FourthOption { get => fourthOption; set => fourthOption = value; }
         public bool Required { get => required; set => required = value; }
 
         public int InsertPreference()

@@ -84,7 +84,7 @@ namespace Make_a_move___Server.DAL
             cmd.Parameters.AddWithValue("@preferenceCode", preference.PreferenceCode);
             cmd.Parameters.AddWithValue("@preferenceDescription", preference.PreferenceDescription);
             cmd.Parameters.AddWithValue("@firstOption", preference.FirstOption);
-            cmd.Parameters.AddWithValue("@secondOption", preference.secondOption);
+            cmd.Parameters.AddWithValue("@secondOption", preference.SecondOption);
             cmd.Parameters.AddWithValue("@thirdOption", preference.ThirdOption);
             cmd.Parameters.AddWithValue("@fourthOption", preference.FourthOption);
             cmd.Parameters.AddWithValue("@required", preference.Required);
@@ -126,7 +126,7 @@ namespace Make_a_move___Server.DAL
                     p.FirstOption = dataReader["firstOption"].ToString();
                     p.SecondOption = dataReader["secondOption"].ToString();
                     p.ThirdOption = dataReader["thirdOption"].ToString();
-                    p.FourthOption = dataReader["FourthOption"].ToString();
+                    p.FourthOption = dataReader["fourthOption"].ToString();
                     p.Required = Convert.ToBoolean(dataReader["fddbackDescription"]);
 
 
