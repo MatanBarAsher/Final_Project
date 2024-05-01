@@ -1,5 +1,6 @@
 ﻿using Make_a_move___Server.DAL;
 using System;
+using System.Security.Cryptography.Xml;
 namespace Make_a_move___Server.BL
 {
     public class User
@@ -14,11 +15,13 @@ namespace Make_a_move___Server.BL
         private DateTime birthday;
         private string phoneNumber;
         private bool isActive;
+        private City city;
+        private Preference [] preference;
         private static List<User> usersList = new List<User>();
 
         public User() { }
 
-        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive)
+        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, City city, Preference[] preference)
         {
             this.email = email;
             this.firstName = firstName;
@@ -30,6 +33,9 @@ namespace Make_a_move___Server.BL
             this.birthday = birthday;
             this.phoneNumber = phoneNumber;
             this.isActive = isActive;
+            this.city = city;
+            this.preference = preference;
+           
         }
 
         public string Email { get => email; set => email = value; }
@@ -42,10 +48,12 @@ namespace Make_a_move___Server.BL
         public DateTime Birthday { get => birthday; set => birthday = value; }
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public bool IsActive { get => isActive; set => isActive = value; }
-   
+        public City City { get => city; set => city = value; }
+        public Preference [] Preference { get => preference; set => preference = value; }
 
 
-    public int InsertUser()
+
+        public int InsertUser()
     {
         try
         {
@@ -86,5 +94,44 @@ namespace Make_a_move___Server.BL
         //        throw new Exception("Error checking login", ex);
         //    }
         //}
+        public User UpdateUser(User newUser)
+        {
+            try
+            {
+                // Find the user in the UsersList by email
+                User userToUpdate = usersList.Find(u => string.Equals(u.Email.Trim(), newUser.Email.Trim(), StringComparison.OrdinalIgnoreCase));
+
+                if (userToUpdate != null)
+                {
+                    // Update user information
+                    userToUpdate.FirstName = newUser.FirstName;
+                    userToUpdate.LastName = newUser.LastName;
+                    userToUpdate.Password = newUser.Password;
+                    userToUpdate.IsActive = newUser.IsActive;
+                    userToUpdate.gender = newUser.gender;
+                    userToUpdate.image = newUser.image;
+                    userToUpdate.height = newUser.height;
+                    userToUpdate.birthday = newUser.birthday;
+                    userToUpdate.phoneNumber = newUser.phoneNumber;
+                    userToUpdate.city = newUser.city;
+                    userToUpdate.preference = newUser.preference;
+
+
+                    // Update in the database (assuming DBservices has an UpdateUser method)
+                    DBservicesUser dbs = new DBservicesUser();
+                    return dbs.UpdateUser(userToUpdate);
+                }
+                else
+                {
+                    // User not found, handle the case appropriately (return null, throw an exception, etc.)
+                    return null; // Or throw new Exception("User not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error updating user", ex);
+            }
+        }
     }
 }

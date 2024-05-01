@@ -1,11 +1,5 @@
 {
   "version": 2,
-<<<<<<< HEAD
-  "dgSpecHash": "bPd+ijRe4lIIF9ySXeZC8APEirvkBzFbG+RbZpoJSjkLRWFVH3e8VZqu2bsGaLOffFZQVm579jcHdLJ7P3mylA==",
-  "success": true,
-  "projectFilePath": "C:\\Users\\נטע\\Documents\\GitHub\\Final_Project\\Server\\Make a move - Server\\Make a move - Server\\Make a move - Server.csproj",
-  "expectedPackageFiles": [],
-=======
   "dgSpecHash": "aZO7e9ajPVDBKOJefQqWlquwY+RQvggb9e5GS6pIS9HcyU6trU6GVWKyqGt2YlbyDe9PWw34/ZD5irFkP5yPCQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\terne\\Documents\\שנה ד תעשייה וניהול\\פרויקט גמר\\code\\Final_Project\\Server\\Make a move - Server\\Make a move - Server\\Make a move - Server.csproj",
@@ -26,6 +20,12 @@
     "C:\\Users\\terne\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
     "C:\\Users\\terne\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512"
   ],
->>>>>>> d0551a3b575d86c23f16b2d38562d26ebdcb6aca
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\terne\\Documents\\שנה ד תעשייה וניהול\\פרויקט גמר\\code\\Final_Project\\Server\\Make a move - Server\\Make a move - Server\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

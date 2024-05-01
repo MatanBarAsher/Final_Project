@@ -30,11 +30,11 @@ namespace Make_a_move___Server.Controllers
         //    return user.CheckLogin();
         //}
 
-        //[HttpPut("Update")]
-        //public User Update([FromBody] User user)
-        //{
-        //    return user.UpdateUser(user);
-        //}
+        [HttpPut("Update")]
+        public User Update([FromBody] User user)
+        {
+            return user.UpdateUser(user);
+        }
 
 
     }

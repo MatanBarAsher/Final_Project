@@ -6,18 +6,25 @@ namespace Make_a_move___Server.BL
     {
         private int adminCode;
         private string adminName;
+        private string adminPassword;
+        private bool isActive;
         private static List<Admin> adminsList = new List<Admin>();
 
         public Admin() { }
-        public Admin(int adminCode, string adminName)
+        public Admin(int adminCode, string adminName, string adminPassword, bool isActive)
         {
             this.adminCode = adminCode;
             this.adminName = adminName;
-           
-    }
+            this.adminPassword = adminPassword;
+            this.isActive = isActive;
+
+        }
 
         public int AdminCode { get => adminCode; set => adminCode = value; }
         public string AdminName { get => adminName; set => adminName = value; }
+        public string AdminPassword { get => adminPassword; set => adminPassword = value; }
+        public bool IsActive { get => isActive; set => isActive = value; }
+
 
         public int InsertAdmin()
         {
@@ -45,6 +52,51 @@ namespace Make_a_move___Server.BL
             {
                 // Log or handle the exception appropriately
                 throw new Exception("Error reading admins", ex);
+            }
+        }
+        //public User CheckLogin()
+        //{
+        //    try
+        //    {
+        //        DBservicesUser dbs = new DBservicesUser();
+        //        return dbs.CheckLogin(this);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log or handle the exception appropriately
+        //        throw new Exception("Error checking login", ex);
+        //    }
+        //}
+
+        public Admin UpdateAdmin(Admin newAdmin)
+        {
+            try
+            {
+                // Find the user in the UsersList by email
+                Admin adminToUpdate = adminsList.Find(a => string.Equals(a.AdminName.Trim(), newAdmin.AdminName.Trim(), StringComparison.OrdinalIgnoreCase));
+
+                if (adminToUpdate != null)
+                {
+                    // Update user information
+                    adminToUpdate.AdminCode = newAdmin.AdminCode;
+                    adminToUpdate.AdminName = newAdmin.AdminName;
+                    adminToUpdate.AdminPassword = newAdmin.AdminPassword;
+                    adminToUpdate.IsActive = newAdmin.IsActive;
+
+                    // Update in the database (assuming DBservices has an UpdateUser method)
+                    DBservicesAdmin dbs = new DBservicesAdmin();
+                    return dbs.UpdateAdmin(adminToUpdate);
+                }
+                else
+                {
+                    // User not found, handle the case appropriately (return null, throw an exception, etc.)
+                    return null; // Or throw new Exception("User not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error updating user", ex);
             }
         }
     }
