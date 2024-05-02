@@ -17,11 +17,12 @@ namespace Make_a_move___Server.BL
         private bool isActive;
         private City city;
         private Preference [] preference;
+        private PersonalInterests [] personalInterests;
         private static List<User> usersList = new List<User>();
 
         public User() { }
 
-        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, City city, Preference[] preference)
+        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, City city, Preference[] preference, PersonalInterests[] personalInterests)
         {
             this.email = email;
             this.firstName = firstName;
@@ -35,7 +36,7 @@ namespace Make_a_move___Server.BL
             this.isActive = isActive;
             this.city = city;
             this.preference = preference;
-           
+            this.personalInterests = personalInterests;
         }
 
         public string Email { get => email; set => email = value; }
@@ -50,6 +51,7 @@ namespace Make_a_move___Server.BL
         public bool IsActive { get => isActive; set => isActive = value; }
         public City City { get => city; set => city = value; }
         public Preference [] Preference { get => preference; set => preference = value; }
+        public PersonalInterests [] personalInterest { get => personalInterest; set => personalInterest = value; }
 
 
 
@@ -115,6 +117,7 @@ namespace Make_a_move___Server.BL
                     userToUpdate.phoneNumber = newUser.phoneNumber;
                     userToUpdate.city = newUser.city;
                     userToUpdate.preference = newUser.preference;
+                    userToUpdate.personalInterests = newUser.personalInterests;
 
 
                     // Update in the database (assuming DBservices has an UpdateUser method)
