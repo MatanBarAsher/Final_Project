@@ -149,11 +149,26 @@ namespace Make_a_move___Server.DAL
                     u.Birthday = Convert.ToDateTime(dataReader["birthday"]);
                     u.PhoneNumber = dataReader["phoneNumber"].ToString();
                     u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
-                    //u.City = dataReader["city"].ToString();
-                    //u.Preference = dataReader["preference"].ToString();
-                    //u.PersonalInterests = dataReader["personalInterests"].ToString();
-                    //image&preferences&personal - defined as string[] and not string / casting?
-
+                    u.City = new City
+                    {
+                        CityCode = Convert.ToInt32(dataReader["cityCode"]),
+                        CityName = dataReader["cityName"].ToString()
+                    };
+                        //u.Preference = new Preference 
+                        //{
+                        //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
+                        //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
+                        //    FirstOption = dataReader["firstOption"].ToString(),
+                        //    SecondOption = dataReader["secondOption"].ToString(),
+                        //    ThirdOption = dataReader["thirdOption"].ToString(),
+                        //    FourthOption = dataReader["FourthOption"].ToString(),
+                        //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
+                        //};
+                        //u.personalInterests = new PersonalInterests
+                        //{
+                        //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
+                        //    InterestDesc = dataReader["interestDesc"].ToString(),
+                        //};
 
                     usersList.Add(u);
                 }
@@ -235,9 +250,26 @@ namespace Make_a_move___Server.DAL
                         Birthday = Convert.ToDateTime(dataReader["birthday"]),
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
-                        //City = dataReader["city"].ToString(),
-                        //Preference = dataReader["preference"].ToString(),
-                        //personalInterests = dataReader["personalInterests"].ToString()
+                        City = new City
+                        {
+                            CityCode = Convert.ToInt32(dataReader["cityCode"]),
+                            CityName = dataReader["cityName"].ToString()
+                        },
+                        //Preference = new Preference 
+                        //{
+                        //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
+                        //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
+                        //    FirstOption = dataReader["firstOption"].ToString(),
+                        //    SecondOption = dataReader["secondOption"].ToString(),
+                        //    ThirdOption = dataReader["thirdOption"].ToString(),
+                        //    FourthOption = dataReader["FourthOption"].ToString(),
+                        //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
+                        //},
+                        //personalInterests = new PersonalInterests
+                        //{
+                        //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
+                        //    InterestDesc = dataReader["interestDesc"].ToString(),
+                        //}
                     };
                 }
 
@@ -356,9 +388,26 @@ namespace Make_a_move___Server.DAL
                         Birthday = Convert.ToDateTime(dataReader["birthday"]),
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
-                        //City = dataReader["city"].ToString(),
-                        //Preference = dataReader["preference"].ToString(),
-                        //personalInterests = dataReader["personalInterests"].ToString()
+                        City = new City
+                        {
+                            CityCode = Convert.ToInt32(dataReader["cityCode"]),
+                            CityName = dataReader["cityName"].ToString()
+                        },
+                        //Preference = new Preference 
+                        //{
+                        //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
+                        //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
+                        //    FirstOption = dataReader["firstOption"].ToString(),
+                        //    SecondOption = dataReader["secondOption"].ToString(),
+                        //    ThirdOption = dataReader["thirdOption"].ToString(),
+                        //    FourthOption = dataReader["FourthOption"].ToString(),
+                        //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
+                        //},
+                        //personalInterests = new PersonalInterests
+                        //{
+                        //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
+                        //    InterestDesc = dataReader["interestDesc"].ToString(),
+                        //}
                     };
                 }
 

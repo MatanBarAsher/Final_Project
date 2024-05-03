@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using System.Xml.Linq;
 using Make_a_move___Server.BL;
 
 namespace Make_a_move___Server.DAL
@@ -122,7 +123,11 @@ namespace Make_a_move___Server.DAL
                     p.PlaceCode = Convert.ToInt32(dataReader["placeCode"]);
                     p.Name = dataReader["name"].ToString();
                     p.Adress = dataReader["adress"].ToString();
-                    //p.TypeOfPlace = dataReader["TypeOfPlace"].ToString();
+                    p.TypeOfPlace = new TypeOfPlace
+                    {
+                        TypeOfPlaceCode = Convert.ToInt32(dataReader["typeOfPlaceCode"]),
+                        TypeOfPlaceDescription = dataReader["typeOfPlaceDescription"].ToString(),
+                    };
 
                     placeList.Add(p);
                 }
@@ -197,8 +202,11 @@ namespace Make_a_move___Server.DAL
                         PlaceCode = Convert.ToInt32(dataReader["placeCode"]),
                         Name = dataReader["name"].ToString(),
                         Adress = dataReader["adress"].ToString(),
-                        //.TypeOfPlace = dataReader["TypeOfPlace"].ToString()
-
+                        TypeOfPlace = new TypeOfPlace
+                        {
+                            TypeOfPlaceCode = Convert.ToInt32(dataReader["typeOfPlaceCode"]),
+                            TypeOfPlaceDescription = dataReader["typeOfPlaceDescription"].ToString(),
+                        }
                     };
                 }
 
