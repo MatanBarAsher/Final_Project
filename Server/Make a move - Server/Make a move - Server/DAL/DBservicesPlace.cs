@@ -37,7 +37,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreatePlaceInsertCommandWithStoredProcedure("SP_InsertPlace", con, place);  // create the command
+            cmd = CreatePlaceInsertCommandWithStoredProcedure("SP_InsertNewPlace", con, place);  // create the command
 
             try
             {
@@ -85,7 +85,7 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@adress", place.Adress);
 
-            cmd.Parameters.AddWithValue("@userIds", place.UserIds);
+            cmd.Parameters.AddWithValue("@typeOfPlace", place.TypeOfPlace);
 
             return cmd;
         }
@@ -122,7 +122,7 @@ namespace Make_a_move___Server.DAL
                     p.PlaceCode = Convert.ToInt32(dataReader["placeCode"]);
                     p.Name = dataReader["name"].ToString();
                     p.Adress = dataReader["adress"].ToString();
-                    p.UserIds = dataReader["userIds"].ToString();
+                    //p.TypeOfPlace = dataReader["TypeOfPlace"].ToString();
 
                     placeList.Add(p);
                 }
@@ -197,7 +197,7 @@ namespace Make_a_move___Server.DAL
                         PlaceCode = Convert.ToInt32(dataReader["placeCode"]),
                         Name = dataReader["name"].ToString(),
                         Adress = dataReader["adress"].ToString(),
-                        UserIds = dataReader["userIds"].ToString()
+                        //.TypeOfPlace = dataReader["TypeOfPlace"].ToString()
 
                     };
                 }
@@ -254,7 +254,7 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@adress", place.Adress);
 
-            cmd.Parameters.AddWithValue("@userIds", place.UserIds);
+            cmd.Parameters.AddWithValue("@typeOfPlace", place.TypeOfPlace);
 
 
             return cmd;

@@ -38,7 +38,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateMatchInsertCommandWithStoredProcedure("SP_InsertMatch", con, match);  // create the command
+            cmd = CreateMatchInsertCommandWithStoredProcedure("SP_InsertNewMatch", con, match);  // create the command
 
             try
             {
@@ -84,7 +84,7 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@isMatch", match.IsMatch);
 
-            cmd.Parameters.AddWithValue("@serialNumber", match.SerialNumber);
+            cmd.Parameters.AddWithValue("@feedback", match.Feedback);
 
 
             return cmd;
@@ -121,7 +121,7 @@ namespace Make_a_move___Server.DAL
                    Match m = new Match();
                     m.UserIds = dataReader["userIds"].ToString();
                     m.IsMatch = Convert.ToBoolean(dataReader["isMatch"]);
-                    m.SerialNumber= Convert.ToInt32(dataReader["serialNumber"]);
+                    //m.Feedback= dataReader["feedback"].ToString();
                     matchesList.Add(m);
                 }
                 return matchesList;

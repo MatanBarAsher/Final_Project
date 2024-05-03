@@ -37,7 +37,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateAdminInsertCommandWithStoredProcedure("SP_InsertAdmin", con, admin);  // create the command
+            cmd = CreateAdminInsertCommandWithStoredProcedure("SP_InsertNewAdmin", con, admin);  // create the command
 
             try
             {
@@ -83,6 +83,11 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@adminName", admin.AdminName);
 
+            cmd.Parameters.AddWithValue("@adminPassword", admin.AdminPassword);
+
+            cmd.Parameters.AddWithValue("@isActive", admin.IsActive);
+
+
             return cmd;
         }
 
@@ -117,6 +122,8 @@ namespace Make_a_move___Server.DAL
                     Admin a = new Admin();
                     a.AdminCode = Convert.ToInt32(dataReader["adminCode"]);
                     a.AdminName = dataReader["adminName"].ToString();
+                    a.AdminPassword = dataReader["adminPassword"].ToString();
+                    //a.isActive = Convert.ToBoolean(dataReader["isActive"]);
 
                     admimList.Add(a);
                 }
@@ -189,7 +196,9 @@ namespace Make_a_move___Server.DAL
                     a = new Admin
                     {
                         AdminCode = Convert.ToInt32(dataReader["adminCode"]),
-                        AdminName = dataReader["adminName"].ToString()
+                        AdminName = dataReader["adminName"].ToString(),
+                        AdminPassword = dataReader["adminPassword"].ToString(),
+                        //isActive = Convert.ToBoolean(dataReader["isActive"])
 
                     };
                 }
@@ -242,6 +251,10 @@ namespace Make_a_move___Server.DAL
             cmd.Parameters.AddWithValue("@adminCode", admin.AdminCode);
 
             cmd.Parameters.AddWithValue("@adminName", admin.AdminName);
+
+            cmd.Parameters.AddWithValue("@adminPassword", admin.AdminPassword);
+
+            cmd.Parameters.AddWithValue("@isActive", admin.IsActive);
 
 
             return cmd;
