@@ -22,7 +22,7 @@ namespace Make_a_move___Server.BL
 
         public User() { }
 
-        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, City city, Preference[] preference, PersonalInterests[] personalInterests)
+        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive)
         {
             this.email = email;
             this.firstName = firstName;
@@ -34,9 +34,9 @@ namespace Make_a_move___Server.BL
             this.birthday = birthday;
             this.phoneNumber = phoneNumber;
             this.isActive = isActive;
-            this.city = city;
-            this.preference = preference;
-            this.personalInterests = personalInterests;
+            //this.city = city;
+            //this.preference = preference;
+            //this.personalInterests = personalInterests;
         }
 
         public string Email { get => email; set => email = value; }
@@ -49,9 +49,9 @@ namespace Make_a_move___Server.BL
         public DateTime Birthday { get => birthday; set => birthday = value; }
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public bool IsActive { get => isActive; set => isActive = value; }
-        public City City { get => city; set => city = value; }
-        public Preference [] Preference { get => preference; set => preference = value; }
-        public PersonalInterests [] personalInterest { get => personalInterest; set => personalInterest = value; }
+        //public City City { get => city; set => city = value; }
+        //public Preference [] Preference { get => preference; set => preference = value; }
+        //public PersonalInterests [] personalInterest { get => personalInterest; set => personalInterest = value; }
 
 
 

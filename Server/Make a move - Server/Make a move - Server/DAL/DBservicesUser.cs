@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using System.Text.Json;
 using Make_a_move___Server.BL;
 
 namespace Make_a_move___Server.DAL
@@ -90,7 +91,8 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@gender", user.Gender);
 
-            cmd.Parameters.AddWithValue("@image", user.Image);
+            string images = JsonSerializer.Serialize(user.Image);
+            cmd.Parameters.AddWithValue("@image", images);
 
             cmd.Parameters.AddWithValue("@height", user.Height);
 
@@ -100,11 +102,11 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
 
-            cmd.Parameters.AddWithValue("@city", user.City);
+            //cmd.Parameters.AddWithValue("@city", user.City);
 
-            cmd.Parameters.AddWithValue("@preference", user.Preference);
+            //cmd.Parameters.AddWithValue("@preference", user.Preference);
 
-            cmd.Parameters.AddWithValue("@personalInterests", user.personalInterest);
+            //cmd.Parameters.AddWithValue("@personalInterests", user.personalInterest);
             // Neta: need to check why user.PersonalInterest is not defined
 
             return cmd;
@@ -143,17 +145,17 @@ namespace Make_a_move___Server.DAL
                     u.FirstName = dataReader["firstName"].ToString();
                     u.LastName = dataReader["lastName"].ToString();
                     u.Password = dataReader["password"].ToString();
-                    //u.Image = dataReader["image"].ToString();
+                    u.Image = JsonSerializer.Deserialize<string[]>(dataReader["image"].ToString());
                     u.Gender = Convert.ToInt32(dataReader["gender"]);
                     u.Height = Convert.ToInt32(dataReader["height"]);
                     u.Birthday = Convert.ToDateTime(dataReader["birthday"]);
                     u.PhoneNumber = dataReader["phoneNumber"].ToString();
                     u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
-                    u.City = new City
-                    {
-                        CityCode = Convert.ToInt32(dataReader["cityCode"]),
-                        CityName = dataReader["cityName"].ToString()
-                    };
+                    //u.City = new City
+                    //{
+                    //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
+                    //    CityName = dataReader["cityName"].ToString()
+                    //};
                         //u.Preference = new Preference 
                         //{
                         //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
@@ -250,11 +252,11 @@ namespace Make_a_move___Server.DAL
                         Birthday = Convert.ToDateTime(dataReader["birthday"]),
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
-                        City = new City
-                        {
-                            CityCode = Convert.ToInt32(dataReader["cityCode"]),
-                            CityName = dataReader["cityName"].ToString()
-                        },
+                        //City = new City
+                        //{
+                        //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
+                        //    CityName = dataReader["cityName"].ToString()
+                        //},
                         //Preference = new Preference 
                         //{
                         //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
@@ -337,11 +339,11 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
 
-            cmd.Parameters.AddWithValue("@city", user.City);
+            //cmd.Parameters.AddWithValue("@city", user.City);
 
-            cmd.Parameters.AddWithValue("@preference", user.Preference);
+            //cmd.Parameters.AddWithValue("@preference", user.Preference);
 
-            cmd.Parameters.AddWithValue("@personalInterests", user.personalInterest);
+            //cmd.Parameters.AddWithValue("@personalInterests", user.personalInterest);
 
 
             return cmd;
@@ -388,11 +390,11 @@ namespace Make_a_move___Server.DAL
                         Birthday = Convert.ToDateTime(dataReader["birthday"]),
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
-                        City = new City
-                        {
-                            CityCode = Convert.ToInt32(dataReader["cityCode"]),
-                            CityName = dataReader["cityName"].ToString()
-                        },
+                        //City = new City
+                        //{
+                        //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
+                        //    CityName = dataReader["cityName"].ToString()
+                        //},
                         //Preference = new Preference 
                         //{
                         //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
