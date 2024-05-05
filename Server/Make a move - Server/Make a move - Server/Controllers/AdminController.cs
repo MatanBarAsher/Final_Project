@@ -25,17 +25,17 @@ namespace Make_a_move___Server.Controllers
             return admin.InsertAdmin();
         }
 
-        //[HttpPost("Login")]
-        //public Admin CheckLogin([FromBody] Admin admin)
-        //{
-        //    return admin.CheckLogin();
-        //}
+        [HttpPost("Login")]
+        public Admin CheckLogin([FromBody] Admin admin)
+        {
+            return admin.CheckLogin();
+        }
 
-        //[HttpPut("Update")]
-        //public Admin Update([FromBody] Admin admin)
-        //{
-        //    return admin.UpdateAdmin(admin);
-        //}
+        [HttpPut("Update")]
+        public Admin Update([FromBody] Admin admin)
+        {
+            return admin.UpdateAdmin(admin);
+        }
 
     }
 }

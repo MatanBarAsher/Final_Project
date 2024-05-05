@@ -12,7 +12,7 @@ namespace Make_a_move___Server.BL
         private string thirdOption;
         private string fourthOption;
         private bool required;
-        private static List<Preference> preferencesList = new List<Preference>();
+        //private static List<Preference> preferencesList = new List<Preference>();
 
         public Preference() { }
         public Preference(int preferenceCode, string preferenceDescription, string firstOption, string secondOption, string thirdOption, string fourthOption, bool required)

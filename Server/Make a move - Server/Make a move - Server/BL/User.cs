@@ -15,14 +15,14 @@ namespace Make_a_move___Server.BL
         private DateTime birthday;
         private string phoneNumber;
         private bool isActive;
-        private City city;
-        private Preference [] preference;
-        private PersonalInterests [] personalInterests;
+        private string city;
+        //private Preference [] preference;
+        //private PersonalInterests [] personalInterests;
         private static List<User> usersList = new List<User>();
 
         public User() { }
 
-        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive)
+        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city)
         {
             this.email = email;
             this.firstName = firstName;
@@ -34,6 +34,7 @@ namespace Make_a_move___Server.BL
             this.birthday = birthday;
             this.phoneNumber = phoneNumber;
             this.isActive = isActive;
+            this.city = city;
             //this.city = city;
             //this.preference = preference;
             //this.personalInterests = personalInterests;
@@ -49,9 +50,9 @@ namespace Make_a_move___Server.BL
         public DateTime Birthday { get => birthday; set => birthday = value; }
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public bool IsActive { get => isActive; set => isActive = value; }
-        //public City City { get => city; set => city = value; }
-        //public Preference [] Preference { get => preference; set => preference = value; }
-        //public PersonalInterests [] personalInterest { get => personalInterest; set => personalInterest = value; }
+        public string City { get => city; set => city = value; }
+        //public Preference[] Preference { get => preference; set => preference = value; }
+        //public PersonalInterests[] personalInterest { get => personalInterest; set => personalInterest = value; }
 
 
 
@@ -83,19 +84,19 @@ namespace Make_a_move___Server.BL
             throw new Exception("Error reading users", ex);
         }
     }
-        //public User CheckLogin()
-        //{
-        //    try
-        //    {
-        //        DBservicesUser dbs = new DBservicesUser();
-        //        return dbs.CheckLogin(this);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Log or handle the exception appropriately
-        //        throw new Exception("Error checking login", ex);
-        //    }
-        //}
+        public User CheckLogin()
+        {
+            try
+            {
+                DBservicesUser dbs = new DBservicesUser();
+                return dbs.CheckLogin(this);
+            }
+            catch (Exception ex)
+            {
+                //    Log or handle the exception appropriately
+                throw new Exception("Error checking login", ex);
+            }
+        }
         public User UpdateUser(User newUser)
         {
             try

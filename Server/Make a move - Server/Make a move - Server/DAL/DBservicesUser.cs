@@ -102,12 +102,12 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
 
-            //cmd.Parameters.AddWithValue("@city", user.City);
+            cmd.Parameters.AddWithValue("@city", user.City);
 
-            //cmd.Parameters.AddWithValue("@preference", user.Preference);
+            cmd.Parameters.AddWithValue("@preference", user.Preference);
 
-            //cmd.Parameters.AddWithValue("@personalInterests", user.personalInterest);
-            // Neta: need to check why user.PersonalInterest is not defined
+            cmd.Parameters.AddWithValue("@personalInterests", user.personalInterest);
+        //Neta: need to check why user.PersonalInterest is not defined
 
             return cmd;
         }
@@ -151,26 +151,26 @@ namespace Make_a_move___Server.DAL
                     u.Birthday = Convert.ToDateTime(dataReader["birthday"]);
                     u.PhoneNumber = dataReader["phoneNumber"].ToString();
                     u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
-                    //u.City = new City
+                    u.City = new City
+                    {
+                        CityCode = Convert.ToInt32(dataReader["cityCode"]),
+                        CityName = dataReader["cityName"].ToString()
+                    };
+                    //u.Preference = new Preference
                     //{
-                    //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
-                    //    CityName = dataReader["cityName"].ToString()
+                    //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
+                    //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
+                    //    FirstOption = dataReader["firstOption"].ToString(),
+                    //    SecondOption = dataReader["secondOption"].ToString(),
+                    //    ThirdOption = dataReader["thirdOption"].ToString(),
+                    //    FourthOption = dataReader["FourthOption"].ToString(),
+                    //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
                     //};
-                        //u.Preference = new Preference 
-                        //{
-                        //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
-                        //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
-                        //    FirstOption = dataReader["firstOption"].ToString(),
-                        //    SecondOption = dataReader["secondOption"].ToString(),
-                        //    ThirdOption = dataReader["thirdOption"].ToString(),
-                        //    FourthOption = dataReader["FourthOption"].ToString(),
-                        //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
-                        //};
-                        //u.personalInterests = new PersonalInterests
-                        //{
-                        //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
-                        //    InterestDesc = dataReader["interestDesc"].ToString(),
-                        //};
+                    //u.personalInterests = new PersonalInterests
+                    //{
+                    //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
+                    //    InterestDesc = dataReader["interestDesc"].ToString(),
+                    //};
 
                     usersList.Add(u);
                 }
@@ -246,6 +246,7 @@ namespace Make_a_move___Server.DAL
                         FirstName = dataReader["firstName"].ToString(),
                         LastName = dataReader["familyName"].ToString(),
                         Password = dataReader["password"].ToString(),
+
                         //Image = dataReader["image"].ToString(),
                         Gender = Convert.ToInt32(dataReader["gender"]),
                         Height = Convert.ToInt32(dataReader["height"]),
@@ -257,7 +258,7 @@ namespace Make_a_move___Server.DAL
                         //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
                         //    CityName = dataReader["cityName"].ToString()
                         //},
-                        //Preference = new Preference 
+                        //Preference = new Preference
                         //{
                         //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
                         //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
@@ -339,11 +340,11 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
 
-            //cmd.Parameters.AddWithValue("@city", user.City);
+            cmd.Parameters.AddWithValue("@city", user.City);
 
-            //cmd.Parameters.AddWithValue("@preference", user.Preference);
+            cmd.Parameters.AddWithValue("@preference", user.Preference);
 
-            //cmd.Parameters.AddWithValue("@personalInterests", user.personalInterest);
+            cmd.Parameters.AddWithValue("@personalInterests", user.personalInterest);
 
 
             return cmd;
@@ -390,11 +391,11 @@ namespace Make_a_move___Server.DAL
                         Birthday = Convert.ToDateTime(dataReader["birthday"]),
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
-                        //City = new City
-                        //{
-                        //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
-                        //    CityName = dataReader["cityName"].ToString()
-                        //},
+                        City = new City
+                        {
+                            CityCode = Convert.ToInt32(dataReader["cityCode"]),
+                            CityName = dataReader["cityName"].ToString()
+                        },
                         //Preference = new Preference 
                         //{
                         //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
