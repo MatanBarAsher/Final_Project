@@ -291,10 +291,10 @@ namespace Make_a_move___Server.DAL
                 {
                     a = new Admin
                     {
-                        AdminCode = Convert.ToInt32(dataReader["adminCode"]),
+                        //AdminCode = Convert.ToInt32(dataReader["adminCode"]),
                         AdminName = dataReader["adminName"].ToString(),
                         AdminPassword = dataReader["adminPassword"].ToString(),
-                        IsActive = Convert.ToBoolean(dataReader["isActive"]),
+                        //I/*sActive = Convert.ToBoolean(dataReader["isActive"]),*/
                         
                      };
                 }
@@ -338,9 +338,11 @@ namespace Make_a_move___Server.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
+            //cmd.Parameters.AddWithValue("@inputCode", admin.AdminCode);
             cmd.Parameters.AddWithValue("@inputName", admin.AdminName);
 
             cmd.Parameters.AddWithValue("@inputPassword", admin.AdminPassword);
+            //cmd.Parameters.AddWithValue("@inputisActiv", admin.IsActive);
             return cmd;
         }
 

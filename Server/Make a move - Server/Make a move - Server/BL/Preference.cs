@@ -39,7 +39,7 @@ namespace Make_a_move___Server.BL
             try
             {
                 DBservicesPreferences dbs = new DBservicesPreferences();
-                preferencesList.Add(this);
+                //preferencesList.Add(this);
                 return dbs.InsertPreference(this);
             }
             catch (Exception ex)

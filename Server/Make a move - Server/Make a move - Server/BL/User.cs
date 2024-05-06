@@ -117,8 +117,8 @@ namespace Make_a_move___Server.BL
                     userToUpdate.birthday = newUser.birthday;
                     userToUpdate.phoneNumber = newUser.phoneNumber;
                     userToUpdate.city = newUser.city;
-                    userToUpdate.preference = newUser.preference;
-                    userToUpdate.personalInterests = newUser.personalInterests;
+                    //userToUpdate.preference = newUser.preference;
+                    //userToUpdate.personalInterests = newUser.personalInterests;
 
 
                     // Update in the database (assuming DBservices has an UpdateUser method)
