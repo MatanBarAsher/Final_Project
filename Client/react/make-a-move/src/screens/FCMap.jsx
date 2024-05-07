@@ -13,8 +13,13 @@ export default function FCMap({ location }) {
       <div className="map">
         <FCHamburger />
         <div className="map-footer">
-          <img src={locationPin} />
-          <h3>{location}</h3>
+          <img
+            src={locationPin}
+            width={"32px"}
+            height={"42.5"}
+            style={{ margin: 15 }}
+          />
+          <h3>{location}אני נמצא פה</h3>
         </div>
       </div>
     </div>

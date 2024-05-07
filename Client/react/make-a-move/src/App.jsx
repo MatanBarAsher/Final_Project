@@ -10,7 +10,7 @@ function App() {
       {/* <FCWellcome /> */}
       {/* <FCSignIn /> */}
       {/* <FCLocation /> */}
-      <FCMap />
+      {/* <FCMap /> */}
     </>
   );
 }
