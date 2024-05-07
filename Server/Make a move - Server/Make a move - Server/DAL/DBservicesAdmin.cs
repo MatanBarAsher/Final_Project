@@ -260,6 +260,92 @@ namespace Make_a_move___Server.DAL
             return cmd;
         }
 
+        //--------------------------------------------------------------------------------------------------
+        // This method checks a admin login at admin table 
+        //--------------------------------------------------------------------------------------------------
+
+        public Admin CheckLogin(Admin admin)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            cmd = CreateadminLoginCommandWithStoredProcedure("SP_CheckLogin", con, admin); // create the command
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                Admin a = null; // Initialize the Admin object
+
+                while (dataReader.Read())
+                {
+                    a = new Admin
+                    {
+                        //AdminCode = Convert.ToInt32(dataReader["adminCode"]),
+                        AdminName = dataReader["adminName"].ToString(),
+                        AdminPassword = dataReader["adminPassword"].ToString(),
+                        //I/*sActive = Convert.ToBoolean(dataReader["isActive"]),*/
+                        
+                     };
+                }
+
+                if (a != null)
+                {
+                    // Login successful
+                    return a;
+                }
+                else
+                {
+                    // Login failed, return null or throw an exception as needed
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        private SqlCommand CreateadminLoginCommandWithStoredProcedure(String spName, SqlConnection con, Admin admin)
+        {
+
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+
+            //cmd.Parameters.AddWithValue("@inputCode", admin.AdminCode);
+            cmd.Parameters.AddWithValue("@inputName", admin.AdminName);
+
+            cmd.Parameters.AddWithValue("@inputPassword", admin.AdminPassword);
+            //cmd.Parameters.AddWithValue("@inputisActiv", admin.IsActive);
+            return cmd;
+        }
+
 
 
 

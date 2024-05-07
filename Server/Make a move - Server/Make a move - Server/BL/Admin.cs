@@ -54,19 +54,19 @@ namespace Make_a_move___Server.BL
                 throw new Exception("Error reading admins", ex);
             }
         }
-        //public User CheckLogin()
-        //{
-        //    try
-        //    {
-        //        DBservicesUser dbs = new DBservicesUser();
-        //        return dbs.CheckLogin(this);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Log or handle the exception appropriately
-        //        throw new Exception("Error checking login", ex);
-        //    }
-        //}
+        public Admin CheckLogin()
+        {
+            try
+            {
+                DBservicesAdmin dbs = new DBservicesAdmin();
+                return dbs.CheckLogin(this);
+            }
+            catch (Exception ex)
+            {
+                //Log or handle the exception appropriately
+                throw new Exception("Error checking login", ex);
+            }
+        }
 
         public Admin UpdateAdmin(Admin newAdmin)
         {
