@@ -100,14 +100,14 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
 
-            cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
-
             cmd.Parameters.AddWithValue("@city", user.City);
+            
+            string PreferencesIdsS = JsonSerializer.Serialize(user.PreferencesIds);
+            cmd.Parameters.AddWithValue("@preference", PreferencesIdsS);
 
-            //cmd.Parameters.AddWithValue("@preference", user.Preference);
-
-            //cmd.Parameters.AddWithValue("@personalInterests", user.personalInterest);
-        //Neta: need to check why user.PersonalInterest is not defined
+            string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
+            cmd.Parameters.AddWithValue("@personalInterests", PersonalInterestsIdsS);
+            //Neta: need to check why user.PersonalInterest is not defined
 
             return cmd;
         }
@@ -152,6 +152,9 @@ namespace Make_a_move___Server.DAL
                     u.PhoneNumber = dataReader["phoneNumber"].ToString();
                     u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
                     u.City = dataReader["city"].ToString();
+                    u.PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString());
+                    u.PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString());
+
                     //u.City = new City
                     //{
                     //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
@@ -247,35 +250,37 @@ namespace Make_a_move___Server.DAL
                         FirstName = dataReader["firstName"].ToString(),
                         LastName = dataReader["familyName"].ToString(),
                         Password = dataReader["password"].ToString(),
-
-                        //Image = dataReader["image"].ToString(),
-                        Gender = Convert.ToInt32(dataReader["gender"]),
+                        Image = JsonSerializer.Deserialize<string[]>(dataReader["image"].ToString()),
+                    //Image = dataReader["image"].ToString(),
+                    Gender = Convert.ToInt32(dataReader["gender"]),
                         Height = Convert.ToInt32(dataReader["height"]),
                         Birthday = Convert.ToDateTime(dataReader["birthday"]),
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
-                        City = dataReader["city"].ToString()
-                        //City = new City
-                        //{
-                        //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
-                        //    CityName = dataReader["cityName"].ToString()
-                        //},
-                        //Preference = new Preference
-                        //{
-                        //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
-                        //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
-                        //    FirstOption = dataReader["firstOption"].ToString(),
-                        //    SecondOption = dataReader["secondOption"].ToString(),
-                        //    ThirdOption = dataReader["thirdOption"].ToString(),
-                        //    FourthOption = dataReader["FourthOption"].ToString(),
-                        //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
-                        //},
-                        //personalInterests = new PersonalInterests
-                        //{
-                        //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
-                        //    InterestDesc = dataReader["interestDesc"].ToString(),
-                        //}
-                    };
+                        City = dataReader["city"].ToString(),
+                        PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
+                        PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString()),
+                    //City = new City
+                    //{
+                    //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
+                    //    CityName = dataReader["cityName"].ToString()
+                    //},
+                    //Preference = new Preference
+                    //{
+                    //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
+                    //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
+                    //    FirstOption = dataReader["firstOption"].ToString(),
+                    //    SecondOption = dataReader["secondOption"].ToString(),
+                    //    ThirdOption = dataReader["thirdOption"].ToString(),
+                    //    FourthOption = dataReader["FourthOption"].ToString(),
+                    //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
+                    //},
+                    //personalInterests = new PersonalInterests
+                    //{
+                    //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
+                    //    InterestDesc = dataReader["interestDesc"].ToString(),
+                    //}
+                };
                 }
 
                 if (u != null)
@@ -344,9 +349,9 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@city", user.City);
 
-            //cmd.Parameters.AddWithValue("@preference", user.Preference);
+            cmd.Parameters.AddWithValue("@preference", user.PreferencesIds);
 
-            //cmd.Parameters.AddWithValue("@personalInterests", user.personalInterest);
+            cmd.Parameters.AddWithValue("@personalInterests", user.PersonalInterestsIds);
 
 
             return cmd;
@@ -387,13 +392,15 @@ namespace Make_a_move___Server.DAL
                         FirstName = dataReader["firstName"].ToString(),
                         LastName = dataReader["familyName"].ToString(),
                         Password = dataReader["password"].ToString(),
-                        //Image = dataReader["image"].ToString(),
+                        Image = ((string[])dataReader["image"]),
                         Gender = Convert.ToInt32(dataReader["gender"]),
                         Height = Convert.ToInt32(dataReader["height"]),
                         Birthday = Convert.ToDateTime(dataReader["birthday"]),
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
-                        City = dataReader["city"].ToString()
+                        City = dataReader["city"].ToString(),
+                        PreferencesIds = ((string[])dataReader["preferencesIds"]),
+                        PersonalInterestsIds = ((string[])dataReader["personalInterestsIds"]),
                         //City = new City
                         //{
                         //    CityCode = Convert.ToInt32(dataReader["cityCode"]),

@@ -16,13 +16,13 @@ namespace Make_a_move___Server.BL
         private string phoneNumber;
         private bool isActive;
         private string city;
-        //private Preference [] preference;
-        //private PersonalInterests [] personalInterests;
+        private string [] preferencesIds;
+        private string[] personalInterestsIds;
         private static List<User> usersList = new List<User>();
 
         public User() { }
 
-        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city)
+        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, string[] personalInterestsIds, string[] preferencesIds)
         {
             this.email = email;
             this.firstName = firstName;
@@ -35,9 +35,8 @@ namespace Make_a_move___Server.BL
             this.phoneNumber = phoneNumber;
             this.isActive = isActive;
             this.city = city;
-            //this.city = city;
-            //this.preference = preference;
-            //this.personalInterests = personalInterests;
+            this.preferencesIds = preferencesIds;
+            this.personalInterestsIds = personalInterestsIds;
         }
 
         public string Email { get => email; set => email = value; }
@@ -51,8 +50,8 @@ namespace Make_a_move___Server.BL
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public bool IsActive { get => isActive; set => isActive = value; }
         public string City { get => city; set => city = value; }
-        //public Preference[] Preference { get => preference; set => preference = value; }
-        //public PersonalInterests[] personalInterest { get => personalInterest; set => personalInterest = value; }
+        public string[] PersonalInterestsIds { get => personalInterestsIds; set => personalInterestsIds = value; }
+        public string[] PreferencesIds { get => preferencesIds; set => preferencesIds = value; }
 
 
 
@@ -117,8 +116,8 @@ namespace Make_a_move___Server.BL
                     userToUpdate.birthday = newUser.birthday;
                     userToUpdate.phoneNumber = newUser.phoneNumber;
                     userToUpdate.city = newUser.city;
-                    //userToUpdate.preference = newUser.preference;
-                    //userToUpdate.personalInterests = newUser.personalInterests;
+                    userToUpdate.preferencesIds = newUser.preferencesIds;
+                    userToUpdate.personalInterestsIds = newUser.personalInterestsIds;
 
 
                     // Update in the database (assuming DBservices has an UpdateUser method)
