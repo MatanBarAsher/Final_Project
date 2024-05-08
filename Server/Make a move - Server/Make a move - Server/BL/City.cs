@@ -52,7 +52,8 @@ namespace Make_a_move___Server.BL
             try
             {
                 // Find the user in the UsersList by email
-                City cityToUpdate = citiesList.Find(c => string.Equals(c.CityName.Trim(), newCity.CityName.Trim(), StringComparison.OrdinalIgnoreCase));
+                City cityToUpdate = citiesList.Find(c => c.CityCode.Equals(newCity.CityCode));
+
 
                 if (cityToUpdate != null)
                 {

@@ -25,5 +25,13 @@ namespace Make_a_move___Server.Controllers
             return place.InsertPlace();
         }
 
+
+
+        [HttpPut("Update")]
+        public Place Update([FromBody] Place place)
+        {
+            return place.UpdatePlace(place);
+        }
+
     }
 }

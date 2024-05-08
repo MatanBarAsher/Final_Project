@@ -59,5 +59,44 @@ namespace Make_a_move___Server.BL
                 throw new Exception("Error reading places", ex);
             }
         }
+
+        public Place UpdatePlace(Place newplace)
+        {
+            try
+            {
+                // Find the Place in the PlacesList by name
+                Place placeToUpdate = placesList.Find(p => p.PlaceCode.Equals(newplace.PlaceCode));
+
+                if (placeToUpdate != null)
+                {
+                    // Update user information
+                    placeToUpdate.Name = newplace.Name;
+                    placeToUpdate.PlaceCode = newplace.PlaceCode;
+                    placeToUpdate.Adress = newplace.Adress;
+                    placeToUpdate.UserIds = newplace.UserIds;
+                    placeToUpdate.TimeStamp = newplace.TimeStamp;
+                    placeToUpdate.TypeOfPlace = newplace.TypeOfPlace;
+
+                    // Update in the database (assuming DBservices has an UpdatePlace method)
+                    DBservicesPlace dbs = new DBservicesPlace();
+                    return dbs.UpdatePlace(placeToUpdate);
+                }
+                else
+                {
+                    // Place not found, handle the case appropriately (return null, throw an exception, etc.)
+                    return null; // Or throw new Exception("Place not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error updating Place", ex);
+            }
+        }
+
+
+
+
+
     }
 }

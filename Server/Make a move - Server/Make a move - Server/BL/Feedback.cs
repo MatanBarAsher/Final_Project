@@ -68,7 +68,9 @@ namespace Make_a_move___Server.BL
             try
             {
                 // Find the Feedback in the FeedbacksList by email
-                Feedback feedbackToUpdate = feedbacksList.Find(f => string.Equals(f.feedbackDescription.Trim(), newFeedback.feedbackDescription.Trim(), StringComparison.OrdinalIgnoreCase));
+                Feedback feedbackToUpdate = feedbacksList.Find(f => f.SerialNumber.Equals(newFeedback.SerialNumber));
+
+
 
                 if (feedbackToUpdate != null)
                 {

@@ -26,10 +26,10 @@ namespace Make_a_move___Server.Controllers
             return preference.InsertPreference();
         }
 
-        //[HttpPut("Update")]
-        //public Preference Update([FromBody] Preference preference)
-        //{
-        //    return preference.UpdatePreference(preference);
-        //}
+        [HttpPut("Update")]
+        public Preference Update([FromBody] Preference preference)
+        {
+            return preference.UpdatePreference(preference);
+        }
     }
 }

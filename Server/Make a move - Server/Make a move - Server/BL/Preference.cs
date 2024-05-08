@@ -12,7 +12,7 @@ namespace Make_a_move___Server.BL
         private string thirdOption;
         private string fourthOption;
         private bool required;
-        //private static List<Preference> preferencesList = new List<Preference>();
+        private static List<Preference> preferencesList = new List<Preference>();
 
         public Preference() { }
         public Preference(int preferenceCode, string preferenceDescription, string firstOption, string secondOption, string thirdOption, string fourthOption, bool required)
@@ -62,5 +62,48 @@ namespace Make_a_move___Server.BL
                 throw new Exception("Error reading preferences", ex);
             }
         }
+
+        public Preference UpdatePreference(Preference newPreference)
+        {
+            try
+            {
+                // Find the Preference in the PreferencesList by email
+                Preference preferenceToUpdate = preferencesList.Find(p => p.preferenceCode.Equals(newPreference.preferenceCode));
+
+
+                if (preferenceToUpdate != null)
+                {
+                    // Update user information
+                    preferenceToUpdate.PreferenceCode = newPreference.PreferenceCode;
+                    preferenceToUpdate.PreferenceDescription = newPreference.PreferenceDescription;
+                    preferenceToUpdate.FirstOption = newPreference.FirstOption;
+                    preferenceToUpdate.SecondOption = newPreference.SecondOption;
+                    preferenceToUpdate.ThirdOption = newPreference.ThirdOption;
+                    preferenceToUpdate.FourthOption = newPreference.FourthOption;
+                    preferenceToUpdate.Required = newPreference.Required;
+
+
+                    // Update in the database (assuming DBservices has an UpdateUser method)
+                    DBservicesPreferences dbs = new DBservicesPreferences();
+                    return dbs.UpdatePreference(preferenceToUpdate);
+                }
+                else
+                {
+                    // User not found, handle the case appropriately (return null, throw an exception, etc.)
+                    return null; // Or throw new Exception("Preference not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error updating Preference", ex);
+            }
+        }
+
+
+
+
+
+
     }
 }

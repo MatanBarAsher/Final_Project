@@ -175,7 +175,7 @@ namespace Make_a_move___Server.DAL
         // This method Updates a preference at Preference table 
         //--------------------------------------------------------------------------------------------------
 
-        public Preference UpdateFeedback(Preference preference)
+        public Preference UpdatePreference(Preference preference)
         {
             SqlConnection con;
             SqlCommand cmd;

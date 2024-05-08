@@ -53,7 +53,9 @@ namespace Make_a_move___Server.BL
             try
             {
                 // Find the personalInterests in the UsersList by email
-                PersonalInterests personalInterestsToUpdate = personalInterestsList.Find(p => string.Equals(p.InterestDesc.Trim(), newPersonalInterests.InterestDesc.Trim(), StringComparison.OrdinalIgnoreCase));
+                //PersonalInterests personalInterestsToUpdate = personalInterestsList.Find(p => string.Equals(p.InterestDesc.Trim(), newPersonalInterests.InterestDesc.Trim(), StringComparison.OrdinalIgnoreCase));
+                PersonalInterests personalInterestsToUpdate = personalInterestsList.Find(p => p.InterestCode.Equals(newPersonalInterests.InterestCode));
+
 
                 if (personalInterestsToUpdate != null)
                 {
