@@ -37,7 +37,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateTypeOfPlaceInsertCommandWithStoredProcedure("SP_InsertTypeOfPlace", con, typeOfPlace);  // create the command
+            cmd = CreateTypeOfPlaceInsertCommandWithStoredProcedure("SP_InsertNewTypeOfPlace", con, typeOfPlace);  // create the command
 
             try
             {

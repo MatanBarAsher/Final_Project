@@ -39,7 +39,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreatePreferenceInsertCommandWithStoredProcedure("SP_InsertPreferences", con, preference);  // create the command
+            cmd = CreatePreferenceInsertCommandWithStoredProcedure("SP_InsertNewPreference", con, preference);  // create the command
 
             try
             {
@@ -112,7 +112,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateSelectPreferenceListWithStoredProcedure("SP_ReadPreference", con);             // create the command
+            cmd = CreateSelectPreferenceListWithStoredProcedure("SP_ReadPreferences", con);             // create the command
 
             try
             {
@@ -127,7 +127,7 @@ namespace Make_a_move___Server.DAL
                     p.SecondOption = dataReader["secondOption"].ToString();
                     p.ThirdOption = dataReader["thirdOption"].ToString();
                     p.FourthOption = dataReader["fourthOption"].ToString();
-                    p.Required = Convert.ToBoolean(dataReader["fddbackDescription"]);
+                    p.Required = Convert.ToBoolean(dataReader["required"]);
 
 
 
@@ -203,12 +203,12 @@ namespace Make_a_move___Server.DAL
                     p = new Preference
                     {
                         PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
-                        PreferenceDescription = dataReader["fddbackDescription"].ToString(),
+                        PreferenceDescription = dataReader["preferenceDescription"].ToString(),
                         FirstOption = dataReader["firstOption"].ToString(),
                         SecondOption = dataReader["secondOption"].ToString(),
                         ThirdOption = dataReader["thirdOption"].ToString(),
                         FourthOption = dataReader["FourthOption"].ToString(),
-                        Required = Convert.ToBoolean(dataReader["fddbackDescription"])
+                        Required = Convert.ToBoolean(dataReader["required"])
 
                     };
                 }

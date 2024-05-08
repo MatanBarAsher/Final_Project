@@ -9,12 +9,12 @@ namespace Make_a_move___Server.BL
         private string adress;
         private string userIds;
         private DateTime timeStamp;
-        private TypeOfPlace typeOfPlace;
+        private string typeOfPlace;
         private static List<Place> placesList = new List<Place>();
 
         public Place() { }
 
-        public Place(int placeCode, string name, string adress, string userIds, DateTime timeStamp, TypeOfPlace typeOfPlace)
+        public Place(int placeCode, string name, string adress, string userIds, DateTime timeStamp, string typeOfPlace)
         {
             this.placeCode = placeCode;
             this.name = name;
@@ -29,7 +29,7 @@ namespace Make_a_move___Server.BL
         public string Adress { get => adress; set => adress = value; }
         public string UserIds { get => userIds; set => userIds = value; }
         public DateTime TimeStamp { get => timeStamp; set => timeStamp = value; }
-        public TypeOfPlace TypeOfPlace { get => typeOfPlace; set => typeOfPlace = value; }
+        public string TypeOfPlace { get => typeOfPlace; set => typeOfPlace = value; }
 
         public int InsertPlace()
         {

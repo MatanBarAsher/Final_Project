@@ -25,5 +25,12 @@ namespace Make_a_move___Server.Controllers
             return feedback.InsertFeedback();
         }
 
-     }
+
+        [HttpPut("Update")]
+        public Feedback Update([FromBody] Feedback feedback)
+        {
+            return feedback.UpdateFeedback(feedback);
+        }
+
+    }
 }

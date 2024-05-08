@@ -62,5 +62,45 @@ namespace Make_a_move___Server.BL
                 throw new Exception("Error reading feedback", ex);
             }
         }
+
+        public Feedback UpdateFeedback(Feedback newFeedback)
+        {
+            try
+            {
+                // Find the Feedback in the FeedbacksList by email
+                Feedback feedbackToUpdate = feedbacksList.Find(f => string.Equals(f.feedbackDescription.Trim(), newFeedback.feedbackDescription.Trim(), StringComparison.OrdinalIgnoreCase));
+
+                if (feedbackToUpdate != null)
+                {
+                    // Update user information
+                    feedbackToUpdate.SerialNumber = newFeedback.SerialNumber;
+                    feedbackToUpdate.FeddbackDescription = newFeedback.FeddbackDescription;
+                    feedbackToUpdate.FirstOption = newFeedback.FirstOption;
+                    feedbackToUpdate.SecontOption = newFeedback.SecontOption;
+                    feedbackToUpdate.ThirdOption = newFeedback.ThirdOption;
+                    feedbackToUpdate.FourthdOption = newFeedback.FourthdOption;
+                    feedbackToUpdate.Required = newFeedback.Required;
+
+
+
+                    // Update in the database (assuming DBservices has an UpdateUser method)
+                    DBservicesFeedback dbs = new DBservicesFeedback();
+                    return dbs.UpdateFeedback(feedbackToUpdate);
+                }
+                else
+                {
+                    // User not found, handle the case appropriately (return null, throw an exception, etc.)
+                    return null; // Or throw new Exception("Feedback not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error updating Feedback", ex);
+            }
+        }
+
+
+
     }
 }

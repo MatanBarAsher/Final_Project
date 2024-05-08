@@ -123,11 +123,7 @@ namespace Make_a_move___Server.DAL
                     p.PlaceCode = Convert.ToInt32(dataReader["placeCode"]);
                     p.Name = dataReader["name"].ToString();
                     p.Adress = dataReader["adress"].ToString();
-                    p.TypeOfPlace = new TypeOfPlace
-                    {
-                        TypeOfPlaceCode = Convert.ToInt32(dataReader["typeOfPlaceCode"]),
-                        TypeOfPlaceDescription = dataReader["typeOfPlaceDescription"].ToString(),
-                    };
+                    p.TypeOfPlace = dataReader["adress"].ToString();
 
                     placeList.Add(p);
                 }
@@ -202,12 +198,8 @@ namespace Make_a_move___Server.DAL
                         PlaceCode = Convert.ToInt32(dataReader["placeCode"]),
                         Name = dataReader["name"].ToString(),
                         Adress = dataReader["adress"].ToString(),
-                        TypeOfPlace = new TypeOfPlace
-                        {
-                            TypeOfPlaceCode = Convert.ToInt32(dataReader["typeOfPlaceCode"]),
-                            TypeOfPlaceDescription = dataReader["typeOfPlaceDescription"].ToString(),
-                        }
-                    };
+                        TypeOfPlace = dataReader["adress"].ToString()
+                };
                 }
 
                 if (p != null)

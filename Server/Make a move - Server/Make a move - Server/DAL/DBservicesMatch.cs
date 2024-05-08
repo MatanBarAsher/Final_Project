@@ -121,16 +121,8 @@ namespace Make_a_move___Server.DAL
                    Match m = new Match();
                     m.UserIds = dataReader["userIds"].ToString();
                     m.IsMatch = Convert.ToBoolean(dataReader["isMatch"]);
-                    m.Feedback = new Feedback
-                    {
-                        SerialNumber = Convert.ToInt32(dataReader["serialNumber"]),
-                        FeddbackDescription = dataReader["fddbackDescription"].ToString(),
-                        FirstOption = dataReader["firstOption"].ToString(),
-                        SecontOption = dataReader["secontOption"].ToString(),
-                        ThirdOption = dataReader["thirdOption"].ToString(),
-                        FourthdOption = dataReader["FourthdOption"].ToString(),
-                        Required = Convert.ToBoolean(dataReader["fddbackDescription"])
-                    };
+                    m.Feedback = dataReader["feedback"].ToString();
+                    
                     matchesList.Add(m);
                 }
                 return matchesList;
