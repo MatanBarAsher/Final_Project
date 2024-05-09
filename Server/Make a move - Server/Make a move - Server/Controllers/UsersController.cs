@@ -25,15 +25,15 @@ namespace Make_a_move___Server.Controllers
         }
 
         [HttpPost("Login")]
-        public User CheckLogin([FromBody] User user)
+        public String CheckLogin([FromBody] String password)
         {
-            return user.CheckLogin();
+            return password;//user.CheckLogin();
         }
 
-        [HttpPut("Update")]
-        public User Update([FromBody] User user)
+        [HttpPut("{email}")]
+        public User Update( [FromHeader] String email,[FromBody] User user)
         {
-            return user.UpdateUser(user);
+            return user.UpdateUser(email,user);
         }
 
 

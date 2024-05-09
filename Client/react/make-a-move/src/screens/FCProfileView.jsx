@@ -4,6 +4,8 @@ import FCMatchScore from "../components/FCMatchScore";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import background from "../assets/images/Matan.jpg";
+import { makeAmoveUserServer } from "../services";
+import { useAsync } from "../hooks";
 
 export default function FCProfileView({
   name,
@@ -15,9 +17,23 @@ export default function FCProfileView({
 }) {
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
+  // need to use useAsync to cut the async await circular and to get the value from the async function. also have error and loading
+  const { value: user } = useAsync(makeAmoveUserServer.getAllUsers, []);
+  console.log({ user });
+  const { value: updatedUser } = useAsync(
+    () =>
+      makeAmoveUserServer.updateUser(
+        user ? user[0].email : undefined,
+        user ? user[0] : undefined
+      ),
+    [user]
+  );
+  console.log({ updatedUser });
+
   const toggleOverlay = () => {
     setIsOverlayVisible(!isOverlayVisible);
   };
+
   return (
     <div className="profile-container">
       <div

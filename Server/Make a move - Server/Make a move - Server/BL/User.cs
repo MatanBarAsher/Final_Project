@@ -96,12 +96,12 @@ namespace Make_a_move___Server.BL
                 throw new Exception("Error checking login", ex);
             }
         }
-        public User UpdateUser(User newUser)
+        public User UpdateUser(String email,User newUser)
         {
             try
             {
                 // Find the user in the UsersList by email
-                User userToUpdate = usersList.Find(u => string.Equals(u.Email.Trim(), newUser.Email.Trim(), StringComparison.OrdinalIgnoreCase));
+                User userToUpdate = usersList.Find(u => string.Equals(u.Email.Trim(), email.Trim(), StringComparison.OrdinalIgnoreCase));
 
                 if (userToUpdate != null)
                 {
