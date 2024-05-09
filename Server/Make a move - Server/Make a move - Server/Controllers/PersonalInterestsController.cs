@@ -26,10 +26,10 @@ namespace Make_a_move___Server.Controllers
             return personalInterests.InsertPersonalInterests();
         }
 
-        //[HttpPut("Update")]
-        //public PersonalInterests Update([FromBody] PersonalInterests personalInterest)
-        //{
-        //    return personalInterest.UpdatePersonalInterests(personalInterest);
-        //}
+        [HttpPut("Update")]
+        public PersonalInterests Update([FromBody] PersonalInterests personalInterest)
+        {
+            return personalInterest.UpdatePersonalInterests(personalInterest);
+        }
     }
 }

@@ -25,5 +25,14 @@ namespace Make_a_move___Server.Controllers
             return typeOfPlace.InsertTypeOfPlace();
         }
 
+        [HttpPut("Update")]
+        public TypeOfPlace Update([FromBody] TypeOfPlace typeOfPlace)
+        {
+          return typeOfPlace.UpdateTypeOfPlace(typeOfPlace);
+        }
+
+
+
+
     }
 }

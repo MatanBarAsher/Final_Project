@@ -123,8 +123,8 @@ namespace Make_a_move___Server.DAL
                     a.AdminCode = Convert.ToInt32(dataReader["adminCode"]);
                     a.AdminName = dataReader["adminName"].ToString();
                     a.AdminPassword = dataReader["adminPassword"].ToString();
-                    //a.isActive = Convert.ToBoolean(dataReader["isActive"]);
-
+                    a.IsActive = Convert.ToBoolean(dataReader["isActive"]);
+                   
                     admimList.Add(a);
                 }
                 return admimList;
@@ -198,7 +198,7 @@ namespace Make_a_move___Server.DAL
                         AdminCode = Convert.ToInt32(dataReader["adminCode"]),
                         AdminName = dataReader["adminName"].ToString(),
                         AdminPassword = dataReader["adminPassword"].ToString(),
-                        //isActive = Convert.ToBoolean(dataReader["isActive"])
+                        IsActive = Convert.ToBoolean(dataReader["isActive"])
 
                     };
                 }
@@ -279,7 +279,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateadminLoginCommandWithStoredProcedure("SP_CheckLogin", con, admin); // create the command
+            cmd = CreateadminLoginCommandWithStoredProcedure("SP_CheckAdminLogin", con, admin); // create the command
 
             try
             {
@@ -291,10 +291,10 @@ namespace Make_a_move___Server.DAL
                 {
                     a = new Admin
                     {
-                        //AdminCode = Convert.ToInt32(dataReader["adminCode"]),
+                        AdminCode = Convert.ToInt32(dataReader["adminCode"]),
                         AdminName = dataReader["adminName"].ToString(),
                         AdminPassword = dataReader["adminPassword"].ToString(),
-                        //I/*sActive = Convert.ToBoolean(dataReader["isActive"]),*/
+                        IsActive = Convert.ToBoolean(dataReader["isActive"])
                         
                      };
                 }
@@ -338,11 +338,8 @@ namespace Make_a_move___Server.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
-            //cmd.Parameters.AddWithValue("@inputCode", admin.AdminCode);
-            cmd.Parameters.AddWithValue("@inputName", admin.AdminName);
-
+            cmd.Parameters.AddWithValue("@inputCode", admin.AdminCode);
             cmd.Parameters.AddWithValue("@inputPassword", admin.AdminPassword);
-            //cmd.Parameters.AddWithValue("@inputisActiv", admin.IsActive);
             return cmd;
         }
 

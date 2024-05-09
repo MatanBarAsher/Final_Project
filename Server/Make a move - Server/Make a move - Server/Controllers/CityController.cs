@@ -25,5 +25,11 @@ namespace Make_a_move___Server.Controllers
             return city.InsertCity();
         }
 
+        [HttpPut("Update")]
+        public City Update([FromBody] City city)
+        {
+            return city.UpdateCity(city);
+        }
+
     }
 }

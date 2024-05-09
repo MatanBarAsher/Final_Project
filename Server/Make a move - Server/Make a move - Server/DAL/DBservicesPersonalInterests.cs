@@ -37,7 +37,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreatePersonalInterestsInsertCommandWithStoredProcedure("SP_InsertPersonalInterests", con, personalInterests);  // create the command
+            cmd = CreatePersonalInterestsInsertCommandWithStoredProcedure("SP_InsertNewPersonalInterest", con, personalInterests);  // create the command
 
             try
             {

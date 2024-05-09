@@ -38,7 +38,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateFeedbackInsertCommandWithStoredProcedure("SP_InsertFeedback", con, feedback);  // create the command
+            cmd = CreateFeedbackInsertCommandWithStoredProcedure("SP_InsertNewFeedback", con, feedback);  // create the command
 
             try
             {
@@ -81,7 +81,7 @@ namespace Make_a_move___Server.DAL
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
             cmd.Parameters.AddWithValue("@serialNumber", feedback.SerialNumber);
-            cmd.Parameters.AddWithValue("@feddbackDescription", feedback.FeddbackDescription);
+            cmd.Parameters.AddWithValue("@feedbackDescription", feedback.FeddbackDescription);
             cmd.Parameters.AddWithValue("@firstOption", feedback.FirstOption);
             cmd.Parameters.AddWithValue("@secontOption", feedback.SecontOption);
             cmd.Parameters.AddWithValue("@thirdOption", feedback.ThirdOption);
@@ -121,12 +121,12 @@ namespace Make_a_move___Server.DAL
                 {
                     Feedback f = new Feedback();
                     f.SerialNumber= Convert.ToInt32(dataReader["serialNumber"]);
-                    f.FeddbackDescription = dataReader["fddbackDescription"].ToString();
+                    f.FeddbackDescription = dataReader["feedbackDescription"].ToString();
                     f.FirstOption = dataReader["firstOption"].ToString();
                     f.SecontOption = dataReader["secontOption"].ToString();
                     f.ThirdOption = dataReader["thirdOption"].ToString();
                     f.FourthdOption = dataReader["FourthdOption"].ToString();
-                    f.Required = Convert.ToBoolean(dataReader["fddbackDescription"]);
+                    f.Required = Convert.ToBoolean(dataReader["required"]);
                     
     
 
@@ -202,12 +202,12 @@ namespace Make_a_move___Server.DAL
                     f = new Feedback            
                     {
                     SerialNumber = Convert.ToInt32(dataReader["serialNumber"]),
-                    FeddbackDescription = dataReader["fddbackDescription"].ToString(),
+                    FeddbackDescription = dataReader["feedbackDescription"].ToString(),
                     FirstOption = dataReader["firstOption"].ToString(),
                     SecontOption = dataReader["secontOption"].ToString(),
                     ThirdOption = dataReader["thirdOption"].ToString(),
                     FourthdOption = dataReader["FourthdOption"].ToString(),
-                    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
+                    Required = Convert.ToBoolean(dataReader["required"])
 
                 };
                 }
@@ -258,7 +258,7 @@ namespace Make_a_move___Server.DAL
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
             cmd.Parameters.AddWithValue("@serialNumber", feedback.SerialNumber);
-            cmd.Parameters.AddWithValue("@feddbackDescription", feedback.FeddbackDescription);
+            cmd.Parameters.AddWithValue("@feedbackDescription", feedback.FeddbackDescription);
             cmd.Parameters.AddWithValue("@firstOption", feedback.FirstOption);
             cmd.Parameters.AddWithValue("@secontOption", feedback.SecontOption);
             cmd.Parameters.AddWithValue("@thirdOption", feedback.ThirdOption);

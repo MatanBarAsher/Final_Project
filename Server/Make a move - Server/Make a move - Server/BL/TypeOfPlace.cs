@@ -46,5 +46,41 @@ namespace Make_a_move___Server.BL
                 throw new Exception("Error reading typeOfPlace", ex);
             }
         }
+
+
+        public TypeOfPlace UpdateTypeOfPlace(TypeOfPlace newType)
+        {
+            try
+            {
+                // Find the type in the TypesList by email
+                TypeOfPlace typeToUpdate = typeOfPlaceList.Find(t => t.TypeOfPlaceCode.Equals(newType.TypeOfPlaceCode));
+
+
+                if (typeToUpdate != null)
+                {
+                    // Update type information
+                    typeToUpdate.TypeOfPlaceDescription = newType.TypeOfPlaceDescription;
+                    typeToUpdate.TypeOfPlaceCode = newType.TypeOfPlaceCode;
+
+                    // Update in the database (assuming DBservices has an UpdateType method)
+                    DBservicesTypeOfPlace dbs = new DBservicesTypeOfPlace();
+                    return dbs.UpdateTypeOfPlace(typeToUpdate);
+                }
+                else
+                {
+                    // Type not found, handle the case appropriately (return null, throw an exception, etc.)
+                    return null; // Or throw new Exception("Type not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error updating type", ex);
+            }
+        }
+
+
+
+
     }
 }

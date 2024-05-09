@@ -103,10 +103,10 @@ namespace Make_a_move___Server.DAL
             cmd.Parameters.AddWithValue("@city", user.City);
             
             string PreferencesIdsS = JsonSerializer.Serialize(user.PreferencesIds);
-            cmd.Parameters.AddWithValue("@preference", PreferencesIdsS);
+            cmd.Parameters.AddWithValue("@preferencesIds", PreferencesIdsS);
 
             string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
-            cmd.Parameters.AddWithValue("@personalInterests", PersonalInterestsIdsS);
+            cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
             //Neta: need to check why user.PersonalInterest is not defined
 
             return cmd;
@@ -339,7 +339,8 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@gender", user.Gender);
 
-            cmd.Parameters.AddWithValue("@image", user.Image);
+            string images = JsonSerializer.Serialize(user.Image);
+            cmd.Parameters.AddWithValue("@image", images);
 
             cmd.Parameters.AddWithValue("@height", user.Height);
 
@@ -349,9 +350,11 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@city", user.City);
 
-            cmd.Parameters.AddWithValue("@preference", user.PreferencesIds);
+            string PreferencesIdsS = JsonSerializer.Serialize(user.PreferencesIds);
+            cmd.Parameters.AddWithValue("@preferencesIds", PreferencesIdsS);
 
-            cmd.Parameters.AddWithValue("@personalInterests", user.PersonalInterestsIds);
+            string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
+            cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
 
 
             return cmd;

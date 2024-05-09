@@ -46,5 +46,41 @@ namespace Make_a_move___Server.BL
                 throw new Exception("Error reading personalInterests", ex);
             }
         }
+
+
+        public PersonalInterests UpdatePersonalInterests(PersonalInterests newPersonalInterests)
+        {
+            try
+            {
+                // Find the personalInterests in the UsersList by email
+                //PersonalInterests personalInterestsToUpdate = personalInterestsList.Find(p => string.Equals(p.InterestDesc.Trim(), newPersonalInterests.InterestDesc.Trim(), StringComparison.OrdinalIgnoreCase));
+                PersonalInterests personalInterestsToUpdate = personalInterestsList.Find(p => p.InterestCode.Equals(newPersonalInterests.InterestCode));
+
+
+                if (personalInterestsToUpdate != null)
+                {
+                    // Update user information
+                    personalInterestsToUpdate.InterestCode = newPersonalInterests.InterestCode;
+                    personalInterestsToUpdate.InterestDesc = newPersonalInterests.InterestDesc;
+
+                    // Update in the database (assuming DBservices has an UpdateInterst method)
+                    DBservicesPersonalInterests dbs = new DBservicesPersonalInterests();
+                    return dbs.UpdatePersonalInterests(personalInterestsToUpdate);
+                }
+                else
+                {
+                    // Interst not found, handle the case appropriately (return null, throw an exception, etc.)
+                    return null; // Or throw new Exception("Interst not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error updating Interst", ex);
+            }
+        }
+
+
+
     }
 }

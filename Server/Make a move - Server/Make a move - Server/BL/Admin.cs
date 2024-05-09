@@ -73,7 +73,8 @@ namespace Make_a_move___Server.BL
             try
             {
                 // Find the user in the UsersList by email
-                Admin adminToUpdate = adminsList.Find(a => string.Equals(a.AdminName.Trim(), newAdmin.AdminName.Trim(), StringComparison.OrdinalIgnoreCase));
+                //Admin adminToUpdate = adminsList.Find(a => string.Equals(a.AdminName.Trim(), newAdmin.AdminName.Trim(), StringComparison.OrdinalIgnoreCase));
+                Admin adminToUpdate = adminsList.Find(a => a.AdminCode.Equals(newAdmin.AdminCode));
 
                 if (adminToUpdate != null)
                 {
