@@ -1,4 +1,7 @@
-﻿namespace Make_a_move___Server.BL
+﻿using Make_a_move___Server.DAL;
+using System;
+using System.Security.Cryptography.Xml;
+namespace Make_a_move___Server.BL
 {
     public class User
     {
@@ -12,11 +15,14 @@
         private DateTime birthday;
         private string phoneNumber;
         private bool isActive;
+        private string city;
+        private string [] preferencesIds;
+        private string[] personalInterestsIds;
         private static List<User> usersList = new List<User>();
 
         public User() { }
 
-        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive)
+        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, string[] personalInterestsIds, string[] preferencesIds)
         {
             this.email = email;
             this.firstName = firstName;
@@ -28,6 +34,9 @@
             this.birthday = birthday;
             this.phoneNumber = phoneNumber;
             this.isActive = isActive;
+            this.city = city;
+            this.preferencesIds = preferencesIds;
+            this.personalInterestsIds = personalInterestsIds;
         }
 
         public string Email { get => email; set => email = value; }
@@ -40,10 +49,13 @@
         public DateTime Birthday { get => birthday; set => birthday = value; }
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public bool IsActive { get => isActive; set => isActive = value; }
-    }
+        public string City { get => city; set => city = value; }
+        public string[] PersonalInterestsIds { get => personalInterestsIds; set => personalInterestsIds = value; }
+        public string[] PreferencesIds { get => preferencesIds; set => preferencesIds = value; }
 
 
-    public int InsertUser()
+
+        public int InsertUser()
     {
         try
         {
@@ -69,6 +81,60 @@
         {
             // Log or handle the exception appropriately
             throw new Exception("Error reading users", ex);
+        }
+    }
+        public User CheckLogin()
+        {
+            try
+            {
+                DBservicesUser dbs = new DBservicesUser();
+                return dbs.CheckLogin(this);
+            }
+            catch (Exception ex)
+            {
+                //    Log or handle the exception appropriately
+                throw new Exception("Error checking login", ex);
+            }
+        }
+        public User UpdateUser(User newUser)
+        {
+            try
+            {
+                // Find the user in the UsersList by email
+                User userToUpdate = usersList.Find(u => string.Equals(u.Email.Trim(), newUser.Email.Trim(), StringComparison.OrdinalIgnoreCase));
+
+                if (userToUpdate != null)
+                {
+                    // Update user information
+                    userToUpdate.FirstName = newUser.FirstName;
+                    userToUpdate.LastName = newUser.LastName;
+                    userToUpdate.Password = newUser.Password;
+                    userToUpdate.IsActive = newUser.IsActive;
+                    userToUpdate.gender = newUser.gender;
+                    userToUpdate.image = newUser.image;
+                    userToUpdate.height = newUser.height;
+                    userToUpdate.birthday = newUser.birthday;
+                    userToUpdate.phoneNumber = newUser.phoneNumber;
+                    userToUpdate.city = newUser.city;
+                    userToUpdate.preferencesIds = newUser.preferencesIds;
+                    userToUpdate.personalInterestsIds = newUser.personalInterestsIds;
+
+
+                    // Update in the database (assuming DBservices has an UpdateUser method)
+                    DBservicesUser dbs = new DBservicesUser();
+                    return dbs.UpdateUser(userToUpdate);
+                }
+                else
+                {
+                    // User not found, handle the case appropriately (return null, throw an exception, etc.)
+                    return null; // Or throw new Exception("User not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error updating user", ex);
+            }
         }
     }
 }

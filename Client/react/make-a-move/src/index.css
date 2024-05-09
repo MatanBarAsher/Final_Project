@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Inter:wght@100..900&display=swap");
+
+body {
+  direction: rtl;
+  margin: 0;
+  display: flex;
+  place-items: center;
+  font-family: "inter", "Heebo", "sans-serif";
+  min-width: 390px;
+  min-height: 100vh;
+  background: rgb(93, 53, 135);
+  background: linear-gradient(
+    180deg,
+    rgba(93, 53, 135, 1) 0%,
+    rgba(63, 46, 62, 1) 76%,
+    rgba(51, 29, 44, 1) 100%
+  );
+}
+
+p {
+  font-size: 20px;
+  margin: 10;
+}
+h1 {
+  color: #fff;
+  font-size: 36px;
+  font-weight: 400;
+}
+
+h3 {
+  color: white;
+  font-weight: 400;
+  margin: 0%;
+}
+
+button,
+input {
+  border: none;
+  box-shadow: none;
+}
+
+.main-btn {
+  border-radius: 16px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  background-color: #fff;
+  height: 55px;
+  width: 280px;
+  margin-bottom: 21px;
+}
+
+.logo {
+  height: 295;
+  width: 295;
+}
+.logoSM {
+  height: 150px;
+  width: 150px;
+}
+
+.text-inp,
+.select,
+option {
+  border-radius: 16px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  color: #989898;
+  height: 48px;
+  max-width: 315px;
+  min-width: 315px;
+  box-sizing: border-box;
+  background-color: #efe1d1;
+  padding: 0 20px;
+}
+
+.hamburger {
+  height: 55px;
+  width: 55px;
+  border-radius: 16px;
+  background-color: #efe1d1;
+}
+
+.map-container {
+  background-color: #331d2c;
+  min-width: 390px;
+  min-height: 844px;
+  padding: 0%;
+  margin: 0%;
+}
+
+.map {
+  background: rgba(0, 0, 0, 0.4);
+  min-width: 390px;
+  min-height: 844px;
+}
+
+.map-footer {
+  height: 145px;
+  width: 390px;
+  border-top: 2px solid white;
+  position: absolute;
+  bottom: 0;
+}
+
+.matchScore {
+  height: 64px;
+  width: 64px;
+  border-radius: 32px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #3c0753;
+  background-color: #efe1d1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.bottomP {
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  background-color: #3c0753;
+  color: white;
+  width: 390px;
+  height: 540px;
+  position: relative;
+  top: -25px;
+}
+
+.pBackground {
+  width: 390px;
+  height: 300px;
+  position: static;
+  top: 0px;
+  background-color: #efe1d1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  z-index: 1000; /* adjust as necessary to ensure it's on top */
+  pointer-events: none; /* allow clicks to pass through */
+}

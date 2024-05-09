@@ -27,13 +27,14 @@ CREATE TABLE [dbo].[TypeOfPlaceTable] (
 	PRIMARY KEY (typeOfPlaceCode)
 )
 
+drop table [dbo].[PreferencesTable]
 CREATE TABLE [dbo].[PreferencesTable] (
     [preferenceCode] smallint NOT NULL ,
-    [feedbackDescription] nvarchar (50) NOT NULL ,
+    [preferenceDescription] nvarchar (50) NOT NULL ,
     [firstOption] nvarchar (20) NOT NULL ,
-    [secontOption] nvarchar (20) NOT NULL ,
+    [secondOption] nvarchar (20) NOT NULL ,
     [thirdOption] nvarchar (20) NOT NULL ,
-    [fourthdOption] nvarchar (20) NOT NULL ,
+    [fourthOption] nvarchar (20) NOT NULL ,
     [required] bit NOT NULL ,
 	PRIMARY KEY (preferenceCode)
 )
