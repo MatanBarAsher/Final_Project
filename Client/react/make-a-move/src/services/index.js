@@ -1,1 +1,1 @@
-export * from "./makeAmoveUser.service"
+export * from "./makeAmoveUser.service";

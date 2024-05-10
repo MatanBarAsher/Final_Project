@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Make a move - Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d97a0bc649954e1f20e3ce8fec341fa04ec02a4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d19b41e5d3329778c8e2d64643fec2382165342a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Make a move - Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Make a move - Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

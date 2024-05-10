@@ -15,8 +15,6 @@ export default function FCProfileView({
   interests,
   aboutMe,
 }) {
-  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
-
   // need to use useAsync to cut the async await circular and to get the value from the async function. also have error and loading
   const { value: user } = useAsync(makeAmoveUserServer.getAllUsers, []);
   console.log({ user });
@@ -29,10 +27,6 @@ export default function FCProfileView({
     [user]
   );
   console.log({ updatedUser });
-
-  const toggleOverlay = () => {
-    setIsOverlayVisible(!isOverlayVisible);
-  };
 
   return (
     <div className="overlay">

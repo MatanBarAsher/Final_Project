@@ -27,7 +27,8 @@ h1 {
   font-weight: 400;
 }
 
-h3 {
+h3,
+h2 {
   color: white;
   font-weight: 400;
   margin: 0%;
@@ -164,4 +165,44 @@ option {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.side-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  width: 390px;
+}
+
+.upper-side-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 20px;
+}
+
+.p-image {
+  background-color: #efe1d1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.side-menu-option {
+  display: flex;
+  color: white;
+  height: 30px;
+  width: 30px;
+  margin: 0;
+  flex: 100%;
+}
+
+.lower-side-menu {
+  flex: 100%;
+  display: flex;
+}
+
+.footer-side-menu {
+  flex: 100%;
 }
