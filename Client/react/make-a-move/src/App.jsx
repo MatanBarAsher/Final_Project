@@ -12,7 +12,14 @@ function App() {
       {/* <FCSignIn /> */}
       {/* <FCLocation /> */}
       {/* <FCMap /> */}
-      <FCProfileView />
+      <FCProfileView
+        name={"מתן בר אשר"}
+        age={26}
+        city={"חרב לאת"}
+        height={180}
+        interests={"אופנועים, קפה, כדורגל"}
+        aboutMe={"jdnvksdjnv;pdsjnv;k"}
+      />
     </>
   );
 }
