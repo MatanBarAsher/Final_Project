@@ -36,6 +36,12 @@ namespace Make_a_move___Server.Controllers
             return user.UpdateUser(user);
         }
 
+        [HttpPut("UpdatePlace")]
+        public User UpdateUserCurrentPlace([FromBody] User user)
+        {
+            return user.UpdateUserCurrentPlace(user);
+        }
+
 
     }
 }

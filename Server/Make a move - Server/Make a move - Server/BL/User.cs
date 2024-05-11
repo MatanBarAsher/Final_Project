@@ -18,11 +18,12 @@ namespace Make_a_move___Server.BL
         private string city;
         private string [] preferencesIds;
         private string[] personalInterestsIds;
+        private string currentPlace;
         private static List<User> usersList = new List<User>();
 
         public User() { }
 
-        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, string[] personalInterestsIds, string[] preferencesIds)
+        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, string[] personalInterestsIds, string[] preferencesIds, string currentPlace)
         {
             this.email = email;
             this.firstName = firstName;
@@ -37,6 +38,7 @@ namespace Make_a_move___Server.BL
             this.city = city;
             this.preferencesIds = preferencesIds;
             this.personalInterestsIds = personalInterestsIds;
+            this.currentPlace = currentPlace;
         }
 
         public string Email { get => email; set => email = value; }
@@ -53,7 +55,7 @@ namespace Make_a_move___Server.BL
         public string[] PersonalInterestsIds { get => personalInterestsIds; set => personalInterestsIds = value; }
         public string[] PreferencesIds { get => preferencesIds; set => preferencesIds = value; }
 
-
+        public string CurrentPlace { get => currentPlace; set => currentPlace = value; }
 
         public int InsertUser()
     {
@@ -121,6 +123,9 @@ namespace Make_a_move___Server.BL
                     userToUpdate.city = newUser.city;
                     userToUpdate.preferencesIds = newUser.preferencesIds;
                     userToUpdate.personalInterestsIds = newUser.personalInterestsIds;
+                    userToUpdate.currentPlace = newUser.currentPlace;
+
+                
 
 
                     // Update in the database (assuming DBservices has an UpdateUser method)
@@ -139,5 +144,45 @@ namespace Make_a_move___Server.BL
                 throw new Exception("Error updating user", ex);
             }
         }
+
+
+
+        public User UpdateUserCurrentPlace(User newUser)
+        {
+            try
+            {
+                DBservicesUser dbs1 = new DBservicesUser();
+                List<User> list = dbs1.ReadUsers();
+                // Find the user in the UsersList by email
+                User userToUpdate = list.Find(u => string.Equals(u.Email.Trim(), newUser.Email.Trim(), StringComparison.OrdinalIgnoreCase));
+
+
+                if (userToUpdate != null)
+                {
+                    // Update the currentPlace field
+                    userToUpdate.CurrentPlace = newUser.CurrentPlace;
+
+                    // Update in the database
+                    DBservicesUser dbs = new DBservicesUser();
+                    dbs.UpdateUserCurrentPlace(userToUpdate);
+
+                    return userToUpdate;
+                }
+                else
+                {
+                    // User not found, handle the case appropriately (return null, throw an exception, etc.)
+                    return null; // Or throw new Exception("User not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error updating user", ex);
+            }
+        }
+
+
+
+
     }
 }
