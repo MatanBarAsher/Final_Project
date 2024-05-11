@@ -156,7 +156,7 @@ namespace Make_a_move___Server.DAL
                     u.City = dataReader["city"].ToString();
                     u.PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString());
                     u.PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString());
-                    u.CurrentPlace = dataReader["currentPlace"].ToString();
+                    u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]);
                     //u.City = new City
                     //{
                     //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
@@ -262,7 +262,7 @@ namespace Make_a_move___Server.DAL
                         City = dataReader["city"].ToString(),
                         PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
                         PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString()),
-                        CurrentPlace = dataReader["currentPlace"].ToString(),
+                        CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
                     //City = new City
                     //{
                     //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
@@ -411,7 +411,7 @@ namespace Make_a_move___Server.DAL
                         City = dataReader["city"].ToString(),
                         PreferencesIds = ((string[])dataReader["preferencesIds"]),
                         PersonalInterestsIds = ((string[])dataReader["personalInterestsIds"]),
-                        CurrentPlace = dataReader["currentPlace"].ToString(),
+                        CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
                         //City = new City
                         //{
                         //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
@@ -634,7 +634,7 @@ namespace Make_a_move___Server.DAL
                     //    InterestDesc = dataReader["interestDesc"].ToString(),
                     //};
 
-                    if (u.currentPlace == placeToLook)
+                    if (Convert.ToInt32(dataReader["currentPlace"]) == placeToLook)
                     {
                         usersList.Add(u);
                     }

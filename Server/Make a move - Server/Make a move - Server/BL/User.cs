@@ -18,12 +18,12 @@ namespace Make_a_move___Server.BL
         private string city;
         private string [] preferencesIds;
         private string[] personalInterestsIds;
-        private string currentPlace;
+        private int currentPlace;
         private static List<User> usersList = new List<User>();
 
         public User() { }
 
-        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, string[] personalInterestsIds, string[] preferencesIds, string currentPlace)
+        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, string[] personalInterestsIds, string[] preferencesIds, int currentPlace)
         {
             this.email = email;
             this.firstName = firstName;
@@ -55,7 +55,7 @@ namespace Make_a_move___Server.BL
         public string[] PersonalInterestsIds { get => personalInterestsIds; set => personalInterestsIds = value; }
         public string[] PreferencesIds { get => preferencesIds; set => preferencesIds = value; }
 
-        public string CurrentPlace { get => currentPlace; set => currentPlace = value; }
+        public int CurrentPlace { get => currentPlace; set => currentPlace = value; }
 
         public int InsertUser()
     {
@@ -145,13 +145,6 @@ namespace Make_a_move___Server.BL
             }
         }
 
-        public List<User> ReadUsersByPlace(int placeCode)
-        {
-            try
-            {
-                DBservicesUser dbs = new DBservicesUser();
-                return dbs.ReadUsersByPlace();
-
 
         public User UpdateUserCurrentPlace(User newUser)
         {
@@ -186,7 +179,19 @@ namespace Make_a_move___Server.BL
                 throw new Exception("Error updating user", ex);
             }
         }
-
+        public List<User> ReadUsersByPlace(int placeCode)
+        {
+            try
+            {
+                DBservicesUser dbs = new DBservicesUser();
+                return dbs.ReadUsersByPlace();
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error reading users", ex);
+            }
+        }
 
 
 
