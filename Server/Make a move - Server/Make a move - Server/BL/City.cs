@@ -51,8 +51,10 @@ namespace Make_a_move___Server.BL
         {
             try
             {
+                DBservicesCity dbs1 = new DBservicesCity();
+                List<City> list = dbs1.ReadCities();
                 // Find the user in the UsersList by email
-                City cityToUpdate = citiesList.Find(c => c.CityCode.Equals(newCity.CityCode));
+                City cityToUpdate = list.Find(c => c.CityCode.Equals(newCity.CityCode));
 
 
                 if (cityToUpdate != null)

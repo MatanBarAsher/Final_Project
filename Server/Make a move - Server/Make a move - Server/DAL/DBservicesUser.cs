@@ -107,8 +107,10 @@ namespace Make_a_move___Server.DAL
 
             string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
             cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
-            //Neta: need to check why user.PersonalInterest is not defined
 
+            cmd.Parameters.AddWithValue("@currentPlace", user.CurrentPlace);
+
+            
             return cmd;
         }
 
@@ -154,7 +156,7 @@ namespace Make_a_move___Server.DAL
                     u.City = dataReader["city"].ToString();
                     u.PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString());
                     u.PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString());
-
+                    u.CurrentPlace = dataReader["currentPlace"].ToString();
                     //u.City = new City
                     //{
                     //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
@@ -260,6 +262,7 @@ namespace Make_a_move___Server.DAL
                         City = dataReader["city"].ToString(),
                         PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
                         PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString()),
+                        CurrentPlace = dataReader["currentPlace"].ToString(),
                     //City = new City
                     //{
                     //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
@@ -358,6 +361,8 @@ namespace Make_a_move___Server.DAL
             string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
             cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
 
+            cmd.Parameters.AddWithValue("@currentPlace", user.CurrentPlace);
+
 
             return cmd;
         }
@@ -406,6 +411,7 @@ namespace Make_a_move___Server.DAL
                         City = dataReader["city"].ToString(),
                         PreferencesIds = ((string[])dataReader["preferencesIds"]),
                         PersonalInterestsIds = ((string[])dataReader["personalInterestsIds"]),
+                        CurrentPlace = dataReader["currentPlace"].ToString(),
                         //City = new City
                         //{
                         //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
@@ -474,6 +480,92 @@ namespace Make_a_move___Server.DAL
             cmd.Parameters.AddWithValue("@inputPassword", user.Password);
             return cmd;
         }
+
+        public void UpdateUserCurrentPlace(User user)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            cmd = CreateUpdateUserCurrentPlaceCommand("SP_UpdateUserCurrentPlace", con, user); // create the command
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        //---------------------------------------------------------------------------------
+        // Create the SqlCommand for updating current place using a stored procedure
+        //---------------------------------------------------------------------------------
+        private SqlCommand CreateUpdateUserCurrentPlaceCommand(string spName, SqlConnection con, User user)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;      // stored procedure name
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution, default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+            cmd.Parameters.AddWithValue("@email", user.Email);
+
+            cmd.Parameters.AddWithValue("@firstName", user.FirstName);
+
+            cmd.Parameters.AddWithValue("@lastName", user.LastName);
+
+            cmd.Parameters.AddWithValue("@password", user.Password);
+
+            cmd.Parameters.AddWithValue("@gender", user.Gender);
+
+            string images = JsonSerializer.Serialize(user.Image);
+            cmd.Parameters.AddWithValue("@image", images);
+
+            cmd.Parameters.AddWithValue("@height", user.Height);
+
+            cmd.Parameters.AddWithValue("@birthday", user.Birthday);
+
+            cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
+
+            cmd.Parameters.AddWithValue("isActive", user.IsActive);
+
+            cmd.Parameters.AddWithValue("@city", user.City);
+
+            string PreferencesIdsS = JsonSerializer.Serialize(user.PreferencesIds);
+            cmd.Parameters.AddWithValue("@preferencesIds", PreferencesIdsS);
+
+            string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
+            cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
+
+            cmd.Parameters.AddWithValue("@currentPlace", user.CurrentPlace);
+
+            return cmd;
+        }
+
+
 
 
         // Reading users by place
