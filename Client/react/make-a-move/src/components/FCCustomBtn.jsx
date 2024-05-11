@@ -1,13 +1,11 @@
 import React from "react";
 import Button from "@mui/material/Button";
 
-const FCCustomBtn = ({ title, mt }) => {
+const FCCustomBtn = ({ title, mt, ...other }) => {
   return (
-    <>
-      <button className="main-btn" style={{ marginTop: mt }}>
-        {title}
-      </button>
-    </>
+    <button className="main-btn" style={{ marginTop: mt }} {...other}>
+      {title}
+    </button>
   );
 };
 
