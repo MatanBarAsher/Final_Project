@@ -252,7 +252,7 @@ namespace Make_a_move___Server.DAL
                         Password = dataReader["password"].ToString(),
                         Image = JsonSerializer.Deserialize<string[]>(dataReader["image"].ToString()),
                     //Image = dataReader["image"].ToString(),
-                    Gender = Convert.ToInt32(dataReader["gender"]),
+                        Gender = Convert.ToInt32(dataReader["gender"]),
                         Height = Convert.ToInt32(dataReader["height"]),
                         Birthday = Convert.ToDateTime(dataReader["birthday"]),
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
@@ -347,6 +347,8 @@ namespace Make_a_move___Server.DAL
             cmd.Parameters.AddWithValue("@birthday", user.Birthday);
 
             cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
+
+            cmd.Parameters.AddWithValue("isActive", user.IsActive);
 
             cmd.Parameters.AddWithValue("@city", user.City);
 
