@@ -67,8 +67,10 @@ namespace Make_a_move___Server.BL
         {
             try
             {
-                // Find the Feedback in the FeedbacksList by email
-                Feedback feedbackToUpdate = feedbacksList.Find(f => f.SerialNumber.Equals(newFeedback.SerialNumber));
+                // Find the Feedback in the FeedbacksList by SerialNumber
+                DBservicesFeedback dbs1 = new DBservicesFeedback();
+                List<Feedback> list = dbs1.ReadFeedback();
+                Feedback feedbackToUpdate = list.Find(f => f.SerialNumber.Equals(newFeedback.SerialNumber));
 
 
 

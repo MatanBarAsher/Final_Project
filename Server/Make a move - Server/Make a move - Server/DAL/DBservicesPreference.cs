@@ -83,11 +83,11 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@preferenceCode", preference.PreferenceCode);
             cmd.Parameters.AddWithValue("@preferenceDescription", preference.PreferenceDescription);
-            cmd.Parameters.AddWithValue("@firstOption", preference.FirstOption);
-            cmd.Parameters.AddWithValue("@secondOption", preference.SecondOption);
-            cmd.Parameters.AddWithValue("@thirdOption", preference.ThirdOption);
-            cmd.Parameters.AddWithValue("@fourthOption", preference.FourthOption);
-            cmd.Parameters.AddWithValue("@required", preference.Required);
+            //cmd.Parameters.AddWithValue("@firstOption", preference.FirstOption);
+            //cmd.Parameters.AddWithValue("@secondOption", preference.SecondOption);
+            //cmd.Parameters.AddWithValue("@thirdOption", preference.ThirdOption);
+            //cmd.Parameters.AddWithValue("@fourthOption", preference.FourthOption);
+            //cmd.Parameters.AddWithValue("@required", preference.Required);
 
             return cmd;
         }
@@ -123,11 +123,11 @@ namespace Make_a_move___Server.DAL
                     Preference p = new Preference();
                     p.PreferenceCode = Convert.ToInt32(dataReader["preferenceCode"]);
                     p.PreferenceDescription = dataReader["preferenceDescription"].ToString();
-                    p.FirstOption = dataReader["firstOption"].ToString();
-                    p.SecondOption = dataReader["secondOption"].ToString();
-                    p.ThirdOption = dataReader["thirdOption"].ToString();
-                    p.FourthOption = dataReader["fourthOption"].ToString();
-                    p.Required = Convert.ToBoolean(dataReader["required"]);
+                    //p.FirstOption = dataReader["firstOption"].ToString();
+                    //p.SecondOption = dataReader["secondOption"].ToString();
+                    //p.ThirdOption = dataReader["thirdOption"].ToString();
+                    //p.FourthOption = dataReader["fourthOption"].ToString();
+                    //p.Required = Convert.ToBoolean(dataReader["required"]);
 
 
 
@@ -204,11 +204,11 @@ namespace Make_a_move___Server.DAL
                     {
                         PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
                         PreferenceDescription = dataReader["preferenceDescription"].ToString(),
-                        FirstOption = dataReader["firstOption"].ToString(),
-                        SecondOption = dataReader["secondOption"].ToString(),
-                        ThirdOption = dataReader["thirdOption"].ToString(),
-                        FourthOption = dataReader["FourthOption"].ToString(),
-                        Required = Convert.ToBoolean(dataReader["required"])
+                        //FirstOption = dataReader["firstOption"].ToString(),
+                        //SecondOption = dataReader["secondOption"].ToString(),
+                        //ThirdOption = dataReader["thirdOption"].ToString(),
+                        //FourthOption = dataReader["FourthOption"].ToString(),
+                        //Required = Convert.ToBoolean(dataReader["required"])
 
                     };
                 }
@@ -260,11 +260,11 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@preferenceCode", preference.PreferenceCode);
             cmd.Parameters.AddWithValue("@preferenceDescription", preference.PreferenceDescription);
-            cmd.Parameters.AddWithValue("@firstOption", preference.FirstOption);
-            cmd.Parameters.AddWithValue("@secondOption", preference.SecondOption);
-            cmd.Parameters.AddWithValue("@thirdOption", preference.ThirdOption);
-            cmd.Parameters.AddWithValue("@fourthOption", preference.FourthOption);
-            cmd.Parameters.AddWithValue("@required", preference.Required);
+            //cmd.Parameters.AddWithValue("@firstOption", preference.FirstOption);
+            //cmd.Parameters.AddWithValue("@secondOption", preference.SecondOption);
+            //cmd.Parameters.AddWithValue("@thirdOption", preference.ThirdOption);
+            //cmd.Parameters.AddWithValue("@fourthOption", preference.FourthOption);
+            //cmd.Parameters.AddWithValue("@required", preference.Required);
 
 
             return cmd;
