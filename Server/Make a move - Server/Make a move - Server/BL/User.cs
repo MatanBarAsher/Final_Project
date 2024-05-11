@@ -1,6 +1,8 @@
 ﻿using Make_a_move___Server.DAL;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Security.Cryptography.Xml;
+using System.Xml.Linq;
 namespace Make_a_move___Server.BL
 {
     public class User
@@ -16,10 +18,11 @@ namespace Make_a_move___Server.BL
         private string phoneNumber;
         private bool isActive;
         private string city;
-        private string [] preferencesIds;
+        private string[] preferencesIds;
         private string[] personalInterestsIds;
         private string currentPlace;
         private static List<User> usersList = new List<User>();
+        private static Dictionary<string, string> usersDictionary = new Dictionary<string, string>();
 
         public User() { }
 
@@ -58,33 +61,33 @@ namespace Make_a_move___Server.BL
         public string CurrentPlace { get => currentPlace; set => currentPlace = value; }
 
         public int InsertUser()
-    {
-        try
         {
-            DBservicesUser dbs = new DBservicesUser();
-            usersList.Add(this);
-            return dbs.InsertUser(this);
+            try
+            {
+                DBservicesUser dbs = new DBservicesUser();
+                usersList.Add(this);
+                return dbs.InsertUser(this);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error inserting user", ex);
+            }
         }
-        catch (Exception ex)
-        {
-            // Log or handle the exception appropriately
-            throw new Exception("Error inserting user", ex);
-        }
-    }
 
-    public List<User> ReadUsers()
-    {
-        try
+        public List<User> ReadUsers()
         {
-            DBservicesUser dbs = new DBservicesUser();
-            return dbs.ReadUsers();
+            try
+            {
+                DBservicesUser dbs = new DBservicesUser();
+                return dbs.ReadUsers();
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error reading users", ex);
+            }
         }
-        catch (Exception ex)
-        {
-            // Log or handle the exception appropriately
-            throw new Exception("Error reading users", ex);
-        }
-    }
         public User CheckLogin()
         {
             try
@@ -125,7 +128,7 @@ namespace Make_a_move___Server.BL
                     userToUpdate.personalInterestsIds = newUser.personalInterestsIds;
                     userToUpdate.currentPlace = newUser.currentPlace;
 
-                
+
 
 
                     // Update in the database (assuming DBservices has an UpdateUser method)
@@ -181,6 +184,57 @@ namespace Make_a_move___Server.BL
             }
         }
 
+        public void AddToDictionary(string secondEmail)
+        {
+            try
+            {
+                usersDictionary.Add(this.Email, secondEmail);
+            }
+            catch (ArgumentException ex)
+            {
+                // Handle the case where the key already exists in the dictionary
+                // You can log the error or handle it as needed
+                throw new Exception("User with the same email already exists in the dictionary.", ex);
+            }
+        }
+
+        // Method to remove a user from the dictionary
+        public void RemoveFromDictionary()
+        {
+            usersDictionary.Remove(this.Email);
+        }
+
+        // Method to get the second user's email from the dictionary by the first user's email
+        public static string getseconduseremail(string firstuseremail)
+        {
+            if (usersDictionary.ContainsKey(firstuseremail))
+            {
+                return usersDictionary[firstuseremail];
+            }
+            else
+            {
+                // handle the case where the user with the specified email is not found
+                // you can return null or throw an exception as needed
+                return null; // or throw new exception("user not found in the dictionary.");
+            }
+        }
+
+        public static bool SearchUserByEmail(string email, string valueToCheck)
+        {
+            if (usersDictionary.TryGetValue(email, out string value))
+            {
+                return value == valueToCheck;
+            }
+            else
+            {
+                // Handle the case where the user with the specified email is not found
+                return false;
+            }
+        }
+        public static Dictionary<string, string> GetDictionary()
+        {
+            return usersDictionary;
+        }
 
 
 
