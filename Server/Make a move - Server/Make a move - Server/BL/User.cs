@@ -139,5 +139,19 @@ namespace Make_a_move___Server.BL
                 throw new Exception("Error updating user", ex);
             }
         }
+
+        public List<User> ReadUsersByPlace(int placeCode)
+        {
+            try
+            {
+                DBservicesUser dbs = new DBservicesUser();
+                return dbs.ReadUsersByPlace();
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error reading users", ex);
+            }
+        }
     }
 }

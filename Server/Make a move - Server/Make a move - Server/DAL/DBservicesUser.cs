@@ -476,8 +476,116 @@ namespace Make_a_move___Server.DAL
         }
 
 
+        // Reading users by place
+            
 
 
+        public List<User> ReadUsersByPlace(int placeToLook)
+        {
+
+            SqlConnection con;
+            SqlCommand cmd;
+            List<User> usersList = new List<User>();
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            cmd = CreateSelectUserByPlaceWithStoredProcedure("SP_ReadUsersByPlace", con);             // create the command
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    User u = new User();
+                    u.Email = dataReader["email"].ToString();
+                    u.FirstName = dataReader["firstName"].ToString();
+                    u.LastName = dataReader["lastName"].ToString();
+                    u.Password = dataReader["password"].ToString();
+                    u.Image = JsonSerializer.Deserialize<string[]>(dataReader["image"].ToString());
+                    u.Gender = Convert.ToInt32(dataReader["gender"]);
+                    u.Height = Convert.ToInt32(dataReader["height"]);
+                    u.Birthday = Convert.ToDateTime(dataReader["birthday"]);
+                    u.PhoneNumber = dataReader["phoneNumber"].ToString();
+                    u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
+                    u.City = dataReader["city"].ToString();
+                    u.PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString());
+                    u.PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString());
+                    u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]); ;
+
+                    //u.City = new City
+                    //{
+                    //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
+                    //    CityName = dataReader["cityName"].ToString()
+                    //};
+                    //u.Preference = new Preference
+                    //{
+                    //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
+                    //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
+                    //    FirstOption = dataReader["firstOption"].ToString(),
+                    //    SecondOption = dataReader["secondOption"].ToString(),
+                    //    ThirdOption = dataReader["thirdOption"].ToString(),
+                    //    FourthOption = dataReader["FourthOption"].ToString(),
+                    //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
+                    //};
+                    //u.personalInterests = new PersonalInterests
+                    //{
+                    //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
+                    //    InterestDesc = dataReader["interestDesc"].ToString(),
+                    //};
+
+                    if (u.currentPlace == placeToLook)
+                    {
+                        usersList.Add(u);
+                    }
+
+                }
+                return usersList;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+        }
+        //---------------------------------------------------------------------------------
+        // Create the SqlCommand using a stored procedure
+        //---------------------------------------------------------------------------------
+        private SqlCommand CreateSelectUserByPlaceWithStoredProcedure(String spName, SqlConnection con, int placeCode)
+        {
+
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+
+            cmd.Parameters.AddWithValue("@currentPlace", placeCode);
+
+            return cmd;
+        }
 
     }
 }
