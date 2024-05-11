@@ -5,7 +5,15 @@ export default function FCCustomX(color) {
   return (
     <button
       className="x-btn"
-      style={{ background: "none", color: color, height: 30, width: 30 }}
+      style={{
+        background: "none",
+        color: "white",
+        height: 30,
+        width: 30,
+        position: "absolute",
+        top: 15,
+        right: 15,
+      }}
     >
       <CloseIcon />
     </button>

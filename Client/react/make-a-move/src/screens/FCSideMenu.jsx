@@ -4,6 +4,7 @@ import background from "../assets/images/Matan.jpg";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
+import WavingHandOutlinedIcon from "@mui/icons-material/WavingHandOutlined";
 
 export default function FCSideMenu({ name, image }) {
   return (
@@ -17,7 +18,7 @@ export default function FCSideMenu({ name, image }) {
             backgroundImage: `url(${background})`,
             height: 100,
             width: 100,
-            border: "2px solid white",
+            border: "4px solid white",
             borderRadius: "50%",
           }}
         ></div>
@@ -36,7 +37,12 @@ export default function FCSideMenu({ name, image }) {
           <p>המלצות</p>
         </a>
       </div>
-      <div className="footer-side-menu">asc</div>
+      <div className="footer-side-menu">
+        <a className="side-menu-option">
+          <WavingHandOutlinedIcon color="white" />
+          <p>התנתקות</p>
+        </a>
+      </div>
     </div>
   );
 }
