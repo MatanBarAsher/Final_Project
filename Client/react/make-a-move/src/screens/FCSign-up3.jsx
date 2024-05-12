@@ -30,23 +30,30 @@ export default function FCSignUp3() {
   };
   return (
     <>
-      <h1>פרופיל</h1>
-      <p className="signup2-p">מה את/ה אוהב/ת לעשות בזמנך הפנוי?</p>
-      <FCCustomDd />
-      <p className="signup2-p">
-        ספר/י לנו קצת על עצמך:
-        <span style={{ fontWeight: "200" }}>
-          <br /> מה את/ה אוהב/ת לשתות?
-          <br />
-          איפה את/ה אוהב/ת לבלות?
-          <br /> מעשנ/ת?
-          <br /> אוהב/ת בע’’ח?
-          <br /> וכל דבר נוסף...
-        </span>
-      </p>
-      <FCCustomTxtInp className="description-inp" ph="כאן מספרים..." />
+      <form onSubmit={setCreateUser}>
+        <h1>פרופיל</h1>
+        <p className="signup2-p">מה את/ה אוהב/ת לעשות בזמנך הפנוי?</p>
+        <FCCustomDd onChange={handlePersonalInterestsIdsCreation} required />
+        <p className="signup2-p">
+          ספר/י לנו קצת על עצמך:
+          <span style={{ fontWeight: "200" }}>
+            <br /> מה את/ה אוהב/ת לשתות?
+            <br />
+            איפה את/ה אוהב/ת לבלות?
+            <br /> מעשנ/ת?
+            <br /> אוהב/ת בע’’ח?
+            <br /> וכל דבר נוסף...
+          </span>
+        </p>
+        <FCCustomTxtInp
+          className="description-inp"
+          ph="כאן מספרים..."
+          onChange={handleDescriptionCreation}
+          required
+        />
 
-      <FCCustomBtn title={"סיום"} onClick={setCreateUser} />
+        <FCCustomBtn type="submit" title={"סיום"} />
+      </form>
     </>
   );
 }
