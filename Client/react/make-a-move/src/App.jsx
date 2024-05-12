@@ -1,12 +1,8 @@
 import "./App.css";
 import FCLocation from "./screens/FCLocation";
-import FCMap from "./screens/FCMap";
-import FCMatchList from "./screens/FCMatchList";
 import FCProfileView from "./screens/FCProfileView";
-import FCSideMenu from "./screens/FCSideMenu";
 import FCSignIn from "./screens/FCSign-in";
 import FCWellcome from "./screens/FCWellcome";
-import FCLogin from "./screens/FCLogin";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import FCSignUp1 from "./screens/FCSign-up1";
 import FCSignUp2 from "./screens/FCSign-up2";

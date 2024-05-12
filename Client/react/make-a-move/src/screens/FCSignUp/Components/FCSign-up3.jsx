@@ -1,16 +1,25 @@
 import React, { useState } from "react";
 import FCCustomBtn from "../components/FCCustomBtn";
+import logo from "../assets/images/Logo.png";
+import { makeAmoveUserServer } from "../services";
 import { useNavigate } from "react-router-dom";
-
+import FCCustomMailInp from "../components/FCCustomMailInp";
+import FCCustomPasswordInp from "../components/FCCustomPasswordInp";
 import FCCustomTxtInp from "../components/FCCustomTxtInp";
-import { FCMultiSelect } from "../components/MultiSelect/FCMultiSelect";
-import { PERSONAL_INTERESTS } from "../constants";
+import FCCustomDd from "../components/FCCustomDd";
+import FCCustomDateInp from "../components/FCCustomDateInp";
+import FCCustomNumberInp from "../components/FCCustomNumberInp";
+import { text } from "@fortawesome/fontawesome-svg-core";
+import { Height } from "@mui/icons-material";
 
-export default function FCSignUp3() {
+export const FCSignUp3 = () => {
   const navigate = useNavigate("");
-  const [PersonalInterestsIds, setPersonalInterestsIds] = useState([]);
+  const [PersonalInterestsIds, setPersonalInterestsIds] = useState();
   const [Description, setDescription] = useState();
 
+  const handlePersonalInterestsIdsCreation = (e) => {
+    setPersonalInterestsIds(e.target.value);
+  };
   const handleDescriptionCreation = (e) => {
     setDescription(e.target.value);
   };
@@ -24,12 +33,7 @@ export default function FCSignUp3() {
       <form onSubmit={setCreateUser}>
         <h1>פרופיל</h1>
         <p className="signup2-p">מה את/ה אוהב/ת לעשות בזמנך הפנוי?</p>
-        <FCMultiSelect
-          label="תחומי עיניין"
-          options={PERSONAL_INTERESTS}
-          setValue={setPersonalInterestsIds}
-          value={PersonalInterestsIds}
-        />
+        <FCCustomDd onChange={handlePersonalInterestsIdsCreation} required />
         <p className="signup2-p">
           ספר/י לנו קצת על עצמך:
           <span style={{ fontWeight: "200" }}>
@@ -52,4 +56,4 @@ export default function FCSignUp3() {
       </form>
     </>
   );
-}
+};
