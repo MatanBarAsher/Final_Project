@@ -216,3 +216,51 @@ option {
   display: flex;
   padding: 0 30px;
 }
+
+.signup-p {
+  color: white;
+  margin: 10;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.signup2-p {
+  color: white;
+  margin: 20px 7px 0 0;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.gender-inp {
+  display: flex;
+  margin-top: 30px;
+  justify-content: center;
+}
+
+.gender-inp > span {
+  flex: 30%;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+input[name="gender"] {
+  accent-color: #efe1d1;
+}
+
+.description-inp {
+  height: 150px;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  color: #989898;
+  max-width: 315px;
+  min-width: 315px;
+  box-sizing: border-box;
+  background-color: #efe1d1;
+  padding: 0 20px;
+  margin: 10px 0 50px 0;
+}

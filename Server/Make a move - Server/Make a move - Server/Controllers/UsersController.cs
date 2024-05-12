@@ -26,9 +26,9 @@ namespace Make_a_move___Server.Controllers
         }
 
         [HttpPost("Login")]
-        public bool CheckLogin([FromBody] LoginCredentials credentials)
+        public User CheckLogin([FromBody] User user)
         {
-            return true;
+            return user.CheckLogin();
         }
 
         [HttpPut("Update")]

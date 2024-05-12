@@ -28,11 +28,23 @@ export const makeAmoveUserServer = {
         console.error("Error update user:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
-  login: ({ phone, password }) =>
+  login: ({ email, password }) =>
     axios
-      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/login`, {
-        phone,
-        password,
+      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/Login`, {
+        email: email,
+        firstName: "string",
+        lastName: "string",
+        password: password,
+        gender: 0,
+        image: ["string"],
+        height: 0,
+        birthday: "2024-05-12T09:32:10.166Z",
+        phoneNumber: "string",
+        isActive: true,
+        city: "string",
+        personalInterestsIds: ["string"],
+        preferencesIds: ["string"],
+        currentPlace: 0,
       })
       .then((res) => res.data) //returning data
       .catch((error) => {

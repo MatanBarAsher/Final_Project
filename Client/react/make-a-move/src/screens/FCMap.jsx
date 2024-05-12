@@ -1,12 +1,14 @@
 import React from "react";
 import FCHamburger from "../components/FCHamburger";
 import locationPin from "../assets/images/locationPin1.png";
+import WomanIcon from "@mui/icons-material/Woman";
+import ManIcon from "@mui/icons-material/Man";
 
 export default function FCMap({ location }) {
-  const male = "";
-  const seenMale = "";
-  const female = "";
-  const seenFemale = "";
+  const male = <ManIcon />;
+  const seenMale = <ManIcon color="white" />;
+  const female = <WomanIcon />;
+  const seenFemale = <WomanIcon color="white" />;
 
   return (
     <div className="map-container">

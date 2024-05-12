@@ -7,17 +7,23 @@ import { useNavigate } from "react-router-dom";
 
 const FCSignIn = () => {
   const navigate = useNavigate("");
-  const [phone, setPhone] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
-  const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
   const login = (e) => {
     console.log("user requested to signin");
-    makeAmoveUserServer.login({ phone, password: "12345" }).then((response) => {
-      if (response === true) {
+    makeAmoveUserServer.login({ email, password }).then((response) => {
+      if (response) {
         console.log("success");
+        console.log(response);
         navigate("/location");
       } else {
         console.log("failure");
@@ -29,7 +35,11 @@ const FCSignIn = () => {
     <span>
       <img src={logo} className="logoSM" />
       <h1>התחברות</h1>
-      <FCCustomTxtInp ph={"מס' טלפון"} onChange={handlePhoneChange} />
+      <FCCustomTxtInp ph={"דוא''ל"} onChange={handleEmailChange} />
+      <br />
+      <br />
+
+      <FCCustomTxtInp ph={"סיסמה"} onChange={handlePasswordChange} />
       {/* <p style={{ color: "white" }}>או</p> */}
       {/* <FCCustomBtn title={"התחברות באמצעות דוא''ל"} /> */}
       <FCCustomBtn title={"התחברות"} onClick={login} />

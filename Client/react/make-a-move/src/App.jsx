@@ -8,6 +8,9 @@ import FCSignIn from "./screens/FCSign-in";
 import FCWellcome from "./screens/FCWellcome";
 import FCLogin from "./screens/FCLogin";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import FCSignUp1 from "./screens/FCSign-up1";
+import FCSignUp2 from "./screens/FCSign-up2";
+import FCSignUp3 from "./screens/FCSign-up3";
 
 function App() {
   return (
@@ -15,7 +18,9 @@ function App() {
       <Routes>
         <Route path="/" element={<FCWellcome />} />
         <Route path="/signin" element={<FCSignIn />} />
-        <Route path="/login" element={<FCLogin />} />
+        <Route path="/signup1" element={<FCSignUp1 />} />
+        <Route path="/signup2" element={<FCSignUp2 />} />
+        <Route path="/signup3" element={<FCSignUp3 />} />
         <Route
           path="/profile"
           element={

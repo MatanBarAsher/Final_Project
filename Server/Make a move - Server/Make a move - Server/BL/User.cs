@@ -218,7 +218,8 @@ namespace Make_a_move___Server.BL
             {
                 return true;
             }
-                return false;
+            return false;
+        }
         public void AddToDictionary(string secondEmail)
         {
             try
