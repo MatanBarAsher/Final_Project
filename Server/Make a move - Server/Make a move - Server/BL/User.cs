@@ -184,13 +184,38 @@ namespace Make_a_move___Server.BL
             try
             {
                 DBservicesUser dbs = new DBservicesUser();
-                return dbs.ReadUsersByPlace();
+                return dbs.ReadUsersByPlace(placeCode);
             }
             catch (Exception ex)
             {
                 // Log or handle the exception appropriately
                 throw new Exception("Error reading users", ex);
             }
+        }
+
+        public List<User> ReadUsersByPreference(User user)
+        {
+            List<User> list = user.ReadUsersByPlace(user.currentPlace);
+            List<User> result = new List<User>();
+            foreach (User u in list)
+            {
+               if (user.CheckPreferenceses(u))
+               {
+                result.Add(user);
+               } 
+            }
+
+                return result;
+                 
+        }
+
+        public bool CheckPreferenceses(User u)
+        {
+            if (this.preferencesIds[0] == u.gender.ToString())
+            {
+                return true;
+            }
+                return false;
         }
 
 

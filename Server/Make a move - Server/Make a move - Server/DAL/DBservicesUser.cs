@@ -589,7 +589,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateSelectUserByPlaceWithStoredProcedure("SP_ReadUsersByPlace", con);             // create the command
+            cmd = CreateSelectUserByPlaceWithStoredProcedure("SP_ReadUsersByPlace", con, placeToLook);             // create the command
 
             try
             {
@@ -634,10 +634,9 @@ namespace Make_a_move___Server.DAL
                     //    InterestDesc = dataReader["interestDesc"].ToString(),
                     //};
 
-                    if (Convert.ToInt32(dataReader["currentPlace"]) == placeToLook)
-                    {
+                  
                         usersList.Add(u);
-                    }
+                    
 
                 }
                 return usersList;
