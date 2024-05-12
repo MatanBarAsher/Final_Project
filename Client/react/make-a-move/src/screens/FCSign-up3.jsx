@@ -26,7 +26,7 @@ export default function FCSignUp3() {
 
   const setCreateUser = () => {
     // כאן בודקים את הנתונים שהמשתמש הכניס וקוראים לפונקציה שרושמת אותו בשרת
-    navigate("/signup1");
+    navigate("/setImages");
   };
   return (
     <>
