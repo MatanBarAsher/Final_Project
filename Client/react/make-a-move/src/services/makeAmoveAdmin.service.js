@@ -1,36 +1,36 @@
 import axios from "axios";
 
-export const makeAmoveUserServer = {
-  getAllUsers: () =>
+export const makeAmoveAdminServer = {
+  getAllAdmins: () =>
     axios
-      .get(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users`)
+      .get(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/admin`)
       .then((res) => res.data) //returning data
       .catch((error) => {
-        console.error("Error fetching users:", error);
+        console.error("Error fetching admins:", error);
         throw error; // Rethrow the error to be caught by the caller}
       }),
-  createUser: (data) =>
+  createAdmin: (data) =>
     axios
-      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users`, data)
+      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/admin`, data)
       .then((res) => res.data) //returning data
       .catch((error) => {
-        console.error("Error create user:", error);
+        console.error("Error create admin:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
-  updateUser: (email, data) =>
+  updateAdmin: (email, data) =>
     axios
       .put(
-        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/${email}`,
+        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/admin/${email}`,
         data
       )
       .then((res) => res.data) //returning data
       .catch((error) => {
-        console.error("Error update user:", error);
+        console.error("Error update admin:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
-  login: ({ phone, password }) =>
+  loginAdmin: ({ phone, password }) =>
     axios
-      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/login`, {
+      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/admins/login`, {
         phone,
         password,
       })

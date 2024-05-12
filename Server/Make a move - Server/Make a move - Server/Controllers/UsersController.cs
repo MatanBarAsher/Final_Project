@@ -26,13 +26,13 @@ namespace Make_a_move___Server.Controllers
         }
 
         [HttpPost("Login")]
-        public String CheckLogin([FromBody] String password)
+        public bool CheckLogin([FromBody] LoginCredentials credentials)
         {
-            return password;//user.CheckLogin();
+            return true;
         }
 
         [HttpPut("Update")]
-        public User Update( [FromBody] User user)
+        public User Update([FromBody] User user)
         {
             return user.UpdateUser(user);
         }
@@ -50,6 +50,75 @@ namespace Make_a_move___Server.Controllers
             return user.UpdateUserCurrentPlace(user);
         }
 
+        // POST: api/User/AddUserToDictionary
+        [HttpPost("AddUserToDictionary")]
+        public IActionResult AddUserToDictionary(string firstEmail, string secondEmail)
+        {
+            try
+            {
+                User user = new User { Email = firstEmail };
+                user.AddToDictionary(secondEmail);
+                return Ok("User added to dictionary successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+        [HttpPost("RemoveFromDictionary")]
+        public IActionResult RemoveFromDictionary(string email)
+        {
+            try
+            {
+                User user = new User { Email = email };
+                user.RemoveFromDictionary();
+                return Ok("User removed from dictionary successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+        [HttpPost("SearchUserByEmail")]
+        public IActionResult SearchUserByEmail(string email, string valueToCheck)
+        {
+            try
+            {
+                bool userExists = Make_a_move___Server.BL.User.SearchUserByEmail(email, valueToCheck);
+                if (userExists)
+                {
+                    return Ok("User found in the dictionary.");
+                }
+                else
+                {
+                    return NotFound("User not found in the dictionary.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
+        [HttpGet("GetDictionary")]
+        public IActionResult GetDictionary()
+        {
+            try
+            {
+                Dictionary<string, string> dictionary = Make_a_move___Server.BL.User.GetDictionary();
+                return Ok(dictionary);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
+
+
+
 
     }
+
 }
+

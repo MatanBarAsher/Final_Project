@@ -52,8 +52,10 @@ namespace Make_a_move___Server.BL
         {
             try
             {
-                // Find the type in the TypesList by email
-                TypeOfPlace typeToUpdate = typeOfPlaceList.Find(t => t.TypeOfPlaceCode.Equals(newType.TypeOfPlaceCode));
+                // Find the type in the TypesList by code
+                DBservicesTypeOfPlace dbs1 = new DBservicesTypeOfPlace();
+                List<TypeOfPlace> list = dbs1.ReadTypeOfPlace();
+                TypeOfPlace typeToUpdate = list.Find(t => t.TypeOfPlaceCode.Equals(newType.TypeOfPlaceCode));
 
 
                 if (typeToUpdate != null)

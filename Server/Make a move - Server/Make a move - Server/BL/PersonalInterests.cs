@@ -52,9 +52,10 @@ namespace Make_a_move___Server.BL
         {
             try
             {
-                // Find the personalInterests in the UsersList by email
-                //PersonalInterests personalInterestsToUpdate = personalInterestsList.Find(p => string.Equals(p.InterestDesc.Trim(), newPersonalInterests.InterestDesc.Trim(), StringComparison.OrdinalIgnoreCase));
-                PersonalInterests personalInterestsToUpdate = personalInterestsList.Find(p => p.InterestCode.Equals(newPersonalInterests.InterestCode));
+                // Find the personalInterests in the UsersList by InterestCode
+                DBservicesPersonalInterests dbs1 = new DBservicesPersonalInterests();
+                List<PersonalInterests> list = dbs1.ReadPersonalInterests();
+                PersonalInterests personalInterestsToUpdate = list.Find(p => p.InterestCode.Equals(newPersonalInterests.InterestCode));
 
 
                 if (personalInterestsToUpdate != null)
