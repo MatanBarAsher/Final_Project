@@ -7,32 +7,32 @@ namespace Make_a_move___Server.BL
     {
         private int preferenceCode;
         private string preferenceDescription;
-        private string firstOption;
-        private string secondOption;
-        private string thirdOption;
-        private string fourthOption;
-        private bool required;
+        //private string firstOption;
+        //private string secondOption;
+        //private string thirdOption;
+        //private string fourthOption;
+        //private bool required;
         private static List<Preference> preferencesList = new List<Preference>();
 
         public Preference() { }
-        public Preference(int preferenceCode, string preferenceDescription, string firstOption, string secondOption, string thirdOption, string fourthOption, bool required)
+        public Preference(int preferenceCode, string preferenceDescription /*string firstOption, string secondOption, string thirdOption, string fourthOption, bool required*/)
         {
             this.preferenceCode = preferenceCode;
             this.preferenceDescription = preferenceDescription;
-            this.firstOption = firstOption;
-            this.secondOption = secondOption;
-            this.thirdOption = thirdOption;
-            this.fourthOption = fourthOption;
-            this.required = required;
+            //this.firstOption = firstOption;
+            //this.secondOption = secondOption;
+            //this.thirdOption = thirdOption;
+            //this.fourthOption = fourthOption;
+            //this.required = required;
         }
 
         public int PreferenceCode { get => preferenceCode; set => preferenceCode = value; }
         public string PreferenceDescription { get => preferenceDescription; set => preferenceDescription = value; }
-        public string FirstOption { get => firstOption; set => firstOption = value; }
-        public string SecondOption { get => secondOption; set => secondOption = value; }
-        public string ThirdOption { get => thirdOption; set => thirdOption = value; }
-        public string FourthOption { get => fourthOption; set => fourthOption = value; }
-        public bool Required { get => required; set => required = value; }
+        //public string FirstOption { get => firstOption; set => firstOption = value; }
+        //public string SecondOption { get => secondOption; set => secondOption = value; }
+        //public string ThirdOption { get => thirdOption; set => thirdOption = value; }
+        //public string FourthOption { get => fourthOption; set => fourthOption = value; }
+        //public bool Required { get => required; set => required = value; }
 
         public int InsertPreference()
         {
@@ -67,8 +67,10 @@ namespace Make_a_move___Server.BL
         {
             try
             {
-                // Find the Preference in the PreferencesList by email
-                Preference preferenceToUpdate = preferencesList.Find(p => p.preferenceCode.Equals(newPreference.preferenceCode));
+                DBservicesPreferences dbs1 = new DBservicesPreferences();
+                List<Preference> list = dbs1.ReadPreference();
+                // Find the Preference in the PreferencesList by preferenceCode
+                Preference preferenceToUpdate = list.Find(p => p.preferenceCode.Equals(newPreference.preferenceCode));
 
 
                 if (preferenceToUpdate != null)
@@ -76,11 +78,11 @@ namespace Make_a_move___Server.BL
                     // Update user information
                     preferenceToUpdate.PreferenceCode = newPreference.PreferenceCode;
                     preferenceToUpdate.PreferenceDescription = newPreference.PreferenceDescription;
-                    preferenceToUpdate.FirstOption = newPreference.FirstOption;
-                    preferenceToUpdate.SecondOption = newPreference.SecondOption;
-                    preferenceToUpdate.ThirdOption = newPreference.ThirdOption;
-                    preferenceToUpdate.FourthOption = newPreference.FourthOption;
-                    preferenceToUpdate.Required = newPreference.Required;
+                    //preferenceToUpdate.FirstOption = newPreference.FirstOption;
+                    //preferenceToUpdate.SecondOption = newPreference.SecondOption;
+                    //preferenceToUpdate.ThirdOption = newPreference.ThirdOption;
+                    //preferenceToUpdate.FourthOption = newPreference.FourthOption;
+                    //preferenceToUpdate.Required = newPreference.Required;
 
 
                     // Update in the database (assuming DBservices has an UpdateUser method)

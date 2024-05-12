@@ -64,8 +64,10 @@ namespace Make_a_move___Server.BL
         {
             try
             {
-                // Find the Place in the PlacesList by name
-                Place placeToUpdate = placesList.Find(p => p.PlaceCode.Equals(newplace.PlaceCode));
+                DBservicesPlace dbs1 = new DBservicesPlace();
+                List<Place> list = dbs1.ReadPlaces();
+                // Find the Place in the PlacesList by PlaceCode
+                Place placeToUpdate = list.Find(p => p.PlaceCode.Equals(newplace.PlaceCode));
 
                 if (placeToUpdate != null)
                 {

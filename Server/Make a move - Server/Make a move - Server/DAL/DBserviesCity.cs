@@ -178,7 +178,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateCityUpdateCommandWithStoredProcedure("SP_UpdateCity", con, city);             // create the command
+            cmd = CreateCityUpdateCommandWithStoredProcedure("SP_UpdteCity", con, city);             // create the command
 
             try
             {

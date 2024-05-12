@@ -160,11 +160,14 @@ option {
   display: flex;
   flex-wrap: wrap;
   justify-content: end;
+  align-items: start;
   width: 390px;
+  top: 0;
 }
 
 .upper-side-menu {
   display: flex;
+  height: 100px;
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -181,7 +184,6 @@ option {
 .side-menu-option {
   display: flex;
   color: white;
-  height: 30px;
   width: 30px;
   margin: 0;
   flex: 100%;
@@ -189,9 +191,28 @@ option {
 
 .lower-side-menu {
   flex: 100%;
+  direction: ltr;
   display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 40px 30px;
+  border-top: 1px solid white;
+  margin-bottom: 200px;
+}
+
+.lower-side-menu p,
+.footer-side-menu p {
+  min-width: 180px;
+  text-align: start;
+  margin: 0 0 0 15px;
+  font-size: 16px;
+  font-weight: 300;
 }
 
 .footer-side-menu {
   flex: 100%;
+  color: #fff;
+  direction: ltr;
+  display: flex;
+  padding: 0 30px;
 }

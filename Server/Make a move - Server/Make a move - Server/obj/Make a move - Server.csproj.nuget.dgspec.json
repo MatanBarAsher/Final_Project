@@ -13,6 +13,10 @@
         "packagesPath": "C:\\Users\\terne\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\terne\\Documents\\שנה ד תעשייה וניהול\\פרויקט גמר\\code\\Final_Project\\Server\\Make a move - Server\\Make a move - Server\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
           "C:\\Users\\terne\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
