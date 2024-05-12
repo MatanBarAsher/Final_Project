@@ -46,32 +46,69 @@ export default function FCSignUp2() {
   };
   return (
     <>
-      <h1>פרופיל</h1>
-      <p className="signup2-p">שם פרטי:</p>
-      <FCCustomTxtInp ph="שם פרטי" onChange={handleFirstNameCreation} />
-      <p className="signup2-p">שם משפחה:</p>
-      <FCCustomTxtInp ph="שם משפחה" onChange={handleLastNameCreation} />
-      <div className="gender-inp">
-        <span>
-          <input id="male" type="radio" name="gender" />
-          <label htmlFor="male">גבר</label>
-        </span>
-        <span>
-          <input id="female" type="radio" name="gender" />
-          <label htmlFor="female">אישה</label>
-        </span>
-        <span>
-          <input id="other" type="radio" name="gender" />
-          <label htmlFor="other">אחר</label>
-        </span>
-      </div>
-      <p className="signup2-p">מאיפה אתה?</p>
-      <FCCustomDd name={"city"} onChange={handleCityCreation} />
-      <p className="signup2-p">תאריך לידה:</p>
-      <FCCustomDateInp ph="dd/mm/yyyy" onChange={handleBirthdayCreation} />
-      <p className="signup2-p">גובה (ס''מ):</p>
-      <FCCustomNumberInp ph="ס''מ" min={0} onChange={handleHeightCreation} />
-      <FCCustomBtn title={"הבא"} onClick={setSignUp2} />
+      <form onSubmit={setSignUp2}>
+        <h1>פרופיל</h1>
+        <p className="signup2-p">שם פרטי:</p>
+        <FCCustomTxtInp
+          ph="שם פרטי"
+          onChange={handleFirstNameCreation}
+          required
+        />
+        <p className="signup2-p">שם משפחה:</p>
+        <FCCustomTxtInp
+          ph="שם משפחה"
+          onChange={handleLastNameCreation}
+          required
+        />
+        <div className="gender-inp">
+          <span>
+            <input
+              id="male"
+              type="radio"
+              name="gender"
+              onChange={handleGenderCreation}
+              required
+            />
+            <label htmlFor="male">גבר</label>
+          </span>
+          <span>
+            <input
+              id="female"
+              type="radio"
+              name="gender"
+              onChange={handleGenderCreation}
+              required
+            />
+            <label htmlFor="female">אישה</label>
+          </span>
+          <span>
+            <input
+              id="other"
+              type="radio"
+              name="gender"
+              onChange={handleGenderCreation}
+              required
+            />
+            <label htmlFor="other">אחר</label>
+          </span>
+        </div>
+        <p className="signup2-p">מאיפה אתה?</p>
+        <FCCustomDd name={"city"} onChange={handleCityCreation} required />
+        <p className="signup2-p">תאריך לידה:</p>
+        <FCCustomDateInp
+          ph="dd/mm/yyyy"
+          onChange={handleBirthdayCreation}
+          required
+        />
+        <p className="signup2-p">גובה (ס''מ):</p>
+        <FCCustomNumberInp
+          ph="ס''מ"
+          min={0}
+          onChange={handleHeightCreation}
+          required
+        />
+        <FCCustomBtn type="submit" title={"הבא"} />
+      </form>
     </>
   );
 }

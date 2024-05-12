@@ -34,15 +34,17 @@ const FCSignIn = () => {
   return (
     <span>
       <img src={logo} className="logoSM" />
-      <h1>התחברות</h1>
-      <FCCustomTxtInp ph={"דוא''ל"} onChange={handleEmailChange} />
-      <br />
-      <br />
+      <form onSubmit={login}>
+        <h1>התחברות</h1>
+        <FCCustomTxtInp ph={"דוא''ל"} onChange={handleEmailChange} required />
+        <br />
+        <br />
 
-      <FCCustomTxtInp ph={"סיסמה"} onChange={handlePasswordChange} />
-      {/* <p style={{ color: "white" }}>או</p> */}
-      {/* <FCCustomBtn title={"התחברות באמצעות דוא''ל"} /> */}
-      <FCCustomBtn title={"התחברות"} onClick={login} />
+        <FCCustomTxtInp ph={"סיסמה"} onChange={handlePasswordChange} required />
+        {/* <p style={{ color: "white" }}>או</p> */}
+        {/* <FCCustomBtn title={"התחברות באמצעות דוא''ל"} /> */}
+        <FCCustomBtn type="submit" title={"התחברות"} />
+      </form>
     </span>
   );
 };
