@@ -5,13 +5,18 @@ import { makeAmoveUserServer } from "../services";
 import { useNavigate } from "react-router-dom";
 import FCCustomMailInp from "../components/FCCustomMailInp";
 import FCCustomPasswordInp from "../components/FCCustomPasswordInp";
+import FCCustomPhoneInp from "../components/FCCustomPhoneInp";
 import { Margin } from "@mui/icons-material";
 
 export default function FCSignUp1() {
   const navigate = useNavigate("");
+  const [phone, setPhone] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
+  const handlePhoneCreation = (e) => {
+    setPhone(e.target.value);
+  };
   const handleEmailCreation = (e) => {
     setEmail(e.target.value);
   };
@@ -19,19 +24,35 @@ export default function FCSignUp1() {
     setPassword(e.target.value);
   };
 
-  const setEmailAndPassword = () => {
+  const setPhoneEmailAndPassword = () => {
     // צריך לבדוק אם המייל / הטלפון קיים לפני שמעבירים למסך הבא
     navigate("/signup2");
   };
   return (
     <>
-      <img src={logo} className="logoSM" />
-      <h1>הרשמה</h1>
-      <p className="signup-p">אפשר לקבל את המייל שלך?</p>
-      <FCCustomMailInp ph={"דוא''ל"} onChange={handleEmailCreation} />
-      <p className="signup-p">אפשר לקבל את הטלפון שלך?</p>
-      <FCCustomPasswordInp ph={"סיסמא"} onChange={handlePasswordCreation} />
-      <FCCustomBtn title={"הבא"} onClick={setEmailAndPassword} />
+      <form onSubmit={setPhoneEmailAndPassword}>
+        <img src={logo} className="logoSM" />
+        <h1>הרשמה</h1>
+        <p className="signup-p">אפשר לקבל את הטלפון שלך?</p>
+        <FCCustomPhoneInp
+          ph={"מס' טלפון"}
+          onChange={handlePhoneCreation}
+          required
+        />
+        <p className="signup-p">אפשר לקבל את המייל שלך?</p>
+        <FCCustomMailInp
+          ph={"דוא''ל"}
+          onChange={handleEmailCreation}
+          required
+        />
+        <p className="signup-p">סיסמה</p>
+        <FCCustomPasswordInp
+          ph={"סיסמא"}
+          onChange={handlePasswordCreation}
+          required
+        />
+        <FCCustomBtn type="submit" title={"הבא"} />
+      </form>
     </>
   );
 }

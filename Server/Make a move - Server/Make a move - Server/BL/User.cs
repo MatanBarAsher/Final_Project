@@ -21,12 +21,14 @@ namespace Make_a_move___Server.BL
         private string[] preferencesIds;
         private string[] personalInterestsIds;
         private int currentPlace;
+        private string persoalText;
         private static List<User> usersList = new List<User>();
         private static Dictionary<string, string> usersDictionary = new Dictionary<string, string>();
+        
 
         public User() { }
 
-        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, string[] personalInterestsIds, string[] preferencesIds, int currentPlace)
+        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, string[] personalInterestsIds, string[] preferencesIds, int currentPlace, string persoalText)
         {
             this.email = email;
             this.firstName = firstName;
@@ -42,6 +44,10 @@ namespace Make_a_move___Server.BL
             this.preferencesIds = preferencesIds;
             this.personalInterestsIds = personalInterestsIds;
             this.currentPlace = currentPlace;
+            this.persoalText = persoalText;
+
+
+
         }
 
         public string Email { get => email; set => email = value; }
@@ -59,6 +65,9 @@ namespace Make_a_move___Server.BL
         public string[] PreferencesIds { get => preferencesIds; set => preferencesIds = value; }
 
         public int CurrentPlace { get => currentPlace; set => currentPlace = value; }
+        public string PersoalText { get => persoalText; set => persoalText = value; }
+
+        
 
         public int InsertUser()
         {

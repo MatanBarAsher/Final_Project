@@ -2,7 +2,7 @@ import React from "react";
 import FCCustomOpt from "../components/FCCustomOpt";
 
 export default function FCCustomDd({ name, id, list }) {
-  // list.array.forEach((element) => {
+  // list.forEach((element) => {
   //   // לעבור על כל הפריטים ברשימה וליצור option לכל אחד
   // });
   return (
