@@ -1,39 +1,39 @@
 import React, { useState } from "react";
-import FCCustomBtn from "../components/FCCustomBtn";
-import logo from "../assets/images/Logo.png";
-import { makeAmoveUserServer } from "../services";
 import { useNavigate } from "react-router-dom";
-import FCCustomMailInp from "../components/FCCustomMailInp";
-import FCCustomPasswordInp from "../components/FCCustomPasswordInp";
-import FCCustomTxtInp from "../components/FCCustomTxtInp";
-import FCCustomDd from "../components/FCCustomDd";
-import FCCustomDateInp from "../components/FCCustomDateInp";
-import FCCustomNumberInp from "../components/FCCustomNumberInp";
-import { text } from "@fortawesome/fontawesome-svg-core";
-import { Height } from "@mui/icons-material";
+import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
+import { PERSONAL_INTERESTS } from "../../../constants";
+import { FCMultiSelect } from "../../../components/MultiSelect";
+import FCCustomBtn from "../../../components/FCCustomBtn";
 
-export const FCSignUp3 = () => {
+export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
   const navigate = useNavigate("");
-  const [PersonalInterestsIds, setPersonalInterestsIds] = useState();
+  const [PersonalInterestsIds, setPersonalInterestsIds] = useState([]);
   const [Description, setDescription] = useState();
 
-  const handlePersonalInterestsIdsCreation = (e) => {
-    setPersonalInterestsIds(e.target.value);
-  };
   const handleDescriptionCreation = (e) => {
     setDescription(e.target.value);
   };
 
-  const setCreateUser = () => {
-    // כאן בודקים את הנתונים שהמשתמש הכניס וקוראים לפונקציה שרושמת אותו בשרת
-    navigate("/setImages");
+  const handlePersonalInterestsIdsChange = (event) => {
+    const {
+      target: { value },
+    } = event || {};
+    setPersonalInterestsIds(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
   };
   return (
     <>
-      <form onSubmit={setCreateUser}>
+      <form onSubmit={() => navigate("/setImages")}>
         <h1>פרופיל</h1>
         <p className="signup2-p">מה את/ה אוהב/ת לעשות בזמנך הפנוי?</p>
-        <FCCustomDd onChange={handlePersonalInterestsIdsCreation} required />
+        <FCMultiSelect
+          label="תחומי עיניין"
+          options={PERSONAL_INTERESTS}
+          onChange={handlePersonalInterestsIdsChange}
+          value={PersonalInterestsIds}
+        />
         <p className="signup2-p">
           ספר/י לנו קצת על עצמך:
           <span style={{ fontWeight: "200" }}>
@@ -51,8 +51,28 @@ export const FCSignUp3 = () => {
           onChange={handleDescriptionCreation}
           required
         />
-
-        <FCCustomBtn type="submit" title={"סיום"} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row-reverse",
+            justifyContent: "center",
+            width: "25rem",
+          }}
+        >
+          <FCCustomBtn
+            style={{ width: "10rem", color: "black" }}
+            onClick={() => navigate("/setImages")}
+            title={currentStep === length - 1 ? "סיום" : "הבא"}
+            type="submit"
+          />
+          {currentStep !== 0 && (
+            <FCCustomBtn
+              style={{ width: "10rem", color: "black" }}
+              onClick={() => setCurrentStep((prev) => prev - 1)}
+              title={"הקודם"}
+            />
+          )}
+        </div>
       </form>
     </>
   );

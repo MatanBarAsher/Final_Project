@@ -15,6 +15,16 @@ export default function FCSignUp3() {
     setDescription(e.target.value);
   };
 
+  const handlePersonalInterestsIdsChange = (event) => {
+    const {
+      target: { value },
+    } = event || {};
+    setPersonalInterestsIds(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
+
   const setCreateUser = () => {
     // כאן בודקים את הנתונים שהמשתמש הכניס וקוראים לפונקציה שרושמת אותו בשרת
     navigate("/setImages");
@@ -27,7 +37,7 @@ export default function FCSignUp3() {
         <FCMultiSelect
           label="תחומי עיניין"
           options={PERSONAL_INTERESTS}
-          setValue={setPersonalInterestsIds}
+          onChange={handlePersonalInterestsIdsChange}
           value={PersonalInterestsIds}
         />
         <p className="signup2-p">

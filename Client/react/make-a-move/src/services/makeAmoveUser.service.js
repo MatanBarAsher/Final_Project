@@ -9,6 +9,7 @@ export const makeAmoveUserServer = {
         console.error("Error fetching users:", error);
         throw error; // Rethrow the error to be caught by the caller}
       }),
+
   createUser: (data) =>
     axios
       .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users`, data)
@@ -17,6 +18,7 @@ export const makeAmoveUserServer = {
         console.error("Error create user:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
+
   updateUser: (email, data) =>
     axios
       .put(
@@ -49,6 +51,23 @@ export const makeAmoveUserServer = {
       .then((res) => res.data) //returning data
       .catch((error) => {
         console.error("Error login:", error);
+        throw error; // Rethrow the error to be caught by the caller
+      }),
+
+  /**
+   * check if the given key exist for the given value
+   * @param  data key and value object @example {key:'userName', value:'yael'}
+   * @returns boolean
+   */
+  checkExist: (data) =>
+    axios
+      .post(
+        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/checkExist`,
+        data
+      )
+      .then((res) => res.data) //returning data
+      .catch((error) => {
+        console.error("Error create user:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
 };

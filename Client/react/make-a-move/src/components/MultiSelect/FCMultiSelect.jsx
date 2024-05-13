@@ -6,16 +6,7 @@ import {
   Select,
 } from "@mui/material";
 
-export const FCMultiSelect = ({ options, setValue, value, label }) => {
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event || {};
-    setValue(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+export const FCMultiSelect = ({ options, value, label, onChange }) => {
   return (
     <Select
       id="multiple-checkbox"
@@ -23,10 +14,10 @@ export const FCMultiSelect = ({ options, setValue, value, label }) => {
       required
       multiple
       value={value}
-      onChange={handleChange}
+      onChange={onChange}
+      placeholder={label}
       input={<OutlinedInput label={label} />}
       renderValue={(selected) => selected.join(", ")}
-      //   MenuProps={MenuProps}
     >
       {options.map((option) => (
         <MenuItem key={option} value={option}>

@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import FCCustomBtn from "../components/FCCustomBtn";
-import logo from "../assets/images/Logo.png";
-import { makeAmoveUserServer } from "../services";
 import { useNavigate } from "react-router-dom";
-import FCCustomMailInp from "../components/FCCustomMailInp";
-import FCCustomPasswordInp from "../components/FCCustomPasswordInp";
 import FCCustomTxtInp from "../components/FCCustomTxtInp";
-import FCCustomDd from "../components/FCCustomDd";
 import FCCustomDateInp from "../components/FCCustomDateInp";
 import FCCustomNumberInp from "../components/FCCustomNumberInp";
+import { FCMultiSelect } from "../components/MultiSelect/FCMultiSelect";
+import { FCSelect } from "../components";
 
 export default function FCSignUp2() {
   const navigate = useNavigate("");
@@ -93,7 +90,12 @@ export default function FCSignUp2() {
           </span>
         </div>
         <p className="signup2-p">מאיפה אתה?</p>
-        <FCCustomDd name={"city"} onChange={handleCityCreation} required />
+        <FCSelect
+          onChange={handleCityCreation}
+          value={city}
+          options={["חדרה"]}
+          required
+        />
         <p className="signup2-p">תאריך לידה:</p>
         <FCCustomDateInp
           ph="dd/mm/yyyy"
