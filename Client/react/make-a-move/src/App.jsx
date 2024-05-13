@@ -4,9 +4,6 @@ import FCProfileView from "./screens/FCProfileView";
 import FCSignIn from "./screens/FCSign-in";
 import FCWellcome from "./screens/FCWellcome";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import FCSignUp1 from "./screens/FCSign-up1";
-import FCSignUp2 from "./screens/FCSign-up2";
-import FCSignUp3 from "./screens/FCSign-up3";
 import FCSetImages from "./screens/FCSetImages";
 import { FCSignUp } from "./screens";
 
