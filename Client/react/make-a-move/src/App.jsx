@@ -1,17 +1,11 @@
 import "./App.css";
 import FCLocation from "./screens/FCLocation";
-import FCMap from "./screens/FCMap";
-import FCMatchList from "./screens/FCMatchList";
 import FCProfileView from "./screens/FCProfileView";
-import FCSideMenu from "./screens/FCSideMenu";
 import FCSignIn from "./screens/FCSign-in";
 import FCWellcome from "./screens/FCWellcome";
-import FCLogin from "./screens/FCLogin";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import FCSignUp1 from "./screens/FCSign-up1";
-import FCSignUp2 from "./screens/FCSign-up2";
-import FCSignUp3 from "./screens/FCSign-up3";
 import FCSetImages from "./screens/FCSetImages";
+import { FCSignUp } from "./screens";
 
 function App() {
   return (
@@ -19,9 +13,10 @@ function App() {
       <Routes>
         <Route path="/" element={<FCWellcome />} />
         <Route path="/signin" element={<FCSignIn />} />
-        <Route path="/signup1" element={<FCSignUp1 />} />
+        <Route path="/signup" element={<FCSignUp />} />
+        {/* <Route path="/signup1" element={<FCSignUp1 />} />
         <Route path="/signup2" element={<FCSignUp2 />} />
-        <Route path="/signup3" element={<FCSignUp3 />} />
+        <Route path="/signup3" element={<FCSignUp3 />} /> */}
         <Route path="/setImages" element={<FCSetImages />} />
         <Route
           path="/profile"

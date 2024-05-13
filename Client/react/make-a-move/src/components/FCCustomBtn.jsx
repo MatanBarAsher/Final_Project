@@ -1,11 +1,18 @@
 import React from "react";
 import Button from "@mui/material/Button";
 
-const FCCustomBtn = ({ title, mt, ...other }) => {
+const FCCustomBtn = ({ onClick, type, title, mt, ...other }) => {
   return (
-    <button className="main-btn" style={{ marginTop: mt }} {...other}>
+    <Button
+      type={type}
+      onSubmitCapture={type === "submit" && onClick}
+      className="main-btn"
+      onClick={type !== "submit" && onClick}
+      style={{ marginTop: mt, color: "black" }}
+      {...other}
+    >
       {title}
-    </button>
+    </Button>
   );
 };
 

@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import FCCustomBtn from "../components/FCCustomBtn";
-import logo from "../assets/images/Logo.png";
-import { makeAmoveUserServer } from "../services";
 import { useNavigate } from "react-router-dom";
-import FCCustomMailInp from "../components/FCCustomMailInp";
-import FCCustomPasswordInp from "../components/FCCustomPasswordInp";
-import FCCustomTxtInp from "../components/FCCustomTxtInp";
-import FCCustomDd from "../components/FCCustomDd";
-import FCCustomDateInp from "../components/FCCustomDateInp";
-import FCCustomNumberInp from "../components/FCCustomNumberInp";
+import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
+import FCCustomDateInp from "../../../components/FCCustomDateInp";
+import FCCustomNumberInp from "../../../components/FCCustomNumberInp";
+import { FCSelect } from "../../../components/Select/FCSelect";
+import FCCustomBtn from "../../../components/FCCustomBtn";
 
-export default function FCSignUp2() {
+export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
   const navigate = useNavigate("");
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
@@ -39,14 +35,9 @@ export default function FCSignUp2() {
   const handleCityCreation = (e) => {
     setCity(e.target.value);
   };
-
-  const setSignUp2 = () => {
-    // צריך לבדוק נתונים לפני שמעבירים למסך הבא
-    navigate("/signup3");
-  };
   return (
     <>
-      <form onSubmit={setSignUp2}>
+      <form onSubmit={() => setCurrentStep((prev) => prev + 1)}>
         <h1>פרופיל</h1>
         <p className="signup2-p">שם פרטי:</p>
         <FCCustomTxtInp
@@ -93,7 +84,12 @@ export default function FCSignUp2() {
           </span>
         </div>
         <p className="signup2-p">מאיפה אתה?</p>
-        <FCCustomDd name={"city"} onChange={handleCityCreation} required />
+        <FCSelect
+          onChange={handleCityCreation}
+          value={city}
+          options={["חדרה"]}
+          required
+        />
         <p className="signup2-p">תאריך לידה:</p>
         <FCCustomDateInp
           ph="dd/mm/yyyy"
@@ -107,8 +103,29 @@ export default function FCSignUp2() {
           onChange={handleHeightCreation}
           required
         />
-        <FCCustomBtn type="submit" title={"הבא"} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row-reverse",
+            justifyContent: "center",
+            width: "25rem",
+          }}
+        >
+          <FCCustomBtn
+            style={{ width: "10rem", color: "black" }}
+            onClick={() => setCurrentStep((prev) => prev + 1)}
+            title={currentStep === length - 1 ? "סיום" : "הבא"}
+            type="submit"
+          />
+          {currentStep !== 0 && (
+            <FCCustomBtn
+              style={{ width: "10rem", color: "black" }}
+              onClick={() => setCurrentStep((prev) => prev - 1)}
+              title={"הקודם"}
+            />
+          )}
+        </div>
       </form>
     </>
   );
-}
+};
