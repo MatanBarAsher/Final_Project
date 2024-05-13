@@ -3,20 +3,18 @@ import { border, borderRadius } from "@mui/system";
 import React from "react";
 
 export default function FCImageInp({ name }) {
-  const inpStyle = {
-    width: "150px",
-    height: "100px",
-    flex: "40%",
-    border: "2px dashed #989898",
-    borderRadius: "10px",
-  };
   return (
-    <input
-      style={inpStyle}
-      type="file"
-      placeholder="+"
-      name={name}
-      accept=".jpg, .jpeg .png"
-    />
+    <div class="custom-file-input">
+      <label for={name} className="custom-file-label">
+        +
+      </label>
+      <input
+        type="file"
+        id={name}
+        name={name}
+        className="input-file"
+        accept=".jpg, .jpeg .png"
+      />
+    </div>
   );
 }
