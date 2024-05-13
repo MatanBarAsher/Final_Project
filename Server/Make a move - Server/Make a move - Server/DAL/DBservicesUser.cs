@@ -110,7 +110,11 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@currentPlace", user.CurrentPlace);
 
+            cmd.Parameters.AddWithValue("@persoalText", user.PersoalText);
             
+
+
+
             return cmd;
         }
 
@@ -157,6 +161,7 @@ namespace Make_a_move___Server.DAL
                     u.PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString());
                     u.PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString());
                     u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]);
+                    u.PersoalText = dataReader["persoalText"].ToString();
                     //u.City = new City
                     //{
                     //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
@@ -263,27 +268,28 @@ namespace Make_a_move___Server.DAL
                         PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
                         PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString()),
                         CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
-                    //City = new City
-                    //{
-                    //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
-                    //    CityName = dataReader["cityName"].ToString()
-                    //},
-                    //Preference = new Preference
-                    //{
-                    //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
-                    //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
-                    //    FirstOption = dataReader["firstOption"].ToString(),
-                    //    SecondOption = dataReader["secondOption"].ToString(),
-                    //    ThirdOption = dataReader["thirdOption"].ToString(),
-                    //    FourthOption = dataReader["FourthOption"].ToString(),
-                    //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
-                    //},
-                    //personalInterests = new PersonalInterests
-                    //{
-                    //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
-                    //    InterestDesc = dataReader["interestDesc"].ToString(),
-                    //}
-                };
+                        PersoalText= dataReader["persoalText"].ToString(),
+                        //City = new City
+                        //{
+                        //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
+                        //    CityName = dataReader["cityName"].ToString()
+                        //},
+                        //Preference = new Preference
+                        //{
+                        //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
+                        //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
+                        //    FirstOption = dataReader["firstOption"].ToString(),
+                        //    SecondOption = dataReader["secondOption"].ToString(),
+                        //    ThirdOption = dataReader["thirdOption"].ToString(),
+                        //    FourthOption = dataReader["FourthOption"].ToString(),
+                        //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
+                        //},
+                        //personalInterests = new PersonalInterests
+                        //{
+                        //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
+                        //    InterestDesc = dataReader["interestDesc"].ToString(),
+                        //}
+                    };
                 }
 
                 if (u != null)
@@ -363,6 +369,7 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@currentPlace", user.CurrentPlace);
 
+            cmd.Parameters.AddWithValue("@persoalText", user.PersoalText);
 
             return cmd;
         }
@@ -413,6 +420,7 @@ namespace Make_a_move___Server.DAL
                         PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
                         PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString()),
                         CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
+                        PersoalText = dataReader["persoalText"].ToString(),
 
                     };
                 }
@@ -543,6 +551,9 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@currentPlace", user.CurrentPlace);
 
+            cmd.Parameters.AddWithValue("@persoalText", user.PersoalText);
+
+
             return cmd;
         }
 
@@ -593,6 +604,7 @@ namespace Make_a_move___Server.DAL
                     u.PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString());
                     u.PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString());
                     u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]); ;
+                    u.PersoalText = dataReader["persoalText"].ToString();
 
                     //u.City = new City
                     //{
@@ -615,8 +627,8 @@ namespace Make_a_move___Server.DAL
                     //    InterestDesc = dataReader["interestDesc"].ToString(),
                     //};
 
-                  
-                        usersList.Add(u);
+
+                    usersList.Add(u);
                     
 
                 }
