@@ -70,4 +70,18 @@ export const makeAmoveUserServer = {
         console.error("Error create user:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
+
+  changeImages: (email, images) =>
+    axios
+      .put(
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/users/changeImages/"string11"`,
+        images
+      )
+      .then((res) => res.images)
+      .catch((error) => {
+        console.error("Error change images:", error);
+        throw error;
+      }),
 };
