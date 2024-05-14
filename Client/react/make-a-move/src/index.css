@@ -228,7 +228,7 @@ option {
   color: white;
   margin: 20px 7px 0 0;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 400;  
 }
 
 .gender-inp {
@@ -301,4 +301,22 @@ input[name="gender"] {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+}
+.range{
+  display: flex;
+  margin-top: 25px;
+ 
+}
+.preference-p {
+  color: white;
+  margin: 20px 40px 10px 10px;
+  font-size: 16px;
+  font-weight: 400; 
+}
+.pref-h1{
+  margin-bottom: 50px;
+}
+.slider{
+  margin: 10px 30px 10px 30px;
+  display: flex;
 }

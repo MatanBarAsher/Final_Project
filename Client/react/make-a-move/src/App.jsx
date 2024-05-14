@@ -1,53 +1,20 @@
 import "./App.css";
-import FCLocation from "./screens/FCLocation";
-import FCProfileView from "./screens/FCProfileView";
-import FCSignIn from "./screens/FCSign-in";
-import FCWellcome from "./screens/FCWellcome";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import FCSetImages from "./screens/FCSetImages";
-import { FCSignUp } from "./screens";
+import { RecoilRoot } from "recoil";
+import { ROUTER } from "./Routs";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<FCWellcome />} />
-        <Route path="/signin" element={<FCSignIn />} />
-        <Route path="/signup" element={<FCSignUp />} />
-        {/* <Route path="/signup1" element={<FCSignUp1 />} />
-        <Route path="/signup2" element={<FCSignUp2 />} />
-        <Route path="/signup3" element={<FCSignUp3 />} /> */}
-        <Route path="/setImages" element={<FCSetImages />} />
-        <Route
-          path="/profile"
-          element={
-            <FCProfileView
-              name={"מתן בר אשר"}
-              age={26}
-              city={"חרב לאת"}
-              height={180}
-              interests={"אופנועים, קפה, כדורגל"}
-              aboutMe={"jdnvksdjnv;pdsjnv;k"}
-            />
-          }
-        />
-        <Route path="/location" element={<FCLocation />} />
-      </Routes>
-    </Router>
+    <RecoilRoot>
+      <Router>
+        <Routes>
+          {ROUTER.map(({ path, Element }) => (
+            <Route path={path} element={<Element />} />
+          ))}
+        </Routes>
+      </Router>
+    </RecoilRoot>
   );
 }
 
 export default App;
-
-{
-  /* <FCLocation /> */
-}
-{
-  /* <FCMap /> */
-}
-{
-  /*  */
-}
-{
-  /* <FCSideMenu name="מתן בר אשר" /> */
-}

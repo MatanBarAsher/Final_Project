@@ -7,25 +7,17 @@ import background from "../assets/images/Matan.jpg";
 import { makeAmoveUserServer } from "../services";
 import { useAsync } from "../hooks";
 import FCBackArrow from "../components/FCBackArrow";
+import { useRecoilValue } from "recoil";
+import { myDetailsState } from "../recoil/selectors";
 
-export default function FCProfileView({
-  name,
-  age,
-  height,
-  city,
-  interests,
-  aboutMe,
-}) {
+export default function FCProfileView() {
   // need to use useAsync to cut the async await circular and to get the value from the async function. also have error and loading
   const { value: user } = useAsync(makeAmoveUserServer.getAllUsers, []);
-  // const { value: updatedUser } = useAsync(
-  //   () =>
-  //     makeAmoveUserServer.updateUser(
-  //       user ? user[0].email : undefined,
-  //       user ? user[0] : undefined
-  //     ),
-  //   [user]
-  // );
+
+  const myDetails = useRecoilValue(myDetailsState);
+  console.log(myDetails);
+
+  const { name, age, height, city, interests, aboutMe } = myDetails;
 
   return (
     <div className="overlay">

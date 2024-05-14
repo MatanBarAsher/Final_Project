@@ -11,7 +11,6 @@ export const FCMultiSelect = ({ options, value, label, onChange }) => {
     <Select
       id="multiple-checkbox"
       className="select"
-      required
       multiple
       value={value}
       onChange={onChange}
