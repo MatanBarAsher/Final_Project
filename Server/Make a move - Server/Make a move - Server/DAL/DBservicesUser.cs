@@ -606,26 +606,6 @@ namespace Make_a_move___Server.DAL
                     u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]); ;
                     u.PersoalText = dataReader["persoalText"].ToString();
 
-                    //u.City = new City
-                    //{
-                    //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
-                    //    CityName = dataReader["cityName"].ToString()
-                    //};
-                    //u.Preference = new Preference
-                    //{
-                    //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
-                    //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
-                    //    FirstOption = dataReader["firstOption"].ToString(),
-                    //    SecondOption = dataReader["secondOption"].ToString(),
-                    //    ThirdOption = dataReader["thirdOption"].ToString(),
-                    //    FourthOption = dataReader["FourthOption"].ToString(),
-                    //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
-                    //};
-                    //u.personalInterests = new PersonalInterests
-                    //{
-                    //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
-                    //    InterestDesc = dataReader["interestDesc"].ToString(),
-                    //};
 
 
                     usersList.Add(u);
@@ -670,6 +650,71 @@ namespace Make_a_move___Server.DAL
 
             return cmd;
         }
+
+        public int ChangeUserImages(string email, string[] images)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                // Create the connection
+                con = connect("myProjDB");
+            }
+            catch (Exception ex)
+            {
+                // Write to log
+                throw ex;
+            }
+
+            cmd = CreateChangeUserImagesCommandWithStoredProcedure("SP_ChangeUserImages", con, email, images); // Create the command
+
+            try
+            {
+                //Execute the command
+                int numEffected = cmd.ExecuteNonQuery();
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // Write to log
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    // Close the DB connection
+                    con.Close();
+                }
+            }
+        }
+
+        //---------------------------------------------------------------------------------
+        // Create the SqlCommand for changing user images using a stored procedure
+        //---------------------------------------------------------------------------------
+
+        private SqlCommand CreateChangeUserImagesCommandWithStoredProcedure(string spName, SqlConnection con, string email, string[] images)
+        {
+            SqlCommand cmd = new SqlCommand(); // Create the command object
+
+            cmd.Connection = con; // Assign the connection to the command object
+
+            cmd.CommandText = spName; // Can be Select, Insert, Update, Delete
+
+            cmd.CommandTimeout = 10; // Time to wait for the execution. The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // The type of the command, can also be text
+
+            cmd.Parameters.AddWithValue("@email", email);
+
+            string imagesJson = JsonSerializer.Serialize(images);
+            cmd.Parameters.AddWithValue("@images", imagesJson);
+
+            return cmd;
+        }
+
+
 
     }
 }
