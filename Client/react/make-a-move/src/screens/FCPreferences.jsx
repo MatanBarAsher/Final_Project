@@ -91,6 +91,8 @@ export const FCPrecerences = () => {
             onChange={handleAgeRangeChange}
             valueLabelDisplay="on"
             className="slider"
+            min={18}
+            max={80}
           />
         </span>
         <span className="range">
@@ -101,6 +103,8 @@ export const FCPrecerences = () => {
             onChange={handleHeightRangeChange}
             valueLabelDisplay="on"
             className="slider"
+            min={120}
+            max={250}
           />
         </span>
         <p className="signup2-p">
