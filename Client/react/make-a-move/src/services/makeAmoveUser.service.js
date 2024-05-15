@@ -12,7 +12,23 @@ export const makeAmoveUserServer = {
 
   createUser: (data) =>
     axios
-      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users`, data)
+      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users`, {
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        password: data.password,
+        gender: data.gender,
+        image: data.image,
+        height: data.height,
+        birthday: data.birthday,
+        phoneNumber: data.phoneNumber,
+        isActive: true,
+        city: data.city,
+        personalInterestsIds: data.personalInterestsIds,
+        preferencesIds: data.preferencesIds,
+        currentPlace: data.currentPlace,
+        // personal text
+      })
       .then((res) => res.data) //returning data
       .catch((error) => {
         console.error("Error create user:", error);
