@@ -53,7 +53,7 @@ export const makeAmoveUserServer = {
         firstName: "string",
         lastName: "string",
         password: password,
-        gender: 0,
+        gender: 1,
         image: ["string"],
         height: 0,
         birthday: "2024-05-12T09:32:10.166Z",
@@ -63,6 +63,7 @@ export const makeAmoveUserServer = {
         personalInterestsIds: ["string"],
         preferencesIds: ["string"],
         currentPlace: 0,
+        personlText: "string",
       })
       .then((res) => res.data) //returning data
       .catch((error) => {

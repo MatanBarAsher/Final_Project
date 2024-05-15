@@ -19,18 +19,23 @@ const FCSignIn = () => {
   };
 
   const login = (e) => {
+    e.preventDefault();
     console.log("user requested to signin");
     makeAmoveUserServer.login({ email, password }).then((response) => {
       if (response) {
         console.log("success");
         console.log(response);
-        navigate("/location");
+        saveCurrentUserToLocalStorage(email);
+        // navigate("/location");
       } else {
         console.log("failure");
       }
     });
   };
 
+  const saveCurrentUserToLocalStorage = (email) => {
+    localStorage.setItem("cuurent-user", JSON.stringify(email));
+  };
   return (
     <span>
       <img src={logo} className="logoSM" />
@@ -40,7 +45,12 @@ const FCSignIn = () => {
         <br />
         <br />
 
-        <FCCustomTxtInp ph={"סיסמה"} onChange={handlePasswordChange} required />
+        <FCCustomTxtInp
+          type="password"
+          ph={"סיסמה"}
+          onChange={handlePasswordChange}
+          required
+        />
         {/* <p style={{ color: "white" }}>או</p> */}
         {/* <FCCustomBtn title={"התחברות באמצעות דוא''ל"} /> */}
         <FCCustomBtn type="submit" title={"התחברות"} />
