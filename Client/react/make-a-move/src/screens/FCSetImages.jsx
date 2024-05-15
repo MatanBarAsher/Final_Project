@@ -16,7 +16,7 @@ export default function FCSetImages() {
         <FCImageInp />
         <FCImageInp />
       </div>
-      <FCCustomBtn title="סיום" />
+      <FCCustomBtn title="סיום" onClick={() => navigate("/preferences")} />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { FCSignUp } from "../screens";
 import FCLocation from "../screens/FCLocation";
+import FCMap from "../screens/FCMap";
 import { FCPrecerences } from "../screens/FCPreferences";
 import FCProfileView from "../screens/FCProfileView";
 import FCSetImages from "../screens/FCSetImages";
@@ -14,4 +15,5 @@ export const ROUTER = [
   { path: "/preferences", Element: FCPrecerences },
   { path: "/profile", Element: FCProfileView },
   { path: "/location", Element: FCLocation },
+  { path: "/map", Element: FCMap },
 ];
