@@ -281,18 +281,19 @@ namespace Make_a_move___Server.BL
             return usersDictionary;
         }
 
-        public int ChangeImages(string email, string[] images) {
-            try
-            {
-                DBservicesUser dbs = new DBservicesUser();
-                return dbs.ChangeUserImages(email, images);
-            }
-            catch (Exception ex)
-            {
-                //    Log or handle the exception appropriately
-                throw new Exception("Error changing images", ex);
-            }
-        }
+        //public int ChangeImages(string email, string[] images) {
+        //    try
+        //    {
+        //        //DBservicesUser dbs = new DBservicesUser();
+        //        //return dbs.ChangeUserImages(email, images);
+                
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //    Log or handle the exception appropriately
+        //        throw new Exception("Error changing images", ex);
+        //    }
+        //}
 
 
     }

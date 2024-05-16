@@ -117,17 +117,50 @@ namespace Make_a_move___Server.Controllers
 
 
 
+        //[HttpPut]
+        //[Route("changeImages/{email}")]
+        //public int ChangeImages([FromRoute] string email, [FromForm] List<IFormFile> images)
+        //{
+        //    List<string> imageLinks = new List<string>();
+
+        //    string path = System.IO.Directory.GetCurrentDirectory();
+
+        //    long size = images.Sum(f => f.Length);
+
+        //    foreach (var formFile in images)
+        //    {
+        //        if (formFile.Length > 0)
+        //        {
+        //            var filePath = Path.Combine(path, "uploadedFiles/" + formFile.FileName);
+
+        //            using (var stream = System.IO.File.Create(filePath))
+        //            {
+        //                 formFile.CopyToAsync(stream);
+        //            }
+        //            imageLinks.Add(formFile.FileName);
+        //        }
+        //    }
+        //    string[] imageLinksArray = imageLinks.ToArray();
+        //    User user = new User();
+        //    return user.ChangeImages(email, imageLinksArray);
+        //}
+
+
+
         [HttpPut]
         [Route("changeImages/{email}")]
-        public int ChangeImages([FromRoute] string email, [FromForm] List<IFormFile> images)
+
+        public async Task<IActionResult> ChangeImages([FromForm] List<IFormFile> files)
         {
+
+
             List<string> imageLinks = new List<string>();
 
             string path = System.IO.Directory.GetCurrentDirectory();
 
-            long size = images.Sum(f => f.Length);
+            long size = files.Sum(f => f.Length);
 
-            foreach (var formFile in images)
+            foreach (var formFile in files)
             {
                 if (formFile.Length > 0)
                 {
@@ -135,16 +168,16 @@ namespace Make_a_move___Server.Controllers
 
                     using (var stream = System.IO.File.Create(filePath))
                     {
-                         formFile.CopyToAsync(stream);
+                        await formFile.CopyToAsync(stream);
                     }
                     imageLinks.Add(formFile.FileName);
                 }
             }
-            string[] imageLinksArray = imageLinks.ToArray();
-            User user = new User();
-            return user.ChangeImages(email, imageLinksArray);
-        }
 
+            // Return status code  
+            return Ok(imageLinks);
+
+        }
     }
 
 }

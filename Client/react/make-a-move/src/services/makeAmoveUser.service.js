@@ -88,7 +88,7 @@ export const makeAmoveUserServer = {
         throw error; // Rethrow the error to be caught by the caller
       }),
 
-  changeImages: (email, images) =>
+  changeImages: (images) =>
     axios
       .put(
         `${

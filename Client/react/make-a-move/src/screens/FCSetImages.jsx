@@ -23,17 +23,17 @@ export default function FCSetImages() {
     for (const key in images) {
       if (images[key]) {
         console.log(`Key: ${key}, Value: ${images[key].name}`);
-        formData.append(key, images[key]);
+        formData.append(`file_${key}`, images[key]); // Append with unique key
       }
     }
 
     console.log(formData);
 
-    makeAmoveUserServer.changeImages({ email, formData }).then((response) => {
+    makeAmoveUserServer.changeImages({ formData }).then((response) => {
       if (response) {
         console.log("success");
         console.log(response);
-        navigate("/");
+        // navigate("/");
       } else {
         console.log("failure");
       }
