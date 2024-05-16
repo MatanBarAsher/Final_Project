@@ -13,20 +13,8 @@ export const makeAmoveUserServer = {
   createUser: (data) =>
     axios
       .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users`, {
-        email: data.email,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        password: data.password,
-        gender: data.gender,
-        image: data.image,
-        height: data.height,
-        birthday: data.birthday,
-        phoneNumber: data.phoneNumber,
+        ...data,
         isActive: true,
-        city: data.city,
-        personalInterestsIds: data.personalInterestsIds,
-        preferencesIds: data.preferencesIds,
-        currentPlace: data.currentPlace,
         // personal text
       })
       .then((res) => res.data) //returning data
@@ -46,28 +34,23 @@ export const makeAmoveUserServer = {
         console.error("Error update user:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
-  login: ({ email, password }) =>
+  login: (data) =>
     axios
-      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/Login`, {
-        email: email,
-        firstName: "string",
-        lastName: "string",
-        password: password,
-        gender: 1,
-        image: ["string"],
-        height: 0,
-        birthday: "2024-05-12T09:32:10.166Z",
-        phoneNumber: "string",
-        isActive: true,
-        city: "string",
-        personalInterestsIds: ["string"],
-        preferencesIds: ["string"],
-        currentPlace: 0,
-        personlText: "string",
-      })
+      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/Login`, data)
       .then((res) => res.data) //returning data
       .catch((error) => {
         console.error("Error login:", error);
+        throw error; // Rethrow the error to be caught by the caller
+      }),
+  setPreferences: (data) =>
+    axios
+      .patch(
+        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/preferences`,
+        data
+      )
+      .then((res) => res.data) //returning data
+      .catch((error) => {
+        console.error("Error setPreferences:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
 
