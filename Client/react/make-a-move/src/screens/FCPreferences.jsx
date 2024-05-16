@@ -5,46 +5,66 @@ import { FCMultiSelect } from "../components/MultiSelect";
 import { PERSONAL_INTERESTS } from "../constants";
 import FCCustomBtn from "../components/FCCustomBtn";
 import { Slider } from "@mui/material";
+import { makeAmoveUserServer } from "../services";
 
 export const FCPrecerences = () => {
   const navigate = useNavigate("");
-  const [gender, setGender] = useState();
-  const [distance, setDistance] = useState();
-  const [interests, setInterests] = useState([]);
-  const [ageRange, setAgeRange] = useState([18, 80]);
-  const [heightRange, setHeightRange] = useState([120, 250]);
+
+  const [precerencesData, setPrecerencesData] = useState({
+    gender: "",
+    distance: "",
+    interests: [],
+    ageRange: [18, 80],
+    heightRange: [120, 250],
+  });
+  console.log(precerencesData);
 
   const handleGenderCreation = (e) => {
-    setGender(e.target.value);
+    setPrecerencesData((prev) => ({ ...prev, ["gender"]: e.target.id }));
   };
   const handleDistanceCreation = (e) => {
-    setDistance(e.target.value);
+    setPrecerencesData((prev) => ({ ...prev, ["distance"]: e.target.value }));
   };
 
   const handleAgeRangeChange = (event, newValue) => {
-    setAgeRange(newValue);
+    setPrecerencesData((prev) => ({ ...prev, ["ageRange"]: newValue }));
   };
   const handleHeightRangeChange = (event, newValue) => {
-    setHeightRange(newValue);
+    setPrecerencesData((prev) => ({ ...prev, ["heightRange"]: newValue }));
   };
 
   const handleInterestsCreation = (event) => {
     const {
       target: { value },
     } = event || {};
-    setInterests(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    setPrecerencesData((prev) => ({
+      ...prev,
+      ["interests"]: typeof value === "string" ? value.split(",") : value,
+    }));
+  };
+
+  const handleSubmit = () => {
+    //go to server with precerencesData as prop
+    makeAmoveUserServer.setPreferences(precerencesData).then((response) => {
+      if (response) {
+        console.log("success");
+        console.log(response);
+        saveCurrentUserToLocalStorage(loginData["email"]);
+        navigate("/profile");
+      } else {
+        console.log("failure");
+      }
+    });
   };
   return (
     <>
-      <form onSubmit={() => navigate("/profile")}>
+      <form onSubmit={handleSubmit}>
         <h1 className="pref-h1">העדפות</h1>
         <p className="signup2-p">אני מחפשת:</p>
         <div className="gender-inp">
           <span>
             <input
+              checked={precerencesData["gender"] === "male"}
               id="male"
               type="radio"
               name="gender"
@@ -55,6 +75,7 @@ export const FCPrecerences = () => {
           </span>
           <span>
             <input
+              checked={precerencesData["gender"] === "female"}
               id="female"
               type="radio"
               name="gender"
@@ -65,6 +86,7 @@ export const FCPrecerences = () => {
           </span>
           <span>
             <input
+              checked={precerencesData["gender"] === "other"}
               id="other"
               type="radio"
               name="gender"
@@ -87,7 +109,7 @@ export const FCPrecerences = () => {
 
           <Slider
             getAriaLabel={() => "Temperature range"}
-            value={ageRange}
+            value={precerencesData["ageRange"]}
             onChange={handleAgeRangeChange}
             valueLabelDisplay="on"
             className="slider"
@@ -99,7 +121,7 @@ export const FCPrecerences = () => {
           <p className="preference-p">בגובה:</p>
           <Slider
             getAriaLabel={() => "Temperature range"}
-            value={heightRange}
+            value={precerencesData["heightRange"]}
             onChange={handleHeightRangeChange}
             valueLabelDisplay="on"
             className="slider"
@@ -117,7 +139,7 @@ export const FCPrecerences = () => {
           label="תחומי עיניין"
           options={PERSONAL_INTERESTS}
           onChange={handleInterestsCreation}
-          value={interests}
+          value={precerencesData["interests"]}
         />
         <div
           style={{
