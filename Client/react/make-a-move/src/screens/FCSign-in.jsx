@@ -6,24 +6,26 @@ import { makeAmoveUserServer } from "../services";
 import { useNavigate } from "react-router-dom";
 
 const FCSignIn = () => {
-  const navigate = useNavigate("");
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+    setLoginData((prev) => ({ ...prev, ["email"]: e.target.value }));
   };
 
   const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+    setLoginData((prev) => ({ ...prev, ["password"]: e.target.value }));
   };
 
   const login = (e) => {
+    e.preventDefault();
     console.log("user requested to signin");
-    makeAmoveUserServer.login({ email, password }).then((response) => {
+    console.log(loginData);
+    makeAmoveUserServer.login(loginData).then((response) => {
       if (response) {
         console.log("success");
         console.log(response);
+        saveCurrentUserToLocalStorage(loginData["email"]);
         navigate("/location");
       } else {
         console.log("failure");
@@ -31,6 +33,9 @@ const FCSignIn = () => {
     });
   };
 
+  const saveCurrentUserToLocalStorage = (email) => {
+    localStorage.setItem("cuurent-user", JSON.stringify(email));
+  };
   return (
     <span>
       <img src={logo} className="logoSM" />
@@ -40,7 +45,12 @@ const FCSignIn = () => {
         <br />
         <br />
 
-        <FCCustomTxtInp ph={"סיסמה"} onChange={handlePasswordChange} required />
+        <FCCustomTxtInp
+          type="password"
+          ph={"סיסמה"}
+          onChange={handlePasswordChange}
+          required
+        />
         {/* <p style={{ color: "white" }}>או</p> */}
         {/* <FCCustomBtn title={"התחברות באמצעות דוא''ל"} /> */}
         <FCCustomBtn type="submit" title={"התחברות"} />

@@ -262,7 +262,6 @@ namespace Make_a_move___Server.DAL
                         LastName = dataReader["familyName"].ToString(),
                         Password = dataReader["password"].ToString(),
                         Image = JsonSerializer.Deserialize<string[]>(dataReader["image"].ToString()),
-                        //Image = dataReader["image"].ToString(),
                         Gender = Convert.ToInt32(dataReader["gender"]),
                         Height = Convert.ToInt32(dataReader["height"]),
                         Birthday = Convert.ToDateTime(dataReader["birthday"]),
@@ -274,26 +273,7 @@ namespace Make_a_move___Server.DAL
                         PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString()),
                         CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
                         PersoalText= dataReader["persoalText"].ToString(),
-                        //City = new City
-                        //{
-                        //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
-                        //    CityName = dataReader["cityName"].ToString()
-                        //},
-                        //Preference = new Preference
-                        //{
-                        //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
-                        //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
-                        //    FirstOption = dataReader["firstOption"].ToString(),
-                        //    SecondOption = dataReader["secondOption"].ToString(),
-                        //    ThirdOption = dataReader["thirdOption"].ToString(),
-                        //    FourthOption = dataReader["FourthOption"].ToString(),
-                        //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
-                        //},
-                        //personalInterests = new PersonalInterests
-                        //{
-                        //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
-                        //    InterestDesc = dataReader["interestDesc"].ToString(),
-                        //}
+                        
                     };
                 }
 
@@ -619,26 +599,6 @@ namespace Make_a_move___Server.DAL
                     u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]); ;
                     u.PersoalText = dataReader["persoalText"].ToString();
 
-                    //u.City = new City
-                    //{
-                    //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
-                    //    CityName = dataReader["cityName"].ToString()
-                    //};
-                    //u.Preference = new Preference
-                    //{
-                    //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
-                    //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
-                    //    FirstOption = dataReader["firstOption"].ToString(),
-                    //    SecondOption = dataReader["secondOption"].ToString(),
-                    //    ThirdOption = dataReader["thirdOption"].ToString(),
-                    //    FourthOption = dataReader["FourthOption"].ToString(),
-                    //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
-                    //};
-                    //u.personalInterests = new PersonalInterests
-                    //{
-                    //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
-                    //    InterestDesc = dataReader["interestDesc"].ToString(),
-                    //};
 
 
                     usersList.Add(u);
@@ -728,6 +688,33 @@ namespace Make_a_move___Server.DAL
             {
                 // write to log
                 throw (ex);
+                // Create the connection
+                con = connect("myProjDB");
+            }
+            catch (Exception ex)
+            {
+                // Write to log
+                throw ex;
+            }
+
+
+        }
+
+        public int ChangeUserImages(string email, string[] images)
+        {
+            
+            cmd = CreateChangeUserImagesCommandWithStoredProcedure("SP_ChangeUserImages", con, email, images); // Create the command
+
+            try
+            {
+                //Execute the command
+                int numEffected = cmd.ExecuteNonQuery();
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // Write to log
+                throw ex;
             }
             finally
             {
@@ -746,9 +733,30 @@ namespace Make_a_move___Server.DAL
             // set up the command properties like command text, timeout, etc.
 
             cmd.Parameters.AddWithValue("@inputEmail", email); // Add parameter for email
+        //---------------------------------------------------------------------------------
+        // Create the SqlCommand for changing user images using a stored procedure
+        //---------------------------------------------------------------------------------
+
+        private SqlCommand CreateChangeUserImagesCommandWithStoredProcedure(string spName, SqlConnection con, string email, string[] images)
+        {
+            SqlCommand cmd = new SqlCommand(); // Create the command object
+
+            cmd.Connection = con; // Assign the connection to the command object
+
+            cmd.CommandText = spName; // Can be Select, Insert, Update, Delete
+
+            cmd.CommandTimeout = 10; // Time to wait for the execution. The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // The type of the command, can also be text
+
+            cmd.Parameters.AddWithValue("@email", email);
+
+            string imagesJson = JsonSerializer.Serialize(images);
+            cmd.Parameters.AddWithValue("@images", imagesJson);
 
             return cmd;
         }
+
 
 
     }

@@ -1,3 +1,4 @@
+import { Password } from "@mui/icons-material";
 import axios from "axios";
 
 export const makeAmoveUserServer = {
@@ -12,7 +13,11 @@ export const makeAmoveUserServer = {
 
   createUser: (data) =>
     axios
-      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users`, data)
+      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users`, {
+        ...data,
+        isActive: true,
+        // personal text
+      })
       .then((res) => res.data) //returning data
       .catch((error) => {
         console.error("Error create user:", error);
@@ -30,27 +35,39 @@ export const makeAmoveUserServer = {
         console.error("Error update user:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
-  login: ({ email, password }) =>
+  login: (data) =>
     axios
       .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/Login`, {
-        email: email,
+        email: data.email,
         firstName: "string",
         lastName: "string",
-        password: password,
+        password: data.password,
         gender: 0,
         image: ["string"],
         height: 0,
-        birthday: "2024-05-12T09:32:10.166Z",
+        birthday: "2024-05-17T08:24:11.516Z",
         phoneNumber: "string",
         isActive: true,
         city: "string",
         personalInterestsIds: ["string"],
         preferencesIds: ["string"],
         currentPlace: 0,
+        persoalText: "s",
       })
       .then((res) => res.data) //returning data
       .catch((error) => {
         console.error("Error login:", error);
+        throw error; // Rethrow the error to be caught by the caller
+      }),
+  setPreferences: (data) =>
+    axios
+      .patch(
+        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/preferences`,
+        data
+      )
+      .then((res) => res.data) //returning data
+      .catch((error) => {
+        console.error("Error setPreferences:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
 
@@ -69,5 +86,19 @@ export const makeAmoveUserServer = {
       .catch((error) => {
         console.error("Error create user:", error);
         throw error; // Rethrow the error to be caught by the caller
+      }),
+
+  changeImages: (images) =>
+    axios
+      .put(
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/users/changeImages/"string11"`,
+        images
+      )
+      .then((res) => res.images)
+      .catch((error) => {
+        console.error("Error change images:", error);
+        throw error;
       }),
 };

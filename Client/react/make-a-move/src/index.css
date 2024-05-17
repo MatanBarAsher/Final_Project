@@ -294,13 +294,18 @@ input[name="gender"] {
   padding: 0;
   font-size: 20px;
   cursor: pointer;
-  /* opacity: 0; */
+  opacity: 0;
+  z-index: 100;
 }
 .custom-file-label {
+  position: absolute;
   color: #989898;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+  padding: 35px 55px;
+  font-size: 26px;
+  right: 8px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .range{
   display: flex;

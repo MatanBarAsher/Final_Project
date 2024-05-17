@@ -3,6 +3,7 @@ import FCHamburger from "../components/FCHamburger";
 import locationPin from "../assets/images/locationPin1.png";
 import WomanIcon from "@mui/icons-material/Woman";
 import ManIcon from "@mui/icons-material/Man";
+import { useNavigate } from "react-router-dom";
 
 export default function FCMap({ location }) {
   const male = <ManIcon />;
