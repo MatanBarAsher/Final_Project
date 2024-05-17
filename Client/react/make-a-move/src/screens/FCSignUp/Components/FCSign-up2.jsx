@@ -50,7 +50,7 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
         <div className="gender-inp">
           <span>
             <input
-            checked={signUpData["gender"] === "male"}
+              checked={signUpData["gender"] === "male"}
               id="male"
               type="radio"
               name="gender"
@@ -73,7 +73,7 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
           </span>
           <span>
             <input
-            checked={signUpData["gender"] === "other"}
+              checked={signUpData["gender"] === "other"}
               id="other"
               type="radio"
               name="gender"
@@ -99,7 +99,7 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
         />
         <p className="signup2-p">גובה (ס''מ):</p>
         <FCCustomNumberInp
-        value={signUpData["height"]}
+          value={signUpData["height"]}
           ph="ס''מ"
           min={0}
           onChange={handleHeightCreation}

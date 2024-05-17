@@ -25,8 +25,8 @@ export const FCSignUp1 = ({ setCurrentStep, currentStep, length }) => {
   }, [signUpData]);
 
   const handlePhoneCreation = (e) => {
-    updateSignUpData("phone", e.target.value);
-    setChangedKey("phone");
+    updateSignUpData("phoneNumber", e.target.value);
+    setChangedKey("phoneNumber");
   };
   const handleEmailCreation = (e) => {
     updateSignUpData("email", e.target.value);
@@ -44,7 +44,7 @@ export const FCSignUp1 = ({ setCurrentStep, currentStep, length }) => {
         <h1>הרשמה</h1>
         <p className="signup-p">אפשר לקבל את הטלפון שלך?</p>
         <FCCustomPhoneInp
-          value={signUpData["phone"]}
+          value={signUpData["phoneNumber"]}
           ph={"מס' טלפון"}
           onChange={handlePhoneCreation}
           error={!!errors.find((error) => error === "phone")}

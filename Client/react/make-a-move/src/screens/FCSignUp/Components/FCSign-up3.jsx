@@ -22,15 +22,15 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
       target: { value },
     } = event || {};
     updateSignUpData(
-      "PersonalInterestsIds",
+      "personalInterestsIds",
       typeof value === "string" ? value.split(",") : value
     );
   };
 
   const handleSubmit = () => {
-    makeAmoveUserServer
-      .createUser(signUpData)
-      .then(() => navigate("/setImages"));
+    console.log(signUpData);
+    makeAmoveUserServer.createUser(signUpData);
+    // .then(() => navigate("/setImages"));
   };
   return (
     <>
@@ -41,7 +41,7 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
           label="תחומי עיניין"
           options={PERSONAL_INTERESTS}
           onChange={handlePersonalInterestsIdsChange}
-          value={signUpData["PersonalInterestsIds"]}
+          value={signUpData["personalInterestsIds"]}
         />
         <p className="signup2-p">
           ספר/י לנו קצת על עצמך:

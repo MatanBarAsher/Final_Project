@@ -1,14 +1,19 @@
+import { Description } from "@mui/icons-material";
+
 export const SIGNUP_INIT_DATA = {
-  phone: "",
   email: "",
-  password: "",
   firstName: "",
   lastName: "",
-  lastName: "",
-  gender: "",
-  height: "",
+  password: "",
+  gender: 0,
+  image: [""],
+  height: 0,
   birthday: "",
+  phoneNumber: "",
+  isActive: true,
   city: "",
-  PersonalInterestsIds: [],
+  personalInterestsIds: [""],
+  preferencesIds: [""],
+  currentPlace: 0,
   description: "",
 };
