@@ -57,7 +57,7 @@ namespace Make_a_move___Server.Controllers
             try
             {
                 User user = new User { Email = firstEmail };
-                user.AddToDictionary(secondEmail);
+                user.AddToDictionary(firstEmail,secondEmail);
                 return Ok("User added to dictionary successfully.");
             }
             catch (Exception ex)
@@ -71,7 +71,7 @@ namespace Make_a_move___Server.Controllers
             try
             {
                 User user = new User { Email = email };
-                user.RemoveFromDictionary();
+                user.RemoveFromDictionary(email); // Provide the email parameter
                 return Ok("User removed from dictionary successfully.");
             }
             catch (Exception ex)
@@ -79,6 +79,7 @@ namespace Make_a_move___Server.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
+
         [HttpPost("SearchUserByEmail")]
         public IActionResult SearchUserByEmail(string email, string valueToCheck)
         {
@@ -105,7 +106,7 @@ namespace Make_a_move___Server.Controllers
         {
             try
             {
-                Dictionary<string, string> dictionary = Make_a_move___Server.BL.User.GetDictionary();
+                Dictionary<string, List<string>> dictionary = Make_a_move___Server.BL.User.GetDictionary();
                 return Ok(dictionary);
             }
             catch (Exception ex)
@@ -113,6 +114,67 @@ namespace Make_a_move___Server.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
+
+
+        [HttpPost("LikeUser")]
+        public IActionResult LikeUser(string userEmail, string likedUserEmail)
+        {
+            try
+            {
+                // Create an instance of the User class
+                User user = new User();
+
+                // Call the LikeUser method on the instance
+                bool isLiked = user.LikeUser(userEmail, likedUserEmail);
+
+                if (isLiked)
+                {
+                    // Return message if the user is already liked
+                    return Ok("We have a match!");
+                }
+                else
+                {
+                    // Return message if the like was added
+                    return Ok("Like added successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Return error message if an exception occurs
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
+
+        [HttpGet("ReadUsersByPreference")]
+        public IActionResult ReadUsersByPreference(string userEmail)
+        {
+            try
+            {
+                // Get the current user by email
+                User currentUser = Make_a_move___Server.BL.User.GetUserByEmail(userEmail);
+
+                // Check if the user exists
+                if (currentUser == null)
+                {
+                    // Return a not found response if the user does not exist
+                    return NotFound($"User with email {userEmail} not found.");
+                }
+
+                // Call ReadUsersByPreference to get users matching the preferences of the current user
+                List<User> usersByPreference = currentUser.ReadUsersByPreference(currentUser);
+
+                // Return the list of users
+                return Ok(usersByPreference);
+            }
+            catch (Exception ex)
+            {
+                // Return an error response if an exception occurs
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
+
 
 
 
