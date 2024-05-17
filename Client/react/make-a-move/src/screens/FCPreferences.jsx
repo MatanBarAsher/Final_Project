@@ -12,7 +12,7 @@ export const FCPrecerences = () => {
 
   const [precerencesData, setPrecerencesData] = useState({
     gender: "",
-    distance: "",
+    distance: 0,
     interests: [],
     ageRange: [18, 80],
     heightRange: [120, 250],
