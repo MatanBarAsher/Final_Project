@@ -136,6 +136,7 @@ namespace Make_a_move___Server.BL
                     userToUpdate.preferencesIds = newUser.preferencesIds;
                     userToUpdate.personalInterestsIds = newUser.personalInterestsIds;
                     userToUpdate.currentPlace = newUser.currentPlace;
+                    userToUpdate.persoalText = newUser.persoalText;
 
 
 
