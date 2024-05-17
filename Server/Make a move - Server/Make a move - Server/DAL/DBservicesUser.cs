@@ -258,7 +258,6 @@ namespace Make_a_move___Server.DAL
                         LastName = dataReader["familyName"].ToString(),
                         Password = dataReader["password"].ToString(),
                         Image = JsonSerializer.Deserialize<string[]>(dataReader["image"].ToString()),
-                    //Image = dataReader["image"].ToString(),
                         Gender = Convert.ToInt32(dataReader["gender"]),
                         Height = Convert.ToInt32(dataReader["height"]),
                         Birthday = Convert.ToDateTime(dataReader["birthday"]),
@@ -269,26 +268,7 @@ namespace Make_a_move___Server.DAL
                         PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString()),
                         CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
                         PersoalText= dataReader["persoalText"].ToString(),
-                        //City = new City
-                        //{
-                        //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
-                        //    CityName = dataReader["cityName"].ToString()
-                        //},
-                        //Preference = new Preference
-                        //{
-                        //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
-                        //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
-                        //    FirstOption = dataReader["firstOption"].ToString(),
-                        //    SecondOption = dataReader["secondOption"].ToString(),
-                        //    ThirdOption = dataReader["thirdOption"].ToString(),
-                        //    FourthOption = dataReader["FourthOption"].ToString(),
-                        //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
-                        //},
-                        //personalInterests = new PersonalInterests
-                        //{
-                        //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
-                        //    InterestDesc = dataReader["interestDesc"].ToString(),
-                        //}
+                        
                     };
                 }
 

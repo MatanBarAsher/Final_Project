@@ -1,3 +1,4 @@
+import { Password } from "@mui/icons-material";
 import axios from "axios";
 
 export const makeAmoveUserServer = {
@@ -36,7 +37,23 @@ export const makeAmoveUserServer = {
       }),
   login: (data) =>
     axios
-      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/Login`, data)
+      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/Login`, {
+        email: data.email,
+        firstName: "string",
+        lastName: "string",
+        password: data.password,
+        gender: 0,
+        image: ["string"],
+        height: 0,
+        birthday: "2024-05-17T08:24:11.516Z",
+        phoneNumber: "string",
+        isActive: true,
+        city: "string",
+        personalInterestsIds: ["string"],
+        preferencesIds: ["string"],
+        currentPlace: 0,
+        persoalText: "s",
+      })
       .then((res) => res.data) //returning data
       .catch((error) => {
         console.error("Error login:", error);

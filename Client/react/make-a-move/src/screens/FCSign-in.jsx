@@ -3,9 +3,11 @@ import FCCustomBtn from "../components/FCCustomBtn";
 import logo from "../assets/images/Logo.png";
 import FCCustomTxtInp from "../components/FCCustomTxtInp";
 import { makeAmoveUserServer } from "../services";
+import { useNavigate } from "react-router-dom";
 
 const FCSignIn = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setLoginData((prev) => ({ ...prev, ["email"]: e.target.value }));
@@ -18,12 +20,13 @@ const FCSignIn = () => {
   const login = (e) => {
     e.preventDefault();
     console.log("user requested to signin");
+    console.log(loginData);
     makeAmoveUserServer.login(loginData).then((response) => {
       if (response) {
         console.log("success");
         console.log(response);
         saveCurrentUserToLocalStorage(loginData["email"]);
-        // navigate("/location");
+        navigate("/location");
       } else {
         console.log("failure");
       }
