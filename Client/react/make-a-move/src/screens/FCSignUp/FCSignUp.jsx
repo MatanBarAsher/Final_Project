@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 
 import { FCSignUp1, FCSignUp2, FCSignUp3 } from "./Components";
-import FCCustomBtn from "../../components/FCCustomBtn";
 import { Step, StepLabel, Stepper } from "@mui/material";
+import { SignUpProvider } from "./SignUpContext";
 
-export const FCSignUp = () => {
+export const FCSignUp = () => (
+  <SignUpProvider>
+    <FCSignUpFlow />
+  </SignUpProvider>
+);
+
+const FCSignUpFlow = () => {
   const screens = [FCSignUp1, FCSignUp2, FCSignUp3];
   const [currentStep, setCurrentStep] = useState(0);
 

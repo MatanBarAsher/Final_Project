@@ -1,44 +1,39 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../../assets/images/Logo.png"; //"../../../../assets/images/Logo.png";
-import { useNavigate } from "react-router-dom";
 import FCCustomPhoneInp from "../../../components/FCCustomPhoneInp";
 import FCCustomMailInp from "../../../components/FCCustomMailInp";
 import FCCustomPasswordInp from "../../../components/FCCustomPasswordInp";
 import { makeAmoveUserServer } from "../../../services";
 import FCCustomBtn from "../../../components/FCCustomBtn";
+import { useSignUpContext } from "../SignUpContext";
 
 export const FCSignUp1 = ({ setCurrentStep, currentStep, length }) => {
-  const navigate = useNavigate("");
+  const { signUpData, updateSignUpData } = useSignUpContext();
 
   const [errors, setErrors] = useState([]);
   const [changedKey, setChangedKey] = useState(null);
-  const [userDetails, setUserDetails] = useState({
-    phone: "",
-    email: "",
-    password: "",
-  });
 
   useEffect(() => {
     setErrors(errors?.filter((error) => error !== changedKey));
     changedKey &&
       makeAmoveUserServer
-        .checkExist({ key: changedKey, value: userDetails[changedKey] })
+        .checkExist({ key: changedKey, value: signUpData[changedKey] })
         .then((res) => {
           !!res ? setErrors((prev) => [...prev, changedKey]) : null;
           setChangedKey(null);
         });
-  }, [userDetails]);
+  }, [signUpData]);
 
   const handlePhoneCreation = (e) => {
-    setUserDetails((prev) => ({ ...prev, ["phone"]: e.target.value }));
+    updateSignUpData("phone", e.target.value);
     setChangedKey("phone");
   };
   const handleEmailCreation = (e) => {
-    setUserDetails((prev) => ({ ...prev, ["email"]: e.target.value }));
+    updateSignUpData("email", e.target.value);
     setChangedKey("email");
   };
   const handlePasswordCreation = (e) => {
-    setUserDetails((prev) => ({ ...prev, ["password"]: e.target.value }));
+    updateSignUpData("password", e.target.value);
     setChangedKey("password");
   };
 
@@ -49,6 +44,7 @@ export const FCSignUp1 = ({ setCurrentStep, currentStep, length }) => {
         <h1>הרשמה</h1>
         <p className="signup-p">אפשר לקבל את הטלפון שלך?</p>
         <FCCustomPhoneInp
+          value={signUpData["phone"]}
           ph={"מס' טלפון"}
           onChange={handlePhoneCreation}
           error={!!errors.find((error) => error === "phone")}
@@ -57,6 +53,7 @@ export const FCSignUp1 = ({ setCurrentStep, currentStep, length }) => {
         <p className="signup-p">אפשר לקבל את המייל שלך?</p>
         <FCCustomMailInp
           ph={"דוא''ל"}
+          value={signUpData["email"]}
           error={!!errors.find((error) => error === "email")}
           onChange={handleEmailCreation}
           required
@@ -64,6 +61,7 @@ export const FCSignUp1 = ({ setCurrentStep, currentStep, length }) => {
         <p className="signup-p">סיסמה</p>
         <FCCustomPasswordInp
           ph={"סיסמא"}
+          value={signUpData["password"]}
           error={!!errors.find((error) => error === "password")}
           onChange={handlePasswordCreation}
           required

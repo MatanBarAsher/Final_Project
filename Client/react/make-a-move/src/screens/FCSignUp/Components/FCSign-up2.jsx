@@ -1,39 +1,33 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import FCCustomDateInp from "../../../components/FCCustomDateInp";
 import FCCustomNumberInp from "../../../components/FCCustomNumberInp";
 import { FCSelect } from "../../../components/Select/FCSelect";
 import FCCustomBtn from "../../../components/FCCustomBtn";
+import { useSignUpContext } from "../SignUpContext";
 
 export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
-  const navigate = useNavigate("");
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [gender, setGender] = useState();
-  const [height, setHeight] = useState();
-  const [birthday, setBirthday] = useState();
-  const [city, setCity] = useState();
+  const { signUpData, updateSignUpData } = useSignUpContext();
 
   const handleFirstNameCreation = (e) => {
-    setFirstName(e.target.value);
+    updateSignUpData("firstName", e.target.value);
   };
   const handleLastNameCreation = (e) => {
-    setLastName(e.target.value);
+    updateSignUpData("lastName", e.target.value);
   };
 
   const handleGenderCreation = (e) => {
-    setGender(e.target.value);
+    updateSignUpData("gender", e.target.id);
   };
   const handleHeightCreation = (e) => {
-    setHeight(e.target.value);
+    updateSignUpData("height", e.target.value);
   };
 
   const handleBirthdayCreation = (e) => {
-    setBirthday(e.target.value);
+    updateSignUpData("birthday", e.target.value);
   };
   const handleCityCreation = (e) => {
-    setCity(e.target.value);
+    updateSignUpData("city", e.target.value);
   };
   return (
     <>
@@ -44,19 +38,23 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
           ph="שם פרטי"
           onChange={handleFirstNameCreation}
           required
+          value={signUpData["firstName"]}
         />
         <p className="signup2-p">שם משפחה:</p>
         <FCCustomTxtInp
           ph="שם משפחה"
           onChange={handleLastNameCreation}
           required
+          value={signUpData["lastName"]}
         />
         <div className="gender-inp">
           <span>
             <input
+            checked={signUpData["gender"] === "male"}
               id="male"
               type="radio"
               name="gender"
+              value={true}
               onChange={handleGenderCreation}
               required
             />
@@ -64,6 +62,7 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
           </span>
           <span>
             <input
+              checked={signUpData["gender"] === "female"}
               id="female"
               type="radio"
               name="gender"
@@ -74,6 +73,7 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
           </span>
           <span>
             <input
+            checked={signUpData["gender"] === "other"}
               id="other"
               type="radio"
               name="gender"
@@ -86,7 +86,7 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
         <p className="signup2-p">מאיפה אתה?</p>
         <FCSelect
           onChange={handleCityCreation}
-          value={city}
+          value={signUpData["city"]}
           options={["חדרה"]}
           required
         />
@@ -94,10 +94,12 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
         <FCCustomDateInp
           ph="dd/mm/yyyy"
           onChange={handleBirthdayCreation}
+          value={signUpData["birthday"]}
           required
         />
         <p className="signup2-p">גובה (ס''מ):</p>
         <FCCustomNumberInp
+        value={signUpData["height"]}
           ph="ס''מ"
           min={0}
           onChange={handleHeightCreation}

@@ -1,38 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import { PERSONAL_INTERESTS } from "../../../constants";
 import { FCMultiSelect } from "../../../components/MultiSelect";
 import FCCustomBtn from "../../../components/FCCustomBtn";
+import { useSignUpContext } from "../SignUpContext";
+import { makeAmoveUserServer } from "../../../services";
 
 export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
   const navigate = useNavigate("");
-  const [PersonalInterestsIds, setPersonalInterestsIds] = useState([]);
-  const [Description, setDescription] = useState();
+
+  const { signUpData, updateSignUpData } = useSignUpContext();
+  console.log(signUpData);
 
   const handleDescriptionCreation = (e) => {
-    setDescription(e.target.value);
+    updateSignUpData("description", e.target.value);
   };
 
   const handlePersonalInterestsIdsChange = (event) => {
     const {
       target: { value },
     } = event || {};
-    setPersonalInterestsIds(
-      // On autofill we get a stringified value.
+    updateSignUpData(
+      "PersonalInterestsIds",
       typeof value === "string" ? value.split(",") : value
     );
   };
+
+  const handleSubmit = () => {
+    makeAmoveUserServer
+      .createUser(signUpData)
+      .then(() => navigate("/setImages"));
+  };
   return (
     <>
-      <form onSubmit={() => navigate("/setImages")}>
+      <form>
         <h1>פרופיל</h1>
         <p className="signup2-p">מה את/ה אוהב/ת לעשות בזמנך הפנוי?</p>
         <FCMultiSelect
           label="תחומי עיניין"
           options={PERSONAL_INTERESTS}
           onChange={handlePersonalInterestsIdsChange}
-          value={PersonalInterestsIds}
+          value={signUpData["PersonalInterestsIds"]}
         />
         <p className="signup2-p">
           ספר/י לנו קצת על עצמך:
@@ -50,6 +59,7 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
           ph="כאן מספרים..."
           onChange={handleDescriptionCreation}
           required
+          value={signUpData["description"]}
         />
         <div
           style={{
@@ -61,9 +71,9 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
         >
           <FCCustomBtn
             style={{ width: "10rem", color: "black" }}
-            onClick={() => navigate("/setImages")}
+            onClick={handleSubmit}
             title={currentStep === length - 1 ? "סיום" : "הבא"}
-            type="submit"
+            // type="submit"
           />
           {currentStep !== 0 && (
             <FCCustomBtn

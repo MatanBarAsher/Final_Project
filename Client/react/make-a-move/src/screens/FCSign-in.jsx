@@ -3,29 +3,26 @@ import FCCustomBtn from "../components/FCCustomBtn";
 import logo from "../assets/images/Logo.png";
 import FCCustomTxtInp from "../components/FCCustomTxtInp";
 import { makeAmoveUserServer } from "../services";
-import { useNavigate } from "react-router-dom";
 
 const FCSignIn = () => {
-  const navigate = useNavigate("");
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
 
   const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+    setLoginData((prev) => ({ ...prev, ["email"]: e.target.value }));
   };
 
   const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+    setLoginData((prev) => ({ ...prev, ["password"]: e.target.value }));
   };
 
   const login = (e) => {
     e.preventDefault();
     console.log("user requested to signin");
-    makeAmoveUserServer.login({ email, password }).then((response) => {
+    makeAmoveUserServer.login(loginData).then((response) => {
       if (response) {
         console.log("success");
         console.log(response);
-        saveCurrentUserToLocalStorage(email);
+        saveCurrentUserToLocalStorage(loginData["email"]);
         // navigate("/location");
       } else {
         console.log("failure");
