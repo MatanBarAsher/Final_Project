@@ -1,4 +1,5 @@
 ﻿using Make_a_move___Server.BL;
+using Make_a_move___Server.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting.Internal;
 using System.Net;
@@ -175,41 +176,39 @@ namespace Make_a_move___Server.Controllers
             }
         }
 
+       
+
+    //[HttpPut]
+    //[Route("changeImages/{email}")]
+    //public int ChangeImages([FromRoute] string email, [FromForm] List<IFormFile> images)
+    //{
+    //    List<string> imageLinks = new List<string>();
+
+    //    string path = System.IO.Directory.GetCurrentDirectory();
+
+    //    long size = images.Sum(f => f.Length);
+
+    //    foreach (var formFile in images)
+    //    {
+    //        if (formFile.Length > 0)
+    //        {
+    //            var filePath = Path.Combine(path, "uploadedFiles/" + formFile.FileName);
+
+    //            using (var stream = System.IO.File.Create(filePath))
+    //            {
+    //                 formFile.CopyToAsync(stream);
+    //            }
+    //            imageLinks.Add(formFile.FileName);
+    //        }
+    //    }
+    //    string[] imageLinksArray = imageLinks.ToArray();
+    //    User user = new User();
+    //    return user.ChangeImages(email, imageLinksArray);
+    //}
 
 
 
-
-        //[HttpPut]
-        //[Route("changeImages/{email}")]
-        //public int ChangeImages([FromRoute] string email, [FromForm] List<IFormFile> images)
-        //{
-        //    List<string> imageLinks = new List<string>();
-
-        //    string path = System.IO.Directory.GetCurrentDirectory();
-
-        //    long size = images.Sum(f => f.Length);
-
-        //    foreach (var formFile in images)
-        //    {
-        //        if (formFile.Length > 0)
-        //        {
-        //            var filePath = Path.Combine(path, "uploadedFiles/" + formFile.FileName);
-
-        //            using (var stream = System.IO.File.Create(filePath))
-        //            {
-        //                 formFile.CopyToAsync(stream);
-        //            }
-        //            imageLinks.Add(formFile.FileName);
-        //        }
-        //    }
-        //    string[] imageLinksArray = imageLinks.ToArray();
-        //    User user = new User();
-        //    return user.ChangeImages(email, imageLinksArray);
-        //}
-
-
-
-        [HttpPut]
+    [HttpPut]
         [Route("changeImages/{email}")]
 
         public async Task<IActionResult> ChangeImages([FromForm] List<IFormFile> files)

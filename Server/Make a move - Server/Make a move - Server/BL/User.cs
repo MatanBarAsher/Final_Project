@@ -51,7 +51,7 @@ namespace Make_a_move___Server.BL
             this.personalInterestsIds = personalInterestsIds;
             this.currentPlace = currentPlace;
             this.persoalText = persoalText;
-            this.PreferencesDictionary = preferencesDictionary;
+            this.preferencesDictionary = preferencesDictionary;
 
 
 
@@ -76,7 +76,7 @@ namespace Make_a_move___Server.BL
         public string PersoalText { get => persoalText; set => persoalText = value; }
         public Dictionary<string, string> PreferencesDictionary { get => preferencesDictionary; set => preferencesDictionary = value; }
 
-        //Get& Set to dictionary?
+        
 
 
         public int InsertUser()
@@ -336,65 +336,6 @@ namespace Make_a_move___Server.BL
 
 
 
-       
-
-
-        //-------------------------------------------------------------------
-
-        //public void AddToDictionary(string secondEmail)
-        //{
-        //    try
-        //    {
-        //        usersDictionary.Add(this.Email, secondEmail);
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        // Handle the case where the key already exists in the dictionary
-        //        // You can log the error or handle it as needed
-        //        throw new Exception("User with the same email already exists in the dictionary.", ex);
-        //    }
-        //}
-
-        //// Method to remove a user from the dictionary
-        //public void RemoveFromDictionary()
-        //{
-        //    usersDictionary.Remove(this.Email);
-        //}
-
-        //// Method to get the second user's email from the dictionary by the first user's email
-        //public static string getseconduseremail(string firstuseremail)
-        //{
-        //    if (usersDictionary.ContainsKey(firstuseremail))
-        //    {
-        //        return usersDictionary[firstuseremail];
-        //    }
-        //    else
-        //    {
-        //        // handle the case where the user with the specified email is not found
-        //        // you can return null or throw an exception as needed
-        //        return null; // or throw new exception("user not found in the dictionary.");
-        //    }
-        //}
-
-        //public static bool SearchUserByEmail(string email, string valueToCheck)
-        //{
-        //    if (usersDictionary.TryGetValue(email, out string value))
-        //    {
-        //        return value == valueToCheck;
-        //    }
-        //    else
-        //    {
-        //        // Handle the case where the user with the specified email is not found
-        //        return false;
-        //    }
-        //}
-        //public static Dictionary<string, string> GetDictionary()
-        //{
-        //    return usersDictionary;
-        //}
-
-
-
         public void AddToDictionary(string userEmail, string likedUserEmail)
         {
             try
@@ -404,7 +345,14 @@ namespace Make_a_move___Server.BL
                     likedRelationships[userEmail] = new List<string>();
                 }
 
-                likedRelationships[userEmail].Add(likedUserEmail);
+                if (!likedRelationships[userEmail].Contains(likedUserEmail))
+                {
+                    likedRelationships[userEmail].Add(likedUserEmail);
+                }
+                else
+                {
+                    Console.WriteLine($"The email {likedUserEmail} is already liked by {userEmail}.");
+                }
             }
             catch (ArgumentException ex)
             {
@@ -421,19 +369,19 @@ namespace Make_a_move___Server.BL
         }
 
         // Method to get the list of liked users' emails from the dictionary by the user's email
-        public List<string> GetLikedUsersByEmail(string userEmail)
-        {
-            if (likedRelationships.ContainsKey(userEmail))
-            {
-                return likedRelationships[userEmail];
-            }
-            else
-            {
-                // handle the case where the user with the specified email is not found
-                // you can return an empty list or throw an exception as needed
-                return new List<string>(); // or throw new exception("user not found in the dictionary.");
-            }
-        }
+        //public List<string> GetLikedUsersByEmail(string userEmail)
+        //{
+        //    if (likedRelationships.ContainsKey(userEmail))
+        //    {
+        //        return likedRelationships[userEmail];
+        //    }
+        //    else
+        //    {
+        //        // handle the case where the user with the specified email is not found
+        //        // you can return an empty list or throw an exception as needed
+        //        return new List<string>(); // or throw new exception("user not found in the dictionary.");
+        //    }
+        //}
 
         public static bool SearchUserByEmail(string userEmail, string targetUserEmail)
         {

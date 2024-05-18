@@ -163,29 +163,10 @@ namespace Make_a_move___Server.DAL
                     u.City = dataReader["city"].ToString();
                     u.PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString());
                     //u.PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString());
-                    u.PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString());
+                    u.PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>((dataReader["preferencesIds"].ToString()));
                     u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]);
                     u.PersoalText = dataReader["persoalText"].ToString();
-                    //u.City = new City
-                    //{
-                    //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
-                    //    CityName = dataReader["cityName"].ToString()
-                    //};
-                    //u.Preference = new Preference
-                    //{
-                    //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
-                    //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
-                    //    FirstOption = dataReader["firstOption"].ToString(),
-                    //    SecondOption = dataReader["secondOption"].ToString(),
-                    //    ThirdOption = dataReader["thirdOption"].ToString(),
-                    //    FourthOption = dataReader["FourthOption"].ToString(),
-                    //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
-                    //};
-                    //u.personalInterests = new PersonalInterests
-                    //{
-                    //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
-                    //    InterestDesc = dataReader["interestDesc"].ToString(),
-                    //};
+                    
 
                     usersList.Add(u);
                 }
@@ -647,8 +628,6 @@ namespace Make_a_move___Server.DAL
 
 
 
-
-
         public User GetUserByEmail(string email)
         {
             SqlConnection con;
@@ -676,33 +655,77 @@ namespace Make_a_move___Server.DAL
                 {
                     u = new User
                     {
-                        // Populate the User object from the data reader
                         Email = dataReader["email"].ToString(),
-                        // Populate other properties similarly
+                       
                     };
                 }
 
                 return u;
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                // write to log
-                throw (ex);
-                // Create the connection
-                con = connect("myProjDB");
+                // Log the SQL exception
+                Console.WriteLine("SQL Exception:");
+                Console.WriteLine($"Error Number: {ex.Number}");
+                Console.WriteLine($"Message: {ex.Message}");
+                // Additional error handling logic...
+
+                // Rethrow the exception or return null
+                throw; // Rethrow the exception to propagate it to the caller
             }
             catch (Exception ex)
             {
-                // Write to log
-                throw ex;
+                // Log other types of exceptions
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                // Additional error handling logic...
+
+                // Rethrow the exception or return null
+                throw; // Rethrow the exception to propagate it to the caller
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
             }
 
 
         }
 
-        public int ChangeUserImages(string email, string[] images)
+        private SqlCommand CreateSelectUserByEmailCommand(String spName, SqlConnection con, string email)
         {
-            
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+
+            cmd.Parameters.AddWithValue("@inputEmail", email); // Add parameter for email
+
+            return cmd;
+        }
+
+            public int ChangeUserImages(string email, string[] images)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
             cmd = CreateChangeUserImagesCommandWithStoredProcedure("SP_ChangeUserImages", con, email, images); // Create the command
 
             try
@@ -726,13 +749,7 @@ namespace Make_a_move___Server.DAL
             }
         }
 
-        private SqlCommand CreateSelectUserByEmailCommand(String spName, SqlConnection con, string email)
-        {
-            SqlCommand cmd = new SqlCommand(); // create the command object
-
-            // set up the command properties like command text, timeout, etc.
-
-            cmd.Parameters.AddWithValue("@inputEmail", email); // Add parameter for email
+            
         //---------------------------------------------------------------------------------
         // Create the SqlCommand for changing user images using a stored procedure
         //---------------------------------------------------------------------------------
