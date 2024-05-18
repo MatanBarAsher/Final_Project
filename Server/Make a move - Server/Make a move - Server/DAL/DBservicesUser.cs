@@ -163,7 +163,7 @@ namespace Make_a_move___Server.DAL
                     u.City = dataReader["city"].ToString();
                     u.PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString());
                     //u.PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString());
-                    u.PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>((dataReader["preferencesIds"].ToString()));
+                    u.PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString());
                     u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]);
                     u.PersoalText = dataReader["persoalText"].ToString();
                     
@@ -656,7 +656,23 @@ namespace Make_a_move___Server.DAL
                     u = new User
                     {
                         Email = dataReader["email"].ToString(),
-                       
+                        FirstName = dataReader["firstName"].ToString(),
+                        LastName = dataReader["lastName"].ToString(),
+                        Password = dataReader["password"].ToString(),
+                        Image = JsonSerializer.Deserialize<string[]>(dataReader["image"].ToString()),
+                        Gender = Convert.ToInt32(dataReader["gender"]),
+                        Height = Convert.ToInt32(dataReader["height"]),
+                        Birthday = Convert.ToDateTime(dataReader["birthday"]),
+                        PhoneNumber = dataReader["phoneNumber"].ToString(),
+                        IsActive = Convert.ToBoolean(dataReader["isActive"]),
+                        City = dataReader["city"].ToString(),
+                        PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
+                        PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString()),
+                        CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
+                        PersoalText = dataReader["persoalText"].ToString(),
+
+
+
                     };
                 }
 

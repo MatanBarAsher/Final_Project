@@ -249,35 +249,11 @@ namespace Make_a_move___Server.BL
 
 
 
-        //public bool CheckPreferenceses(User u)
-        //{
-        //    // Check if the user's preferences dictionary contains all required keys
-        //    if (u.PreferencesDictionary.ContainsKey("gender") &&
-        //        u.PreferencesDictionary.ContainsKey("age") &&
-        //        u.PreferencesDictionary.ContainsKey("maxDistance") &&
-        //        u.PreferencesDictionary.ContainsKey("height"))
-        //    {
-        //        // Retrieve values from the preferences dictionary
-        //        string genderValue = u.PreferencesDictionary["gender"];
-        //        int ageValue = int.Parse(u.PreferencesDictionary["age"]);
-        //        int maxDistanceValue = int.Parse(u.PreferencesDictionary["maxDistance"]);
-        //        int heightValue = int.Parse(u.PreferencesDictionary["height"]);
-
-        //        // Check if the values match the current user's properties
-        //        if (genderValue == this.Gender.ToString() &&  
-        //            heightValue == this.Height)
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
-
-        public int CalculateAge()
+        public int CalculateAge(DateTime birthday)
         {
             DateTime today = DateTime.Today;
-            int age = today.Year - this.Birthday.Year;
-            if (this.Birthday > today.AddYears(-age))
+            int age = today.Year - birthday.Year;
+            if (birthday > today.AddYears(-age))
             {
                 age--;
             }
@@ -287,14 +263,21 @@ namespace Make_a_move___Server.BL
 
         public bool CheckPreferenceses(User u)
         {
+            int age = CalculateAge(u.birthday);
             if (this.PreferencesDictionary["gender"] == u.gender.ToString() &&
-                //this.PreferencesDictionary["age"] == u.age.ToString() &&
+                Int32.Parse(this.PreferencesDictionary["minAge"]) <= age  && Int32.Parse(this.PreferencesDictionary["maxAge"]) >= age &&
                 this.PreferencesDictionary["height"] == u.height.ToString()
                 //this.PreferencesDictionary["maxDistance"] == u.___.ToString()
                 )
-            {
-                return true;
-            }
+                {
+                    var SecAge = CalculateAge(this.birthday);
+                    if (u.PreferencesDictionary["gender"] == this.gender.ToString() &&
+                       Int32.Parse(u.PreferencesDictionary["minAge"]) <= age && Int32.Parse(u.PreferencesDictionary["maxAge"]) >= age &&
+                        u.PreferencesDictionary["height"] == this.height.ToString()) 
+                        {
+                        return true;
+                        }
+                }
             return false;
         }
 
@@ -308,6 +291,7 @@ namespace Make_a_move___Server.BL
                 if (user.CheckPreferenceses(u))
                 {
                     result.Add(user);
+
                 }
             }
             return result;

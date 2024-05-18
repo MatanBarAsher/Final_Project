@@ -167,7 +167,7 @@ namespace Make_a_move___Server.Controllers
                 List<User> usersByPreference = currentUser.ReadUsersByPreference(currentUser);
 
                 // Return the list of users
-                return Ok(usersByPreference);
+                return Ok($"User with we fount match.");
             }
             catch (Exception ex)
             {
