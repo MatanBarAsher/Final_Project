@@ -209,10 +209,10 @@ namespace Make_a_move___Server.Controllers
 
 
 
-        [HttpPut]
+        [HttpPost]
         [Route("changeImages/{email}")]
 
-        public async Task<IActionResult> ChangeImages([FromForm] List<IFormFile> files)
+        public async Task<IActionResult> ChangeImages([FromForm] List<IFormFile> files, [FromRoute] string email)
         {
 
 
@@ -239,6 +239,23 @@ namespace Make_a_move___Server.Controllers
             // Return status code  
             return Ok(imageLinks);
 
+        }
+
+
+
+
+
+
+
+
+
+
+        [HttpPost]
+        [Route("checkExistingUserByKeyAndValue/{key}")]
+        public bool checkExistingUserByKeyAndValue([FromRoute] string key , [FromBody] string value)
+        {
+            User u = new User();
+            return u.checkExistingUserByKeyAndValue(key, value);
         }
     }
 

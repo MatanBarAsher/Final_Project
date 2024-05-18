@@ -101,15 +101,15 @@ export const makeAmoveUserServer = {
         throw error; // Rethrow the error to be caught by the caller
       }),
 
-  changeImages: (images) =>
+  changeImages: (email, formData) =>
     axios
-      .put(
+      .post(
         `${
           import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
-        }/users/changeImages/"string11"`,
-        images
+        }/users/changeImages/${email}`,
+        formData
       )
-      .then((res) => res.images)
+      .then((res) => res.formData)
       .catch((error) => {
         console.error("Error change images:", error);
         throw error;

@@ -481,5 +481,30 @@ namespace Make_a_move___Server.BL
 
 
 
+
+
+
+
+
+
+
+        public bool checkExistingUserByKeyAndValue(string key,string value)
+        {
+            DBservicesUser dbs1 = new DBservicesUser();
+            List<User> list = dbs1.ReadUsers();
+            // Find if this value exists
+            User user1 = list.Find(u => string.Equals(u.Email.Trim(), value.Trim(), StringComparison.OrdinalIgnoreCase));
+            User user2 = list.Find(u => string.Equals(u.PhoneNumber.Trim(), value.Trim(), StringComparison.OrdinalIgnoreCase));
+            
+            if(user1 != null && user2 != null)
+            {
+                return false;
+            }
+            return true;
+
+        }
+
+
+
     }
 }

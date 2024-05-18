@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import FCCustomDateInp from "../../../components/FCCustomDateInp";
 import FCCustomNumberInp from "../../../components/FCCustomNumberInp";
@@ -16,8 +16,15 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
     updateSignUpData("lastName", e.target.value);
   };
 
-  const handleGenderCreation = (e) => {
-    updateSignUpData("gender", e.target.id);
+  var genders = [
+    { label: "גבר", id: 1 },
+    { label: "אישה", id: 2 },
+    { label: "אחר", id: 3 },
+  ];
+  const [gender, setGender] = useState(null);
+  const handleGenderCreation = (id) => {
+    setGender(id);
+    updateSignUpData("gender", id);
   };
   const handleHeightCreation = (e) => {
     updateSignUpData("height", e.target.value);
@@ -48,40 +55,18 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
           value={signUpData["lastName"]}
         />
         <div className="gender-inp">
-          <span>
-            <input
-              checked={signUpData["gender"] === "male"}
-              id="male"
-              type="radio"
-              name="gender"
-              value={true}
-              onChange={handleGenderCreation}
-              required
-            />
-            <label htmlFor="male">גבר</label>
-          </span>
-          <span>
-            <input
-              checked={signUpData["gender"] === "female"}
-              id="female"
-              type="radio"
-              name="gender"
-              onChange={handleGenderCreation}
-              required
-            />
-            <label htmlFor="female">אישה</label>
-          </span>
-          <span>
-            <input
-              checked={signUpData["gender"] === "other"}
-              id="other"
-              type="radio"
-              name="gender"
-              onChange={handleGenderCreation}
-              required
-            />
-            <label htmlFor="other">אחר</label>
-          </span>
+          {genders.map((g) => (
+            <span>
+              <input
+                checked={gender === g.id}
+                id={"gender_" + g.id}
+                type="radio"
+                value={g.id}
+                onClick={() => handleGenderCreation(g.id)}
+              />
+              <label htmlFor={"gender_" + g.id}>{g.label}</label>
+            </span>
+          ))}
         </div>
         <p className="signup2-p">מאיפה אתה?</p>
         <FCSelect

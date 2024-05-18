@@ -18,26 +18,28 @@ export default function FCSetImages() {
   const handleImgInput = (e) => {
     e.preventDefault();
     console.log(images);
-    const email = "string11";
     const formData = new FormData();
     for (const key in images) {
       if (images[key]) {
         console.log(`Key: ${key}, Value: ${images[key].name}`);
-        formData.append(`file_${key}`, images[key]); // Append with unique key
+        formData.append(`files`, images[key]);
+        console.log([...formData]);
       }
     }
-
-    console.log(formData);
-
-    makeAmoveUserServer.changeImages({ formData }).then((response) => {
-      if (response) {
-        console.log("success");
-        console.log(response);
-        // navigate("/");
-      } else {
-        console.log("failure");
-      }
-    });
+    localStorage.setItem("current-email", JSON.stringify("@neta"));
+    const currentEmail = JSON.stringify(localStorage.getItem("current-email"));
+    makeAmoveUserServer
+      .changeImages({ currentEmail, formData })
+      .then((response) => {
+        console.log(formData.getAll(`files`));
+        if (response) {
+          console.log("success");
+          console.log(response);
+          navigate("/");
+        } else {
+          console.log("failure");
+        }
+      });
   };
 
   const handleImageChange = (name, file) => {

@@ -29,8 +29,9 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
 
   const handleSubmit = () => {
     console.log(signUpData);
-    makeAmoveUserServer.createUser(signUpData);
-    // .then(() => navigate("/setImages"));
+    makeAmoveUserServer
+      .createUser(signUpData)
+      .then(() => navigate("/setImages"));
   };
   return (
     <>
