@@ -5,9 +5,9 @@ const FCCustomBtn = ({ onClick, type, title, mt, ...other }) => {
   return (
     <Button
       type={type}
-      onSubmitCapture={type === "submit" && onClick}
+      onSubmitCapture={type === "submit" ? onClick : undefined}
       className="main-btn"
-      onClick={type !== "submit" && onClick}
+      onClick={type !== "submit" ? onClick : undefined}
       style={{ marginTop: mt, color: "black" }}
       {...other}
     >

@@ -5,7 +5,6 @@ import WomanIcon from "@mui/icons-material/Woman";
 import ManIcon from "@mui/icons-material/Man";
 import { useNavigate } from "react-router-dom";
 import FCLocation from "./FCLocation";
-import { makeAmoveUserServer } from "../services";
 
 export default function FCMap({ location }) {
   const male = <ManIcon />;
@@ -66,4 +65,6 @@ export default function FCMap({ location }) {
 
   // Call initialize function to start the process
   initialize();
+
+  return <div id="icon-container"></div>;
 }

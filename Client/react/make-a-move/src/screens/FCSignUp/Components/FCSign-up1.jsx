@@ -64,7 +64,7 @@ export const FCSignUp1 = ({ setCurrentStep, currentStep, length }) => {
           value={signUpData["password"]}
           error={!!errors.find((error) => error === "password")}
           onChange={handlePasswordCreation}
-          required
+          // required
         />
         <div
           style={{
@@ -80,12 +80,14 @@ export const FCSignUp1 = ({ setCurrentStep, currentStep, length }) => {
             title={currentStep === length - 1 ? "סיום" : "הבא"}
             type="submit"
           />
-          {currentStep !== 0 && (
+          {currentStep !== 0 ? (
             <FCCustomBtn
               style={{ width: "10rem", color: "black" }}
               onClick={() => setCurrentStep((prev) => prev - 1)}
               title={"הקודם"}
             />
+          ) : (
+            <span />
           )}
         </div>
       </form>

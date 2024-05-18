@@ -81,9 +81,10 @@ export const makeAmoveUserServer = {
         throw error; // Rethrow the error to be caught by the caller
       }),
 
-  setLocationValue: (data) =>
-    axios
-      .patch(
+  setLocationValue: (data) => {
+    console.log(data);
+    return axios
+      .post(
         `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/UpdatePlace`,
         data
       )
@@ -91,7 +92,8 @@ export const makeAmoveUserServer = {
       .catch((error) => {
         console.error("Error on setting current place:", error);
         throw error; // Rethrow the error to be caught by the caller
-      }),
+      });
+  },
 
   /**
    * check if the given key exist for the given value

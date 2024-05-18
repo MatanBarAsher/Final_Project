@@ -56,7 +56,7 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
         />
         <div className="gender-inp">
           {genders.map((g) => (
-            <span>
+            <span key={g.id}>
               <input
                 checked={gender === g.id}
                 id={"gender_" + g.id}

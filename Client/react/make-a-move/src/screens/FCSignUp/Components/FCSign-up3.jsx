@@ -31,6 +31,7 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
     console.log(signUpData);
     makeAmoveUserServer.createUser(signUpData);
     // .then(() => navigate("/setImages"));
+    navigate("/images");
   };
   return (
     <>
