@@ -69,18 +69,27 @@ export const makeAmoveUserServer = {
       })
       .then((res) => res.data) //returning data
       .catch((error) => {
-        console.error("Error login:", error);
+        console.error("Error on login:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
   setPreferences: (data) =>
     axios
+      .patch(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/preferences`, data)
+      .then((res) => res.data) //returning data
+      .catch((error) => {
+        console.error("Error on setting Preferences:", error);
+        throw error; // Rethrow the error to be caught by the caller
+      }),
+
+  setLocationValue: (data) =>
+    axios
       .patch(
-        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/preferences`,
+        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/UpdatePlace`,
         data
       )
       .then((res) => res.data) //returning data
       .catch((error) => {
-        console.error("Error setPreferences:", error);
+        console.error("Error on setting current place:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
 
@@ -91,13 +100,10 @@ export const makeAmoveUserServer = {
    */
   checkExist: (data) =>
     axios
-      .post(
-        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/checkExist`,
-        data
-      )
+      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/Login `, data)
       .then((res) => res.data) //returning data
       .catch((error) => {
-        console.error("Error create user:", error);
+        console.error("One or more of the details are already exist", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
 

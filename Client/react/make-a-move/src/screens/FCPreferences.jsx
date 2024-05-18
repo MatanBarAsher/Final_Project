@@ -45,11 +45,10 @@ export const FCPrecerences = () => {
 
   const handleSubmit = () => {
     //go to server with precerencesData as prop
-    makeAmoveUserServer.setPreferences(precerencesData).then((response) => {
+    makeAmoveUserServer.setPrecerencesData(precerencesData).then((response) => {
       if (response) {
         console.log("success");
         console.log(response);
-        saveCurrentUserToLocalStorage(loginData["email"]);
         navigate("/profile");
       } else {
         console.log("failure");
@@ -64,8 +63,8 @@ export const FCPrecerences = () => {
         <div className="gender-inp">
           <span>
             <input
-              checked={precerencesData["gender"] === "male"}
-              id="male"
+              onChecked={precerencesData["gender"] === "male"}
+              id="0"
               type="radio"
               name="gender"
               onChange={handleGenderCreation}
@@ -75,8 +74,8 @@ export const FCPrecerences = () => {
           </span>
           <span>
             <input
-              checked={precerencesData["gender"] === "female"}
-              id="female"
+              onChecked={precerencesData["gender"] === "female"}
+              id="1"
               type="radio"
               name="gender"
               onChange={handleGenderCreation}
@@ -86,8 +85,8 @@ export const FCPrecerences = () => {
           </span>
           <span>
             <input
-              checked={precerencesData["gender"] === "other"}
-              id="other"
+              onChecked={precerencesData["gender"] === "other"}
+              id="2"
               type="radio"
               name="gender"
               onChange={handleGenderCreation}
