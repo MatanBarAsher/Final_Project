@@ -11,26 +11,34 @@ export const FCPrecerences = () => {
   const navigate = useNavigate("");
 
   const [precerencesData, setPrecerencesData] = useState({
-    gender: "",
-    distance: 0,
-    interests: [],
+    preferedGender: 0,
+    maxDistance: 0,
+    preferedInterests: [],
+    minAge: 0,
+    maxAge: 0,
     ageRange: [18, 80],
-    heightRange: [120, 250],
+    minHeight: 0,
   });
   console.log(precerencesData);
 
   const handleGenderCreation = (e) => {
-    setPrecerencesData((prev) => ({ ...prev, ["gender"]: e.target.id }));
+    setPrecerencesData((prev) => ({
+      ...prev,
+      ["preferedGender"]: e.target.id,
+    }));
   };
   const handleDistanceCreation = (e) => {
-    setPrecerencesData((prev) => ({ ...prev, ["distance"]: e.target.value }));
+    setPrecerencesData((prev) => ({
+      ...prev,
+      ["maxDistance"]: e.target.value,
+    }));
   };
 
   const handleAgeRangeChange = (event, newValue) => {
     setPrecerencesData((prev) => ({ ...prev, ["ageRange"]: newValue }));
   };
   const handleHeightRangeChange = (event, newValue) => {
-    setPrecerencesData((prev) => ({ ...prev, ["heightRange"]: newValue }));
+    setPrecerencesData((prev) => ({ ...prev, ["minHeight"]: newValue }));
   };
 
   const handleInterestsCreation = (event) => {
@@ -39,11 +47,14 @@ export const FCPrecerences = () => {
     } = event || {};
     setPrecerencesData((prev) => ({
       ...prev,
-      ["interests"]: typeof value === "string" ? value.split(",") : value,
+      ["preferedInterests"]:
+        typeof value === "string" ? value.split(",") : value,
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     //go to server with precerencesData as prop
     makeAmoveUserServer.setPrecerencesData(precerencesData).then((response) => {
       if (response) {
@@ -63,10 +74,10 @@ export const FCPrecerences = () => {
         <div className="gender-inp">
           <span>
             <input
-              onChecked={precerencesData["gender"] === "male"}
-              id="0"
+              onChecked={precerencesData["preferedGender"] === "male"}
+              id="1"
               type="radio"
-              name="gender"
+              name="preferedGender"
               onChange={handleGenderCreation}
               required
             />
@@ -74,10 +85,10 @@ export const FCPrecerences = () => {
           </span>
           <span>
             <input
-              onChecked={precerencesData["gender"] === "female"}
-              id="1"
+              onChecked={precerencesData["preferedGender"] === "female"}
+              id="2"
               type="radio"
-              name="gender"
+              name="preferedGender"
               onChange={handleGenderCreation}
               required
             />
@@ -85,10 +96,10 @@ export const FCPrecerences = () => {
           </span>
           <span>
             <input
-              onChecked={precerencesData["gender"] === "other"}
-              id="2"
+              onChecked={precerencesData["preferedGender"] === "other"}
+              id="3"
               type="radio"
-              name="gender"
+              name="preferedGender"
               onChange={handleGenderCreation}
               required
             />
@@ -98,14 +109,13 @@ export const FCPrecerences = () => {
 
         <p className="signup2-p">מרחק מקסימלי (מאיפה שאני גר)</p>
         <FCCustomNumberInp
-          ph="ס''מ"
+          ph="ק''מ"
           min={0}
           onChange={handleDistanceCreation}
           required
         />
+        <p className="preference-p">בגיל:</p>
         <span className="range">
-          <p className="preference-p">בגיל:</p>
-
           <Slider
             getAriaLabel={() => "Temperature range"}
             value={precerencesData["ageRange"]}
@@ -116,15 +126,23 @@ export const FCPrecerences = () => {
             max={80}
           />
         </span>
+        <p className="signup2-p">בגובה: (מינ')</p>
         <span className="range">
-          <p className="preference-p">בגובה:</p>
-          <Slider
+          {/* <Slider
             getAriaLabel={() => "Temperature range"}
-            value={precerencesData["heightRange"]}
+            value={precerencesData["minHeight"]}
             onChange={handleHeightRangeChange}
             valueLabelDisplay="on"
             className="slider"
             min={120}
+          /> */}
+          <Slider
+            defaultValue={0}
+            value={precerencesData["minHeight"]}
+            valueLabelDisplay="on"
+            className="slider"
+            aria-label="Default"
+            min={0}
             max={250}
           />
         </span>
@@ -138,7 +156,7 @@ export const FCPrecerences = () => {
           label="תחומי עיניין"
           options={PERSONAL_INTERESTS}
           onChange={handleInterestsCreation}
-          value={precerencesData["interests"]}
+          value={precerencesData["preferedInterests"]}
         />
         <div
           style={{

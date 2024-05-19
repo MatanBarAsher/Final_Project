@@ -311,7 +311,7 @@ namespace Make_a_move___Server.BL
             {
                 if (user.CheckPreferenceses(u))
                 {
-                    result.Add(user);
+                    result.Add(u);
                 }
             }
             return result;

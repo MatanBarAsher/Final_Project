@@ -64,7 +64,7 @@ export const FCSignUp1 = ({ setCurrentStep, currentStep, length }) => {
           value={signUpData["password"]}
           error={!!errors.find((error) => error === "password")}
           onChange={handlePasswordCreation}
-          // required
+          required
         />
         <div
           style={{
