@@ -69,20 +69,31 @@ export const makeAmoveUserServer = {
       })
       .then((res) => res.data) //returning data
       .catch((error) => {
-        console.error("Error login:", error);
+        console.error("Error on login:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
   setPreferences: (data) =>
     axios
-      .patch(
-        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/preferences`,
+      .patch(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/preferences`, data)
+      .then((res) => res.data) //returning data
+      .catch((error) => {
+        console.error("Error on setting Preferences:", error);
+        throw error; // Rethrow the error to be caught by the caller
+      }),
+
+  setLocationValue: (data) => {
+    console.log(data);
+    return axios
+      .post(
+        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/UpdatePlace`,
         data
       )
       .then((res) => res.data) //returning data
       .catch((error) => {
-        console.error("Error setPreferences:", error);
+        console.error("Error on setting current place:", error);
         throw error; // Rethrow the error to be caught by the caller
-      }),
+      });
+  },
 
   /**
    * check if the given key exist for the given value

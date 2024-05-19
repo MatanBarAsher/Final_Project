@@ -45,7 +45,7 @@ namespace Make_a_move___Server.Controllers
             User user = new User();
             return user.ReadUsersByPlace(p);
         }
-        [HttpPut("UpdatePlace")]
+        [HttpPost("UpdatePlace")]
         public User UpdateUserCurrentPlace([FromBody] User user)
         {
             return user.UpdateUserCurrentPlace(user);

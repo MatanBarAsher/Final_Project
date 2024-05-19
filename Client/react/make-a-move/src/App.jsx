@@ -9,7 +9,7 @@ function App() {
       <Router>
         <Routes>
           {ROUTER.map(({ path, Element }) => (
-            <Route path={path} element={<Element />} />
+            <Route path={path} element={<Element />} key={path} />
           ))}
         </Routes>
       </Router>
