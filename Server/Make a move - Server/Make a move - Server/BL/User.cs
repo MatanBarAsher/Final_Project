@@ -200,7 +200,7 @@ namespace Make_a_move___Server.BL
         }
 
 
-        public User UpdateUserCurrentPlace(User newUser)
+        public User UpdateUserCurrentPlace(User newUser, string placeName)
         {
             try
             {
@@ -212,14 +212,17 @@ namespace Make_a_move___Server.BL
 
                 if (userToUpdate != null)
                 {
-                    // Update the currentPlace field
-                    userToUpdate.CurrentPlace = newUser.CurrentPlace;
+                        Place place = new Place();
 
-                    // Update in the database
-                    DBservicesUser dbs = new DBservicesUser();
-                    dbs.UpdateUserCurrentPlace(userToUpdate);
+                        // Update the currentPlace field
+                        userToUpdate.CurrentPlace = place.checkExistingPlaceByName(placeName);
 
-                    return userToUpdate;
+                        // Update in the database
+                        DBservicesUser dbs = new DBservicesUser();
+                        dbs.UpdateUser(userToUpdate);
+
+                        return userToUpdate;
+                    
                 }
                 else
                 {

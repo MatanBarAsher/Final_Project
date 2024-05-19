@@ -45,10 +45,14 @@ namespace Make_a_move___Server.Controllers
             User user = new User();
             return user.ReadUsersByPlace(p);
         }
-        [HttpPost("UpdatePlace")]
-        public User UpdateUserCurrentPlace([FromBody] User user)
+
+
+
+        [HttpPost]
+        [Route("UpdatePlace/{placeName}")]
+        public User UpdateUserCurrentPlace([FromBody] User user, [FromRoute] string placeName)
         {
-            return user.UpdateUserCurrentPlace(user);
+            return user.UpdateUserCurrentPlace(user, placeName);
         }
 
         // POST: api/User/AddUserToDictionary

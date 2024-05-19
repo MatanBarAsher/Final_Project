@@ -96,6 +96,32 @@ namespace Make_a_move___Server.BL
             }
         }
 
+        public int checkExistingPlaceByName(string name)
+        {
+            // Instantiate the DBservicesPlace to access the ReadPlaces method
+            DBservicesPlace dbs1 = new DBservicesPlace();
+
+            // Retrieve the list of places from the database
+            List<Place> places = dbs1.ReadPlaces();
+
+            // Check if any place in the list has the given name
+            foreach (var place in places)
+            {
+                if (place.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+                {
+                    // If a matching place is found, return 1
+                    return place.placeCode;
+                }
+            }
+
+            // If no matching place is found, add a new place and return 0
+            int newPlaceCode = places.Count + 1;
+            DateTime now = new DateTime();
+            Place newPlace = new Place(newPlaceCode, name, "", "", now, "");
+            dbs1.InsertPlace(newPlace);
+            return newPlace.placeCode;
+        }
+
 
 
 

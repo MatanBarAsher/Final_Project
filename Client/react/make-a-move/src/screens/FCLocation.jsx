@@ -4,6 +4,7 @@ import logo from "../assets/images/Logo.png";
 import FCHamburger from "../components/FCHamburger";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { makeAmoveUserServer } from "../services";
+import { Place } from "@mui/icons-material";
 
 export default function FCLocation() {
   const [value, setValue] = useState(null);
@@ -19,7 +20,11 @@ export default function FCLocation() {
       if (response) {
         console.log("success");
         console.log(response);
-        // navigate("/profile");
+        localStorage.setItem(
+          "current-place",
+          JSON.stringify({ placeCode: response, placeName: value })
+        );
+        navigate("/profile");
       } else {
         console.log("failure");
       }
