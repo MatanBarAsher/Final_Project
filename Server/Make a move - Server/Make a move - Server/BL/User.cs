@@ -200,11 +200,12 @@ namespace Make_a_move___Server.BL
         }
 
 
-        public User UpdateUserCurrentPlace(User newUser, string placeName)
+        public User UpdateUserCurrentPlace(string email, string placeName)
         {
             try
             {
                 DBservicesUser dbs1 = new DBservicesUser();
+                User newUser = dbs1.GetUserByEmail(email);
                 List<User> list = dbs1.ReadUsers();
                 // Find the user in the UsersList by email
                 User userToUpdate = list.Find(u => string.Equals(u.Email.Trim(), newUser.Email.Trim(), StringComparison.OrdinalIgnoreCase));

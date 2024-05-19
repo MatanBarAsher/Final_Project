@@ -81,20 +81,24 @@ export const makeAmoveUserServer = {
         throw error; // Rethrow the error to be caught by the caller
       }),
 
-  setLocationValue: (placeName, user) => {
-    console.log(user);
-    return axios
-      .post(
+  setLocationValue: async (placeName, user) => {
+    try {
+      const res = await axios.post(
         `${
           import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
-        }/Users/UpdatePlace/${placeName}`,
-        user
-      )
-      .then((res) => res.user) //returning data
-      .catch((error) => {
-        console.error("Error on setting current place:", error);
-        throw error; // Rethrow the error to be caught by the caller
-      });
+        }/Users/UpdatePlace/${user}`,
+        placeName,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return res;
+    } catch (error) {
+      console.error("Error on setting current place:", error);
+      throw error; // Rethrow the error to be caught by the caller
+    }
   },
 
   /**

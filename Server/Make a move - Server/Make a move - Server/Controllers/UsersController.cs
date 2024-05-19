@@ -49,10 +49,10 @@ namespace Make_a_move___Server.Controllers
 
 
         [HttpPost]
-        [Route("UpdatePlace/{placeName}")]
-        public User UpdateUserCurrentPlace([FromBody] User user, [FromRoute] string placeName)
-        {
-            return user.UpdateUserCurrentPlace(user, placeName);
+        [Route("UpdatePlace/{email}")]
+        public User UpdateUserCurrentPlace([FromRoute] string email, [FromBody] string placeName)
+        {   User user = new User(); 
+            return user.UpdateUserCurrentPlace(email, placeName);
         }
 
         // POST: api/User/AddUserToDictionary
