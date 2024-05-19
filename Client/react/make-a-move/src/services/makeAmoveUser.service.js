@@ -89,15 +89,17 @@ export const makeAmoveUserServer = {
    * @param  data key and value object @example {key:'userName', value:'yael'}
    * @returns boolean
    */
-  checkExist: (data) =>
+  checkExist: (key, value) =>
     axios
       .post(
-        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/checkExist`,
-        data
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/users/checkExistingUserByKeyAndValue/${key}`,
+        value
       )
-      .then((res) => res.data) //returning data
+      .then((res) => res.key) //returning data
       .catch((error) => {
-        console.error("Error create user:", error);
+        console.error("Error:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
 

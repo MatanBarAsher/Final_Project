@@ -488,7 +488,7 @@ namespace Make_a_move___Server.BL
 
 
 
-        public bool checkExistingUserByKeyAndValue(string key,string value)
+        public int checkExistingUserByKeyAndValue(string key,string value)
         {
             DBservicesUser dbs1 = new DBservicesUser();
             List<User> list = dbs1.ReadUsers();
@@ -496,11 +496,11 @@ namespace Make_a_move___Server.BL
             User user1 = list.Find(u => string.Equals(u.Email.Trim(), value.Trim(), StringComparison.OrdinalIgnoreCase));
             User user2 = list.Find(u => string.Equals(u.PhoneNumber.Trim(), value.Trim(), StringComparison.OrdinalIgnoreCase));
             
-            if(user1 != null && user2 != null)
+            if(user1 == null && user2 == null)
             {
-                return false;
+                return 0;
             }
-            return true;
+            return 1;
 
         }
 

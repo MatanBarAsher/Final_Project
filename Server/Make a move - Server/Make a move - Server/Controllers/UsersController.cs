@@ -252,7 +252,7 @@ namespace Make_a_move___Server.Controllers
 
         [HttpPost]
         [Route("checkExistingUserByKeyAndValue/{key}")]
-        public bool checkExistingUserByKeyAndValue([FromRoute] string key , [FromBody] string value)
+        public int checkExistingUserByKeyAndValue([FromRoute] string key , [FromBody] string value)
         {
             User u = new User();
             return u.checkExistingUserByKeyAndValue(key, value);
