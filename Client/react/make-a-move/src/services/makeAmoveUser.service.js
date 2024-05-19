@@ -101,17 +101,25 @@ export const makeAmoveUserServer = {
         throw error; // Rethrow the error to be caught by the caller
       }),
 
-  changeImages: (email, formData) =>
-    axios
-      .post(
+  changeImages: async ({ currentEmail, formData }) => {
+    try {
+      console.log(currentEmail);
+      const response = await axios.post(
         `${
           import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
-        }/users/changeImages/${email}`,
-        formData
-      )
-      .then((res) => res.formData)
-      .catch((error) => {
-        console.error("Error change images:", error);
-        throw error;
-      }),
+        }/Users/changeImages/${currentEmail}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Current-Email": currentEmail, // Assuming your server needs this header
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error uploading images:", error);
+      return null;
+    }
+  },
 };
