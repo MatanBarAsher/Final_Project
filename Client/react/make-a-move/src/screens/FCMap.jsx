@@ -199,28 +199,26 @@ export default function FCMap({ location }) {
     setUsersOnMap(users);
   }, []);
 
-  const renderIconsByGender = (gender) => {
-    const icons = usersOnMap
-      .filter((user) => user.gender === gender)
-      .map((user, index) => (
-        <div
-          key={user.email + index} // Ensure each icon has a unique key
-          className="icon"
-          style={{
-            top: `${Math.random() * 90}%`,
-            left: `${Math.random() * 90}%`,
-          }}
-          onClick={() => showUserDetails(user)}
-        >
-          {gender === 1 ? (
-            <ManIcon style={{ color: "white", fontSize: "100px" }} />
-          ) : gender === 2 ? (
-            <WomanIcon style={{ color: "pink", fontSize: "100px" }} />
-          ) : (
-            <WcIcon style={{ color: "grey", fontSize: "100px" }} />
-          )}
-        </div>
-      ));
+  const renderIconsByGender = () => {
+    const icons = usersOnMap.map((user, index) => (
+      <div
+        key={user.email + index} // Ensure each icon has a unique key
+        className="icon"
+        style={{
+          top: `${Math.random() * 90}%`,
+          left: `${Math.random() * 90}%`,
+        }}
+        onClick={() => showUserDetails(user)}
+      >
+        {user.gender === 1 ? (
+          <ManIcon style={{ color: "white", fontSize: "100px" }} />
+        ) : user.gender === 2 ? (
+          <WomanIcon style={{ color: "pink", fontSize: "100px" }} />
+        ) : (
+          <WcIcon style={{ color: "grey", fontSize: "100px" }} />
+        )}
+      </div>
+    ));
     return icons;
   };
 
@@ -232,22 +230,16 @@ export default function FCMap({ location }) {
   return (
     <>
       <div className="map-container">
-        <div className="map">
-          <FCHamburger />
-          <div id="icon-container" style={{ position: "absolute" }}>
-            {renderIconsByGender(1)}
-            {renderIconsByGender(2)}
-            {renderIconsByGender(3)}
-          </div>
-          <div className="map-footer">
-            <img
-              src={locationPin}
-              width={"32px"}
-              height={"42.5"}
-              style={{ margin: 15 }}
-            />
-            <h3>{location}אני נמצא פה</h3>{" "}
-          </div>
+        <FCHamburger />
+        <div className="icon-container">{renderIconsByGender()}</div>
+        <div className="map-footer">
+          <img
+            src={locationPin}
+            width={"32px"}
+            height={"42.5"}
+            style={{ margin: 15 }}
+          />
+          <h3>{location}אני נמצא פה</h3>{" "}
         </div>
       </div>
     </>

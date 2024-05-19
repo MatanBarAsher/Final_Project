@@ -332,7 +332,7 @@ input[name="gender"] {
   position: absolute;
   
 }
-#icon-container{
+.icon-container{
   padding: 50px;
   position: fixed;
   /* top: 0;
