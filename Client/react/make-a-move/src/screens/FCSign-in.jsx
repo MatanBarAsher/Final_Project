@@ -34,7 +34,7 @@ const FCSignIn = () => {
   };
 
   const saveCurrentUserToLocalStorage = (email) => {
-    localStorage.setItem("cuurent-user", JSON.stringify(email));
+    localStorage.setItem("current-email", JSON.stringify(email));
   };
   return (
     <span>

@@ -17,9 +17,9 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
   };
 
   var genders = [
-    { label: "גבר", id: 0 },
-    { label: "אישה", id: 1 },
-    { label: "אחר", id: 2 },
+    { label: "גבר", id: 1 },
+    { label: "אישה", id: 2 },
+    { label: "אחר", id: 3 },
   ];
   const [gender, setGender] = useState(null);
   const handleGenderCreation = (id) => {

@@ -100,26 +100,39 @@ export const makeAmoveUserServer = {
    * @param  data key and value object @example {key:'userName', value:'yael'}
    * @returns boolean
    */
-  checkExist: (data) =>
+  checkExist: (key, value) =>
     axios
-      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/Login `, data)
-      .then((res) => res.data) //returning data
+      .post(
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/users/checkExistingUserByKeyAndValue/${key}`,
+        value
+      )
+      .then((res) => res.key) //returning data
       .catch((error) => {
-        console.error("One or more of the details are already exist", error);
+        console.error("Error:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
 
-  changeImages: (images) =>
-    axios
-      .put(
+  changeImages: async ({ currentEmail, formData }) => {
+    try {
+      console.log(currentEmail);
+      const response = await axios.post(
         `${
           import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
-        }/users/changeImages/"string11"`,
-        images
-      )
-      .then((res) => res.images)
-      .catch((error) => {
-        console.error("Error change images:", error);
-        throw error;
-      }),
+        }/Users/changeImages/${currentEmail}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Current-Email": currentEmail, // Assuming your server needs this header
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error uploading images:", error);
+      return null;
+    }
+  },
 };
