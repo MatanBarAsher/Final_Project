@@ -200,11 +200,12 @@ namespace Make_a_move___Server.BL
         }
 
 
-        public User UpdateUserCurrentPlace(User newUser)
+        public User UpdateUserCurrentPlace(string email, string placeName)
         {
             try
             {
                 DBservicesUser dbs1 = new DBservicesUser();
+                User newUser = dbs1.GetUserByEmail(email);
                 List<User> list = dbs1.ReadUsers();
                 // Find the user in the UsersList by email
                 User userToUpdate = list.Find(u => string.Equals(u.Email.Trim(), newUser.Email.Trim(), StringComparison.OrdinalIgnoreCase));
@@ -212,14 +213,17 @@ namespace Make_a_move___Server.BL
 
                 if (userToUpdate != null)
                 {
-                    // Update the currentPlace field
-                    userToUpdate.CurrentPlace = newUser.CurrentPlace;
+                        Place place = new Place();
 
-                    // Update in the database
-                    DBservicesUser dbs = new DBservicesUser();
-                    dbs.UpdateUserCurrentPlace(userToUpdate);
+                        // Update the currentPlace field
+                        userToUpdate.CurrentPlace = place.checkExistingPlaceByName(placeName);
 
-                    return userToUpdate;
+                        // Update in the database
+                        DBservicesUser dbs = new DBservicesUser();
+                        dbs.UpdateUser(userToUpdate);
+
+                        return userToUpdate;
+                    
                 }
                 else
                 {
@@ -307,7 +311,7 @@ namespace Make_a_move___Server.BL
             {
                 if (user.CheckPreferenceses(u))
                 {
-                    result.Add(user);
+                    result.Add(u);
                 }
             }
             return result;
@@ -505,6 +509,29 @@ namespace Make_a_move___Server.BL
         }
 
 
+
+        public User EditPreferences(User user)
+        {
+            try
+            {
+                List<User> list = ReadUsers();
+                foreach (User u in list)
+                {
+                    if (user.email == u.email)
+                    {
+                        u.PreferencesDictionary = user.preferencesDictionary;
+                        DBservicesUser dbs = new DBservicesUser();
+                        return dbs.UpdateUser(u);
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error reading data", ex);
+            }
+        }  
 
     }
 }

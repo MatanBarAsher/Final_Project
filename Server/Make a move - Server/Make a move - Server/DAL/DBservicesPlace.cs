@@ -44,7 +44,7 @@ namespace Make_a_move___Server.DAL
             {
                 // execute the command
                 int numEffected = cmd.ExecuteNonQuery();
-                return numEffected;
+                return place.PlaceCode;
             }
             catch (Exception ex)
             {

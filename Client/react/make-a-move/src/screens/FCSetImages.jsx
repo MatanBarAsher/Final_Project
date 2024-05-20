@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import FCImageInp from "../components/FCImageInp";
 
 export default function FCSetImages() {
+  const navigate = useNavigate();
+
   // State to store selected images
   const [images, setImages] = useState({
     img1: null,
@@ -34,7 +36,7 @@ export default function FCSetImages() {
         if (response) {
           console.log("success");
           console.log(response);
-          navigate("/");
+          navigate("/preferences");
         } else {
           console.log("failure");
         }

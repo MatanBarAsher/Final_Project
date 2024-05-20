@@ -45,10 +45,14 @@ namespace Make_a_move___Server.Controllers
             User user = new User();
             return user.ReadUsersByPlace(p);
         }
-        [HttpPost("UpdatePlace")]
-        public User UpdateUserCurrentPlace([FromBody] User user)
-        {
-            return user.UpdateUserCurrentPlace(user);
+
+
+
+        [HttpPost]
+        [Route("UpdatePlace/{email}")]
+        public User UpdateUserCurrentPlace([FromRoute] string email, [FromBody] string placeName)
+        {   User user = new User(); 
+            return user.UpdateUserCurrentPlace(email, placeName);
         }
 
         // POST: api/User/AddUserToDictionary
@@ -256,6 +260,18 @@ namespace Make_a_move___Server.Controllers
         {
             User u = new User();
             return u.checkExistingUserByKeyAndValue(key, value);
+        }
+
+
+
+
+        [HttpPost("EditPreferences")]
+        public User EditPreferences([FromBody] User user)
+        {
+
+            User u = new();
+
+            return u.EditPreferences(user);
         }
     }
 
