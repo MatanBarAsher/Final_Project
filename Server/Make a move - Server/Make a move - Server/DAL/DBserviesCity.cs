@@ -251,10 +251,68 @@ namespace Make_a_move___Server.DAL
             return cmd;
         }
 
+        public float ReadDistance(int firstCityCode, int secondCityCode)
+        {
+            float distance = 0;
+            SqlConnection con = null;
+            SqlCommand cmd = null;
 
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // Write to log or handle the exception appropriately
+                throw ex;
+            }
 
+            try
+            {
+                // Create the command
+                cmd = CreateSelectDistanceWithStoredProcedure("SP_ReadSelectesDistance", con);
 
+                // Add parameters
+                cmd.Parameters.AddWithValue("@firstCityCode", firstCityCode);
+                cmd.Parameters.AddWithValue("@secondCityCode", secondCityCode);
 
+                // Execute the command
+                SqlDataReader dataReader = cmd.ExecuteReader();
+
+                if (dataReader.Read())
+                {
+                    // Read the distance value
+                    distance = Convert.ToSingle(dataReader["distance"]);
+                }
+
+                // Close the reader
+                dataReader.Close();
+
+                return distance;
+            }
+            catch (Exception ex)
+            {
+                // Write to log or handle the exception appropriately
+                throw ex;
+            }
+            finally
+            {
+                // Close the connection
+                if (con != null && con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
+        }
+
+        // Create the SqlCommand using a stored procedure
+        private SqlCommand CreateSelectDistanceWithStoredProcedure(string spName, SqlConnection con)
+        {
+            SqlCommand cmd = new SqlCommand(spName, con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandTimeout = 10;
+            return cmd;
+        }
 
 
     }

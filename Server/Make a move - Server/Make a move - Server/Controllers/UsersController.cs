@@ -164,10 +164,10 @@ namespace Make_a_move___Server.Controllers
                 }
 
                 // Call ReadUsersByPreference to get users matching the preferences of the current user
-                List<User> usersByPreference = currentUser.ReadUsersByPreference(currentUser);
+                Dictionary<User, double> usersByPreference = currentUser.ReadUsersByPreference(currentUser);
 
                 // Return the list of users
-                return Ok($"User with we fount match.");
+                return Ok($"we fount match.");
             }
             catch (Exception ex)
             {
