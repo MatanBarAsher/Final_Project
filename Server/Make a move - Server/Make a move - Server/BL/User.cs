@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Security.Cryptography.Xml;
 using System.Xml.Linq;
 namespace Make_a_move___Server.BL
@@ -51,7 +52,7 @@ namespace Make_a_move___Server.BL
             this.personalInterestsIds = personalInterestsIds;
             this.currentPlace = currentPlace;
             this.persoalText = persoalText;
-            this.PreferencesDictionary = preferencesDictionary;
+            this.preferencesDictionary = preferencesDictionary;
 
 
 
@@ -76,7 +77,7 @@ namespace Make_a_move___Server.BL
         public string PersoalText { get => persoalText; set => persoalText = value; }
         public Dictionary<string, string> PreferencesDictionary { get => preferencesDictionary; set => preferencesDictionary = value; }
 
-        //Get& Set to dictionary?
+        
 
 
         public int InsertUser()
@@ -248,36 +249,11 @@ namespace Make_a_move___Server.BL
         }
 
 
-
-        //public bool CheckPreferenceses(User u)
-        //{
-        //    // Check if the user's preferences dictionary contains all required keys
-        //    if (u.PreferencesDictionary.ContainsKey("gender") &&
-        //        u.PreferencesDictionary.ContainsKey("age") &&
-        //        u.PreferencesDictionary.ContainsKey("maxDistance") &&
-        //        u.PreferencesDictionary.ContainsKey("height"))
-        //    {
-        //        // Retrieve values from the preferences dictionary
-        //        string genderValue = u.PreferencesDictionary["gender"];
-        //        int ageValue = int.Parse(u.PreferencesDictionary["age"]);
-        //        int maxDistanceValue = int.Parse(u.PreferencesDictionary["maxDistance"]);
-        //        int heightValue = int.Parse(u.PreferencesDictionary["height"]);
-
-        //        // Check if the values match the current user's properties
-        //        if (genderValue == this.Gender.ToString() &&  
-        //            heightValue == this.Height)
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
-
-        public int CalculateAge()
+        public int CalculateAge(DateTime birthday)
         {
             DateTime today = DateTime.Today;
-            int age = today.Year - this.Birthday.Year;
-            if (this.Birthday > today.AddYears(-age))
+            int age = today.Year - birthday.Year;
+            if (birthday > today.AddYears(-age))
             {
                 age--;
             }
@@ -285,34 +261,315 @@ namespace Make_a_move___Server.BL
         }
 
 
-        public bool CheckPreferenceses(User u)
+        //public bool CheckPreferenceses(User u)
+        //{
+        //    double distance=0;
+        //    int age = CalculateAge(u.birthday);
+        //    if (this.PreferencesDictionary["gender"] == u.gender.ToString() &&
+        //        Int32.Parse(this.PreferencesDictionary["minAge"]) <= age && Int32.Parse(this.PreferencesDictionary["maxAge"]) >= age &&
+        //        this.PreferencesDictionary["height"] == u.height.ToString() &&
+        //        Double.Parse(this.PreferencesDictionary["minDistance"]) <= distance && Double.Parse(this.PreferencesDictionary["maxDistance"]) >= distance)
+        //        {
+        //            var SecAge = CalculateAge(this.birthday);
+        //            if (u.PreferencesDictionary["gender"] == this.gender.ToString() &&
+        //               Int32.Parse(u.PreferencesDictionary["minAge"]) <= age && Int32.Parse(u.PreferencesDictionary["maxAge"]) >= age &&
+        //                u.PreferencesDictionary["height"] == this.height.ToString() &&
+        //                 Double.Parse(u.PreferencesDictionary["minDistance"]) <= distance && Double.Parse(u.PreferencesDictionary["maxDistance"]) >= distance)
+        //                {
+        //                return true;
+        //                }
+        //        }
+        //    return false;
+        //}
+
+
+        //public bool CheckPreferenceses(User u)
+        //{
+        //    double distance = 0; // Assuming a method to calculate distance will be implemented
+        //    int age = CalculateAge(u.birthday);
+        //    int secAge = CalculateAge(this.birthday);
+
+        //    // Gender checks
+        //    bool genderMatches = this.PreferencesDictionary["gender"] == u.gender.ToString();
+        //    bool otherGenderMatches = u.PreferencesDictionary["gender"] == this.gender.ToString();
+
+        //    //Gender match?
+        //    bool genderCheck = genderMatches && otherGenderMatches;
+
+        //    // Age check
+        //    int minAge = Int32.Parse(this.PreferencesDictionary["minAge"]);
+        //    int maxAge = Int32.Parse(this.PreferencesDictionary["maxAge"]);
+        //    bool ageInRange = minAge <= age && maxAge >= age;
+        //    double ageDiff = 0;
+        //    if (!ageInRange)
+        //    {
+        //        int midAge = (minAge + maxAge) / 2;
+        //        ageDiff = Math.Abs((double)(age - midAge) / midAge) * 100;
+        //    }
+        //    // other Age check
+        //    int otherMinAge = Int32.Parse(u.PreferencesDictionary["minAge"]);
+        //    int otherMaxAge = Int32.Parse(u.PreferencesDictionary["maxAge"]);
+        //    bool otherAgeInRange = otherMinAge <= secAge && otherMaxAge >= secAge;
+
+        //    //Age match?
+        //    bool ageCheck = ageInRange && otherAgeInRange;
+
+        //    // Height check
+        //    int preferredHeight = Int32.Parse(this.PreferencesDictionary["height"]);
+        //    bool heightMatches = this.PreferencesDictionary["height"] == u.height.ToString();
+        //    double heightDiff = 0;
+        //    if (!heightMatches)
+        //    {
+        //        heightDiff = Math.Abs((double)(u.height - preferredHeight) / preferredHeight) * 100;
+        //    }
+        //    // other Height check
+        //    int otherPreferredHeight = Int32.Parse(u.PreferencesDictionary["height"]);
+        //    bool otherHeightMatches = u.PreferencesDictionary["height"] == this.height.ToString();
+
+        //    //Height match?
+        //    bool heightCheck = heightMatches && otherHeightMatches;
+
+
+        //    // Distance check
+        //    double minDistance = Double.Parse(this.PreferencesDictionary["minDistance"]);
+        //    double maxDistance = Double.Parse(this.PreferencesDictionary["maxDistance"]);
+        //    bool distanceInRange = minDistance <= distance && maxDistance >= distance;
+        //    double distanceDiff = 0;
+        //    if (!distanceInRange)
+        //    {
+        //        double midDistance = (minDistance + maxDistance) / 2;
+        //        distanceDiff = Math.Abs((distance - midDistance) / midDistance) * 100;
+        //    }
+        //    // other Distance check
+        //    double otherMinDistance = Double.Parse(u.PreferencesDictionary["minDistance"]);
+        //    double otherMaxDistance = Double.Parse(u.PreferencesDictionary["maxDistance"]);
+        //    bool otherDistanceInRange = otherMinDistance <= distance && otherMaxDistance >= distance;
+
+        //    //Distance match?
+        //    bool DisCheck = distanceInRange && otherDistanceInRange;
+
+        //    //100% match
+        //    bool userPreferencesMatch = genderCheck && ageCheck && heightCheck && DisCheck;
+        //    double totalDiff = 1;
+
+        //    //Calc partial match
+        //    if (userPreferencesMatch!)
+        //    {
+        //        if (otherGenderMatches && otherAgeInRange && otherHeightMatches && otherDistanceInRange)
+        //        {
+        //            totalDiff = (heightDiff + distanceDiff + ageDiff) / 3;
+        //        }
+
+        //        totalDiff = 0;
+        //    }
+        //    return userPreferencesMatch;
+
+        //}
+
+        //public bool CheckPreferenceses(User u)
+        //{
+        //    double distance = 0; // Assuming a method to calculate distance will be implemented
+        //    int age = CalculateAge(u.birthday);
+        //    int secAge = CalculateAge(this.birthday);
+
+        //    // Gender checks
+        //    bool genderMatches = this.PreferencesDictionary["gender"] == u.gender.ToString();
+        //    bool otherGenderMatches = u.PreferencesDictionary["gender"] == this.gender.ToString();
+        //    //Gender match?
+        //    bool genderCheck = genderMatches && otherGenderMatches;
+
+        //    // Age check
+        //    int minAge = Int32.Parse(this.PreferencesDictionary["minAge"]);
+        //    int maxAge = Int32.Parse(this.PreferencesDictionary["maxAge"]);
+        //    bool ageInRange = minAge <= age && maxAge >= age; 
+        //    // other Age check
+        //    int otherMinAge = Int32.Parse(u.PreferencesDictionary["minAge"]);
+        //    int otherMaxAge = Int32.Parse(u.PreferencesDictionary["maxAge"]);
+        //    bool otherAgeInRange = otherMinAge <= secAge && otherMaxAge >= secAge;
+        //    //Age match?
+        //    bool ageCheck = ageInRange && otherAgeInRange;
+
+        //    // Height check
+        //    int preferredHeight = Int32.Parse(this.PreferencesDictionary["height"]);
+        //    bool heightMatches = this.PreferencesDictionary["height"] == u.height.ToString();
+        //    // other Height check
+        //    int otherPreferredHeight = Int32.Parse(u.PreferencesDictionary["height"]);
+        //    bool otherHeightMatches = u.PreferencesDictionary["height"] == this.height.ToString();
+        //    //Height match?
+        //    bool heightCheck = heightMatches && otherHeightMatches;
+
+
+        //    // Distance check
+        //    double minDistance = Double.Parse(this.PreferencesDictionary["minDistance"]);
+        //    double maxDistance = Double.Parse(this.PreferencesDictionary["maxDistance"]);
+        //    bool distanceInRange = minDistance <= distance && maxDistance >= distance;
+        //    // other Distance check
+        //    double otherMinDistance = Double.Parse(u.PreferencesDictionary["minDistance"]);
+        //    double otherMaxDistance = Double.Parse(u.PreferencesDictionary["maxDistance"]);
+        //    bool otherDistanceInRange = otherMinDistance <= distance && otherMaxDistance >= distance;
+        //    //Distance match?
+        //    bool DisCheck = distanceInRange && otherDistanceInRange;
+
+        //    //100% match
+        //    bool userPreferencesMatch = genderCheck && ageCheck && heightCheck && DisCheck;
+
+        //    return userPreferencesMatch;
+
+        //}
+
+        public (User user, double matchPercentage) CalculateMatchPercentage(User u)
         {
-            if (this.PreferencesDictionary["gender"] == u.gender.ToString() &&
-                //this.PreferencesDictionary["age"] == u.age.ToString() &&
-                this.PreferencesDictionary["height"] == u.height.ToString()
-                //this.PreferencesDictionary["maxDistance"] == u.___.ToString()
-                )
+            DBservicesCity dbServices = new DBservicesCity();
+            double distance = dbServices.ReadDistance(Int32.Parse(this.city), Int32.Parse(u.city)); // Assuming a method to calculate distance will be implemented
+            int age = CalculateAge(u.birthday);
+            int secAge = CalculateAge(this.birthday);
+
+            // Gender checks
+            bool genderMatches = this.PreferencesDictionary["gender"] == u.gender.ToString();
+            bool otherGenderMatches = u.PreferencesDictionary["gender"] == this.gender.ToString();
+
+            // Gender match?
+            bool genderCheck = genderMatches && otherGenderMatches;
+
+            // Age check
+            int minAge = Int32.Parse(this.PreferencesDictionary["minAge"]);
+            int maxAge = Int32.Parse(this.PreferencesDictionary["maxAge"]);
+            bool ageInRange = minAge <= age && maxAge >= age;
+
+            // Other Age check
+            int otherMinAge = Int32.Parse(u.PreferencesDictionary["minAge"]);
+            int otherMaxAge = Int32.Parse(u.PreferencesDictionary["maxAge"]);
+            bool otherAgeInRange = otherMinAge <= secAge && otherMaxAge >= secAge;
+
+            // Age match?
+            bool ageCheck = ageInRange && otherAgeInRange;
+
+            // Height check
+            int preferredHeight = Int32.Parse(this.PreferencesDictionary["height"]);
+            bool heightMatches = this.PreferencesDictionary["height"] == u.height.ToString();
+
+            // Other Height check
+            int otherPreferredHeight = Int32.Parse(u.PreferencesDictionary["height"]);
+            bool otherHeightMatches = u.PreferencesDictionary["height"] == this.height.ToString();
+
+            // Height match?
+            bool heightCheck = heightMatches && otherHeightMatches;
+
+            // Distance check 
+            double maxDistance = Double.Parse(this.PreferencesDictionary["maxDistance"]);
+            bool distanceInRange =  maxDistance >= distance;
+
+            // Other Distance check
+            double otherMaxDistance = Double.Parse(u.PreferencesDictionary["maxDistance"]);
+            bool otherDistanceInRange =  otherMaxDistance >= distance;
+
+            // Distance match?
+            bool distanceCheck = distanceInRange && otherDistanceInRange;
+
+            // 100% match
+            bool userPreferencesMatch = genderCheck && ageCheck && heightCheck && distanceCheck;
+
+            if (userPreferencesMatch)
             {
-                return true;
+                return (u, 100.0); // 100% match
             }
-            return false;
+
+            double totalDiff = 0;
+
+            // Calculate differences if 'other' checks are true
+            if (otherGenderMatches && otherAgeInRange && otherHeightMatches && otherDistanceInRange)
+            {
+                double ageDiff = 0, heightDiff = 0, distanceDiff = 0;
+
+                if (!ageInRange)
+                {
+
+                    if (age > maxAge)
+                    {
+                        ageDiff = 100 - (age - maxAge) * 2;
+                    }
+                    else ageDiff = 100 - (minAge - age) * 2;
+                }
+                else ageDiff = 100;
+
+                if (!heightMatches)
+                {
+                    heightDiff = 100 - Math.Abs((double)(u.height - preferredHeight))*2 ;
+                }
+                else heightDiff = 100;
+
+                if (!distanceInRange)
+                {
+                    distanceDiff = 100- Math.Abs(distance - maxDistance)*3 ;
+                }
+                else distanceDiff = 100;
+
+                totalDiff = (heightDiff + distanceDiff + ageDiff) / 3;
+            }
+            if (totalDiff == 0) 
+            { return (u, totalDiff); }
+
+            double matchPercentage = totalDiff;
+            return (u, matchPercentage);
         }
 
 
-        public List<User> ReadUsersByPreference(User user)
+        public Dictionary<User, double> ReadUsersByPreference(User user)
         {
             List<User> list = user.ReadUsersByPlace(user.currentPlace);
-            List<User> result = new List<User>();
+            Dictionary<User, double> result = new Dictionary<User, double>();
+
             foreach (User u in list)
             {
-                if (user.CheckPreferenceses(u))
+                // Calculate the match percentage
+                var (matchedUser, matchPercentage) = user.CalculateMatchPercentage(u);
+
+                // If the user completely matches the preferences (i.e., 100% match), add them to the result
+                if (matchPercentage == 100.0)
                 {
-                    result.Add(user);
+                    result[matchedUser] = matchPercentage;
+                }
+                // Otherwise, if the user partially matches (i.e., the matchPercentage is calculated)
+                else if (!result.ContainsKey(matchedUser)) 
+                {
+                
+                     if (matchPercentage > 0) // Check if matchPercentage is greater than 0
+                      {
+                            result.Add(matchedUser, matchPercentage);
+                      }
                 }
             }
-            return result;
 
+            // Print the result
+            Console.WriteLine("Users matching preferences:");
+            foreach (var pair in result)
+            {
+                Console.WriteLine($"User: {pair.Key.FirstName} {pair.Key.LastName}, Match Percentage: {pair.Value}");
+            }
+            return result;
         }
+
+
+
+        //public Dictionary<User, double> ReadUsersByPreference(User user)
+        //{
+        //    List<User> list = user.ReadUsersByPlace(user.currentPlace);
+        //    Dictionary< User, double> result = new Dictionary<User, double>();
+
+        //    foreach (User u in list)
+        //    {
+        //        if (user.CheckPreferenceses(u))
+        //        {
+        //            if (!result.ContainsKey(u))  
+        //            {
+        //                result.Add(u, );
+        //            }
+        //        }
+
+        //    }
+        //    return result;
+        //}
+
 
         public static User GetUserByEmail(string email)
         {
@@ -336,65 +593,6 @@ namespace Make_a_move___Server.BL
 
 
 
-       
-
-
-        //-------------------------------------------------------------------
-
-        //public void AddToDictionary(string secondEmail)
-        //{
-        //    try
-        //    {
-        //        usersDictionary.Add(this.Email, secondEmail);
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        // Handle the case where the key already exists in the dictionary
-        //        // You can log the error or handle it as needed
-        //        throw new Exception("User with the same email already exists in the dictionary.", ex);
-        //    }
-        //}
-
-        //// Method to remove a user from the dictionary
-        //public void RemoveFromDictionary()
-        //{
-        //    usersDictionary.Remove(this.Email);
-        //}
-
-        //// Method to get the second user's email from the dictionary by the first user's email
-        //public static string getseconduseremail(string firstuseremail)
-        //{
-        //    if (usersDictionary.ContainsKey(firstuseremail))
-        //    {
-        //        return usersDictionary[firstuseremail];
-        //    }
-        //    else
-        //    {
-        //        // handle the case where the user with the specified email is not found
-        //        // you can return null or throw an exception as needed
-        //        return null; // or throw new exception("user not found in the dictionary.");
-        //    }
-        //}
-
-        //public static bool SearchUserByEmail(string email, string valueToCheck)
-        //{
-        //    if (usersDictionary.TryGetValue(email, out string value))
-        //    {
-        //        return value == valueToCheck;
-        //    }
-        //    else
-        //    {
-        //        // Handle the case where the user with the specified email is not found
-        //        return false;
-        //    }
-        //}
-        //public static Dictionary<string, string> GetDictionary()
-        //{
-        //    return usersDictionary;
-        //}
-
-
-
         public void AddToDictionary(string userEmail, string likedUserEmail)
         {
             try
@@ -404,7 +602,14 @@ namespace Make_a_move___Server.BL
                     likedRelationships[userEmail] = new List<string>();
                 }
 
-                likedRelationships[userEmail].Add(likedUserEmail);
+                if (!likedRelationships[userEmail].Contains(likedUserEmail))
+                {
+                    likedRelationships[userEmail].Add(likedUserEmail);
+                }
+                else
+                {
+                    Console.WriteLine($"The email {likedUserEmail} is already liked by {userEmail}.");
+                }
             }
             catch (ArgumentException ex)
             {
@@ -421,19 +626,19 @@ namespace Make_a_move___Server.BL
         }
 
         // Method to get the list of liked users' emails from the dictionary by the user's email
-        public List<string> GetLikedUsersByEmail(string userEmail)
-        {
-            if (likedRelationships.ContainsKey(userEmail))
-            {
-                return likedRelationships[userEmail];
-            }
-            else
-            {
-                // handle the case where the user with the specified email is not found
-                // you can return an empty list or throw an exception as needed
-                return new List<string>(); // or throw new exception("user not found in the dictionary.");
-            }
-        }
+        //public List<string> GetLikedUsersByEmail(string userEmail)
+        //{
+        //    if (likedRelationships.ContainsKey(userEmail))
+        //    {
+        //        return likedRelationships[userEmail];
+        //    }
+        //    else
+        //    {
+        //        // handle the case where the user with the specified email is not found
+        //        // you can return an empty list or throw an exception as needed
+        //        return new List<string>(); // or throw new exception("user not found in the dictionary.");
+        //    }
+        //}
 
         public static bool SearchUserByEmail(string userEmail, string targetUserEmail)
         {
