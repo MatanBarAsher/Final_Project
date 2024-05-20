@@ -9,8 +9,14 @@ import { makeAmoveUserServer } from "../services";
 
 export const FCPrecerences = () => {
   const navigate = useNavigate("");
+  let email = localStorage
+    .getItem("current-email")
+    .replace('"', "")
+    .replace('"', "");
+  console.log(email);
 
   const [precerencesData, setPrecerencesData] = useState({
+    email: email,
     preferedGender: 0,
     maxDistance: 0,
     preferedInterests: [],
@@ -54,7 +60,7 @@ export const FCPrecerences = () => {
     e.preventDefault();
 
     //go to server with precerencesData as prop
-    makeAmoveUserServer.setPrecerencesData(precerencesData).then((response) => {
+    makeAmoveUserServer.setPreferences(precerencesData).then((response) => {
       if (response) {
         console.log("success");
         console.log(response);
@@ -140,6 +146,7 @@ export const FCPrecerences = () => {
             valueLabelDisplay="on"
             className="slider"
             aria-label="Default"
+            onChange={handleHeightRangeChange}
             min={0}
             max={250}
           />

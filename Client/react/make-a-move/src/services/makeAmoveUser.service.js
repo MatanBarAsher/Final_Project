@@ -74,7 +74,32 @@ export const makeAmoveUserServer = {
       }),
   setPreferences: (data) =>
     axios
-      .patch(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/preferences`, data)
+      .post(
+        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/EditPreferences`,
+        {
+          email: data.email,
+          firstName: "string",
+          lastName: "string",
+          password: "string",
+          gender: 0,
+          image: ["string"],
+          height: 0,
+          birthday: "2024-05-20T17:51:45.427Z",
+          phoneNumber: "string",
+          isActive: true,
+          city: "string",
+          personalInterestsIds: ["string"],
+          currentPlace: 0,
+          persoalText: "string",
+          preferencesDictionary: {
+            gender: data.preferedGender,
+            minAge: `${data.ageRange[0]}`,
+            maxAge: `${data.ageRange[1]}`,
+            height: `${data.minHeight}`,
+            maxDistance: `${data.maxDistance}`,
+          },
+        }
+      )
       .then((res) => res.data) //returning data
       .catch((error) => {
         console.error("Error on setting Preferences:", error);
