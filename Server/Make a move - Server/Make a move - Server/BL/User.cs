@@ -510,5 +510,28 @@ namespace Make_a_move___Server.BL
 
 
 
+        public User EditPreferences(User user)
+        {
+            try
+            {
+                List<User> list = ReadUsers();
+                foreach (User u in list)
+                {
+                    if (user.email == u.email)
+                    {
+                        u.PreferencesDictionary = user.preferencesDictionary;
+                        DBservicesUser dbs = new DBservicesUser();
+                        return dbs.UpdateUser(u);
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error reading data", ex);
+            }
+        }  
+
     }
 }

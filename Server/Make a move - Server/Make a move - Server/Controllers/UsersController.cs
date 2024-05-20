@@ -261,6 +261,18 @@ namespace Make_a_move___Server.Controllers
             User u = new User();
             return u.checkExistingUserByKeyAndValue(key, value);
         }
+
+
+
+
+        [HttpPost("EditPreferences")]
+        public User EditPreferences([FromBody] User user)
+        {
+
+            User u = new();
+
+            return u.EditPreferences(user);
+        }
     }
 
 }

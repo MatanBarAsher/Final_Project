@@ -14,8 +14,6 @@ export const FCPrecerences = () => {
     preferedGender: 0,
     maxDistance: 0,
     preferedInterests: [],
-    minAge: 0,
-    maxAge: 0,
     ageRange: [18, 80],
     minHeight: 0,
   });
