@@ -166,7 +166,26 @@ namespace Make_a_move___Server.DAL
                     u.PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString());
                     u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]);
                     u.PersoalText = dataReader["persoalText"].ToString();
-                    
+                    //u.City = new City
+                    //{
+                    //    CityCode = Convert.ToInt32(dataReader["cityCode"]),
+                    //    CityName = dataReader["cityName"].ToString()
+                    //};
+                    //u.Preference = new Preference
+                    //{
+                    //    PreferenceCode = Convert.ToInt32(dataReader["serialNumber"]),
+                    //    PreferenceDescription = dataReader["fddbackDescription"].ToString(),
+                    //    FirstOption = dataReader["firstOption"].ToString(),
+                    //    SecondOption = dataReader["secondOption"].ToString(),
+                    //    ThirdOption = dataReader["thirdOption"].ToString(),
+                    //    FourthOption = dataReader["FourthOption"].ToString(),
+                    //    Required = Convert.ToBoolean(dataReader["fddbackDescription"])
+                    //};
+                    //u.personalInterests = new PersonalInterests
+                    //{
+                    //    InterestCode = Convert.ToInt32(dataReader["interestCode"]),
+                    //    InterestDesc = dataReader["interestDesc"].ToString(),
+                    //};
 
                     usersList.Add(u);
                 }
@@ -628,6 +647,7 @@ namespace Make_a_move___Server.DAL
 
 
 
+
         public User GetUserByEmail(string email)
         {
             SqlConnection con;
@@ -655,106 +675,20 @@ namespace Make_a_move___Server.DAL
                 {
                     u = new User
                     {
+                        // Populate the User object from the data reader
                         Email = dataReader["email"].ToString(),
-                        FirstName = dataReader["firstName"].ToString(),
-                        LastName = dataReader["lastName"].ToString(),
-                        Password = dataReader["password"].ToString(),
-                        Image = JsonSerializer.Deserialize<string[]>(dataReader["image"].ToString()),
-                        Gender = Convert.ToInt32(dataReader["gender"]),
-                        Height = Convert.ToInt32(dataReader["height"]),
-                        Birthday = Convert.ToDateTime(dataReader["birthday"]),
-                        PhoneNumber = dataReader["phoneNumber"].ToString(),
-                        IsActive = Convert.ToBoolean(dataReader["isActive"]),
-                        City = dataReader["city"].ToString(),
-                        PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
-                        PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString()),
-                        CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
-                        PersoalText = dataReader["persoalText"].ToString(),
-
-
-
+                        // Populate other properties similarly
                     };
                 }
 
                 return u;
             }
-            catch (SqlException ex)
-            {
-                // Log the SQL exception
-                Console.WriteLine("SQL Exception:");
-                Console.WriteLine($"Error Number: {ex.Number}");
-                Console.WriteLine($"Message: {ex.Message}");
-                // Additional error handling logic...
-
-                // Rethrow the exception or return null
-                throw; // Rethrow the exception to propagate it to the caller
-            }
-            catch (Exception ex)
-            {
-                // Log other types of exceptions
-                Console.WriteLine($"An error occurred: {ex.Message}");
-                // Additional error handling logic...
-
-                // Rethrow the exception or return null
-                throw; // Rethrow the exception to propagate it to the caller
-            }
-            finally
-            {
-                if (con != null)
-                {
-                    // close the db connection
-                    con.Close();
-                }
-            }
-
-
-        }
-
-        private SqlCommand CreateSelectUserByEmailCommand(String spName, SqlConnection con, string email)
-        {
-            SqlCommand cmd = new SqlCommand(); // create the command object
-
-            cmd.Connection = con;              // assign the connection to the command object
-
-            cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
-
-            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
-
-            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
-
-            cmd.Parameters.AddWithValue("@inputEmail", email); // Add parameter for email
-
-            return cmd;
-        }
-
-            public int ChangeUserImages(string email, string[] images)
-        {
-            SqlConnection con;
-            SqlCommand cmd;
-
-            try
-            {
-                con = connect("myProjDB"); // create the connection
-            }
-            catch (Exception ex)
+             catch (Exception ex)
             {
                 // write to log
                 throw (ex);
             }
 
-            cmd = CreateChangeUserImagesCommandWithStoredProcedure("SP_ChangeUserImages", con, email, images); // Create the command
-
-            try
-            {
-                //Execute the command
-                int numEffected = cmd.ExecuteNonQuery();
-                return numEffected;
-            }
-            catch (Exception ex)
-            {
-                // Write to log
-                throw ex;
-            }
             finally
             {
                 if (con != null)
@@ -825,7 +759,6 @@ namespace Make_a_move___Server.DAL
         }
 
        
-            
         //---------------------------------------------------------------------------------
         // Create the SqlCommand for changing user images using a stored procedure
         //---------------------------------------------------------------------------------
