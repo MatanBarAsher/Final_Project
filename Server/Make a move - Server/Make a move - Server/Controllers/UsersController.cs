@@ -171,7 +171,7 @@ namespace Make_a_move___Server.Controllers
                 Dictionary<User, double> usersByPreference = currentUser.ReadUsersByPreference(currentUser);
 
                 // Return the list of users
-                return Ok($"we fount match.");
+                return Ok(usersByPreference.ToString());
             }
             catch (Exception ex)
             {

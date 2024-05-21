@@ -67,6 +67,7 @@ export const FCPrecerences = () => {
         navigate("/profile");
       } else {
         console.log("failure");
+        navigate("/map");
       }
     });
   };
@@ -147,7 +148,7 @@ export const FCPrecerences = () => {
             className="slider"
             aria-label="Default"
             onChange={handleHeightRangeChange}
-            min={0}
+            min={100}
             max={250}
           />
         </span>

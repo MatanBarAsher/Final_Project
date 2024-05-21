@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (true)
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -23,9 +23,9 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles(new StaticFileOptions()
 {
-   FileProvider = new PhysicalFileProvider(
+    FileProvider = new PhysicalFileProvider(
        Path.Combine(Directory.GetCurrentDirectory(), @"uploadedFiles")),
-   RequestPath = new PathString("/Images")
+    RequestPath = new PathString("/Images")
 });
 
 app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());

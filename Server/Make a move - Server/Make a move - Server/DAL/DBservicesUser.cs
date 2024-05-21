@@ -766,64 +766,64 @@ namespace Make_a_move___Server.DAL
             }
 
         }
-        private SqlCommand CreateSelectUserByEmailCommand(String spName, SqlConnection con, string email)
-        {
+        //private SqlCommand CreateSelectUserByEmailCommand(String spName, SqlConnection con, string email)
+        //{
 
-            SqlCommand cmd = new SqlCommand(); // create the command object
+        //    SqlCommand cmd = new SqlCommand(); // create the command object
 
-            cmd.Connection = con;              // assign the connection to the command object
+        //    cmd.Connection = con;              // assign the connection to the command object
 
-            cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+        //    cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
 
-            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+        //    cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
 
-            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+        //    cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
-            cmd.Parameters.AddWithValue("@inputEmail", email); // Add parameter for email
+        //    cmd.Parameters.AddWithValue("@inputEmail", email); // Add parameter for email
 
-            return cmd;
+        //    return cmd;
 
-        }
+        //}
 
 
 
-        public int ChangeUserImages(string email, string[] images)
-        {
-            SqlConnection con;
-            SqlCommand cmd;
+        //public int ChangeUserImages(string email, string[] images)
+        //{
+        //    SqlConnection con;
+        //    SqlCommand cmd;
 
-            try
-            {
-                con = connect("myProjDB"); // create the connection
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                throw (ex);
-            }
+        //    try
+        //    {
+        //        con = connect("myProjDB"); // create the connection
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // write to log
+        //        throw (ex);
+        //    }
 
-            cmd = CreateChangeUserImagesCommandWithStoredProcedure("SP_ChangeUserImages", con, email, images); // Create the command
+        //    cmd = CreateChangeUserImagesCommandWithStoredProcedure("SP_ChangeUserImages", con, email, images); // Create the command
 
-                try
-                {
-                    //Execute the command
-                    int numEffected = cmd.ExecuteNonQuery();
-                    return numEffected;
-                }
-                catch (Exception ex)
-                {
-                    // Write to log
-                    throw ex;
-                }
-                finally
-                {
-                    if (con != null)
-                    {
-                        // close the db connection
-                        con.Close();
-                    }
-                }
-        }
+        //        try
+        //        {
+        //            //Execute the command
+        //            int numEffected = cmd.ExecuteNonQuery();
+        //            return numEffected;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            // Write to log
+        //            throw ex;
+        //        }
+        //        finally
+        //        {
+        //            if (con != null)
+        //            {
+        //                // close the db connection
+        //                con.Close();
+        //            }
+        //        }
+        //}
 
        
             

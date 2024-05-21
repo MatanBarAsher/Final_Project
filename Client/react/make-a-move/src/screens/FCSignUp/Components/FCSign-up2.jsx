@@ -34,7 +34,8 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
     updateSignUpData("birthday", e.target.value);
   };
   const handleCityCreation = (e) => {
-    updateSignUpData("city", e.target.value);
+    // updateSignUpData("city", e.target.value);
+    updateSignUpData("city", "5000");
   };
   return (
     <>
