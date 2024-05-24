@@ -166,4 +166,12 @@ export const makeAmoveUserServer = {
       return null;
     }
   },
+  getAllUsersEmails: () =>
+    axios
+      .get(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/getEmails`)
+      .then((res) => res.data) //returning data
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+        throw error; // Rethrow the error to be caught by the caller}
+      }),
 };

@@ -303,6 +303,15 @@ namespace Make_a_move___Server.Controllers
 
             return u.EditPreferences(user);
         }
+
+
+        [HttpGet("getEmails")]
+        public List<string> GetUsersEmails()
+        {
+            User user = new User();
+            return user.GetUsersEmails();
+        }
+
     }
 
 }

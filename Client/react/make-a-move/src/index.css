@@ -78,14 +78,12 @@ option {
   min-height: 844px;
   padding: 0%;
   margin: 0%;
-  
 }
 
 .map {
   background: rgba(0, 0, 0, 0.4);
   min-width: 390px;
   min-height: 844px;
-  
 }
 
 .map-footer {
@@ -231,7 +229,7 @@ option {
   color: white;
   margin: 20px 7px 0 0;
   font-size: 16px;
-  font-weight: 400;  
+  font-weight: 400;
 }
 
 .gender-inp {
@@ -310,29 +308,27 @@ input[name="gender"] {
   background-repeat: no-repeat;
   background-position: center;
 }
-.range{
+.range {
   display: flex;
   margin-top: 25px;
- 
 }
 .preference-p {
   color: white;
   margin: 20px 40px 10px 10px;
   font-size: 16px;
-  font-weight: 400; 
+  font-weight: 400;
 }
-.pref-h1{
+.pref-h1 {
   margin-bottom: 50px;
 }
-.slider{
+.slider {
   margin: 10px 30px 10px 30px;
   display: flex;
 }
 .icon {
   position: absolute;
-  
 }
-.icon-container{
+.icon-container {
   padding: 50px;
   position: fixed;
   /* top: 0;
@@ -341,6 +337,12 @@ input[name="gender"] {
   right:0; */
   width: 100%;
   height: 60%;
- overflow:auto;
-  
+  overflow: auto;
+}
+
+.google-signin-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
 }

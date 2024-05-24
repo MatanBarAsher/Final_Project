@@ -738,5 +738,16 @@ namespace Make_a_move___Server.BL
             }
         }  
 
+        public List<string> GetUsersEmails()
+        {
+            List<User> list = ReadUsers();
+            List<string> emailsList = new List<string>();
+            foreach (var user in list)
+            {
+                emailsList.Add(user.Email);
+            }
+            return emailsList;
+        }
+
     }
 }

@@ -4,6 +4,7 @@ import logo from "../assets/images/Logo.png";
 import FCCustomTxtInp from "../components/FCCustomTxtInp";
 import { makeAmoveUserServer } from "../services";
 import { useNavigate } from "react-router-dom";
+import FCSignInGoogle from "../google/FCSignInGoogle";
 
 const FCSignIn = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
@@ -55,6 +56,10 @@ const FCSignIn = () => {
         {/* <FCCustomBtn title={"התחברות באמצעות דוא''ל"} /> */}
         <FCCustomBtn type="submit" title={"התחברות"} />
       </form>
+      <div className="google-signin-container">
+        <p style={{ color: "white" }}>או</p>
+        <FCSignInGoogle />
+      </div>
     </span>
   );
 };
