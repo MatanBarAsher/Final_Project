@@ -3,7 +3,9 @@ using Make_a_move___Server.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting.Internal;
 using System.Net;
-
+using System;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Make_a_move___Server.Controllers
@@ -248,8 +250,6 @@ namespace Make_a_move___Server.Controllers
 
         public async Task<IActionResult> ChangeImages([FromForm] List<IFormFile> files, [FromRoute] string email)
         {
-
-
             List<string> imageLinks = new List<string>();
 
             string path = System.IO.Directory.GetCurrentDirectory();
@@ -269,13 +269,53 @@ namespace Make_a_move___Server.Controllers
                     imageLinks.Add(formFile.FileName);
                 }
             }
-
-            // Return status code  
-            return Ok(imageLinks);
+            User u = new();
+            
+            if (u.ChangeImages(email, imageLinks) != null)
+            {
+              // Return status code  
+              return Ok(imageLinks);
+            }
+            else
+            {
+                return BadRequest();
+            }
 
         }
 
 
+
+        [HttpPost("AddImages")]
+        public ActionResult UploadImage(IFormFile file)
+        {
+            User _service = new();
+            if (file != null && file.Length > 0)
+            {
+                try
+                {
+                    byte[] imageData;
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        file.CopyTo(memoryStream);
+                        imageData = memoryStream.ToArray();
+                    }
+
+                    // Call your service method to add the image to the database
+                    _service.AddImage(imageData);
+
+                    return Ok("Image uploaded successfully!");
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500,"Error uploading image: " + ex.Message);
+                }
+            }
+            else
+            {
+                return StatusCode(500, "Please select a file.");
+            }
+
+        }
 
 
 

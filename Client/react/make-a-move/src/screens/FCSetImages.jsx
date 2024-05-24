@@ -28,7 +28,7 @@ export default function FCSetImages() {
         console.log([...formData]);
       }
     }
-    const currentEmail = "@neta"; // need to change to the relevant mail
+    const currentEmail = JSON.parse(localStorage.getItem("current-email")); // need to change to the relevant mail
     makeAmoveUserServer
       .changeImages({ currentEmail, formData })
       .then((response) => {

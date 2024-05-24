@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Security.Cryptography.Xml;
 using System.Xml.Linq;
+using System.Linq;
 namespace Make_a_move___Server.BL
 {
     public class User
@@ -662,19 +663,22 @@ namespace Make_a_move___Server.BL
             return likedRelationships;
         }
 
-        //public int ChangeImages(string email, string[] images) {
-        //    try
-        //    {
-        //        //DBservicesUser dbs = new DBservicesUser();
-        //        //return dbs.ChangeUserImages(email, images);
-                
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //    Log or handle the exception appropriately
-        //        throw new Exception("Error changing images", ex);
-        //    }
-        //}
+        public User ChangeImages(string email, List<string> images)
+        {
+            try
+            {
+                User user = GetUserByEmail(email);
+                //user.image = user.Image.Concat(images.ToArray()).ToArray();
+                DBservicesUser dbs = new DBservicesUser();
+                return dbs.UpdateUser(user);
+
+            }
+            catch (Exception ex)
+            {
+                //    Log or handle the exception appropriately
+                throw new Exception("Error changing images", ex);
+            }
+        }
 
         public bool LikeUser(string userEmail, string likedUserEmail)
         {
@@ -749,5 +753,19 @@ namespace Make_a_move___Server.BL
             return emailsList;
         }
 
+
+        public void AddImage(byte[] imageData)
+        {
+            try
+            {
+                DBservicesUser dbs = new DBservicesUser();
+                dbs.AddImage(imageData);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error inserting Image", ex);
+            }
+        }
     }
 }
