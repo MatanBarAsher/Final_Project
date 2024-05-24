@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import { PERSONAL_INTERESTS } from "../../../constants";
 import { FCMultiSelect } from "../../../components/MultiSelect";
 import FCCustomBtn from "../../../components/FCCustomBtn";
-import { useSignUpContext } from "../SignUpContext";
 import { makeAmoveUserServer } from "../../../services";
+import { ErrorDialog, SuccessDialog } from "../Components";
+import { useSignUpContext } from "../SignUpContext";
 
 export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
   const navigate = useNavigate("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // State to manage modal visibility
+  const [showErrorModal, setShowErrorModal] = useState(false); // State to manage modal visibility
 
   const { signUpData, updateSignUpData } = useSignUpContext();
   console.log(signUpData);
@@ -28,14 +31,33 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
   };
 
   const handleSubmit = () => {
-    console.log(signUpData);
-    makeAmoveUserServer.createUser(signUpData).then(() => {
-      localStorage.setItem("current-email", JSON.stringify(signUpData.email));
-      navigate("/setImages");
+    makeAmoveUserServer.createUser(signUpData).then((response) => {
+      console.log(response);
+      if (response) {
+        localStorage.setItem("current-email", JSON.stringify(signUpData.email));
+        setShowSuccessModal(true);
+      } else {
+        setShowErrorModal(true);
+      }
+      // navigate("/setImages");
     });
   };
   return (
-    <>
+    <span>
+      <SuccessDialog
+        open={showSuccessModal}
+        setClose={() => {
+          setShowSuccessModal(false);
+          navigate("/location");
+        }}
+      />
+      <ErrorDialog
+        open={showErrorModal}
+        setClose={() => {
+          setShowErrorModal(false);
+        }}
+      />
+
       <form>
         <h1>פרופיל</h1>
         <p className="signup2-p">מה את/ה אוהב/ת לעשות בזמנך הפנוי?</p>
@@ -86,6 +108,6 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
           )}
         </div>
       </form>
-    </>
+    </span>
   );
 };
