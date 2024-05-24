@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const FCSignIn = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [showModal, setShowModal] = useState(true); // State to manage modal visibility
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
@@ -26,7 +27,10 @@ const FCSignIn = () => {
         console.log("success");
         console.log(response);
         saveCurrentUserToLocalStorage(loginData["email"]);
+        setShowModal((prev) => !prev); // Show modal on successful login
         navigate("/location");
+
+        console.log("showModal state:", showModal);
       } else {
         console.log("failure");
       }
@@ -36,6 +40,11 @@ const FCSignIn = () => {
   const saveCurrentUserToLocalStorage = (email) => {
     localStorage.setItem("current-email", JSON.stringify(email));
   };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <span>
       <img src={logo} className="logoSM" />
@@ -44,17 +53,24 @@ const FCSignIn = () => {
         <FCCustomTxtInp ph={"דוא''ל"} onChange={handleEmailChange} required />
         <br />
         <br />
-
         <FCCustomTxtInp
           type="password"
           ph={"סיסמה"}
           onChange={handlePasswordChange}
           required
         />
-        {/* <p style={{ color: "white" }}>או</p> */}
-        {/* <FCCustomBtn title={"התחברות באמצעות דוא''ל"} /> */}
         <FCCustomBtn type="submit" title={"התחברות"} />
       </form>
+      {showModal && ( // Render modal if showModal is true
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={closeModal}>
+              &times;
+            </span>
+            <p>You logged in.</p>
+          </div>
+        </div>
+      )}
     </span>
   );
 };
