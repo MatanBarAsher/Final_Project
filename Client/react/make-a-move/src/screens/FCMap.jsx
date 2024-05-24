@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function FCMap({ location }) {
   const [usersOnMap, setUsersOnMap] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Your API call to fetch users from the server would typically go here
@@ -225,6 +226,7 @@ export default function FCMap({ location }) {
   const showUserDetails = (user) => {
     // Implement logic to display user details
     console.log("User details:", user);
+    navigate("/profile");
   };
 
   return (

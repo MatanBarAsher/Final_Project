@@ -6,6 +6,7 @@ import FCProfileView from "../screens/FCProfileView";
 import FCSetImages from "../screens/FCSetImages";
 import FCSignIn from "../screens/FCSign-in";
 import FCWellcome from "../screens/FCWellcome";
+import FCSideMenu from "../screens/FCSideMenu";
 
 export const ROUTER = [
   { path: "/", Element: FCWellcome },
@@ -16,4 +17,5 @@ export const ROUTER = [
   { path: "/profile", Element: FCProfileView },
   { path: "/location", Element: FCLocation },
   { path: "/map", Element: FCMap },
+  { path: "/sideMenu", Element: FCSideMenu },
 ];
