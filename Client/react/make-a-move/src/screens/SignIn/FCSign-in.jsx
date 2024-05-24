@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import FCCustomBtn from "../components/FCCustomBtn";
-import logo from "../assets/images/Logo.png";
-import FCCustomTxtInp from "../components/FCCustomTxtInp";
-import { makeAmoveUserServer } from "../services";
+import logo from "../../assets/images/Logo.png"; //"../../assets/images/Logo.png";
 import { useNavigate } from "react-router-dom";
-import FCSignInGoogle from "../google/FCSignInGoogle";
+import { ErrorDialog, SuccessDialog } from "./components";
+import FCCustomTxtInp from "../../components/FCCustomTxtInp";
+import FCCustomBtn from "../../components/FCCustomBtn";
+import { makeAmoveUserServer } from "../../services";
 
 const FCSignIn = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // State to manage modal visibility
+  const [showErrorModal, setShowErrorModal] = useState(false); // State to manage modal visibility
+
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
@@ -20,16 +23,13 @@ const FCSignIn = () => {
 
   const login = (e) => {
     e.preventDefault();
-    console.log("user requested to signin");
-    console.log(loginData);
     makeAmoveUserServer.login(loginData).then((response) => {
       if (response) {
-        console.log("success");
-        console.log(response);
         saveCurrentUserToLocalStorage(loginData["email"]);
-        navigate("/location");
+        setShowSuccessModal(true); // Show modal on successful login
+        // navigate("/location");
       } else {
-        console.log("failure");
+        setShowErrorModal(true);
       }
     });
   };
@@ -37,23 +37,35 @@ const FCSignIn = () => {
   const saveCurrentUserToLocalStorage = (email) => {
     localStorage.setItem("current-email", JSON.stringify(email));
   };
+
   return (
     <span>
+      <SuccessDialog
+        open={showSuccessModal}
+        setClose={() => {
+          setShowSuccessModal(false);
+          navigate("/location");
+        }}
+      />
+      <ErrorDialog
+        open={showErrorModal}
+        setClose={() => {
+          setShowErrorModal(false);
+          // setLoginData({ email: "", password: "" });
+        }}
+      />
       <img src={logo} className="logoSM" />
       <form onSubmit={login}>
         <h1>התחברות</h1>
         <FCCustomTxtInp ph={"דוא''ל"} onChange={handleEmailChange} required />
         <br />
         <br />
-
         <FCCustomTxtInp
           type="password"
           ph={"סיסמה"}
           onChange={handlePasswordChange}
           required
         />
-        {/* <p style={{ color: "white" }}>או</p> */}
-        {/* <FCCustomBtn title={"התחברות באמצעות דוא''ל"} /> */}
         <FCCustomBtn type="submit" title={"התחברות"} />
       </form>
       <div className="google-signin-container">
