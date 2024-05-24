@@ -4,7 +4,7 @@ import FCMap from "../screens/FCMap";
 import { FCPrecerences } from "../screens/FCPreferences";
 import FCProfileView from "../screens/FCProfileView";
 import FCSetImages from "../screens/FCSetImages";
-import FCSignIn from "../screens/FCSign-in";
+import FCSignIn from "../screens/SignIn/FCSign-in";
 import FCWellcome from "../screens/FCWellcome";
 
 export const ROUTER = [
