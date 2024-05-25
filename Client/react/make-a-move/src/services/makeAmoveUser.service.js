@@ -174,4 +174,49 @@ export const makeAmoveUserServer = {
         console.error("Error fetching users:", error);
         throw error; // Rethrow the error to be caught by the caller}
       }),
+
+  AddImage: async ({ formData }) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/AddImages`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      return null;
+    }
+  },
+
+  GetUserByEmail: (email) => {
+    return axios
+      .get(
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/users/GetUserByEmail/${email}`
+      )
+      .then((res) => res.data) //returning data
+      .catch((error) => {
+        console.error("Error fetching user:", error);
+        throw error; // Rethrow the error to be caught by the caller}
+      });
+  },
+
+  getImageByID: async (imageId) => {
+    const response = await axios
+      .get(
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/users/GetImage?imageId=${imageId}`,
+        {
+          responseType: "blob",
+        }
+      )
+      .then((res) => URL.createObjectURL(res.data))
+      .catch((error) => {
+        console.error("Error fetching image:", error);
+        throw error; // Rethrow the error to be caught by the caller}
+      });
+  },
 };

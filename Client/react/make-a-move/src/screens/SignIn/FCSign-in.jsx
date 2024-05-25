@@ -5,6 +5,7 @@ import { ErrorDialog, SuccessDialog } from "./components";
 import FCCustomTxtInp from "../../components/FCCustomTxtInp";
 import FCCustomBtn from "../../components/FCCustomBtn";
 import { makeAmoveUserServer } from "../../services";
+import FCSignInGoogle from "../../google/FCSignInGoogle";
 
 const FCSignIn = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });

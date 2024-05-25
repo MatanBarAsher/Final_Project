@@ -728,7 +728,66 @@ namespace Make_a_move___Server.DAL
             return cmd;
         }
 
-            public int ChangeUserImages(string email, string[] images)
+        //    public int ChangeUserImages(string email, string[] images)
+        //{
+        //    SqlConnection con;
+        //    SqlCommand cmd;
+
+        //    try
+        //    {
+        //        con = connect("myProjDB"); // create the connection
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // write to log
+        //        throw (ex);
+        //    }
+
+        //        cmd = CreateChangeUserImagesCommandWithStoredProcedure("SP_ChangeUserImages", con, email, images); // Create the command
+
+        //    try
+        //    {
+        //        //Execute the command
+        //        int numEffected = cmd.ExecuteNonQuery();
+        //        return numEffected;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Write to log
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        if (con != null)
+        //        {
+        //            // close the db connection
+        //            con.Close();
+        //        }
+        //    }
+
+        //}
+        //private SqlCommand CreateSelectUserByEmailCommand(String spName, SqlConnection con, string email)
+        //{
+
+        //    SqlCommand cmd = new SqlCommand(); // create the command object
+
+        //    cmd.Connection = con;              // assign the connection to the command object
+
+        //    cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+
+        //    cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+        //    cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+
+        //    cmd.Parameters.AddWithValue("@inputEmail", email); // Add parameter for email
+
+        //    return cmd;
+
+        //}
+
+
+
+        public int ChangeUserImages(string email, string[] images)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -764,66 +823,7 @@ namespace Make_a_move___Server.DAL
                     con.Close();
                 }
             }
-
         }
-        //private SqlCommand CreateSelectUserByEmailCommand(String spName, SqlConnection con, string email)
-        //{
-
-        //    SqlCommand cmd = new SqlCommand(); // create the command object
-
-        //    cmd.Connection = con;              // assign the connection to the command object
-
-        //    cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
-
-        //    cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
-
-        //    cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
-
-        //    cmd.Parameters.AddWithValue("@inputEmail", email); // Add parameter for email
-
-        //    return cmd;
-
-        //}
-
-
-
-        //public int ChangeUserImages(string email, string[] images)
-        //{
-        //    SqlConnection con;
-        //    SqlCommand cmd;
-
-        //    try
-        //    {
-        //        con = connect("myProjDB"); // create the connection
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // write to log
-        //        throw (ex);
-        //    }
-
-        //    cmd = CreateChangeUserImagesCommandWithStoredProcedure("SP_ChangeUserImages", con, email, images); // Create the command
-
-        //        try
-        //        {
-        //            //Execute the command
-        //            int numEffected = cmd.ExecuteNonQuery();
-        //            return numEffected;
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            // Write to log
-        //            throw ex;
-        //        }
-        //        finally
-        //        {
-        //            if (con != null)
-        //            {
-        //                // close the db connection
-        //                con.Close();
-        //            }
-        //        }
-        //}
 
        
             
@@ -832,26 +832,24 @@ namespace Make_a_move___Server.DAL
         //---------------------------------------------------------------------------------
 
         private SqlCommand CreateChangeUserImagesCommandWithStoredProcedure(String spName, SqlConnection con, string email, string[] images)
-        {
-            SqlCommand cmd = new SqlCommand(); // Create the command object
+    {
+        SqlCommand cmd = new SqlCommand(); // Create the command object
 
-            cmd.Connection = con; // Assign the connection to the command object
+        cmd.Connection = con; // Assign the connection to the command object
 
-            cmd.CommandText = spName; // Can be Select, Insert, Update, Delete
+        cmd.CommandText = spName; // Can be Select, Insert, Update, Delete
 
-            cmd.CommandTimeout = 10; // Time to wait for the execution. The default is 30 seconds
+        cmd.CommandTimeout = 10; // Time to wait for the execution. The default is 30 seconds
 
-            cmd.CommandType = System.Data.CommandType.StoredProcedure; // The type of the command, can also be text
+        cmd.CommandType = System.Data.CommandType.StoredProcedure; // The type of the command, can also be text
 
-            cmd.Parameters.AddWithValue("@email", email);
+        cmd.Parameters.AddWithValue("@email", email);
 
-            string imagesJson = JsonSerializer.Serialize(images);
-            cmd.Parameters.AddWithValue("@images", imagesJson);
+        string imagesJson = JsonSerializer.Serialize(images);
+        cmd.Parameters.AddWithValue("@images", imagesJson);
 
-            return cmd;
-        }
-
-
+        return cmd;
+    }
 
 
 
@@ -865,7 +863,9 @@ namespace Make_a_move___Server.DAL
 
 
 
-        public void AddImage(byte[] imageData)
+
+
+    public void AddImage(byte[] imageData, string mimeType)
         {
             SqlConnection con;
             SqlCommand cmd;
@@ -880,7 +880,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateAddImageCommand("SP_AddImage", con, imageData); // create the command
+            cmd = CreateAddImageCommand("SP_AddImage", con, imageData, mimeType); // create the command
 
             try
             {
@@ -903,7 +903,7 @@ namespace Make_a_move___Server.DAL
         //---------------------------------------------------------------------------------
         // Create the SqlCommand using a stored procedure
         //---------------------------------------------------------------------------------
-        private SqlCommand CreateAddImageCommand(string spName, SqlConnection con, byte[] imageData)
+        private SqlCommand CreateAddImageCommand(string spName, SqlConnection con, byte[] imageData, string mimeType)
         {
             SqlCommand cmd = new SqlCommand(); // create the command object
 
@@ -917,13 +917,73 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@imageData", imageData);
 
+            cmd.Parameters.AddWithValue("@mimeType", mimeType);
+
             return cmd;
         }
 
 
 
 
+        public (byte[] ImageData, string MimeType) GetImage(int imageId)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+            byte[] imageData = null;
+            string mimeType = null;
 
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            try
+            {
+                cmd = CreateGetImageCommand("SP_GetImage", con, imageId); // create the command
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    imageData = reader["ImageData"] as byte[];
+                    mimeType = reader["MimeType"] as string;
+                }
+            }
+            catch (Exception ex)
+            {
+                // write to log or handle exception
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close(); // close the connection
+                }
+            }
+
+            return (imageData, mimeType);
+        }
+
+        private SqlCommand CreateGetImageCommand(string spName, SqlConnection con, int imageId)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;      // stored procedure name
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution, default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+
+            cmd.Parameters.AddWithValue("@ImageId", imageId);
+
+            return cmd;
+        }
 
 
     }

@@ -2,6 +2,8 @@ import React from "react";
 import FCCustomBtn from "../components/FCCustomBtn";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/images/Logo.png";
+import FCUpload from "../components/FCUpload";
+import FCGetImage from "../components/FCGetImage";
 const FCWellcome = () => {
   const navigate = useNavigate();
 
@@ -11,6 +13,8 @@ const FCWellcome = () => {
       <p style={{ color: "white" }}>Location based dating app</p>
       <FCCustomBtn title={"התחברות"} onClick={() => navigate("/signin")} />
       <FCCustomBtn title={"הרשמה"} onClick={() => navigate("/signup")} />
+      <FCUpload />
+      <FCGetImage />
     </span>
   );
 };

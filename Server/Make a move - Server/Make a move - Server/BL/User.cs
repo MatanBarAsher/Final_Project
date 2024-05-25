@@ -576,7 +576,7 @@ namespace Make_a_move___Server.BL
         //}
 
 
-        public static User GetUserByEmail(string email)
+        public User GetUserByEmail(string email)
         {
             try
             {
@@ -747,24 +747,42 @@ namespace Make_a_move___Server.BL
             List<User> list = ReadUsers();
             List<string> emailsList = new List<string>();
             foreach (var user in list)
-            {
+            { 
                 emailsList.Add(user.Email);
             }
             return emailsList;
         }
 
 
-        public void AddImage(byte[] imageData)
+        public void AddImage(byte[] imageData, string mimeType)
         {
             try
             {
                 DBservicesUser dbs = new DBservicesUser();
-                dbs.AddImage(imageData);
+                dbs.AddImage(imageData, mimeType);
             }
             catch (Exception ex)
             {
                 // Log or handle the exception appropriately
                 throw new Exception("Error inserting Image", ex);
+            }
+        }
+        
+        
+        
+        
+        
+        public (byte[] ImageData, string MimeType) GetImage(int imageID)
+        {
+            try
+            {
+                DBservicesUser dbs = new DBservicesUser();
+                return dbs.GetImage(imageID);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error Getting Image", ex);
             }
         }
     }

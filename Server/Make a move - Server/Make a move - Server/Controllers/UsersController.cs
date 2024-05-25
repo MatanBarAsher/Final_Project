@@ -159,8 +159,9 @@ namespace Make_a_move___Server.Controllers
         {
             try
             {
+                User user = new();
                 // Get the current user by email
-                User currentUser = Make_a_move___Server.BL.User.GetUserByEmail(userEmail);
+                User currentUser = user.GetUserByEmail(userEmail);
 
                 // Check if the user exists
                 if (currentUser == null)
@@ -299,9 +300,10 @@ namespace Make_a_move___Server.Controllers
                         file.CopyTo(memoryStream);
                         imageData = memoryStream.ToArray();
                     }
+                    string mimeType = file.ContentType;
 
                     // Call your service method to add the image to the database
-                    _service.AddImage(imageData);
+                    _service.AddImage(imageData, mimeType);
 
                     return Ok("Image uploaded successfully!");
                 }
@@ -316,6 +318,48 @@ namespace Make_a_move___Server.Controllers
             }
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [HttpGet("GetImage")]
+        public IActionResult GetImage(int imageId)
+        {
+            User _service = new();
+
+            var (imageData, mimeType) = _service.GetImage(imageId);
+
+            if (imageData == null)
+            {
+                return NotFound();
+            }
+
+            return File(imageData, mimeType); // Return the image with its MIME type
+        }
+
+
+        [HttpGet]
+        [Route("GetUserByEmail/{email}")]
+
+        public User GetUserByEmail([FromRoute] string email)
+        {
+            User _service = new();
+            return _service.GetUserByEmail(email);
+        }
+
+
+
+
+
 
 
 

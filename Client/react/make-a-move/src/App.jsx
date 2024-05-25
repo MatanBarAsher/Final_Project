@@ -3,7 +3,6 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { ROUTER } from "./Routs";
 
-
 function App() {
   return (
     <RecoilRoot>
@@ -15,7 +14,6 @@ function App() {
         </Routes>
       </Router>
     </RecoilRoot>
-    
   );
 }
 

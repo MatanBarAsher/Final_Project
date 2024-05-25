@@ -15,6 +15,7 @@ body {
     rgba(63, 46, 62, 1) 76%,
     rgba(51, 29, 44, 1) 100%
   );
+  justify-content: center;
 }
 
 p {

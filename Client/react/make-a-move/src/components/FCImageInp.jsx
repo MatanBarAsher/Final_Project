@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 export default function FCImageInp({ name, onChange }) {
   const [imageUrl, setImageUrl] = useState(null);
