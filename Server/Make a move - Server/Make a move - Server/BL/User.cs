@@ -422,137 +422,383 @@ namespace Make_a_move___Server.BL
 
         //}
 
-        public (User user, double matchPercentage) CalculateMatchPercentage(User u)
+        //public (User user, double matchPercentage) CalculateMatchPercentage(User u)
+        //{
+        //    DBservicesCity dbServices = new DBservicesCity();
+        //    double distance = dbServices.ReadDistance(Int32.Parse(this.city), Int32.Parse(u.city)); // Assuming a method to calculate distance will be implemented
+        //    int age = CalculateAge(u.birthday);
+        //    int secAge = CalculateAge(this.birthday);
+
+        //    // Gender checks
+        //    bool genderMatches = this.PreferencesDictionary["gender"] == u.gender.ToString();
+        //    bool otherGenderMatches = u.PreferencesDictionary["gender"] == this.gender.ToString();
+
+        //    // Gender match?
+        //    bool genderCheck = genderMatches && otherGenderMatches;
+
+        //    // Age check
+        //    int minAge = Int32.Parse(this.PreferencesDictionary["minAge"]);
+        //    int maxAge = Int32.Parse(this.PreferencesDictionary["maxAge"]);
+        //    bool ageInRange = minAge <= age && maxAge >= age;
+
+        //    // Other Age check
+        //    int otherMinAge = Int32.Parse(u.PreferencesDictionary["minAge"]);
+        //    int otherMaxAge = Int32.Parse(u.PreferencesDictionary["maxAge"]);
+        //    bool otherAgeInRange = otherMinAge <= secAge && otherMaxAge >= secAge;
+
+        //    // Age match?
+        //    bool ageCheck = ageInRange && otherAgeInRange;
+
+        //    // Height check
+        //    int preferredHeight = Int32.Parse(this.PreferencesDictionary["height"]);
+        //    bool heightMatches = this.PreferencesDictionary["height"] == u.height.ToString();
+
+        //    // Other Height check
+        //    int otherPreferredHeight = Int32.Parse(u.PreferencesDictionary["height"]);
+        //    bool otherHeightMatches = u.PreferencesDictionary["height"] == this.height.ToString();
+
+        //    // Height match?
+        //    bool heightCheck = heightMatches && otherHeightMatches;
+
+        //    // Distance check 
+        //    double maxDistance = Double.Parse(this.PreferencesDictionary["maxDistance"]);
+        //    bool distanceInRange =  maxDistance >= distance;
+
+        //    // Other Distance check
+        //    double otherMaxDistance = Double.Parse(u.PreferencesDictionary["maxDistance"]);
+        //    bool otherDistanceInRange =  otherMaxDistance >= distance;
+
+        //    // Distance match?
+        //    bool distanceCheck = distanceInRange && otherDistanceInRange;
+
+        //    // 100% match
+        //    bool userPreferencesMatch = genderCheck && ageCheck && heightCheck && distanceCheck;
+
+        //    if (userPreferencesMatch)
+        //    {
+        //        return (u, 100.0); // 100% match
+        //    }
+
+        //    double totalDiff = 0;
+
+        //    // Calculate differences if 'other' checks are true
+        //    if ((!userPreferencesMatch) && otherGenderMatches)
+        //    {
+        //        double ageDiff = 0, heightDiff = 0, distanceDiff = 0;
+
+        //        if (!ageInRange)
+        //        {
+
+        //            if (age > maxAge)
+        //            {
+        //                ageDiff = 100 - (age - maxAge) * 2;
+        //            }
+        //            else ageDiff = 100 - (minAge - age) * 2;
+        //        }
+        //        else ageDiff = 100;
+
+        //        if (!heightMatches)
+        //        {
+        //            heightDiff = 100 - Math.Abs((double)(u.height - preferredHeight))*2 ;
+        //        }
+        //        else heightDiff = 100;
+
+        //        if (!distanceInRange)
+        //        {
+        //            distanceDiff = 100- Math.Abs(distance - maxDistance)*2 ;
+        //        }
+        //        else distanceDiff = 100;
+
+        //        totalDiff = (heightDiff + distanceDiff + ageDiff) / 3;
+        //    }
+        //    if (totalDiff == 0) 
+        //    { return (u, totalDiff); }
+
+        //    double matchPercentage = totalDiff;
+        //    return (u, matchPercentage);
+        //}
+
+        //public Dictionary<User, double> ReadUsersByPreference(User user)
+        //{
+        //    List<User> list = user.ReadUsersByPlace(user.currentPlace);
+        //    Dictionary<User, double> result = new Dictionary<User, double>();
+
+        //    foreach (User u in list)
+        //    {
+        //        // Calculate the match percentage
+        //        var (matchedUser, matchPercentage) = user.CalculateMatchPercentage(u);
+
+        //        // If the user completely matches the preferences (i.e., 100% match), add them to the result
+        //        if (matchPercentage == 100.0)
+        //        {
+        //            result[matchedUser] = matchPercentage;
+        //        }
+        //        // Otherwise, if the user partially matches (i.e., the matchPercentage is calculated)
+        //        else if (!result.ContainsKey(matchedUser)) 
+        //        {
+
+        //             if (matchPercentage > 0) // Check if matchPercentage is greater than 0
+        //              {
+        //                    result.Add(matchedUser, matchPercentage);
+        //              }
+        //        }
+        //    }
+
+        //    // Print the result
+        //    Console.WriteLine("Users matching preferences:");
+        //    foreach (var pair in result)
+        //    {
+        //        Console.WriteLine($"User: {pair.Key.FirstName} {pair.Key.LastName}, Match Percentage: {pair.Value}");
+        //    }
+        //    return result;
+        //}
+
+        //public (User user, double matchPercentage, double othermatchPercentag) CalculateMatchPercentage(User u)
+        //{
+        //    double agePrecentag;
+        //    double otherAgePrecentag;
+        //    double heighPrecentag;
+        //    double otherHeightPrecentag;
+        //    double distancePrecentag;
+        //    double otherdistancePrecentag;
+        //    DBservicesCity dbServices = new DBservicesCity();
+        //    double distance = dbServices.ReadDistance(Int32.Parse(this.city), Int32.Parse(u.city)); 
+        //    int age = CalculateAge(u.birthday);
+        //    int secAge = CalculateAge(this.birthday);
+
+        //    // Gender checks
+        //    bool genderMatches = this.PreferencesDictionary["gender"] == u.gender.ToString();
+        //    bool otherGenderMatches = u.PreferencesDictionary["gender"] == this.gender.ToString();
+
+        //    // Gender match?
+        //    bool genderCheck = genderMatches && otherGenderMatches;
+
+        //    // Age check
+        //    int minAge = Int32.Parse(this.PreferencesDictionary["minAge"]);
+        //    int maxAge = Int32.Parse(this.PreferencesDictionary["maxAge"]);
+        //    if (minAge <= age && maxAge >= age)
+        //    {
+        //        agePrecentag = 100;
+
+        //    }
+        //    else if (age > maxAge)
+        //    {
+        //        agePrecentag = 100 - (age - maxAge) * 2;
+        //    }else agePrecentag = 100 - (minAge - age) * 2;
+
+
+        //    // Other Age check
+        //    int otherMinAge = Int32.Parse(u.PreferencesDictionary["minAge"]);
+        //    int otherMaxAge = Int32.Parse(u.PreferencesDictionary["maxAge"]);
+        //    if (otherMinAge <= secAge && otherMaxAge >= secAge)
+        //    {
+        //        otherAgePrecentag = 100;
+
+        //    }
+        //    else if (secAge > otherMaxAge)
+        //    {
+        //        otherAgePrecentag = 100 - (secAge - otherMaxAge) * 2;
+        //    }
+        //    else otherAgePrecentag = 100 - (otherMinAge - secAge) * 2;
+
+
+        //    // Height check
+        //    int preferredHeight = Int32.Parse(this.PreferencesDictionary["height"]);
+        //    if (preferredHeight == u.height) 
+        //    {
+        //        heighPrecentag = 100;
+        //    }
+        //    else heighPrecentag = 100 - Math.Abs((double)(preferredHeight - u.height)) * 2;
+
+
+        //    // Other Height check
+        //    int otherPreferredHeight = Int32.Parse(u.PreferencesDictionary["height"]);
+        //    if(otherPreferredHeight == this.height) 
+        //    {
+        //        otherHeightPrecentag = 100;
+        //    }
+        //    else otherHeightPrecentag = 100 - Math.Abs((double)(u.height - otherPreferredHeight)) * 2;
+
+
+        //    // Distance check 
+        //    double maxDistance = Double.Parse(this.PreferencesDictionary["maxDistance"]);
+        //    if (maxDistance >= distance) 
+        //    {
+        //        distancePrecentag = 100;
+        //    }
+        //    else distancePrecentag = 100 - Math.Abs(distance - maxDistance) * 2;
+
+        //    // Other Distance check
+        //    double otherMaxDistance = Double.Parse(u.PreferencesDictionary["maxDistance"]);
+        //    if (otherMaxDistance >= distance)
+        //    {
+        //        otherdistancePrecentag = 100;
+        //    }
+        //    else otherdistancePrecentag = 100 - Math.Abs(distance - otherMaxDistance) * 2;
+
+        //    double calMatchPrecentage = (agePrecentag + heighPrecentag + distancePrecentag) / 3;
+        //    double otherCalMatchPrecentage = (otherAgePrecentag + otherHeightPrecentag + otherdistancePrecentag) / 3;
+
+        //    {
+        //        return (u, calMatchPrecentage, otherCalMatchPrecentage);
+        //    }
+
+
+        //}
+
+        public Dictionary<User, Tuple<double, double>> CalculateMatchPercentage(User u)
         {
+            // Perform the gender check first
+            bool genderMatches = this.PreferencesDictionary["gender"] == u.Gender.ToString();
+            bool otherGenderMatches = u.PreferencesDictionary["gender"] == this.Gender.ToString();
+
+            // If gender check fails, return an empty dictionary
+            if (!genderMatches || !otherGenderMatches)
+            {
+                return new Dictionary<User, Tuple<double, double>>();
+            }
+
+            double agePercentage;
+            double otherAgePercentage;
+            double heightPercentage;
+            double otherHeightPercentage;
+            double distancePercentage;
+            double otherDistancePercentage;
+
             DBservicesCity dbServices = new DBservicesCity();
-            double distance = dbServices.ReadDistance(Int32.Parse(this.city), Int32.Parse(u.city)); // Assuming a method to calculate distance will be implemented
-            int age = CalculateAge(u.birthday);
-            int secAge = CalculateAge(this.birthday);
-
-            // Gender checks
-            bool genderMatches = this.PreferencesDictionary["gender"] == u.gender.ToString();
-            bool otherGenderMatches = u.PreferencesDictionary["gender"] == this.gender.ToString();
-
-            // Gender match?
-            bool genderCheck = genderMatches && otherGenderMatches;
+            double distance = dbServices.ReadDistance(Int32.Parse(this.City), Int32.Parse(u.City));
+            int age = CalculateAge(u.Birthday);
+            int secAge = CalculateAge(this.Birthday);
 
             // Age check
             int minAge = Int32.Parse(this.PreferencesDictionary["minAge"]);
             int maxAge = Int32.Parse(this.PreferencesDictionary["maxAge"]);
-            bool ageInRange = minAge <= age && maxAge >= age;
+            if (minAge <= age && maxAge >= age)
+            {
+                agePercentage = 100;
+            }
+            else if (age > maxAge)
+            {
+                agePercentage = 100 - (age - maxAge) * 2;
+            }
+            else
+            {
+                agePercentage = 100 - (minAge - age) * 2;
+            }
+            agePercentage = Math.Max(agePercentage, 0); // Ensure percentage is not negative
 
             // Other Age check
             int otherMinAge = Int32.Parse(u.PreferencesDictionary["minAge"]);
             int otherMaxAge = Int32.Parse(u.PreferencesDictionary["maxAge"]);
-            bool otherAgeInRange = otherMinAge <= secAge && otherMaxAge >= secAge;
-
-            // Age match?
-            bool ageCheck = ageInRange && otherAgeInRange;
+            if (otherMinAge <= secAge && otherMaxAge >= secAge)
+            {
+                otherAgePercentage = 100;
+            }
+            else if (secAge > otherMaxAge)
+            {
+                otherAgePercentage = 100 - (secAge - otherMaxAge) * 2;
+            }
+            else
+            {
+                otherAgePercentage = 100 - (otherMinAge - secAge) * 2;
+            }
+            otherAgePercentage = Math.Max(otherAgePercentage, 0); // Ensure percentage is not negative
 
             // Height check
             int preferredHeight = Int32.Parse(this.PreferencesDictionary["height"]);
-            bool heightMatches = this.PreferencesDictionary["height"] == u.height.ToString();
+            if (preferredHeight == u.Height)
+            {
+                heightPercentage = 100;
+            }
+            else
+            {
+                heightPercentage = 100 - Math.Abs((double)(preferredHeight - u.Height)) * 2;
+            }
+            heightPercentage = Math.Max(heightPercentage, 0); // Ensure percentage is not negative
 
             // Other Height check
             int otherPreferredHeight = Int32.Parse(u.PreferencesDictionary["height"]);
-            bool otherHeightMatches = u.PreferencesDictionary["height"] == this.height.ToString();
-
-            // Height match?
-            bool heightCheck = heightMatches && otherHeightMatches;
+            if (otherPreferredHeight == this.Height)
+            {
+                otherHeightPercentage = 100;
+            }
+            else
+            {
+                otherHeightPercentage = 100 - Math.Abs((double)(u.Height - otherPreferredHeight)) * 2;
+            }
+            otherHeightPercentage = Math.Max(otherHeightPercentage, 0); // Ensure percentage is not negative
 
             // Distance check 
             double maxDistance = Double.Parse(this.PreferencesDictionary["maxDistance"]);
-            bool distanceInRange =  maxDistance >= distance;
+            if (maxDistance >= distance)
+            {
+                distancePercentage = 100;
+            }
+            else
+            {
+                distancePercentage = 100 - Math.Abs(distance - maxDistance) * 2;
+            }
+            distancePercentage = Math.Max(distancePercentage, 0); // Ensure percentage is not negative
 
             // Other Distance check
             double otherMaxDistance = Double.Parse(u.PreferencesDictionary["maxDistance"]);
-            bool otherDistanceInRange =  otherMaxDistance >= distance;
-
-            // Distance match?
-            bool distanceCheck = distanceInRange && otherDistanceInRange;
-
-            // 100% match
-            bool userPreferencesMatch = genderCheck && ageCheck && heightCheck && distanceCheck;
-
-            if (userPreferencesMatch)
+            if (otherMaxDistance >= distance)
             {
-                return (u, 100.0); // 100% match
+                otherDistancePercentage = 100;
             }
-
-            double totalDiff = 0;
-
-            // Calculate differences if 'other' checks are true
-            if (otherGenderMatches && otherAgeInRange && otherHeightMatches && otherDistanceInRange)
+            else
             {
-                double ageDiff = 0, heightDiff = 0, distanceDiff = 0;
-
-                if (!ageInRange)
-                {
-
-                    if (age > maxAge)
-                    {
-                        ageDiff = 100 - (age - maxAge) * 2;
-                    }
-                    else ageDiff = 100 - (minAge - age) * 2;
-                }
-                else ageDiff = 100;
-
-                if (!heightMatches)
-                {
-                    heightDiff = 100 - Math.Abs((double)(u.height - preferredHeight))*2 ;
-                }
-                else heightDiff = 100;
-
-                if (!distanceInRange)
-                {
-                    distanceDiff = 100- Math.Abs(distance - maxDistance)*3 ;
-                }
-                else distanceDiff = 100;
-
-                totalDiff = (heightDiff + distanceDiff + ageDiff) / 3;
+                otherDistancePercentage = 100 - Math.Abs(distance - otherMaxDistance) * 2;
             }
-            if (totalDiff == 0) 
-            { return (u, totalDiff); }
+            otherDistancePercentage = Math.Max(otherDistancePercentage, 0); // Ensure percentage is not negative
 
-            double matchPercentage = totalDiff;
-            return (u, matchPercentage);
+            double calMatchPercentage = (agePercentage + heightPercentage + distancePercentage) / 3;
+            double otherCalMatchPercentage = (otherAgePercentage + otherHeightPercentage + otherDistancePercentage) / 3;
+
+            return new Dictionary<User, Tuple<double, double>>
+    {
+        { u, new Tuple<double, double>(calMatchPercentage, otherCalMatchPercentage) }
+    };
         }
 
-
-        public Dictionary<User, double> ReadUsersByPreference(User user)
+        public Dictionary<User, Tuple<double, double>> ReadUsersByPreference()
         {
-            List<User> list = user.ReadUsersByPlace(user.currentPlace);
-            Dictionary<User, double> result = new Dictionary<User, double>();
+            List<User> list = this.ReadUsersByPlace(this.CurrentPlace);
+            Dictionary<User, Tuple<double, double>> result = new Dictionary<User, Tuple<double, double>>();
 
             foreach (User u in list)
             {
+                if (u == this)
+                {
+                    continue;
+                }
                 // Calculate the match percentage
-                var (matchedUser, matchPercentage) = user.CalculateMatchPercentage(u);
+                var match = this.CalculateMatchPercentage(u);
 
-                // If the user completely matches the preferences (i.e., 100% match), add them to the result
-                if (matchPercentage == 100.0)
+                // Add matched users to the result
+                foreach (var kvp in match)
                 {
-                    result[matchedUser] = matchPercentage;
-                }
-                // Otherwise, if the user partially matches (i.e., the matchPercentage is calculated)
-                else if (!result.ContainsKey(matchedUser)) 
-                {
-                
-                     if (matchPercentage > 0) // Check if matchPercentage is greater than 0
-                      {
-                            result.Add(matchedUser, matchPercentage);
-                      }
+                    var matchedUser = kvp.Key;
+                    var matchPercentages = kvp.Value;
+
+                    // Add only users with a valid match percentage
+                    if (matchPercentages.Item1 > 0)
+                    {
+                        result[matchedUser] = matchPercentages;
+                    }
                 }
             }
 
-            // Print the result
-            Console.WriteLine("Users matching preferences:");
-            foreach (var pair in result)
-            {
-                Console.WriteLine($"User: {pair.Key.FirstName} {pair.Key.LastName}, Match Percentage: {pair.Value}");
-            }
             return result;
         }
+
+
+
+
+
+
+
+
 
 
 
@@ -688,15 +934,6 @@ namespace Make_a_move___Server.BL
             // Call SearchUserByEmail to check if there is a match
             return SearchUserByEmail(likedUserEmail, userEmail);
         }
-
-
-
-
-
-
-
-
-
 
 
 

@@ -6,6 +6,7 @@ using System.Net;
 using System;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using static Make_a_move___Server.BL.User;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Make_a_move___Server.Controllers
@@ -154,63 +155,118 @@ namespace Make_a_move___Server.Controllers
         }
 
 
+        //[HttpGet("ReadUsersByPreference")]
+        //public IActionResult ReadUsersByPreference(string userEmail)
+        //{
+        //    try
+        //    {
+        //        // Get the current user by email
+        //        User currentUser = Make_a_move___Server.BL.User.GetUserByEmail(userEmail);
+
+        //        // Check if the user exists
+        //        if (currentUser == null)
+        //        {
+        //            // Return a not found response if the user does not exist
+        //            return NotFound($"User with email {userEmail} not found.");
+        //        }
+
+        //        // Call ReadUsersByPreference to get users matching the preferences of the current user
+        //        Dictionary<User, double> usersByPreference = currentUser.ReadUsersByPreference(currentUser);
+
+        //        // Return the list of users
+        //        return Ok(usersByPreference);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Return an error response if an exception occurs
+        //        return StatusCode(500, $"An error occurred: {ex.Message}");
+        //    }
+        //}
+
+        //[HttpGet("ReadUsersByPreference")]
+        //public IActionResult ReadUsersByPreference(string userEmail)
+        //{
+        //    try
+        //    {
+        //        // Get the current user by email
+        //        User currentUser = Make_a_move___Server.BL.User.GetUserByEmail(userEmail);
+
+        //        // Check if the user exists
+        //        if (currentUser == null)
+        //        {
+        //            // Return a not found response if the user does not exist
+        //            return NotFound($"User with email {userEmail} not found.");
+        //        }
+
+        //        // Call ReadUsersByPreference to get users matching the preferences of the current user
+        //        Dictionary<User, Tuple<double, double>> usersByPreference = currentUser.ReadUsersByPreference(currentUser);
+
+        //        // Return the dictionary of users
+        //        return Ok(usersByPreference);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Return an error response if an exception occurs
+        //        return StatusCode(500, $"An error occurred: {ex.Message}");
+        //    }
+        //}
+
         [HttpGet("ReadUsersByPreference")]
-        public IActionResult ReadUsersByPreference(string userEmail)
+        public Dictionary<string, Tuple<double, double>> ReadUsersByPreference(string userEmail)
         {
-            try
+            // Get the current user by email
+            User currentUser = Make_a_move___Server.BL.User.GetUserByEmail(userEmail);
+
+            // Check if the user exists
+            if (currentUser == null)
             {
-                // Get the current user by email
-                User currentUser = Make_a_move___Server.BL.User.GetUserByEmail(userEmail);
-
-                // Check if the user exists
-                if (currentUser == null)
-                {
-                    // Return a not found response if the user does not exist
-                    return NotFound($"User with email {userEmail} not found.");
-                }
-
-                // Call ReadUsersByPreference to get users matching the preferences of the current user
-                Dictionary<User, double> usersByPreference = currentUser.ReadUsersByPreference(currentUser);
-
-                // Return the list of users
-                return Ok(usersByPreference);
+                // Return an empty dictionary if the user does not exist
+                return new Dictionary<string, Tuple<double, double>>();
             }
-            catch (Exception ex)
-            {
-                // Return an error response if an exception occurs
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
+
+            // Call ReadUsersByPreference to get users matching the preferences of the current user
+            Dictionary<User, Tuple<double, double>> result = currentUser.ReadUsersByPreference();
+
+            // Convert User objects to strings (assuming User has a unique identifier)
+            Dictionary<string, Tuple<double, double>> serializedResult = result.ToDictionary(
+                kvp => kvp.Key.Email, // Assuming Email is a unique identifier
+                kvp => kvp.Value);
+
+            return serializedResult;
         }
 
-       
 
-    //[HttpPut]
-    //[Route("changeImages/{email}")]
-    //public int ChangeImages([FromRoute] string email, [FromForm] List<IFormFile> images)
-    //{
-    //    List<string> imageLinks = new List<string>();
 
-    //    string path = System.IO.Directory.GetCurrentDirectory();
 
-    //    long size = images.Sum(f => f.Length);
 
-    //    foreach (var formFile in images)
-    //    {
-    //        if (formFile.Length > 0)
-    //        {
-    //            var filePath = Path.Combine(path, "uploadedFiles/" + formFile.FileName);
 
-    //            using (var stream = System.IO.File.Create(filePath))
-    //            {
-    //                 formFile.CopyToAsync(stream);
-    //            }
-    //            imageLinks.Add(formFile.FileName);
-    //        }
-    //    }
-    //    string[] imageLinksArray = imageLinks.ToArray();
-    //    User user = new User();
-    //    return user.ChangeImages(email, imageLinksArray);
-    //}
+        //[HttpPut]
+        //[Route("changeImages/{email}")]
+        //public int ChangeImages([FromRoute] string email, [FromForm] List<IFormFile> images)
+        //{
+        //    List<string> imageLinks = new List<string>();
+
+        //    string path = System.IO.Directory.GetCurrentDirectory();
+
+        //    long size = images.Sum(f => f.Length);
+
+        //    foreach (var formFile in images)
+        //    {
+        //        if (formFile.Length > 0)
+        //        {
+        //            var filePath = Path.Combine(path, "uploadedFiles/" + formFile.FileName);
+
+        //            using (var stream = System.IO.File.Create(filePath))
+        //            {
+        //                 formFile.CopyToAsync(stream);
+        //            }
+        //            imageLinks.Add(formFile.FileName);
+        //        }
+        //    }
+        //    string[] imageLinksArray = imageLinks.ToArray();
+        //    User user = new User();
+        //    return user.ChangeImages(email, imageLinksArray);
+        //}
 
 
 
