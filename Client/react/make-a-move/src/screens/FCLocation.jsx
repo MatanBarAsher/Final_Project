@@ -5,10 +5,11 @@ import FCHamburger from "../components/FCHamburger";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { makeAmoveUserServer } from "../services";
 import { useNavigate } from "react-router-dom";
-import { Place } from "@mui/icons-material";
+import { FCLoad } from "../loading/FCLoad";
 
-export default function FCLocation() {
+const FCLocation = () => {
   const [value, setValue] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const userEmail = JSON.parse(localStorage.getItem("current-email"));
   const navigate = useNavigate();
 
@@ -17,11 +18,16 @@ export default function FCLocation() {
     console.log(e.value.description);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
     console.log(userEmail);
     console.log(value);
-    //go to server with locationValue as prop
-    makeAmoveUserServer.setLocationValue(value, userEmail).then((response) => {
+    setIsLoading(true); // Set loading to true before making the API call
+    try {
+      //go to server with locationValue as prop
+      const response = await makeAmoveUserServer.setLocationValue(
+        value,
+        userEmail
+      );
       if (response) {
         console.log("success");
         console.log(response);
@@ -36,28 +42,40 @@ export default function FCLocation() {
       } else {
         console.log("failure");
       }
-    });
+      // } catch (error) {
+      //   console.error("Error logging in:", error);
+      //   setShowErrorModal(true);
+    } finally {
+      setIsLoading(false); // Set loading to false after the API call completes
+    }
   };
 
   return (
-    <>
-      <FCHamburger />
-      <img src={logo} className="logoSM" />
-      <h1>אישור מיקום:</h1>
-      <div>
-        <GooglePlacesAutocomplete
-          selectProps={{
-            onChange: handleLocationChange,
-          }}
-          apiKey={"AIzaSyDfO7S5c0OcZki3aQEBN1xMrDj4qD9v8Uk"}
-          debounce={300}
-        />
-      </div>
-      <FCCustomBtn
-        title="אישור"
-        mt={"130px"}
-        onClick={() => handleSubmit(value)}
-      />
-    </>
+    <span>
+      {isLoading && <FCLoad />}
+
+      {!isLoading && ( // Render the form and other content only if isLoading is false
+        <>
+          <FCHamburger />
+          <img src={logo} className="logoSM" />
+          <h1>אישור מיקום:</h1>
+          <div>
+            <GooglePlacesAutocomplete
+              selectProps={{
+                onChange: handleLocationChange,
+              }}
+              apiKey={"AIzaSyDfO7S5c0OcZki3aQEBN1xMrDj4qD9v8Uk"}
+              debounce={300}
+            />
+          </div>
+          <FCCustomBtn
+            title="אישור"
+            mt={"130px"}
+            onClick={() => handleSubmit(value)}
+          />
+        </>
+      )}
+    </span>
   );
-}
+};
+export default FCLocation;
