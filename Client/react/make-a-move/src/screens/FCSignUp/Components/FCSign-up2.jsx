@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import FCCustomDateInp from "../../../components/FCCustomDateInp";
 import FCCustomNumberInp from "../../../components/FCCustomNumberInp";
 import { FCSelect } from "../../../components/Select/FCSelect";
 import FCCustomBtn from "../../../components/FCCustomBtn";
 import { useSignUpContext } from "../SignUpContext";
+import axios from "axios";
 
 export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
   const { signUpData, updateSignUpData } = useSignUpContext();
+  const [cities, setCities] = useState([]);
+  const [filteredCities, setFilteredCities] = useState([]);
 
   const handleFirstNameCreation = (e) => {
     updateSignUpData("firstName", e.target.value);
@@ -36,6 +39,34 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
   const handleCityCreation = (e) => {
     // updateSignUpData("city", e.target.value);
     updateSignUpData("city", "5000");
+  };
+
+  const fetchCities = async () => {
+    try {
+      const response = await axios.get(
+        "https://data.gov.il/api/3/action/datastore_search?resource_id=b282b438-0066-47c6-b11f-8277b3f5a0dc&limit=2000"
+      );
+      const citiesData = response.data.result.records.map(
+        (city) => city["תיאור ישוב"]
+      );
+      setCities(citiesData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCities();
+  }, []);
+
+  const filterCities = (e) => {
+    const query = e.target.value;
+    if (query.length > 1) {
+      const filtered = cities.filter((city) => city.includes(query));
+      setFilteredCities(filtered);
+    } else {
+      setFilteredCities([]);
+    }
   };
   return (
     <>
@@ -70,12 +101,30 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
           ))}
         </div>
         <p className="signup2-p">מאיפה אתה?</p>
-        <FCSelect
+        {/* <FCSelect
           onChange={handleCityCreation}
           value={signUpData["city"]}
           options={["חדרה"]}
           required
-        />
+        /> */}
+        <div class="dropdown">
+          <div id="myDropdown" class="dropdown-content show">
+            <input type="text" placeholder="חפש..." onChange={filterCities} />
+            {filteredCities.length > 0 && (
+              <div id="myDropdown" className="dropdown-content show">
+                {filteredCities.map((city, index) => (
+                  <div
+                    key={index}
+                    onClick={() => handleCityCreation(city)}
+                    className="dropdown-item"
+                  >
+                    {city}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
         <p className="signup2-p">תאריך לידה:</p>
         <FCCustomDateInp
           ph="dd/mm/yyyy"

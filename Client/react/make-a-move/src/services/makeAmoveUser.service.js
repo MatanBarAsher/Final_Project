@@ -216,4 +216,18 @@ export const makeAmoveUserServer = {
         throw error; // Rethrow the error to be caught by the caller}
       });
   },
+
+  readUsersByPreference: (email) => {
+    return axios
+      .get(
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/users/ReadUsersByPreference?userEmail=${email}`
+      )
+      .then((res) => res.data) //returning data
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+        throw error; // Rethrow the error to be caught by the caller}
+      });
+  },
 };
