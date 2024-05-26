@@ -214,8 +214,10 @@ namespace Make_a_move___Server.Controllers
         [HttpGet("ReadUsersByPreference")]
         public Dictionary<string, Tuple<double, double>> ReadUsersByPreference(string userEmail)
         {
+
             // Get the current user by email
-            User currentUser = Make_a_move___Server.BL.User.GetUserByEmail(userEmail);
+            User u = new User();
+            User currentUser = u.GetUserByEmail(userEmail);
 
             // Check if the user exists
             if (currentUser == null)
