@@ -1,1 +1,1 @@
-export * from "./SuccessDialog";
+export * from "./SignInSuccessDialog";

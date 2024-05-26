@@ -470,3 +470,20 @@ input[name="gender"] {
 .show {
   display: block;
 }
+.dialog {
+  background-color: #efe1d1;
+}
+#alert-dialog-title,
+#alert-dialog-description {
+  color: #3c0753;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* .dialogBtn{
+  text-align: center;
+  color:#3c0753;
+} */
+/* .dialogMain{
+  border-radius: 200px;
+} */

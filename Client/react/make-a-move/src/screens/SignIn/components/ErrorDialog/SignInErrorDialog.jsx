@@ -7,7 +7,7 @@ export const ErrorDialog = ({ open, setClose }) => {
       open={open}
       confirmButtonAction={setClose}
       confirmButtonText={"התחברות מחדש"}
-      title={"התחברת נכשלה"}
+      title={"התחברות נכשלה!"}
       content={"לא קיים משתמש עם נתונים אלו"}
     />
   );

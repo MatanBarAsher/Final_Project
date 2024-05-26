@@ -1,2 +1,2 @@
-export * from "./ErrorDialog";
-export * from "./SuccessDialog";
+export * from "./SignUpErrorDialog";
+export * from "./SignUpSuccessDialog";
