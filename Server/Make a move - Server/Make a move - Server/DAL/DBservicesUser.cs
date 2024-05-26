@@ -865,10 +865,11 @@ namespace Make_a_move___Server.DAL
 
 
 
-    public void AddImage(byte[] imageData, string mimeType)
+    public int AddImage(byte[] imageData, string mimeType)
         {
             SqlConnection con;
             SqlCommand cmd;
+            SqlCommand cmd1;
 
             try
             {
@@ -881,10 +882,13 @@ namespace Make_a_move___Server.DAL
             }
 
             cmd = CreateAddImageCommand("SP_AddImage", con, imageData, mimeType); // create the command
+            cmd1 = CreateGetImageIdCommand("SP_GetLastImageId", con); // create the command
 
             try
             {
                 cmd.ExecuteNonQuery();
+                int imageId = (int)cmd1.ExecuteScalar();
+                return imageId;
             }
             catch (Exception ex)
             {
@@ -918,6 +922,22 @@ namespace Make_a_move___Server.DAL
             cmd.Parameters.AddWithValue("@imageData", imageData);
 
             cmd.Parameters.AddWithValue("@mimeType", mimeType);
+
+            return cmd;
+        }
+
+
+        private SqlCommand CreateGetImageIdCommand(string spName, SqlConnection con)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;      // stored procedure name
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution, default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
             return cmd;
         }

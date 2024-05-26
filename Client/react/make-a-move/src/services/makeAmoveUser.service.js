@@ -37,12 +37,9 @@ export const makeAmoveUserServer = {
         throw error; // Rethrow the error to be caught by the caller
       }),
 
-  updateUser: (email, data) =>
+  updateUser: (data) =>
     axios
-      .put(
-        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/${email}`,
-        data
-      )
+      .put(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/update`, data)
       .then((res) => res.data) //returning data
       .catch((error) => {
         console.error("Error update user:", error);

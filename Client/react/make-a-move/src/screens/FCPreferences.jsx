@@ -173,7 +173,7 @@ export const FCPrecerences = () => {
           }}
         >
           <FCCustomBtn
-            style={{ width: "15rem", color: "black", top: "30px" }}
+            style={{ width: "15rem", color: "black", margin: "30px 0" }}
             title={"סיום"}
             type="submit"
           />

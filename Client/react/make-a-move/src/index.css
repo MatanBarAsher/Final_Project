@@ -26,6 +26,7 @@ h1 {
   color: #fff;
   font-size: 36px;
   font-weight: 400;
+  text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.4);
 }
 
 h3,
@@ -268,6 +269,7 @@ input[name="gender"] {
 }
 
 .images-inp-container {
+  min-height: 350px;
   display: flex;
   border-radius: 16px;
   border: 1px solid transparent;
@@ -289,26 +291,41 @@ input[name="gender"] {
 }
 
 .input-file {
-  position: absolute;
-  top: 35px;
-  right: 20px;
+  position: relative;
+  /* top: 35px; */
+  /* right: 20px; */
   margin: 0;
   padding: 0;
-  font-size: 20px;
+  /* font-size: 20px; */
   cursor: pointer;
-  opacity: 0;
+  opacity: 0%;
   z-index: 100;
 }
 .custom-file-label {
   position: absolute;
   color: #989898;
-  padding: 35px 55px;
-  font-size: 26px;
-  right: 8px;
-  background-size: contain;
+  padding: 4px;
+  font-size: 14px;
+  /* right: 8px; */
+  /* background-size: contain;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center; */
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+  box-shadow: 1px 1px 10px 0px #989898;
 }
+
+.custom-file-upload {
+  font-family: "Heebo";
+  color: #989898;
+  padding: 4px;
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 1px 1px 10px 0px #989898;
+}
+
 .range {
   display: flex;
   margin-top: 25px;
@@ -383,4 +400,27 @@ input[name="gender"] {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.image-view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex: 100%;
+}
+
+.image-view > div {
+  flex: 45%;
+}
+
+.image-view img {
+  border-radius: 5px;
+  box-shadow: 1px 3px 10px 0px #989898;
+}
+
+.delete-btn {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 1px 3px 10px 0px #989898;
+  padding: 1px 3px;
 }

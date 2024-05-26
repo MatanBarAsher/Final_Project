@@ -360,9 +360,9 @@ namespace Make_a_move___Server.Controllers
                     string mimeType = file.ContentType;
 
                     // Call your service method to add the image to the database
-                    _service.AddImage(imageData, mimeType);
+                    int imageId = _service.AddImage(imageData, mimeType);
 
-                    return Ok("Image uploaded successfully!");
+                    return Ok(imageId);
                 }
                 catch (Exception ex)
                 {

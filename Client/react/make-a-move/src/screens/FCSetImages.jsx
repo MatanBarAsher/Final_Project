@@ -123,7 +123,7 @@ export default function FCSetImages() {
 
   const handleImgInput = (e) => {
     e.preventDefault();
-    // Handle the form submission logic
+    navigate("/preferences");
   };
 
   return (
@@ -131,15 +131,17 @@ export default function FCSetImages() {
       <h1>תמונות</h1>
       <form onSubmit={handleImgInput}>
         <div className="images-inp-container">
-          <FCUpload />
-          {/* Render existing images */}
-          {user.image && user.image.length > 0 ? (
-            user.image.map((imageId) => (
-              <FCGetImage key={imageId} imageId={imageId} />
-            ))
-          ) : (
-            <p>אין תמונות להציג</p>
-          )}
+          <FCUpload obj={user} />
+          <div className="image-view">
+            {/* Render existing images */}
+            {user.image && user.image.length > 0 ? (
+              user.image.map((imageId) => (
+                <FCGetImage key={imageId} imageId={imageId} user={user} />
+              ))
+            ) : (
+              <p>אין תמונות להציג</p>
+            )}
+          </div>
         </div>
         <FCCustomBtn title="סיום" type="submit" />
       </form>

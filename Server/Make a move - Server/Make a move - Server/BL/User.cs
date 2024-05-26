@@ -991,12 +991,12 @@ namespace Make_a_move___Server.BL
         }
 
 
-        public void AddImage(byte[] imageData, string mimeType)
+        public int AddImage(byte[] imageData, string mimeType)
         {
             try
             {
                 DBservicesUser dbs = new DBservicesUser();
-                dbs.AddImage(imageData, mimeType);
+                return dbs.AddImage(imageData, mimeType);
             }
             catch (Exception ex)
             {

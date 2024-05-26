@@ -13,8 +13,6 @@ const FCWellcome = () => {
       <p style={{ color: "white" }}>Location based dating app</p>
       <FCCustomBtn title={"התחברות"} onClick={() => navigate("/signin")} />
       <FCCustomBtn title={"הרשמה"} onClick={() => navigate("/signup")} />
-      <FCUpload />
-      <FCGetImage />
     </span>
   );
 };
