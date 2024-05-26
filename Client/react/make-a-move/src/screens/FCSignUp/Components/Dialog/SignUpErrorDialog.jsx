@@ -6,9 +6,9 @@ export const ErrorDialog = ({ open, setClose }) => {
     <AlertDialog
       open={open}
       confirmButtonAction={setClose}
-      confirmButtonText={"התחברות מחדש"}
-      title={"התחברת נכשלה"}
-      content={"לא קיים משתמש עם נתונים אלו"}
+      confirmButtonText={"הירשם מחדש"}
+      title={"!הרשמה נכשלה"}
+      content={"לא ניתן להכניס נתונים אלו"}
     />
   );
 };
