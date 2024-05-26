@@ -48,7 +48,7 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
         open={showSuccessModal}
         setClose={() => {
           setShowSuccessModal(false);
-          navigate("/location");
+          navigate("/setImages");
         }}
       />
       <ErrorDialog

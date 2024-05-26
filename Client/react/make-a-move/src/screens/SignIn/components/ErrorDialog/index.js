@@ -1,1 +1,1 @@
-export * from "./ErrorDialog";
+export * from "./SignInErrorDialog";

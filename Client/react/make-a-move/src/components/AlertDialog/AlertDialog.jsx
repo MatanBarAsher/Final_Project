@@ -24,24 +24,36 @@ export const AlertDialog = ({
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle style={{ color: "black" }} id="alert-dialog-title">
-          {title}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {content}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          {cancelButtonAction && cancelButtonText && (
-            <Button onClick={cancelButtonAction}>{cancelButtonText}</Button>
-          )}
-          {confirmButtonAction && confirmButtonText && (
-            <Button onClick={confirmButtonAction} autoFocus>
-              {confirmButtonText}
-            </Button>
-          )}
-        </DialogActions>
+        <div className="dialog">
+          <DialogTitle style={{ color: "#3c0753" }} id="alert-dialog-title">
+            {title}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {content}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            {cancelButtonAction && cancelButtonText && (
+              <Button
+                // style={{ color: "black" }}
+                className="dialogBtn"
+                onClick={cancelButtonAction}
+              >
+                {cancelButtonText}
+              </Button>
+            )}
+            {confirmButtonAction && confirmButtonText && (
+              <Button
+                style={{ color: "#3c0753" }}
+                onClick={confirmButtonAction}
+                autoFocus
+              >
+                {confirmButtonText}
+              </Button>
+            )}
+          </DialogActions>
+        </div>
       </Dialog>
     </div>
   );
