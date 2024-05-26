@@ -5,221 +5,63 @@ import WomanIcon from "@mui/icons-material/Woman";
 import ManIcon from "@mui/icons-material/Man";
 import WcIcon from "@mui/icons-material/Wc";
 import { useNavigate } from "react-router-dom";
+import { makeAmoveUserServer } from "../services";
 
 export default function FCMap({ location }) {
-  const [usersOnMap, setUsersOnMap] = useState([]);
+  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Your API call to fetch users from the server would typically go here
-    // For demonstration purposes, setting the users statically
-    const users = [
-      {
-        email: "@david",
-        firstName: "string",
-        lastName: "string",
-        password: "string",
-        gender: 1,
-        image: ["string"],
-        height: 170,
-        birthday: "1997-05-01T00:00:00",
-        phoneNumber: "string",
-        isActive: true,
-        city: "string",
-        personalInterestsIds: ["string"],
-        currentPlace: 0,
-        persoalText: "s",
-        preferencesDictionary: {
-          gender: "2",
-          minAge: "25",
-          maxAge: "31",
-          height: "170",
-        },
-      },
-      {
-        email: "@matan",
-        firstName: "string",
-        lastName: "string",
-        password: "string",
-        gender: 1,
-        image: ["string"],
-        height: 170,
-        birthday: "2024-05-18T00:00:00",
-        phoneNumber: "string",
-        isActive: true,
-        city: "string",
-        personalInterestsIds: ["string"],
-        currentPlace: 0,
-        persoalText: "s",
-        preferencesDictionary: {
-          gender: "2",
-          minAge: "25",
-          maxAge: "31",
-          height: "170",
-        },
-      },
-      {
-        email: "@neta",
-        firstName: "string",
-        lastName: "string",
-        password: "string",
-        gender: 1,
-        image: ["string"],
-        height: 160,
-        birthday: "1994-03-29T00:00:00",
-        phoneNumber: "string",
-        isActive: true,
-        city: "string",
-        personalInterestsIds: ["string"],
-        currentPlace: 0,
-        persoalText: "s",
-        preferencesDictionary: {
-          gender: "2",
-          age: "29",
-          height: "170",
-        },
-      },
-      {
-        email: "@rotem",
-        firstName: "string",
-        lastName: "string",
-        password: "string",
-        gender: 2,
-        image: ["string"],
-        height: 170,
-        birthday: "1998-05-18T00:00:00",
-        phoneNumber: "string",
-        isActive: true,
-        city: "string",
-        personalInterestsIds: ["string"],
-        currentPlace: 0,
-        persoalText: "s",
-        preferencesDictionary: {
-          gender: "1",
-          minAge: "25",
-          maxAge: "31",
-          height: "170",
-        },
-      },
-      {
-        email: "@yarin",
-        firstName: "string",
-        lastName: "string",
-        password: "string",
-        gender: 2,
-        image: ["string"],
-        height: 170,
-        birthday: "1994-12-05T00:00:00",
-        phoneNumber: "string",
-        isActive: true,
-        city: "string",
-        personalInterestsIds: ["string"],
-        currentPlace: 0,
-        persoalText: "s",
-        preferencesDictionary: {
-          age: "30",
-          gender: "1",
-          height: "160",
-        },
-      },
-      {
-        email: "asdasd@asdasd.c",
-        firstName: "asdasd",
-        lastName: "asdasdasd",
-        password: "adsasdasda",
-        gender: 1,
-        image: [""],
-        height: 150,
-        birthday: "2010-02-11T00:00:00",
-        phoneNumber: "134413414",
-        isActive: true,
-        city: "חדרה",
-        personalInterestsIds: ["", "ספורט"],
-        currentPlace: 0,
-        persoalText: "a",
-        preferencesDictionary: {},
-      },
-      {
-        email: "mail@gmail.com",
-        firstName: "a",
-        lastName: "a",
-        password: "a",
-        gender: 2,
-        image: [""],
-        height: 111,
-        birthday: "1996-02-22T00:00:00",
-        phoneNumber: "1",
-        isActive: true,
-        city: "חדרה",
-        personalInterestsIds: ["", "משחק"],
-        currentPlace: 0,
-        persoalText: "1",
-        preferencesDictionary: {},
-      },
-      {
-        email: "matan@gmail.com",
-        firstName: "string",
-        lastName: "string",
-        password: "111",
-        gender: 1,
-        image: ["string"],
-        height: 0,
-        birthday: "2024-05-19T00:00:00",
-        phoneNumber: "123",
-        isActive: true,
-        city: "string",
-        personalInterestsIds: ["string"],
-        currentPlace: 0,
-        persoalText: "s",
-        preferencesDictionary: {
-          additionalProp1: "string",
-          additionalProp2: "string",
-          additionalProp3: "string",
-        },
-      },
-      {
-        email: "Yael@gmail.com",
-        firstName: "yael",
-        lastName: "terner",
-        password: "123456",
-        gender: 1,
-        image: [""],
-        height: 165,
-        birthday: "2000-07-12T00:00:00",
-        phoneNumber: "0546662406",
-        isActive: true,
-        city: "חדרה",
-        personalInterestsIds: ["", "בישול", "לצאת למסעדות"],
-        currentPlace: 0,
-        persoalText: "",
-        preferencesDictionary: {},
-      },
-
-      // Your array of users goes here
-    ];
-    setUsersOnMap(users);
+    // Retrieve email from localStorage
+    let userEmail = localStorage.getItem("current-email");
+    if (userEmail.startsWith('"')) {
+      userEmail = userEmail.replaceAll('"', "");
+    }
+    // Check if userEmail is not null
+    if (userEmail) {
+      // Call the function to retrieve user details
+      getUserDetailsByEmail(userEmail).catch(function (error) {
+        // Handle errors
+        console.error("Error retrieving user details:", error);
+      });
+    } else {
+      // Handle case where userEmail is not found in localStorage
+      console.error("User email not found in localStorage");
+    }
   }, []);
 
-  const renderIconsByGender = () => {
-    const icons = usersOnMap.map((user, index) => (
-      <div
-        key={user.email + index} // Ensure each icon has a unique key
-        className="icon"
-        style={{
-          top: `${Math.random() * 90}%`,
-          left: `${Math.random() * 90}%`,
-        }}
-        onClick={() => showUserDetails(user)}
-      >
-        {user.gender === 1 ? (
-          <ManIcon style={{ color: "white", fontSize: "100px" }} />
-        ) : user.gender === 2 ? (
-          <WomanIcon style={{ color: "pink", fontSize: "100px" }} />
-        ) : (
-          <WcIcon style={{ color: "grey", fontSize: "100px" }} />
-        )}
-      </div>
-    ));
+  function getUserDetailsByEmail(email) {
+    return makeAmoveUserServer.readUsersByPreference(email).then((res) => {
+      setUsers(renderIconsByGender(res));
+    });
+  }
+
+  const renderIconsByGender = (users) => {
+    let icons = [];
+    let index = 0;
+    for (let email in users) {
+      let user = users[email];
+      index++;
+      icons.push(
+        <div
+          key={email + index} // Ensure each icon has a unique key
+          className="icon"
+          style={{
+            top: `${Math.random() * 90}%`,
+            left: `${Math.random() * 90}%`,
+          }}
+          onClick={() => showUserDetails(user)}
+        >
+          {user.gender === 1 ? (
+            <ManIcon style={{ color: "white", fontSize: "100px" }} />
+          ) : user.gender === 2 ? (
+            <WomanIcon style={{ color: "pink", fontSize: "100px" }} />
+          ) : (
+            <WcIcon style={{ color: "grey", fontSize: "100px" }} />
+          )}
+        </div>
+      );
+    }
     return icons;
   };
 
@@ -233,7 +75,7 @@ export default function FCMap({ location }) {
     <>
       <div className="map-container">
         <FCHamburger />
-        <div className="icon-container">{renderIconsByGender()}</div>
+        <div className="icon-container">{users}</div>
         <div className="map-footer">
           <img
             src={locationPin}
@@ -241,7 +83,7 @@ export default function FCMap({ location }) {
             height={"42.5"}
             style={{ margin: 15 }}
           />
-          <h3>{location}אני נמצא פה</h3>{" "}
+          <h3>{location}אני נמצא פה </h3>{" "}
         </div>
       </div>
     </>

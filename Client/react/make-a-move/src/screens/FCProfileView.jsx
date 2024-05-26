@@ -12,7 +12,10 @@ import { myDetailsState } from "../recoil/selectors";
 
 export default function FCProfileView() {
   // need to use useAsync to cut the async await circular and to get the value from the async function. also have error and loading
-  const { value: user } = useAsync(makeAmoveUserServer.getAllUsers, []);
+  const { value: user } = useAsync(
+    makeAmoveUserServer.readUsersByPreference,
+    []
+  );
 
   const myDetails = useRecoilValue(myDetailsState);
   console.log(myDetails);
