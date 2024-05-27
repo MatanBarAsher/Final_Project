@@ -25,7 +25,10 @@ export const AlertDialog = ({
         aria-describedby="alert-dialog-description"
       >
         <div className="dialog">
-          <DialogTitle style={{ color: "#3c0753" }} id="alert-dialog-title">
+          <DialogTitle
+            style={{ color: "#3c0753", fontFamily: "Heebo" }}
+            id="alert-dialog-title"
+          >
             {title}
           </DialogTitle>
           <DialogContent>

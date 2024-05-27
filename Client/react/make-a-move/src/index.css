@@ -473,15 +473,22 @@ input[name="gender"] {
 }
 
 /* end of cities */
-
+/* .css-1t1j96h-MuiPaper-root-MuiDialog-paper{
+  background: none;
+  border-radius: 80px;
+  }
+   */
 .dialog {
   background-color: #efe1d1;
+ 
+  
 }
 #alert-dialog-title,
 #alert-dialog-description {
   color: #3c0753;
   font-weight: bold;
   font-size: 20px;
+  font-family: "Heebo";
 }
 
 /* .dialogBtn{
