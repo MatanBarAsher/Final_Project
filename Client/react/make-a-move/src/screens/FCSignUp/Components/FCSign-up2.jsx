@@ -9,8 +9,9 @@ import axios from "axios";
 
 export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
   const { signUpData, updateSignUpData } = useSignUpContext();
-  const [cities, setCities] = useState([]);
+  const [cityOptions, setCityOptions] = useState([]);
   const [filteredCities, setFilteredCities] = useState([]);
+  const [cityMap, setCityMap] = useState({});
 
   const handleFirstNameCreation = (e) => {
     updateSignUpData("firstName", e.target.value);
@@ -36,9 +37,13 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
   const handleBirthdayCreation = (e) => {
     updateSignUpData("birthday", e.target.value);
   };
-  const handleCityCreation = (e) => {
-    // updateSignUpData("city", e.target.value);
-    updateSignUpData("city", "5000");
+
+  const handleCityCreation = (citySymbol, cityName) => {
+    updateSignUpData("city", `${citySymbol}`);
+    console.log(citySymbol);
+    document.getElementById("cityName").value = cityName;
+    document.getElementById("myDropdown").classList.toggle("show");
+    console.log(signUpData);
   };
 
   const fetchCities = async () => {
@@ -46,10 +51,13 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
       const response = await axios.get(
         "https://data.gov.il/api/3/action/datastore_search?resource_id=b282b438-0066-47c6-b11f-8277b3f5a0dc&limit=2000"
       );
-      const citiesData = response.data.result.records.map(
-        (city) => city["תיאור ישוב"]
-      );
-      setCities(citiesData);
+      const citiesData = response.data.result.records;
+      const cityMap = {};
+      citiesData.forEach((city) => {
+        cityMap[city["תיאור ישוב"]] = city["סמל ישוב"];
+      });
+      setCityMap(cityMap);
+      setCityOptions(Object.keys(cityMap));
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -62,12 +70,13 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
   const filterCities = (e) => {
     const query = e.target.value;
     if (query.length > 1) {
-      const filtered = cities.filter((city) => city.includes(query));
+      const filtered = cityOptions.filter((city) => city.includes(query));
       setFilteredCities(filtered);
     } else {
       setFilteredCities([]);
     }
   };
+
   return (
     <>
       <form onSubmit={() => setCurrentStep((prev) => prev + 1)}>
@@ -101,29 +110,27 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
           ))}
         </div>
         <p className="signup2-p">מאיפה אתה?</p>
-        {/* <FCSelect
-          onChange={handleCityCreation}
-          value={signUpData["city"]}
-          options={["חדרה"]}
-          required
-        /> */}
-        <div class="dropdown">
-          <div id="myDropdown" class="dropdown-content show">
-            <input type="text" placeholder="חפש..." onChange={filterCities} />
-            {filteredCities.length > 0 && (
-              <div id="myDropdown" className="dropdown-content show">
-                {filteredCities.map((city, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handleCityCreation(city)}
-                    className="dropdown-item"
-                  >
-                    {city}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+        <div className="dropdown">
+          <input
+            type="text"
+            id="cityName"
+            className="text-inp"
+            placeholder="חפש..."
+            onChange={filterCities}
+          />
+          {filteredCities.length > 0 && (
+            <div id="myDropdown" className="dropdown-content show">
+              {filteredCities.map((city, index) => (
+                <div
+                  key={index}
+                  onClick={() => handleCityCreation(cityMap[city], city)}
+                  className="dropdown-item"
+                >
+                  {city}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         <p className="signup2-p">תאריך לידה:</p>
         <FCCustomDateInp
