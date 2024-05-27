@@ -236,7 +236,7 @@ export default function FCMap({ location }) {
         <div className="icon-container">{renderIconsByGender()}</div>
         <div className="map-footer">
           <img
-            src={locationPin}
+            src={"." + locationPin}
             width={"32px"}
             height={"42.5"}
             style={{ margin: 15 }}

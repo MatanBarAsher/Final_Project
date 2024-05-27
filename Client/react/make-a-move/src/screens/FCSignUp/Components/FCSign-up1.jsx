@@ -40,7 +40,7 @@ export const FCSignUp1 = ({ setCurrentStep, currentStep, length }) => {
   return (
     <>
       <form onSubmit={() => setCurrentStep((prev) => prev + 1)}>
-        <img src={logo} className="logoSM" />
+        <img src={"." + logo} className="logoSM" />
         <h1>הרשמה</h1>
         <p className="signup-p">אפשר לקבל את הטלפון שלך?</p>
         <FCCustomPhoneInp

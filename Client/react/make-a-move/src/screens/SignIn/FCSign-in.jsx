@@ -69,7 +69,7 @@ const FCSignIn = () => {
               // setLoginData({ email: "", password: "" });
             }}
           />
-          <img src={logo} className="logoSM" />
+          <img src={"." + logo} className="logoSM" />
           <form onSubmit={login}>
             <h1>התחברות</h1>
             <FCCustomTxtInp

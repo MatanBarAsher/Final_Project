@@ -81,7 +81,7 @@ const FCLogin = () => {
 
   return (
     <span>
-      <img src={logo} className="logoSM" />
+      <img src={"." + logo} className="logoSM" />
       <h1>הרשמה</h1>
       <FCCustomTxtInp ph={"שם פרטי"} onChange={handleFirstNameCreation} />
       <FCCustomTxtInp ph={"שם משפחה"} onChange={handleLastNameCreation} />
