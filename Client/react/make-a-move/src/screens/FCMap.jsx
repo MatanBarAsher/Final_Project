@@ -10,6 +10,7 @@ import { makeAmoveUserServer } from "../services";
 export default function FCMap({ location }) {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+  const currentPlace = JSON.parse(localStorage.getItem("current-place"));
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -82,7 +83,7 @@ export default function FCMap({ location }) {
             style={{ margin: 15 }}
             alt="Location Pin"
           />
-          <h3>אני נמצא פה {location}</h3>
+          <h3>{location ? location : currentPlace.placeName}</h3>
         </div>
       </div>
     </>
