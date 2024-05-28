@@ -28,7 +28,7 @@ export default function FCProfileView() {
         <div
           className="pBackground"
           style={{
-            backgroundImage: `url(${background})`,
+            backgroundImage: `url(.${background})`,
           }}
         >
           <FCHamburger />

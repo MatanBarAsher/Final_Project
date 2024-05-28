@@ -19,7 +19,7 @@ export const makeAmoveUserServer = {
         lastName: data.lastName,
         password: data.password,
         gender: data.gender,
-        image: data.image,
+        image: [],
         height: data.height,
         birthday: data.birthday,
         phoneNumber: data.phoneNumber,

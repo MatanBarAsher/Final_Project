@@ -12,7 +12,8 @@ function UploadImage({ obj }) {
     setIcon("✔️");
   };
 
-  const handleUpload = async () => {
+  const handleUpload = async (e) => {
+    e.preventDefault();
     if (!file) {
       setMessage("קודם צריך לבחור תמונה");
       return;
@@ -51,10 +52,11 @@ function UploadImage({ obj }) {
     } catch (error) {
       setMessage("Error uploading image: " + error.message);
     }
+    return;
   };
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <label className="custom-file-label">
         + הוסף תמונה<span> {icon}</span>
       </label>

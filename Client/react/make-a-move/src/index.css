@@ -39,7 +39,12 @@ h2 {
 button,
 input {
   border: none;
-  box-shadow: none;
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.4);
+}
+
+.error-message {
+  color: #efe1d1;
+  font-size: 16px;
 }
 
 .logo {
@@ -300,6 +305,7 @@ input[name="gender"] {
   cursor: pointer;
   opacity: 0%;
   z-index: 100;
+  max-width: 200px;
 }
 .custom-file-label {
   position: absolute;
@@ -370,6 +376,7 @@ input[name="gender"] {
 /* Modal */
 .modal {
   display: none; /* Hide modal by default */
+  font-family: "Heebo";
   position: fixed;
   z-index: 1;
   left: 0;
@@ -429,6 +436,10 @@ input[name="gender"] {
 
 /* Cities select */
 
+/* #cityName{
+
+} */
+
 #myInput {
   box-sizing: border-box;
   background-position: 14px 12px;
@@ -482,6 +493,7 @@ input[name="gender"] {
    */
 .dialog {
   background-color: #efe1d1;
+  font-family: "Heebo";
 }
 #alert-dialog-title,
 #alert-dialog-description {

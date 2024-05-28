@@ -15,7 +15,7 @@ export default function FCSideMenu({ name, image }) {
         <div
           className="p-image"
           style={{
-            backgroundImage: `url(${background})`,
+            backgroundImage: `url(.${background})`,
             height: 100,
             width: 100,
             border: "4px solid white",

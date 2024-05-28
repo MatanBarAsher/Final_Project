@@ -57,7 +57,7 @@ const FCLocation = () => {
       {!isLoading && ( // Render the form and other content only if isLoading is false
         <>
           <FCHamburger />
-          <img src={logo} className="logoSM" />
+          <img src={"." + logo} className="logoSM" />
           <h1>אישור מיקום:</h1>
           <div>
             <GooglePlacesAutocomplete
