@@ -23,7 +23,7 @@ export default function FCSetImages() {
           // Handle error
         });
     }
-  }, []); // Empty dependency array ensures this effect runs only once when component mounts
+  }, []);
 
   const handleImgInput = (e) => {
     e.preventDefault();

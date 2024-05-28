@@ -22,6 +22,7 @@ function DisplayImage({ imageId, user }) {
         const imageUrl = URL.createObjectURL(response.data);
         setImageSrc(imageUrl);
       } catch (error) {
+        console.log("Error fetching image: " + error.message);
         setError("Error fetching image: " + error.message);
       }
     };
@@ -33,10 +34,11 @@ function DisplayImage({ imageId, user }) {
     return <p>{error}</p>;
   }
 
-  const deleteImage = (imageId) => {
+  const deleteImage = (e, imageId) => {
+    e.preventDefault();
     console.log(imageId);
     console.log(user.image);
-    const newImages = user.image.filter((img) => img != imageId);
+    const newImages = user.image.filter((img) => img !== imageId);
     user.image = newImages;
     makeAmoveUserServer
       .updateUser(user)
@@ -53,7 +55,7 @@ function DisplayImage({ imageId, user }) {
         <button
           className="delete-btn"
           id={imageId}
-          onClick={() => deleteImage(imageId)}
+          onClick={(e) => deleteImage(e, imageId)}
         >
           <RemoveCircleOutlineRoundedIcon
             style={{ fontSize: "18px", color: "#3C0753" }}
