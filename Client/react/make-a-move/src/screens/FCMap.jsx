@@ -67,6 +67,7 @@ export default function FCMap({ location }) {
 
   const showUserDetails = (user) => {
     console.log("User details:", user);
+    localStorage.setItem("user-to-show", JSON.stringify(user));
     navigate("/profile");
   };
 
