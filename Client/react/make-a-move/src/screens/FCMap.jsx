@@ -12,61 +12,59 @@ export default function FCMap({ location }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Retrieve email from localStorage
-    let userEmail = localStorage.getItem("current-email");
-    if (userEmail.startsWith('"')) {
-      userEmail = userEmail.replaceAll('"', "");
-    }
-    // Check if userEmail is not null
-    if (userEmail) {
-      // Call the function to retrieve user details
-      getUserDetailsByEmail(userEmail).catch(function (error) {
-        // Handle errors
-        console.error("Error retrieving user details:", error);
-      });
-    } else {
-      // Handle case where userEmail is not found in localStorage
-      console.error("User email not found in localStorage");
-    }
+    const fetchUserDetails = async () => {
+      let userEmail = localStorage.getItem("current-email");
+      if (userEmail && userEmail.startsWith('"')) {
+        userEmail = userEmail.replaceAll('"', "");
+      }
+
+      if (userEmail) {
+        try {
+          const userEmails = await makeAmoveUserServer.readUsersByPreference(
+            userEmail
+          );
+          const userDetails = await Promise.all(
+            Object.keys(userEmails).map(async (email) => {
+              const user = await makeAmoveUserServer.GetUserByEmail(email);
+              return { ...user, email };
+            })
+          );
+
+          setUsers(renderIconsByGender(userDetails));
+        } catch (error) {
+          console.error("Error retrieving user details:", error);
+        }
+      } else {
+        console.error("User email not found in localStorage");
+      }
+    };
+
+    fetchUserDetails();
   }, []);
 
-  function getUserDetailsByEmail(email) {
-    return makeAmoveUserServer.readUsersByPreference(email).then((res) => {
-      setUsers(renderIconsByGender(res));
-    });
-  }
-
   const renderIconsByGender = (users) => {
-    let icons = [];
-    let index = 0;
-    for (let email in users) {
-      let user = users[email];
-      index++;
-      icons.push(
-        <div
-          key={email + index} // Ensure each icon has a unique key
-          className="icon"
-          style={{
-            top: `${Math.random() * 90}%`,
-            left: `${Math.random() * 90}%`,
-          }}
-          onClick={() => showUserDetails(user)}
-        >
-          {user.gender === 1 ? (
-            <ManIcon style={{ color: "white", fontSize: "100px" }} />
-          ) : user.gender === 2 ? (
-            <WomanIcon style={{ color: "pink", fontSize: "100px" }} />
-          ) : (
-            <WcIcon style={{ color: "grey", fontSize: "100px" }} />
-          )}
-        </div>
-      );
-    }
-    return icons;
+    return users.map((user, index) => (
+      <div
+        key={user.email + index} // Ensure each icon has a unique key
+        className="icon"
+        style={{
+          top: `${Math.random() * 80}%`,
+          left: `${Math.random() * 80}%`,
+        }}
+        onClick={() => showUserDetails(user)}
+      >
+        {user.gender === 2 ? (
+          <ManIcon style={{ color: "white", fontSize: "100px" }} />
+        ) : user.gender === 1 ? (
+          <WomanIcon style={{ color: "pink", fontSize: "100px" }} />
+        ) : (
+          <WcIcon style={{ color: "grey", fontSize: "100px" }} />
+        )}
+      </div>
+    ));
   };
 
   const showUserDetails = (user) => {
-    // Implement logic to display user details
     console.log("User details:", user);
     navigate("/profile");
   };
@@ -80,10 +78,11 @@ export default function FCMap({ location }) {
           <img
             src={locationPin}
             width={"32px"}
-            height={"42.5"}
+            height={"42.5px"}
             style={{ margin: 15 }}
+            alt="Location Pin"
           />
-          <h3>{location}אני נמצא פה </h3>{" "}
+          <h3>אני נמצא פה {location}</h3>
         </div>
       </div>
     </>

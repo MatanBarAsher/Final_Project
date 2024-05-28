@@ -80,7 +80,7 @@ export const FCPrecerences = () => {
           <span>
             <input
               onChecked={precerencesData["preferedGender"] === "male"}
-              id="1"
+              id="2"
               type="radio"
               name="preferedGender"
               onChange={handleGenderCreation}
@@ -91,7 +91,7 @@ export const FCPrecerences = () => {
           <span>
             <input
               onChecked={precerencesData["preferedGender"] === "female"}
-              id="2"
+              id="1"
               type="radio"
               name="preferedGender"
               onChange={handleGenderCreation}
