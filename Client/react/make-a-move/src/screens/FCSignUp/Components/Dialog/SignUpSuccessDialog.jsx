@@ -8,7 +8,7 @@ export const SuccessDialog = ({ open, setClose }) => {
       confirmButtonAction={setClose}
       confirmButtonText={"יאללה בואו נתחיל"}
       title={"ההרשמה נקלטה בהצלחה!"}
-      content={"הגיע הזמן למצוא את ההתאמות עבורך"}
+      content={"כעת נעבור להכנסת תמונות לפרופיל שלך"}
     />
   );
 };
