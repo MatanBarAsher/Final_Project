@@ -9,6 +9,7 @@ import FCWellcome from "../screens/FCWellcome";
 import FCSideMenu from "../screens/FCSideMenu";
 import FCCities from "../screens/FCCities";
 import { FCLoad } from "../loading/FCLoad";
+import {FCFeedback1} from "../screens/FCFeedback";
 
 export const ROUTER = [
   { path: "/", Element: FCWellcome },
@@ -22,4 +23,5 @@ export const ROUTER = [
   { path: "/sideMenu", Element: FCSideMenu },
   { path: "/cities", Element: FCCities },
   { path: "/loading", Element: FCLoad },
+  { path: "/feedback", Element: FCFeedback1 },
 ];
