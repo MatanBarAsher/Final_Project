@@ -1,2 +1,2 @@
 export * from "./FCSignUp";
-export * from "./FCFeedback";
+export * from "./FCFeedback/components";

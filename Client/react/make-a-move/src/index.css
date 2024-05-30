@@ -237,6 +237,14 @@ option {
   margin: 20px 7px 0 0;
   font-size: 16px;
   font-weight: 400;
+  text-align: right;
+}
+
+.feedback-p {
+  color: white;
+  margin: 20px 7px 0 0;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .gender-inp {
@@ -503,10 +511,3 @@ input[name="gender"] {
   font-family: "Heebo";
 }
 
-/* .dialogBtn{
-  text-align: center;
-  color:#3c0753;
-} */
-/* .dialogMain{
-  border-radius: 200px;
-} */

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 // import { makeAmoveUserServer } from "../services";
-import { FCMultiSelect } from "../../components";
-import FCCustomBtn from "../../components/FCCustomBtn";
+import { FCMultiSelect } from "../../../components";
+import FCCustomBtn from "../../../components/FCCustomBtn";
+import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 
 export const FCFeedback1 = () => {
+  const navigate = useNavigate();
   var options1 = [
     { label: "1", id: 1 },
     { label: "2", id: 2 },
@@ -79,10 +81,10 @@ export const FCFeedback1 = () => {
   // };
   return (
     <>
-      <form>
+      <form onSubmit={() => navigate("/feedback2")}>
         <h1 className="pref-h1">משוב</h1>
         <h3>דרג/י את מידת ההסכמה שלך:</h3>
-        <p className="signup2-p">1. __בעל מאפיינים דומים למה שאני מחפש/ת:</p>
+        <p className="feedback-p">1. __בעל מאפיינים דומים למה שאני מחפש/ת:</p>
         <div className="gender-inp">
           {options1.map((o1) => (
             <span key={o1.id}>
@@ -97,7 +99,7 @@ export const FCFeedback1 = () => {
             </span>
           ))}
         </div>
-        <p className="signup2-p">2. התמונות של __ תואמות למציאות:</p>
+        <p className="feedback-p">2. התמונות של __ תואמות למציאות:</p>
         <div className="gender-inp">
           {options2.map((o2) => (
             <span key={o2.id}>
@@ -112,7 +114,7 @@ export const FCFeedback1 = () => {
             </span>
           ))}
         </div>
-        <p className="signup2-p">
+        <p className="feedback-p">
           3. תחומי העניין ששיתפ/ת עזרו לי לפתח איתו/ה שיחה:
         </p>
         <div className="gender-inp">
@@ -130,7 +132,7 @@ export const FCFeedback1 = () => {
           ))}
         </div>
 
-        <p className="signup2-p">4. הייתי רוצה להיפגש איתו/ה שוב:</p>
+        <p className="feedback-p">4. הייתי רוצה להיפגש איתו/ה שוב:</p>
         <div className="gender-inp">
           {options4.map((o4) => (
             <span key={o4.id}>
@@ -145,6 +147,9 @@ export const FCFeedback1 = () => {
             </span>
           ))}
         </div>
+        <p className="feedback-p">5. עם מי בילית היום?</p>
+
+        <FCCustomTxtInp />
 
         <div
           style={{
@@ -156,8 +161,9 @@ export const FCFeedback1 = () => {
         >
           <FCCustomBtn
             style={{ width: "15rem", color: "black", margin: "30px 0" }}
-            title={"סיום"}
+            title={"הבא"}
             type="submit"
+            onClick={() => navigate("/feedback2")}
           />
         </div>
       </form>
