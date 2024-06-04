@@ -4,17 +4,20 @@ import { useNavigate } from "react-router-dom";
 // import { makeAmoveUserServer } from "../services";
 import { FCMultiSelect } from "../../../components";
 import FCCustomBtn from "../../../components/FCCustomBtn";
+import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import { FCLoad } from "../../../loading/FCLoad";
-import { SuccessDialog } from "../components/Dialog/FeedbackSuccessDialog";
+import { SuccessDialog } from "./Dialog/FeedbackSuccessDialog";
 
-export const FCFeedback2 = () => {
-  const navigate = useNavigate("");
+export const FCFeedback = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-
+  const navigate = useNavigate();
   var options1 = [
-    { label: "כן", id: 1 },
-    { label: "לא", id: 2 },
+    { label: "1", id: 1 },
+    { label: "2", id: 2 },
+    { label: "3", id: 3 },
+    { label: "4", id: 4 },
+    { label: "5", id: 5 },
   ];
 
   const [option1, setOption1] = useState(null);
@@ -51,6 +54,20 @@ export const FCFeedback2 = () => {
     // updateFeedbackData("Q1", id);
   };
 
+  var options4 = [
+    { label: "1", id: 1 },
+    { label: "2", id: 2 },
+    { label: "3", id: 3 },
+    { label: "4", id: 4 },
+    { label: "5", id: 5 },
+  ];
+
+  const [option4, setOption4] = useState(null);
+  const handleOption4Creation = (id) => {
+    setOption4(id);
+    // updateFeedbackData("Q1", id);
+  };
+
   const handleSubmit = (e) => {
     // setIsLoading(true);
     setShowSuccessModal(true);
@@ -81,10 +98,12 @@ export const FCFeedback2 = () => {
               // navigate("/");
             }}
           />
-          <form>
-            <h1 className="pref-h1">משוב - המשך</h1>
+          <form onSubmit={() => navigate("/feedback2")}>
+            <h1 className="pref-h1">משוב</h1>
             <h3>דרג/י את מידת ההסכמה שלך:</h3>
-            <p className="feedback-p">1. אני ו__ נפגשנו שוב:</p>
+            <p className="feedback-p">
+              1. __בעל מאפיינים דומים למה שאני מחפש/ת:
+            </p>
             <div className="gender-inp">
               {options1.map((o1) => (
                 <span key={o1.id}>
@@ -99,7 +118,7 @@ export const FCFeedback2 = () => {
                 </span>
               ))}
             </div>
-            <p className="feedback-p">2. אני מאמין/ה שנקבע להיפגש שוב:</p>
+            <p className="feedback-p">2. התמונות של __ תואמות למציאות:</p>
             <div className="gender-inp">
               {options2.map((o2) => (
                 <span key={o2.id}>
@@ -115,7 +134,7 @@ export const FCFeedback2 = () => {
               ))}
             </div>
             <p className="feedback-p">
-              3. אני חושב/ת שההתאמה הייתה נכונה עבורי:
+              3. תחומי העניין ששיתפ/ת עזרו לי לפתח איתו/ה שיחה:
             </p>
             <div className="gender-inp">
               {options3.map((o3) => (
@@ -131,6 +150,25 @@ export const FCFeedback2 = () => {
                 </span>
               ))}
             </div>
+
+            <p className="feedback-p">4. הייתי רוצה להיפגש איתו/ה שוב:</p>
+            <div className="gender-inp">
+              {options4.map((o4) => (
+                <span key={o4.id}>
+                  <input
+                    checked={option4 === o4.id}
+                    id={"option4_" + o4.id}
+                    type="radio"
+                    value={o4.id}
+                    onClick={() => handleOption4Creation(o4.id)}
+                  />
+                  <label htmlFor={"option4_" + o4.id}>{o4.label}</label>
+                </span>
+              ))}
+            </div>
+            <p className="feedback-p">5. עם מי בילית היום?</p>
+
+            <FCCustomTxtInp />
 
             <div
               style={{

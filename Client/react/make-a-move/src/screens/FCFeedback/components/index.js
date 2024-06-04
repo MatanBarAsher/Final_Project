@@ -1,3 +1,2 @@
-export * from "./FCFeedback1";
-export * from "./FCFeedback2";
-
+export * from "./FCFeedback";
+export * from "./FCFeedbackContinue";
