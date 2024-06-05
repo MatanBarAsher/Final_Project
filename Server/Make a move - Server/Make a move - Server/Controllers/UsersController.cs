@@ -1,4 +1,5 @@
 ﻿using Make_a_move___Server.BL;
+using Make_a_move___Server.Controllers;
 using Make_a_move___Server.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting.Internal;
@@ -7,6 +8,11 @@ using System;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using static Make_a_move___Server.BL.User;
+using System.Net.Http;
+using System.Xml.Linq;
+using Newtonsoft.Json.Linq;
+using Make_a_move___Server.Services;
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Make_a_move___Server.Controllers
@@ -238,9 +244,26 @@ namespace Make_a_move___Server.Controllers
         }
 
 
+        private readonly DistanceService _distanceService;
 
+        public UsersController(DistanceService distanceService)
+        {
+            _distanceService = distanceService;
+        }
 
+        [HttpGet("getDistance")]
+        public async Task<double> GetDistanceAsync(int cityCode1, int cityCode2)
+        {
+            var apiResponse = await _distanceService.GetData(cityCode1, cityCode2);
 
+            if (apiResponse.result != null && apiResponse.result.records.Count > 0)
+            {
+                return apiResponse.result.records[0].DistanceFromCenter;
+            }
+
+            // Handle error or return a default distance value
+            return -1; // or throw an exception
+        }
 
         //[HttpPut]
         //[Route("changeImages/{email}")]
@@ -452,6 +475,8 @@ namespace Make_a_move___Server.Controllers
             User user = new User();
             return user.GetUsersEmails();
         }
+
+
 
     }
 

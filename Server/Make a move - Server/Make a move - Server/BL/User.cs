@@ -1,4 +1,5 @@
 ﻿using Make_a_move___Server.DAL;
+using Make_a_move___Server.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -646,6 +647,30 @@ namespace Make_a_move___Server.BL
 
         //}
 
+
+        //Constructor to inject the UsersController
+        private readonly UsersController _usersController;
+        public User(UsersController usersController)
+        {
+            _usersController = usersController;
+        }
+
+        public async Task<double> CalculateDistanceAsync(string city1, string city2)
+        {
+            int cityCode1 = Int32.Parse(city1);
+            int cityCode2 = Int32.Parse(city2);
+
+            double distance = await _usersController.GetDistanceAsync(cityCode1, cityCode2);
+            return distance;
+        }
+        public double CalculateDistance(string city1, string city2)
+        {
+            int cityCode1 = Int32.Parse(city1);
+            int cityCode2 = Int32.Parse(city2);
+
+            double distance = _usersController.GetDistanceAsync(cityCode1, cityCode2).GetAwaiter().GetResult();
+            return distance;
+        }
         public Dictionary<User, Tuple<double, double>> CalculateMatchPercentage(User u)
         {
             // Perform the gender check first
@@ -665,8 +690,16 @@ namespace Make_a_move___Server.BL
             double distancePercentage;
             double otherDistancePercentage;
 
-            DBservicesCity dbServices = new DBservicesCity();
-            double distance = dbServices.ReadDistance(Int32.Parse(this.City), Int32.Parse(u.City));
+            //DBservicesCity dbServices = new DBservicesCity();
+            //double distance = dbServices.ReadDistance(Int32.Parse(this.City), Int32.Parse(u.City));
+            //DictancesController c;
+            //double distance = c.GetData(Int32.Parse(this.City), Int32.Parse(u.City))["מרחק בין מרכז למרכז"];
+            //int cityCode1 = Int32.Parse(this.City);
+            //int cityCode2 = Int32.Parse(u.City);
+
+            double distance = CalculateDistance(this.City, u.City);
+
+
             int age = CalculateAge(u.Birthday);
             int secAge = CalculateAge(this.Birthday);
 
