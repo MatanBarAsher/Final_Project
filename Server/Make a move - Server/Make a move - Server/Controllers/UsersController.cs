@@ -218,7 +218,7 @@ namespace Make_a_move___Server.Controllers
         //}
 
         [HttpGet("ReadUsersByPreference")]
-        public Dictionary<string, Tuple<double, double>> ReadUsersByPreference(string userEmail)
+        public async Task< Dictionary<string, Tuple<double, double>>> ReadUsersByPreference(string userEmail)
         {
 
             // Get the current user by email
@@ -233,7 +233,7 @@ namespace Make_a_move___Server.Controllers
             }
 
             // Call ReadUsersByPreference to get users matching the preferences of the current user
-            Dictionary<User, Tuple<double, double>> result = currentUser.ReadUsersByPreference();
+            Dictionary<User, Tuple<double, double>> result = await currentUser.ReadUsersByPreference();
 
             // Convert User objects to strings (assuming User has a unique identifier)
             Dictionary<string, Tuple<double, double>> serializedResult = result.ToDictionary(

@@ -1,4 +1,6 @@
-﻿using Make_a_move___Server.DAL;
+﻿namespace Make_a_move___Server.BL
+{
+using Make_a_move___Server.DAL;
 using Make_a_move___Server.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,8 +10,9 @@ using System.Diagnostics.Eventing.Reader;
 using System.Security.Cryptography.Xml;
 using System.Xml.Linq;
 using System.Linq;
-namespace Make_a_move___Server.BL
-{
+using Newtonsoft.Json;
+using System.Net.Http;
+
     public class User
     {
         private string email;
@@ -649,29 +652,70 @@ namespace Make_a_move___Server.BL
 
 
         //Constructor to inject the UsersController
-        private readonly UsersController _usersController;
-        public User(UsersController usersController)
+        //private readonly UsersController _usersController;
+        //public User(UsersController usersController)
+        //{
+        //    _usersController = usersController;
+        //}
+
+        //public async Task<double> CalculateDistanceAsync(string city1, string city2)
+        //{
+        //    int cityCode1 = Int32.Parse(city1);
+        //    int cityCode2 = Int32.Parse(city2);
+
+        //    double distance = await _usersController.GetDistanceAsync(cityCode1, cityCode2);
+        //    return distance;
+        //}
+        //public double CalculateDistance(string city1, string city2)
+        //{
+        //    int cityCode1 = Int32.Parse(city1);
+        //    int cityCode2 = Int32.Parse(city2);
+
+        //    double distance = _usersController.GetDistanceAsync(cityCode1, cityCode2).GetAwaiter().GetResult();
+        //    return distance;
+        //}
+        private readonly HttpClient _httpClient;
+
+        public User(HttpClient httpClient)
         {
-            _usersController = usersController;
+            _httpClient = httpClient;
+        }
+        public async Task<double> GetData(int originCode, int destinationCode)
+        {
+         
+            var url = $"https://data.gov.il/api/3/action/datastore_search?resource_id=bc5293d3-1023-4d9e-bdbe-082b58f93b65&filters={{\"קוד מוצא\":{originCode},\"קוד יעד\":{destinationCode}}}";
+            var response = await _httpClient.GetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException($"Request failed with status code {response.StatusCode}: {response.ReasonPhrase}");
+            }
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            var apiResponse = JsonConvert.DeserializeObject<ApiResponse>(jsonResponse);
+
+            if (apiResponse.success && apiResponse.result != null)
+            {
+                return apiResponse.result.records[0].DistanceFromCenter;
+            }
+
+            throw new Exception("Failed to fetch data");
         }
 
-        public async Task<double> CalculateDistanceAsync(string city1, string city2)
+        public async Task<double> CalculateDistance(string city1, string city2)
         {
+            var httpClient = new HttpClient();
+            var user = new User(httpClient);
             int cityCode1 = Int32.Parse(city1);
             int cityCode2 = Int32.Parse(city2);
-
-            double distance = await _usersController.GetDistanceAsync(cityCode1, cityCode2);
-            return distance;
+            double response = await user.GetData(cityCode1, cityCode2);
+            return response;
         }
-        public double CalculateDistance(string city1, string city2)
-        {
-            int cityCode1 = Int32.Parse(city1);
-            int cityCode2 = Int32.Parse(city2);
-
-            double distance = _usersController.GetDistanceAsync(cityCode1, cityCode2).GetAwaiter().GetResult();
-            return distance;
-        }
-        public Dictionary<User, Tuple<double, double>> CalculateMatchPercentage(User u)
+        //public Dictionary<string, double> keyValuePairs(string name, string city1, string city2) {
+        //    double distance = CalculateDistance(city1, city2);
+        //    return new Dictionary<string, double> { { name, distance } };
+        //}
+        public async Task< Dictionary<User, Tuple<double, double>>> CalculateMatchPercentage(User u)
         {
             // Perform the gender check first
             bool genderMatches = this.PreferencesDictionary["gender"] == u.Gender.ToString();
@@ -697,7 +741,7 @@ namespace Make_a_move___Server.BL
             //int cityCode1 = Int32.Parse(this.City);
             //int cityCode2 = Int32.Parse(u.City);
 
-            double distance = CalculateDistance(this.City, u.City);
+            double distance = await CalculateDistance(this.City, u.City);
 
 
             int age = CalculateAge(u.Birthday);
@@ -794,7 +838,7 @@ namespace Make_a_move___Server.BL
     };
         }
 
-        public Dictionary<User, Tuple<double, double>> ReadUsersByPreference()
+        public async Task< Dictionary<User, Tuple<double, double>>> ReadUsersByPreference()
         {
             List<User> list = this.ReadUsersByPlace(this.CurrentPlace);
             Dictionary<User, Tuple<double, double>> result = new Dictionary<User, Tuple<double, double>>();
@@ -806,7 +850,7 @@ namespace Make_a_move___Server.BL
                     continue;
                 }
                 // Calculate the match percentage
-                var match = this.CalculateMatchPercentage(u);
+                var match = await this.CalculateMatchPercentage(u);
 
                 // Add matched users to the result
                 foreach (var kvp in match)
