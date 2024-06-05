@@ -40,7 +40,7 @@
               "RelativeDocumentMoniker": "Make a move - Server\\BL\\User.cs",
               "ToolTip": "C:\\Users\\matan\\OneDrive\\\u05E9\u05D5\u05DC\u05D7\u05DF \u05D4\u05E2\u05D1\u05D5\u05D3\u05D4\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD\\\u05E9\u05E0\u05D4 \u05D3\u0027\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D2\u05DE\u05E8\\Code\\Server\\Make a move - Server\\Make a move - Server\\BL\\User.cs",
               "RelativeToolTip": "Make a move - Server\\BL\\User.cs",
-              "ViewState": "AQIAACYDAAAAAAAAAAAgwFoDAAA1AAAA",
+              "ViewState": "AQIAALACAAAAAAAAAAAQwLoCAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-05T13:28:49.235Z",
               "IsPinned": true,
@@ -64,8 +64,7 @@
               "RelativeToolTip": "Make a move - Server\\Controllers\\DistancesController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T13:24:14.763Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-05T13:24:14.763Z"
             },
             {
               "$type": "Document",
@@ -77,8 +76,7 @@
               "RelativeToolTip": "Make a move - Server\\BL\\Distance.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T12:44:01.508Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-05T12:44:01.508Z"
             },
             {
               "$type": "Document",
@@ -90,8 +88,7 @@
               "RelativeToolTip": "Make a move - Server\\Services\\DistanceSerivce.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T19:03:51.031Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-03T19:03:51.031Z"
             },
             {
               "$type": "Document",
@@ -103,8 +100,7 @@
               "RelativeToolTip": "Make a move - Server\\Controllers\\UsersController.cs",
               "ViewState": "AQIAANYAAAAAAAAAAAAEwOAAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T10:32:28.521Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T10:32:28.521Z"
             }
           ]
         }

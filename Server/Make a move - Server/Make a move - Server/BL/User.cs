@@ -733,15 +733,13 @@ using System.Net.Http;
             double otherHeightPercentage;
             double distancePercentage;
             double otherDistancePercentage;
+            double distance = 0;
 
-            //DBservicesCity dbServices = new DBservicesCity();
-            //double distance = dbServices.ReadDistance(Int32.Parse(this.City), Int32.Parse(u.City));
-            //DictancesController c;
-            //double distance = c.GetData(Int32.Parse(this.City), Int32.Parse(u.City))["מרחק בין מרכז למרכז"];
-            //int cityCode1 = Int32.Parse(this.City);
-            //int cityCode2 = Int32.Parse(u.City);
+            if(this.City != u.City)
+            {
+                distance = await CalculateDistance(this.City, u.City);
+            }
 
-            double distance = await CalculateDistance(this.City, u.City);
 
 
             int age = CalculateAge(u.Birthday);
