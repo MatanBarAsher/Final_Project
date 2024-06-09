@@ -14,7 +14,6 @@ export default function FCCustomX(color) {
         position: "absolute",
         top: 15,
         right: 15,
-        
       }}
     >
       <CloseIcon />

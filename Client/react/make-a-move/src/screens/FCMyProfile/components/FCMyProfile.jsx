@@ -3,14 +3,18 @@ import background from "../../../assets/images/Matan.jpg";
 import FCCustomX from "../../../components/FCCustomX";
 import FCCustomEdit from "../../../components/FCCustomEdit";
 import WavingHandOutlinedIcon from "@mui/icons-material/WavingHandOutlined";
+import { useNavigate } from "react-router";
 
 export default function FCMyProfile({ name, image }) {
+  const Navigate = useNavigate();
   return (
     <>
       <div className="side-menu">
         <FCCustomEdit color="white" />
         <div className="upper-side-prof">
-          <FCCustomX color="white" />
+          <div onClick={() => Navigate("/sideMenu")}>
+            <FCCustomX color="white" />
+          </div>
 
           <div
             className="profile-image"
@@ -28,19 +32,18 @@ export default function FCMyProfile({ name, image }) {
         </div>
 
         <div className="lower-side-prof">
-            <p className="prop-details">שם:</p>
-            <p className="prop-details">גיל:</p>
-            <p className="prop-details">גר/ה ב:</p>
-            <p className="prop-details">קצת על עצמי:</p>
+          <p className="prop-details">שם:</p>
+          <p className="prop-details">גיל:</p>
+          <p className="prop-details">גר/ה ב:</p>
+          <p className="prop-details">קצת על עצמי:</p>
         </div>
-         <div className="footer-side-menu">
-        <a className="side-menu-option">
-          <WavingHandOutlinedIcon color="white" />
-          <p>התנתקות</p>
-        </a>
+        <div className="footer-side-menu">
+          <a className="side-menu-option">
+            <WavingHandOutlinedIcon color="white" />
+            <p>התנתקות</p>
+          </a>
+        </div>
       </div>
-      </div>
-     
     </>
   );
 }
