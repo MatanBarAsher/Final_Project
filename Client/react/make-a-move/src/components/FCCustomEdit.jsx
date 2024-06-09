@@ -1,8 +1,8 @@
 import React from "react";
-import CloseIcon from "@mui/icons-material/Close";
+import EditIcon from "@mui/icons-material/Edit";
 import shadows from "@mui/material/styles/shadows";
 
-export default function FCCustomX(color) {
+export default function FCCustomEdit(color) {
   return (
     <button
       className="x-btn"
@@ -13,11 +13,12 @@ export default function FCCustomX(color) {
         width: 30,
         position: "absolute",
         top: 15,
-        right: 15,
-        
+        left: 45,
+        text: "עריכה",
       }}
     >
-      <CloseIcon />
+      <EditIcon />
+      <h3 className="editProf">עריכה</h3>
     </button>
   );
 }

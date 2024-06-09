@@ -5,8 +5,11 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import WavingHandOutlinedIcon from "@mui/icons-material/WavingHandOutlined";
+import { Navigate, useNavigate } from "react-router";
+import FCMyProfile from "./FCMyProfile/components/FCMyProfile";
 
 export default function FCSideMenu({ name, image }) {
+  const Navigate = useNavigate();
   return (
     <div className="side-menu">
       <FCCustomX color="white" />
@@ -24,7 +27,7 @@ export default function FCSideMenu({ name, image }) {
         ></div>
       </div>
       <div className="lower-side-menu">
-        <a className="side-menu-option">
+        <a onClick={() => Navigate("/myProfile")} className="side-menu-option">
           <PersonOutlineOutlinedIcon />
           <p>אזור אישי</p>
         </a>
