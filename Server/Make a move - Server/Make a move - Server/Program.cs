@@ -1,5 +1,4 @@
 using Make_a_move___Server.Controllers;
-using Make_a_move___Server.Services;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +8,6 @@ builder.Services.AddControllers();
 
 // Add HttpClient and DistanceService
 builder.Services.AddHttpClient();
-builder.Services.AddScoped<DistanceService>();
 builder.Services.AddScoped<UsersController>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
