@@ -31,11 +31,14 @@ export default function FCSideMenu({ name, image }) {
           <PersonOutlineOutlinedIcon />
           <p>אזור אישי</p>
         </a>
-        <a className="side-menu-option">
+        <a onClick={() => Navigate("/matches")} className="side-menu-option">
           <FavoriteBorderIcon />
           <p>רשימת התאמות</p>
         </a>
-        <a className="side-menu-option">
+        <a
+          onClick={() => Navigate("/recommendations")}
+          className="side-menu-option"
+        >
           <StarBorderRoundedIcon />
           <p>המלצות</p>
         </a>

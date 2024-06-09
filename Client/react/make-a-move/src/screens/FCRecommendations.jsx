@@ -1,11 +1,11 @@
 import React from "react";
 import FCCustomX from "../components/FCCustomX";
 
-export default function FCMatchList() {
+export const FCRecommendations = () => {
   return (
-    <div className="match-list">
+    <>
       <FCCustomX color="white" />
-      <h1>התאמות</h1>
-    </div>
+      <h1>המלצות כלליות</h1>
+    </>
   );
-}
+};
