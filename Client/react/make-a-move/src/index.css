@@ -225,7 +225,7 @@ option {
   height: 100px;
   
 }
-.prop-details{
+.prof-details{
   font-weight:bold;
   color:white;
   font-size: medium;
@@ -560,4 +560,13 @@ input[name="gender"] {
 }
 button, input{
   box-shadow: none;
+}
+
+.update-p {
+  color: white;
+  margin: 10;
+  font-size: 16px;
+  font-weight: 300;
+  text-align: right;
+  margin-right: 50px;
 }

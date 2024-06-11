@@ -9,7 +9,7 @@ export default function FCMyProfile({ name, image }) {
   const Navigate = useNavigate();
   return (
     <>
-      <div className="side-menu">
+      <div onClick={() => Navigate("/updateProfile")} className="side-menu">
         <FCCustomEdit color="white" />
         <div className="upper-side-prof">
           <div onClick={() => Navigate("/sideMenu")}>
@@ -32,10 +32,10 @@ export default function FCMyProfile({ name, image }) {
         </div>
 
         <div className="lower-side-prof">
-          <p className="prop-details">שם:</p>
-          <p className="prop-details">גיל:</p>
-          <p className="prop-details">גר/ה ב:</p>
-          <p className="prop-details">קצת על עצמי:</p>
+          <p className="prof-details">שם:</p>
+          <p className="prof-details">גיל:</p>
+          <p className="prof-details">גר/ה ב:</p>
+          <p className="prof-details">קצת על עצמי:</p>
         </div>
         <div className="footer-side-menu">
           <a className="side-menu-option">

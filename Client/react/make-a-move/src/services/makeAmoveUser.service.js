@@ -186,8 +186,8 @@ export const makeAmoveUserServer = {
     }
   },
 
-  GetUserByEmail: (email) => {
-    return axios
+  GetUserByEmail: (email) =>
+    axios
       .get(
         `${
           import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
@@ -197,11 +197,10 @@ export const makeAmoveUserServer = {
       .catch((error) => {
         console.error("Error fetching user:", error);
         throw error; // Rethrow the error to be caught by the caller}
-      });
-  },
+      }),
 
-  getImageByID: async (imageId) => {
-    const response = await axios
+  getImageByID: async (imageId) =>
+    await axios
       .get(
         `${
           import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
@@ -214,8 +213,7 @@ export const makeAmoveUserServer = {
       .catch((error) => {
         console.error("Error fetching image:", error);
         throw error; // Rethrow the error to be caught by the caller}
-      });
-  },
+      }),
 
   readUsersByPreference: (email) => {
     return axios
