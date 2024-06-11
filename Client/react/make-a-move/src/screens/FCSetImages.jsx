@@ -39,8 +39,13 @@ export default function FCSetImages() {
           <div className="image-view">
             {/* Render existing images */}
             {user.image && user.image.length > 0 ? (
-              user.image.map((imageId) => (
-                <FCGetImage key={imageId} imageId={imageId} user={user} />
+              user.image.map((img) => (
+                <FCGetImage
+                  key={img}
+                  image={img}
+                  user={user}
+                  imageIndex={user.image.indexOf(img)}
+                />
               ))
             ) : (
               <p>אין תמונות להציג</p>

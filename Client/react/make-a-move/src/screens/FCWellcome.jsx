@@ -11,10 +11,10 @@ const FCWellcome = () => {
   return (
     <span>
       <img src={"." + logo} className="logo" />
-      <img
+      {/* <img
         src={"https://proj.ruppin.ac.il/cgroup52/uploadedFiles/Matan.jpg"}
         className="logo"
-      />
+      /> */}
       <p style={{ color: "white" }}>Location based dating app</p>
       <FCCustomBtn title={"התחברות"} onClick={() => navigate("/signin")} />
       <FCCustomBtn title={"הרשמה"} onClick={() => navigate("/signup")} />
