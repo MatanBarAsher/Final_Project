@@ -182,11 +182,57 @@ option {
   margin: 20px;
 }
 
+
 .p-image {
   background-color: #efe1d1;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  
+}
+.profile-image {
+  background-color: #efe1d1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* margin-top:0px */
+  /* margin: 100px 0px 500px 120px; */
+}
+.upper-side-prof {
+ margin-left: 145px;
+ margin-top: 20px;
+ 
+}
+.myName{
+  /* margin-top:270px; */
+  
+  
+}
+
+.editProf{
+  position: absolute;
+  
+}
+.lower-side-prof{
+  flex: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 40px 30px;
+  border-top: 1px solid white;
+  margin-bottom: 200px;
+  width: 100%;
+  height: 100px;
+  
+}
+.prof-details{
+  font-weight:bold;
+  color:white;
+  font-size: medium;
+  margin: 0px;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  text-align: right;
 }
 
 .side-menu-option {
@@ -237,6 +283,16 @@ option {
   margin: 20px 7px 0 0;
   font-size: 16px;
   font-weight: 400;
+  text-align: right;
+}
+
+.feedback-p {
+  color: white;
+  margin: 20px 27px 0 0;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: right;
+  
 }
 
 .gender-inp {
@@ -502,11 +558,15 @@ input[name="gender"] {
   font-size: 20px;
   font-family: "Heebo";
 }
+button, input{
+  box-shadow: none;
+}
 
-/* .dialogBtn{
-  text-align: center;
-  color:#3c0753;
-} */
-/* .dialogMain{
-  border-radius: 200px;
-} */
+.update-p {
+  color: white;
+  margin: 10;
+  font-size: 16px;
+  font-weight: 300;
+  text-align: right;
+  margin-right: 50px;
+}
