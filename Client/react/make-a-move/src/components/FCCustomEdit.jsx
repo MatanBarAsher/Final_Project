@@ -4,7 +4,6 @@ import EditIcon from "@mui/icons-material/Edit";
 export default function FCCustomEdit(color) {
   return (
     <button
-      
       className="x-btn"
       style={{
         background: "none",

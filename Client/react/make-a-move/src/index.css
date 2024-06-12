@@ -209,10 +209,12 @@ option {
   
 }
 
-.editProf{
+/* .editProf{
   position: absolute;
+  width: 50%;
+
   
-}
+} */
 .lower-side-prof{
   flex: 100%;
   display: flex;
