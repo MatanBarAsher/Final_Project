@@ -572,3 +572,16 @@ button, input{
   text-align: right;
   margin-right: 50px;
 }
+
+.recommend-h{
+  font-family: "Heebo";
+  font-weight: bold;
+  font-size: 16px;
+  
+}
+.match{
+  height: 70px;
+  width: 290px;
+  background-color: #efe1d1;
+  border-radius: 10px;
+}

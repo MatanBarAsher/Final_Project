@@ -7,6 +7,7 @@ import FCCustomBtn from "../../../components/FCCustomBtn";
 import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import { FCLoad } from "../../../loading/FCLoad";
 import { SuccessDialog } from "./Dialog/FeedbackSuccessDialog";
+import background from "../../../assets/images/Matan.jpg";
 
 export const FCFeedback = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -100,6 +101,20 @@ export const FCFeedback = () => {
           />
           <form onSubmit={() => navigate("/feedback2")}>
             <h1 className="pref-h1">משוב</h1>
+
+            <div className="match">
+        <div
+          className="profile-image"
+          style={{
+            backgroundImage: `url(.${background})`,
+            height: 60,
+            width: 60,
+            marginRight: 210,
+            border: "4px solid white",
+            borderRadius: "50%",
+          }}
+        ></div>
+      </div>
             <h3>דרג/י את מידת ההסכמה שלך:</h3>
             <p className="feedback-p">
               1. __בעל מאפיינים דומים למה שאני מחפש/ת:
