@@ -1,10 +1,15 @@
+using Make_a_move___Server.Controllers;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+
+// Add HttpClient and DistanceService
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<UsersController>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -20,7 +25,6 @@ if (true)
 
 app.UseHttpsRedirection();
 
-
 app.UseStaticFiles(new StaticFileOptions()
 {
     FileProvider = new PhysicalFileProvider(
@@ -35,4 +39,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-

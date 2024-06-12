@@ -27,7 +27,9 @@ function UploadImage({ obj }) {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/AddImages`,
+        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/ChangeImages/${
+          obj.email
+        }`,
         formData,
         {
           headers: {

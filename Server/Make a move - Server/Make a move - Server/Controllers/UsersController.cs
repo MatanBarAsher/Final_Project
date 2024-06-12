@@ -1,4 +1,5 @@
 ﻿using Make_a_move___Server.BL;
+using Make_a_move___Server.Controllers;
 using Make_a_move___Server.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting.Internal;
@@ -7,6 +8,10 @@ using System;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using static Make_a_move___Server.BL.User;
+using System.Net.Http;
+using System.Xml.Linq;
+using Newtonsoft.Json.Linq;
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Make_a_move___Server.Controllers
@@ -50,8 +55,6 @@ namespace Make_a_move___Server.Controllers
             return user.ReadUsersByPlace(p);
         }
 
-
-
         [HttpPost]
         [Route("UpdatePlace/{email}")]
         public User UpdateUserCurrentPlace([FromRoute] string email, [FromBody] string placeName)
@@ -74,6 +77,7 @@ namespace Make_a_move___Server.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
+
         [HttpPost("RemoveFromDictionary")]
         public IActionResult RemoveFromDictionary(string email)
         {
@@ -124,7 +128,6 @@ namespace Make_a_move___Server.Controllers
             }
         }
 
-
         [HttpPost("LikeUser")]
         public IActionResult LikeUser(string userEmail, string likedUserEmail)
         {
@@ -153,66 +156,9 @@ namespace Make_a_move___Server.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
-
-
-        //[HttpGet("ReadUsersByPreference")]
-        //public IActionResult ReadUsersByPreference(string userEmail)
-        //{
-        //    try
-        //    {
-        //        // Get the current user by email
-        //        User currentUser = Make_a_move___Server.BL.User.GetUserByEmail(userEmail);
-
-        //        // Check if the user exists
-        //        if (currentUser == null)
-        //        {
-        //            // Return a not found response if the user does not exist
-        //            return NotFound($"User with email {userEmail} not found.");
-        //        }
-
-        //        // Call ReadUsersByPreference to get users matching the preferences of the current user
-        //        Dictionary<User, double> usersByPreference = currentUser.ReadUsersByPreference(currentUser);
-
-        //        // Return the list of users
-        //        return Ok(usersByPreference);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Return an error response if an exception occurs
-        //        return StatusCode(500, $"An error occurred: {ex.Message}");
-        //    }
-        //}
-
-        //[HttpGet("ReadUsersByPreference")]
-        //public IActionResult ReadUsersByPreference(string userEmail)
-        //{
-        //    try
-        //    {
-        //        // Get the current user by email
-        //        User currentUser = Make_a_move___Server.BL.User.GetUserByEmail(userEmail);
-
-        //        // Check if the user exists
-        //        if (currentUser == null)
-        //        {
-        //            // Return a not found response if the user does not exist
-        //            return NotFound($"User with email {userEmail} not found.");
-        //        }
-
-        //        // Call ReadUsersByPreference to get users matching the preferences of the current user
-        //        Dictionary<User, Tuple<double, double>> usersByPreference = currentUser.ReadUsersByPreference(currentUser);
-
-        //        // Return the dictionary of users
-        //        return Ok(usersByPreference);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Return an error response if an exception occurs
-        //        return StatusCode(500, $"An error occurred: {ex.Message}");
-        //    }
-        //}
-
+       
         [HttpGet("ReadUsersByPreference")]
-        public Dictionary<string, Tuple<double, double>> ReadUsersByPreference(string userEmail)
+        public async Task< Dictionary<string, Tuple<double, double>>> ReadUsersByPreference(string userEmail)
         {
 
             // Get the current user by email
@@ -227,7 +173,7 @@ namespace Make_a_move___Server.Controllers
             }
 
             // Call ReadUsersByPreference to get users matching the preferences of the current user
-            Dictionary<User, Tuple<double, double>> result = currentUser.ReadUsersByPreference();
+            Dictionary<User, Tuple<double, double>> result = await currentUser.ReadUsersByPreference();
 
             // Convert User objects to strings (assuming User has a unique identifier)
             Dictionary<string, Tuple<double, double>> serializedResult = result.ToDictionary(
@@ -237,11 +183,6 @@ namespace Make_a_move___Server.Controllers
             return serializedResult;
         }
 
-
-
-
-
-
         //[HttpPut]
         //[Route("changeImages/{email}")]
         //public int ChangeImages([FromRoute] string email, [FromForm] List<IFormFile> images)
@@ -300,8 +241,6 @@ namespace Make_a_move___Server.Controllers
         //    User user = new User();
         //    return user.ChangeImages(email, imageLinksArray);
         //}
-
-
 
         [HttpPost]
         [Route("changeImages/{email}")]
@@ -336,12 +275,10 @@ namespace Make_a_move___Server.Controllers
             }
             else
             {
-                return BadRequest();
+                return BadRequest("Img");
             }
 
         }
-
-
 
         [HttpPost("AddImages")]
         public ActionResult UploadImage(IFormFile file)
@@ -376,18 +313,6 @@ namespace Make_a_move___Server.Controllers
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
         [HttpGet("GetImage")]
         public IActionResult GetImage(int imageId)
         {
@@ -403,7 +328,6 @@ namespace Make_a_move___Server.Controllers
             return File(imageData, mimeType); // Return the image with its MIME type
         }
 
-
         [HttpGet]
         [Route("GetUserByEmail/{email}")]
 
@@ -413,18 +337,6 @@ namespace Make_a_move___Server.Controllers
             return _service.GetUserByEmail(email);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
         [HttpPost]
         [Route("checkExistingUserByKeyAndValue/{key}")]
         public int checkExistingUserByKeyAndValue([FromRoute] string key , [FromBody] string value)
@@ -432,9 +344,6 @@ namespace Make_a_move___Server.Controllers
             User u = new User();
             return u.checkExistingUserByKeyAndValue(key, value);
         }
-
-
-
 
         [HttpPost("EditPreferences")]
         public User EditPreferences([FromBody] User user)
@@ -445,15 +354,12 @@ namespace Make_a_move___Server.Controllers
             return u.EditPreferences(user);
         }
 
-
         [HttpGet("getEmails")]
         public List<string> GetUsersEmails()
         {
             User user = new User();
             return user.GetUsersEmails();
         }
-
     }
-
 }
 

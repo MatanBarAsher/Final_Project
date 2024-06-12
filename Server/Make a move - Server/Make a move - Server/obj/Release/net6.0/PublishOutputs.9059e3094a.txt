@@ -6,6 +6,7 @@ C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרו
 C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרויקט גמר\Code\Server\Make a move - Server\Make a move - Server\obj\Release\net6.0\PubTmp\Out\Make a move - Server.runtimeconfig.json
 C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרויקט גמר\Code\Server\Make a move - Server\Make a move - Server\obj\Release\net6.0\PubTmp\Out\Make a move - Server.pdb
 C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרויקט גמר\Code\Server\Make a move - Server\Make a move - Server\obj\Release\net6.0\PubTmp\Out\Microsoft.OpenApi.dll
+C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרויקט גמר\Code\Server\Make a move - Server\Make a move - Server\obj\Release\net6.0\PubTmp\Out\Newtonsoft.Json.dll
 C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרויקט גמר\Code\Server\Make a move - Server\Make a move - Server\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרויקט גמר\Code\Server\Make a move - Server\Make a move - Server\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרויקט גמר\Code\Server\Make a move - Server\Make a move - Server\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
