@@ -14,6 +14,7 @@ function UploadImage({ obj }) {
 
   const handleUpload = async (e) => {
     e.preventDefault();
+    console.log(file);
     if (!file) {
       setMessage("קודם צריך לבחור תמונה");
       return;
@@ -23,11 +24,12 @@ function UploadImage({ obj }) {
       return;
     }
     const formData = new FormData();
-    formData.append("file", file);
-
+    formData.append("files", file);
+    console.log(file);
+    console.log(formData.getAll("files"));
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/ChangeImages/${
+        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/Users/changeImages/${
           obj.email
         }`,
         formData,
@@ -39,8 +41,8 @@ function UploadImage({ obj }) {
       );
       console.log(response);
       console.log(obj);
-      if (response.data > 0) {
-        setMessage(response.data);
+      if (response.data) {
+        // setMessage(response.data);
         obj.image.push(String(response.data));
         console.log(obj);
         makeAmoveUserServer
