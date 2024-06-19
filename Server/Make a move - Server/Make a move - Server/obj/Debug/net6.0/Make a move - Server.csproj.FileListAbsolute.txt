@@ -155,3 +155,4 @@ C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרו
 C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרויקט גמר\Code\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.pdb
 C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרויקט גמר\Code\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\Make a move - Server.genruntimeconfig.cache
 C:\Users\matan\OneDrive\שולחן העבודה\לימודים\שנה ד'\פרויקט גמר\Code\Server\Make a move - Server\Make a move - Server\obj\Debug\net6.0\ref\Make a move - Server.dll
+C:\Users\נטע\Documents\GitHub\Final_Project\Server\Make a move - Server\Make a move - Server\bin\Debug\net6.0\Newtonsoft.Json.dll
