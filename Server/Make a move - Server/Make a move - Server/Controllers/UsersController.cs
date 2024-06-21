@@ -163,7 +163,7 @@ namespace Make_a_move___Server.Controllers
 
             // Get the current user by email
             User u = new User();
-            User currentUser = u.GetUserByEmail(userEmail);
+            User currentUser = u.GetUserPreferencesByEmail(userEmail);
 
             // Check if the user exists
             if (currentUser == null)

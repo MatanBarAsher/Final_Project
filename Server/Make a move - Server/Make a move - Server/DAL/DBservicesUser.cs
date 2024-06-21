@@ -105,11 +105,11 @@ namespace Make_a_move___Server.DAL
             //string PreferencesIdsS = JsonSerializer.Serialize(user.PreferencesIds);
             //cmd.Parameters.AddWithValue("@preferencesIds", PreferencesIdsS);
             
-            string PreferencesDictionary = JsonSerializer.Serialize(user.PreferencesDictionary);
-            cmd.Parameters.AddWithValue("@preferencesIds", PreferencesDictionary);
+            //string PreferencesDictionary = JsonSerializer.Serialize(user.PreferencesDictionary);
+            //cmd.Parameters.AddWithValue("@preferencesIds", PreferencesDictionary);
 
-            string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
-            cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
+            //string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
+            //cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
 
             cmd.Parameters.AddWithValue("@currentPlace", user.CurrentPlace);
 
@@ -161,9 +161,9 @@ namespace Make_a_move___Server.DAL
                     u.PhoneNumber = dataReader["phoneNumber"].ToString();
                     u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
                     u.City = dataReader["city"].ToString();
-                    u.PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString());
+                   // u.PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString());
                     //u.PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString());
-                    u.PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString());
+                    //u.PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString());
                     u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]);
                     u.PersoalText = dataReader["persoalText"].ToString();
                     
@@ -249,9 +249,9 @@ namespace Make_a_move___Server.DAL
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
                         City = dataReader["city"].ToString(),
-                        PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
+                        //PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
                         //PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString()),
-                        PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString()),
+                        //PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString()),
                         CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
                         PersoalText= dataReader["persoalText"].ToString(),
                         
@@ -330,11 +330,11 @@ namespace Make_a_move___Server.DAL
             //string PreferencesIdsS = JsonSerializer.Serialize(user.PreferencesIds);
             //cmd.Parameters.AddWithValue("@preferencesIds", PreferencesIdsS);
 
-            string PreferencesDictionary = JsonSerializer.Serialize(user.PreferencesDictionary);
-            cmd.Parameters.AddWithValue("@preferencesIds", PreferencesDictionary);
+            //string PreferencesDictionary = JsonSerializer.Serialize(user.PreferencesDictionary);
+            //cmd.Parameters.AddWithValue("@preferencesIds", PreferencesDictionary);
 
-            string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
-            cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
+            //string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
+            //cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
 
             cmd.Parameters.AddWithValue("@currentPlace", user.CurrentPlace);
 
@@ -386,9 +386,9 @@ namespace Make_a_move___Server.DAL
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
                         City = dataReader["city"].ToString(),
-                        PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
+                        //PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
                         //PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString()),
-                        PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString()),
+                        //PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString()),
                         CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
                         PersoalText = dataReader["persoalText"].ToString(),
 
@@ -516,11 +516,11 @@ namespace Make_a_move___Server.DAL
            // string PreferencesIdsS = JsonSerializer.Serialize(user.PreferencesIds);
             //cmd.Parameters.AddWithValue("@preferencesIds", PreferencesIdsS);
 
-            string PreferencesDictionary = JsonSerializer.Serialize(user.PreferencesDictionary);
-            cmd.Parameters.AddWithValue("@preferencesIds", PreferencesDictionary);
+            //string PreferencesDictionary = JsonSerializer.Serialize(user.PreferencesDictionary);
+           // cmd.Parameters.AddWithValue("@preferencesIds", PreferencesDictionary);
 
-            string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
-            cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
+            //string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
+           // cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
 
             cmd.Parameters.AddWithValue("@currentPlace", user.CurrentPlace);
 
@@ -554,7 +554,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateSelectUserByPlaceWithStoredProcedure("SP_ReadUsersByPlace", con, placeToLook);             // create the command
+            cmd = CreateSelectUserByPlaceWithStoredProcedure("SP_ReadUsersWithPreferencesByPlace", con, placeToLook);             // create the command
 
             try
             {
@@ -574,9 +574,17 @@ namespace Make_a_move___Server.DAL
                     u.PhoneNumber = dataReader["phoneNumber"].ToString();
                     u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
                     u.City = dataReader["city"].ToString();
-                    u.PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString());
-                   // u.PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString());
-                    u.PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString());
+                    //u.PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString());
+                    // u.PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString());
+                    u.PreferencesDictionary = new Dictionary<string, string>
+                    {
+                        { "preferenceGender", dataReader["preferenceGender"].ToString() },
+                        { "minAge", dataReader["minAge"].ToString() },
+                        { "maxAge", dataReader["maxAge"].ToString() },
+                        { "minHeight", dataReader["minHeight"].ToString() },
+                        { "maxHeight", dataReader["maxHeight"].ToString() },
+                        { "maxDistance", dataReader["maxDistance"].ToString() }
+                    };
                     u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]); ;
                     u.PersoalText = dataReader["persoalText"].ToString();
 
@@ -628,7 +636,6 @@ namespace Make_a_move___Server.DAL
 
 
 
-
         public User GetUserByEmail(string email)
         {
             SqlConnection con;
@@ -667,8 +674,8 @@ namespace Make_a_move___Server.DAL
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
                         City = dataReader["city"].ToString(),
-                        PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
-                        PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString()),
+                        //PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
+                        //PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString()),
                         CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
                         PersoalText = dataReader["persoalText"].ToString(),
 
@@ -710,6 +717,95 @@ namespace Make_a_move___Server.DAL
 
 
         }
+
+        public User GetUserPreferencesByEmail(string email)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            cmd = CreateSelectUserByEmailCommand("SP_GetUserWithPrefrencesByEmail", con, email); // create the command
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                User u = null; // Initialize the User object
+
+                while (dataReader.Read())
+                {
+                    u = new User
+                    {
+                        Email = dataReader["email"].ToString(),
+                        FirstName = dataReader["firstName"].ToString(),
+                        LastName = dataReader["lastName"].ToString(),
+                        Password = dataReader["password"].ToString(),
+                        Image = JsonSerializer.Deserialize<string[]>(dataReader["image"].ToString()),
+                        Gender = Convert.ToInt32(dataReader["gender"]),
+                        Height = Convert.ToInt32(dataReader["height"]),
+                        Birthday = Convert.ToDateTime(dataReader["birthday"]),
+                        PhoneNumber = dataReader["phoneNumber"].ToString(),
+                        IsActive = Convert.ToBoolean(dataReader["isActive"]),
+                        City = dataReader["city"].ToString(),
+                        //PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
+                        PreferencesDictionary = new Dictionary<string, string>
+                        {
+                            { "preferenceGender", dataReader["preferenceGender"].ToString() },
+                            { "minAge", dataReader["minAge"].ToString() },
+                            { "maxAge", dataReader["maxAge"].ToString() },
+                            { "minHeight", dataReader["minHeight"].ToString() },
+                            { "maxHeight", dataReader["maxHeight"].ToString() },
+                            { "maxDistance", dataReader["maxDistance"].ToString() }
+                        },
+                        CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
+                        PersoalText = dataReader["persoalText"].ToString(),
+
+                    };
+                }
+
+                return u;
+            }
+            catch (SqlException ex)
+            {
+                // Log the SQL exception
+                Console.WriteLine("SQL Exception:");
+                Console.WriteLine($"Error Number: {ex.Number}");
+                Console.WriteLine($"Message: {ex.Message}");
+                // Additional error handling logic...
+
+                // Rethrow the exception or return null
+                throw; // Rethrow the exception to propagate it to the caller
+            }
+            // catch (Exception ex)
+            // {
+            //     // Log other types of exceptions
+            //     Console.WriteLine($"An error occurred: {ex.Message}");
+            //     // Additional error handling logic...
+
+            //     // Rethrow the exception or return null
+            //     throw; // Rethrow the exception to propagate it to the caller
+            // }
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+
+        }
+
 
         private SqlCommand CreateSelectUserByEmailCommand(String spName, SqlConnection con, string email)
         {
