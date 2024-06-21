@@ -101,21 +101,11 @@ namespace Make_a_move___Server.DAL
             cmd.Parameters.AddWithValue("@phoneNumber", user.PhoneNumber);
 
             cmd.Parameters.AddWithValue("@city", user.City);
-            
-            //string PreferencesIdsS = JsonSerializer.Serialize(user.PreferencesIds);
-            //cmd.Parameters.AddWithValue("@preferencesIds", PreferencesIdsS);
-            
-            //string PreferencesDictionary = JsonSerializer.Serialize(user.PreferencesDictionary);
-            //cmd.Parameters.AddWithValue("@preferencesIds", PreferencesDictionary);
-
-            //string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
-            //cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
-
+        
             cmd.Parameters.AddWithValue("@currentPlace", user.CurrentPlace);
 
             cmd.Parameters.AddWithValue("@persoalText", user.PersoalText);
             
-
 
 
             return cmd;
@@ -327,12 +317,6 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@city", user.City);
 
-            //string PreferencesIdsS = JsonSerializer.Serialize(user.PreferencesIds);
-            //cmd.Parameters.AddWithValue("@preferencesIds", PreferencesIdsS);
-
-            //string PreferencesDictionary = JsonSerializer.Serialize(user.PreferencesDictionary);
-            //cmd.Parameters.AddWithValue("@preferencesIds", PreferencesDictionary);
-
             //string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
             //cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
 
@@ -386,9 +370,6 @@ namespace Make_a_move___Server.DAL
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
                         City = dataReader["city"].ToString(),
-                        //PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
-                        //PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString()),
-                        //PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString()),
                         CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
                         PersoalText = dataReader["persoalText"].ToString(),
 
@@ -513,12 +494,6 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@city", user.City);
 
-           // string PreferencesIdsS = JsonSerializer.Serialize(user.PreferencesIds);
-            //cmd.Parameters.AddWithValue("@preferencesIds", PreferencesIdsS);
-
-            //string PreferencesDictionary = JsonSerializer.Serialize(user.PreferencesDictionary);
-           // cmd.Parameters.AddWithValue("@preferencesIds", PreferencesDictionary);
-
             //string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
            // cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
 
@@ -574,8 +549,6 @@ namespace Make_a_move___Server.DAL
                     u.PhoneNumber = dataReader["phoneNumber"].ToString();
                     u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
                     u.City = dataReader["city"].ToString();
-                    //u.PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString());
-                    // u.PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString());
                     u.PreferencesDictionary = new Dictionary<string, string>
                     {
                         { "preferenceGender", dataReader["preferenceGender"].ToString() },
@@ -950,17 +923,6 @@ namespace Make_a_move___Server.DAL
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     public int AddImage(byte[] imageData, string mimeType)
         {
             SqlConnection con;
@@ -1039,8 +1001,6 @@ namespace Make_a_move___Server.DAL
         }
 
 
-
-
         public (byte[] ImageData, string MimeType) GetImage(int imageId)
         {
             SqlConnection con;
@@ -1100,6 +1060,116 @@ namespace Make_a_move___Server.DAL
 
             return cmd;
         }
+
+
+
+        public void InsertUserPersonalInterests(string email, List<int> interestCodes)
+        {
+            SqlConnection con = null;
+            SqlCommand cmd = null;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+
+                foreach (var interestCode in interestCodes)
+                {
+                    cmd = CreateAddPersonalInterestCommand("SP_InsertUserPersonalInterest", con, email, interestCode); // create the command
+
+                    // Execute the command
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        private SqlCommand CreateAddPersonalInterestCommand(string spName, SqlConnection con, string email, int interestCode)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;      // stored procedure name
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution, default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+
+            cmd.Parameters.AddWithValue("@email", email);
+
+            cmd.Parameters.AddWithValue("@interestCode", interestCode);
+
+            return cmd;
+        }
+
+
+        public List<string> GetUserInterestCodesByEmail(string email)
+        {
+            SqlConnection con = null;
+            SqlCommand cmd;
+            List<string> interestCodes = new List<string>();
+
+            try
+            {
+                con = connect("myProjDB");
+                cmd = CreateSelectUPIByEmailCommand("SP_ReadUserPersonalInterests", con, email);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string interestDesc = reader["interestDesc"].ToString();
+                    interestCodes.Add(interestDesc);
+                }
+
+                reader.Close();
+                return interestCodes;
+            }
+            catch (Exception ex)
+            {
+                // Handle exception, log error, etc.
+                throw ex;
+            }
+            finally
+            {
+                if (con != null && con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
+        }
+
+        private SqlCommand CreateSelectUPIByEmailCommand(string spName, SqlConnection con, string email)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = CommandType.StoredProcedure; // the type of the command, can also be text
+
+            cmd.Parameters.AddWithValue("@inputEmail", email); // Add parameter for email
+
+            return cmd;
+        }
+
+
+
 
 
     }
