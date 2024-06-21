@@ -9,8 +9,10 @@ export default function FCMyProfile({ name, image }) {
   const Navigate = useNavigate();
   return (
     <>
-      <div onClick={() => Navigate("/updateProfile")} className="side-menu">
-        <FCCustomEdit color="white" />
+      <div className="side-menu">
+        <div onClick={() => Navigate("/updateProfile")}>
+          <FCCustomEdit color="white" />
+        </div>
         <div className="upper-side-prof">
           <div onClick={() => Navigate("/sideMenu")}>
             <FCCustomX color="white" />
