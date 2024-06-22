@@ -163,7 +163,7 @@ namespace Make_a_move___Server.Controllers
 
             // Get the current user by email
             User u = new User();
-            User currentUser = u.GetUserByEmail(userEmail);
+            User currentUser = u.GetUserPreferencesByEmail(userEmail);
 
             // Check if the user exists
             if (currentUser == null)
@@ -360,6 +360,44 @@ namespace Make_a_move___Server.Controllers
             User user = new User();
             return user.GetUsersEmails();
         }
+
+        // POST api/user/addpersonalinterests
+        [HttpPost("addpersonalinterests")]
+        public IActionResult AddPersonalInterests(string email, List<int> interestCodes)
+        {
+            DBservicesUser dbs = new DBservicesUser();
+            try
+            {
+                dbs.InsertUserPersonalInterests(email, interestCodes);
+                return Ok("Personal interests added successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Failed to add personal interests: {ex.Message}");
+            }
+        }
+
+
+
+        // GET api/user/interests/{email}
+        [HttpGet("interests/{email}")]
+        public IActionResult GetUserInterests(string email)
+        {
+            DBservicesUser dbs = new DBservicesUser();
+            try
+            {
+                List<string> interestCodes = dbs.GetUserInterestCodesByEmail(email);
+                return Ok(interestCodes);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Failed to retrieve user interests: {ex.Message}");
+            }
+        }
+
+
     }
+
 }
+
 
