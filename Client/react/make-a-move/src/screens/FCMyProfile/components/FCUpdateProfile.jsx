@@ -13,17 +13,27 @@ import { FCMultiSelect } from "../../../components";
 import { PERSONAL_INTERESTS, SIGNUP_INIT_DATA } from "../../../constants";
 import { useAsync } from "../../../hooks";
 import { makeAmoveUserServer } from "../../../services";
+import { LogoDev } from "@mui/icons-material";
 
 export const FCUpdateProfile = () => {
   const Navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [changedKey, setChangedKey] = useState(null);
-  const [updateUserData, setUpdateUserData] = useState(SIGNUP_INIT_DATA);
+  const [updateUserData, setUpdateUserData] = useState({});
   const [cityOptions, setCityOptions] = useState([]);
   const [filteredCities, setFilteredCities] = useState([]);
   const [cityMap, setCityMap] = useState({});
 
-  //   const userEmail = localStorage.getItem("current-email");
+  const userEmail = JSON.parse(localStorage.getItem("current-email"));
+  console.log(userEmail);
+
+  makeAmoveUserServer
+    .GetUserByEmail(userEmail)
+    .then((res) => {
+      console.log(res);
+      //   setUpdateUserData(res);
+    })
+    .catch((res) => console.log(res));
 
   //   const getUserFunc = useCallback(() =>
   //     makeAmoveUserServer.GetUserByEmail(userEmail)
@@ -97,15 +107,15 @@ export const FCUpdateProfile = () => {
     setUpdateUserData("description", e.target.value);
   };
 
-  const handlePersonalInterestsIdsChange = (event) => {
-    const {
-      target: { value },
-    } = event || {};
-    setUpdateUserData(
-      "personalInterestsIds",
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+  //   const handlePersonalInterestsIdsChange = (event) => {
+  //     const {
+  //       target: { value },
+  //     } = event || {};
+  //     setUpdateUserData(
+  //       "personalInterestsIds",
+  //       typeof value === "string" ? value.split(",") : value
+  //     );
+  //   };
 
   const fetchCities = async () => {
     try {
@@ -275,12 +285,12 @@ export const FCUpdateProfile = () => {
           required
         />
         <p className="update-p">מה את/ה אוהב/ת לעשות בזמנך הפנוי?</p>
-        <FCMultiSelect
+        {/* <FCMultiSelect
           label="תחומי עיניין"
           options={PERSONAL_INTERESTS}
           onChange={handlePersonalInterestsIdsChange}
-          value={updateUserData["personalInterestsIds"]}
-        />
+          //   value={updateUserData["personalInterestsIds"]}
+        /> */}
         <p className="update-p">
           ספר/י על עצמך:
           <span style={{ fontWeight: "200" }}></span>
