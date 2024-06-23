@@ -67,7 +67,7 @@ export const FCPrecerences = () => {
         navigate("/profile");
       } else {
         console.log("failure");
-        navigate("/map");
+        navigate("/home");
       }
     });
   };

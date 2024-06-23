@@ -38,7 +38,7 @@ const FCLocation = () => {
             placeName: value,
           })
         );
-        navigate("/map");
+        navigate("/home");
       } else {
         console.log("failure");
       }

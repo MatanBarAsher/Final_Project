@@ -6,7 +6,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import WavingHandOutlinedIcon from "@mui/icons-material/WavingHandOutlined";
 import { Navigate, useNavigate } from "react-router";
-import FCMyProfile from "./FCMyProfile/components/FCMyProfile";
+
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 
 export default function FCSideMenu({ name, image }) {
   const Navigate = useNavigate();
@@ -42,6 +43,13 @@ export default function FCSideMenu({ name, image }) {
           <StarBorderRoundedIcon />
           <p>המלצות</p>
         </a>
+        {/* <a
+          onClick={() => Navigate("")}
+          className="side-menu-option"
+        >
+          <LocationOnOutlinedIcon />
+          <p>אימות מיקום</p>
+        </a> */}
       </div>
       <div className="footer-side-menu">
         <a className="side-menu-option">
