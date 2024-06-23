@@ -21,7 +21,7 @@ export const FCPrecerences = () => {
     maxDistance: 0,
     preferedInterests: [],
     ageRange: [18, 80],
-    minHeight: 0,
+    minHeight: [120, 250],
   });
   console.log(precerencesData);
 
@@ -75,7 +75,7 @@ export const FCPrecerences = () => {
     <>
       <form onSubmit={handleSubmit}>
         <h1 className="pref-h1">העדפות</h1>
-        <p className="signup2-p">אני מחפשת:</p>
+        <p className="preference-p">אני מחפשת:</p>
         <div className="gender-inp">
           <span>
             <input
@@ -112,7 +112,7 @@ export const FCPrecerences = () => {
           </span>
         </div>
 
-        <p className="signup2-p">מרחק מקסימלי (מאיפה שאני גר)</p>
+        <p className="preference-p">מרחק מקסימלי (מאיפה שאני גר)</p>
         <FCCustomNumberInp
           ph="ק''מ"
           min={0}
@@ -131,9 +131,19 @@ export const FCPrecerences = () => {
             max={80}
           />
         </span>
-        <p className="signup2-p">בגובה: (מינ')</p>
+        <p className="preference-p">בגובה: (מינ')</p>
         <span className="range">
-          {/* <Slider
+          <Slider
+            getAriaLabel={() => "Temperature range"}
+            value={precerencesData["minHeight"]}
+            onChange={handleHeightRangeChange}
+            valueLabelDisplay="on"
+            className="slider"
+            min={120}
+            max={250}
+          />
+        </span>
+        {/* <Slider
             getAriaLabel={() => "Temperature range"}
             value={precerencesData["minHeight"]}
             onChange={handleHeightRangeChange}
@@ -141,18 +151,19 @@ export const FCPrecerences = () => {
             className="slider"
             min={120}
           /> */}
-          <Slider
+        {/* <Slider
             defaultValue={0}
+            getAriaLabel={() => "Temperature range"}
             value={precerencesData["minHeight"]}
             valueLabelDisplay="on"
             className="slider"
-            aria-label="Default"
+            // aria-label="Default"
             onChange={handleHeightRangeChange}
             min={100}
             max={250}
-          />
-        </span>
-        <p className="signup2-p">
+          /> */}
+        {/* </span> */}
+        <p className="preference-p">
           שאוהבת
           <br />
           (במידה ולא יוגדר נחפש התאמות לפרופילים עם תחומי עניין דומים לשלך)
