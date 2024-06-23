@@ -33,6 +33,7 @@ using System.Net.Http;
         private static Dictionary<string, List<string>> likedRelationships = new Dictionary<string, List<string>>();
         private Dictionary<string, string> preferencesDictionary = new Dictionary<string, string>();
 
+
         public User() { }
 
         public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, string[] personalInterestsIds, int currentPlace, string persoalText, Dictionary<string, string> preferencesDictionary)
@@ -101,6 +102,10 @@ using System.Net.Http;
                 throw new Exception("Error reading users", ex);
             }
         }
+
+
+
+
 
         public User CheckLogin()
         {
@@ -214,6 +219,33 @@ using System.Net.Http;
             }
         }
 
+        //public async Task LoadPreferencesAsync()
+        //{
+        //    try
+        //    {
+        //        DBservicesUserPreferences dbs = new DBservicesUserPreferences();
+        //        UserPreferences userPreferences = await dbs.GetUserPreferencesByEmail(this.Email);
+
+        //        if (userPreferences != null)
+        //        {
+        //            this.PreferencesDictionary = new Dictionary<string, string>
+        //    {
+        //        { "preferenceGender", userPreferences.PreferenceGender.ToString() },
+        //        { "minAge", userPreferences.MinAge.ToString() },
+        //        { "maxAge", userPreferences.MaxAge.ToString() },
+        //        { "minHeight", userPreferences.MinHeight.ToString() },
+        //        { "maxHeight", userPreferences.MaxHeight.ToString() },
+        //        { "maxDistance", userPreferences.MaxDistance.ToString() }
+        //    };
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log or handle the exception appropriately
+        //        throw new Exception("Error loading user preferences", ex);
+        //    }
+        //}
+
         public List<User> ReadUsersByPlace(int placeCode)
         {
             try
@@ -285,8 +317,8 @@ using System.Net.Http;
         public async Task< Dictionary<User, Tuple<double, double>>> CalculateMatchPercentage(User u)
         {
             // Perform the gender check first
-            bool genderMatches = this.PreferencesDictionary["gender"] == u.Gender.ToString();
-            bool otherGenderMatches = u.PreferencesDictionary["gender"] == this.Gender.ToString();
+            bool genderMatches = this.PreferencesDictionary["preferenceGender"] == u.Gender.ToString();
+            bool otherGenderMatches = u.PreferencesDictionary["preferenceGender"] == this.Gender.ToString();
 
             // If gender check fails, return an empty dictionary
             if (!genderMatches || !otherGenderMatches)
@@ -306,7 +338,6 @@ using System.Net.Http;
             {
                 distance = await CalculateDistance(this.City, u.City);
             }
-
 
 
             int age = CalculateAge(u.Birthday);
@@ -346,29 +377,43 @@ using System.Net.Http;
             }
             otherAgePercentage = Math.Max(otherAgePercentage, 0); // Ensure percentage is not negative
 
-            // Height check
-            int preferredHeight = Int32.Parse(this.PreferencesDictionary["height"]);
-            if (preferredHeight == u.Height)
+            ////////////////////////////////////////////////////////////////////////////
+
+
+            // height check
+            int minHeight = Int32.Parse(this.PreferencesDictionary["minHeight"]);
+            int maxHeighte = Int32.Parse(this.PreferencesDictionary["maxHeight"]);
+            if (minHeight <= u.height && maxHeighte >= u.height)
             {
                 heightPercentage = 100;
             }
+            else if (u.height > maxHeighte)
+            {
+                heightPercentage = 100 - (u.height - maxHeighte) * 2;
+            }
             else
             {
-                heightPercentage = 100 - Math.Abs((double)(preferredHeight - u.Height)) * 2;
+                heightPercentage = 100 - (minHeight - u.height) * 2;
             }
             heightPercentage = Math.Max(heightPercentage, 0); // Ensure percentage is not negative
 
-            // Other Height check
-            int otherPreferredHeight = Int32.Parse(u.PreferencesDictionary["height"]);
-            if (otherPreferredHeight == this.Height)
+            // Other Age check
+            int otherMinHeight = Int32.Parse(u.PreferencesDictionary["minHeight"]);
+            int otherMaxHeight = Int32.Parse(u.PreferencesDictionary["maxHeight"]);
+            if (otherMinHeight <= this.height && otherMaxHeight >= this.height)
             {
                 otherHeightPercentage = 100;
             }
+            else if (this.height > otherMaxHeight)
+            {
+                otherHeightPercentage = 100 - (this.height - otherMaxHeight) * 2;
+            }
             else
             {
-                otherHeightPercentage = 100 - Math.Abs((double)(u.Height - otherPreferredHeight)) * 2;
+                otherHeightPercentage = 100 - (otherMinHeight - this.height) * 2;
             }
             otherHeightPercentage = Math.Max(otherHeightPercentage, 0); // Ensure percentage is not negative
+            
 
             // Distance check 
             double maxDistance = Double.Parse(this.PreferencesDictionary["maxDistance"]);
@@ -444,6 +489,27 @@ using System.Net.Http;
 
                 // Call the method in your DAL to retrieve the user by email
                 User user = dbs.GetUserByEmail(email);
+
+                // Return the user fetched from the database
+                return user;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error getting user by email", ex);
+            }
+        }
+
+
+        public User GetUserPreferencesByEmail(string email)
+        {
+            try
+            {
+                // Create an instance of your DAL service
+                DBservicesUser dbs = new DBservicesUser();
+
+                // Call the method in your DAL to retrieve the user by email
+                User user = dbs.GetUserPreferencesByEmail(email);
 
                 // Return the user fetched from the database
                 return user;
@@ -610,5 +676,11 @@ using System.Net.Http;
                 throw new Exception("Error Getting Image", ex);
             }
         }
+
+      
     }
+
+
+
 }
+
