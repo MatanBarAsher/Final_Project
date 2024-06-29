@@ -6,26 +6,33 @@ namespace Make_a_move___Server.BL
     {
         private string userIds;
         private DateTime timeStamp;
-        private bool isMatch;
+       // private bool isMatch;
         private int serialNumber;
         private string feedback;
         private static List<Match> matchesList = new List<Match>();
 
         public Match() { }
-        public Match(string userIds, DateTime timeStamp, bool isMatch, int serialNumber, string feedback)
+        public Match(string userIds, DateTime timeStam, int serialNumber, string feedback)
         {
             this.userIds = userIds;
             this.timeStamp = timeStamp;
-            this.isMatch = isMatch;
+            //this.isMatch = isMatch;
             this.serialNumber = serialNumber;
             this.feedback = feedback;
         }
 
         public string UserIds { get => userIds; set => userIds = value; }
         public DateTime TimeStamp { get => timeStamp; set => timeStamp = value; }
-        public bool IsMatch { get => isMatch; set => isMatch = value; }
+       // public bool IsMatch { get => isMatch; set => isMatch = value; }
         public int SerialNumber { get => serialNumber; set => serialNumber = value; }
         public string Feedback { get => feedback; set => feedback = value; }
+
+        public Match(string userEmail, string likedUserEmail)
+        {
+            this.userIds = $"{userEmail}&{likedUserEmail}";
+            this.timeStamp = DateTime.Now;
+            this.feedback = ""; 
+        }
 
         public int InsertMatch()
         {

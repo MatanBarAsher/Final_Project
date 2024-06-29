@@ -541,13 +541,13 @@ namespace Make_a_move___Server.DAL
                     u.Email = dataReader["email"].ToString();
                     u.FirstName = dataReader["firstName"].ToString();
                     u.LastName = dataReader["lastName"].ToString();
-                    u.Password = dataReader["password"].ToString();
+                    //u.Password = dataReader["password"].ToString();
                     u.Image = JsonSerializer.Deserialize<string[]>(dataReader["image"].ToString());
                     u.Gender = Convert.ToInt32(dataReader["gender"]);
                     u.Height = Convert.ToInt32(dataReader["height"]);
                     u.Birthday = Convert.ToDateTime(dataReader["birthday"]);
-                    u.PhoneNumber = dataReader["phoneNumber"].ToString();
-                    u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
+                    //u.PhoneNumber = dataReader["phoneNumber"].ToString();
+                    //u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
                     u.City = dataReader["city"].ToString();
                     u.PreferencesDictionary = new Dictionary<string, string>
                     {
@@ -1167,6 +1167,74 @@ namespace Make_a_move___Server.DAL
 
             return cmd;
         }
+
+        public int AddLike(string firstEmail, string secondEmail, int currentPlase)
+        {
+
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                // create the connection
+                con = connect("myProjDB");
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            cmd = CreateNewLikeCommandWithStoredProcedure("SP_InsertNewLike", con, firstEmail, secondEmail, currentPlase);  // create the command
+
+            try
+            {
+                // execute the command
+                int numEffected = cmd.ExecuteNonQuery();
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+        }
+
+        //---------------------------------------------------------------------------------
+        // Create the SqlCommand for insrting new user using a stored procedure
+        //---------------------------------------------------------------------------------
+
+        private SqlCommand CreateNewLikeCommandWithStoredProcedure(String spName, SqlConnection con, string firstEmail, string secondEmail, int currentPlase)
+        {
+
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+
+            cmd.Parameters.AddWithValue("@FirstEmail", firstEmail);
+            cmd.Parameters.AddWithValue("@SecondEmail", secondEmail);
+            cmd.Parameters.AddWithValue("@placeCode", currentPlase);
+
+
+            return cmd;
+        }
+
 
 
 

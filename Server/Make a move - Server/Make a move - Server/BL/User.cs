@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Net.Http;
+    using System.Runtime.ConstrainedExecution;
 
     public class User
     {
@@ -460,6 +461,11 @@ using System.Net.Http;
                 {
                     continue;
                 }
+                //User loggedInUser = u.CheckLogin();
+                //if (loggedInUser == null)
+                //{
+                //    continue;
+                //}
                 // Calculate the match percentage
                 var match = await this.CalculateMatchPercentage(u);
 
@@ -677,7 +683,22 @@ using System.Net.Http;
             }
         }
 
-      
+        public int AddLike(string userEmail, string likedUserEmail, int currentplace)
+        {
+            try
+            {
+                DBservicesUser dbs = new DBservicesUser();
+                return dbs.AddLike(userEmail, likedUserEmail, currentplace);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error inserting Image", ex);
+            }
+
+        }
+
+
     }
 
 

@@ -62,21 +62,22 @@ namespace Make_a_move___Server.Controllers
             return user.UpdateUserCurrentPlace(email, placeName);
         }
 
-        // POST: api/User/AddUserToDictionary
-        [HttpPost("AddUserToDictionary")]
-        public IActionResult AddUserToDictionary(string firstEmail, string secondEmail)
-        {
-            try
-            {
-                User user = new User { Email = firstEmail };
-                user.AddToDictionary(firstEmail,secondEmail);
-                return Ok("User added to dictionary successfully.");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
-        }
+
+        //// POST: api/User/AddUserToDictionary
+        //[HttpPost("AddUserToDictionary")]
+        //public IActionResult AddUserToDictionary(string firstEmail, string secondEmail)
+        //{
+        //    try
+        //    {
+        //        User user = new User { Email = firstEmail };
+        //        user.AddToDictionary(firstEmail,secondEmail);
+        //        return Ok("User added to dictionary successfully.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, $"An error occurred: {ex.Message}");
+        //    }
+        //}
 
         [HttpPost("RemoveFromDictionary")]
         public IActionResult RemoveFromDictionary(string email)
@@ -93,26 +94,26 @@ namespace Make_a_move___Server.Controllers
             }
         }
 
-        [HttpPost("SearchUserByEmail")]
-        public IActionResult SearchUserByEmail(string email, string valueToCheck)
-        {
-            try
-            {
-                bool userExists = Make_a_move___Server.BL.User.SearchUserByEmail(email, valueToCheck);
-                if (userExists)
-                {
-                    return Ok("User found in the dictionary.");
-                }
-                else
-                {
-                    return NotFound("User not found in the dictionary.");
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
-        }
+        //[HttpPost("SearchUserByEmail")]
+        //public IActionResult SearchUserByEmail(string email, string valueToCheck)
+        //{
+        //    try
+        //    {
+        //        bool userExists = Make_a_move___Server.BL.User.SearchUserByEmail(email, valueToCheck);
+        //        if (userExists)
+        //        {
+        //            return Ok("User found in the dictionary.");
+        //        }
+        //        else
+        //        {
+        //            return NotFound("User not found in the dictionary.");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, $"An error occurred: {ex.Message}");
+        //    }
+        //}
 
         [HttpGet("GetDictionary")]
         public IActionResult GetDictionary()
@@ -141,6 +142,8 @@ namespace Make_a_move___Server.Controllers
 
                 if (isLiked)
                 {
+                    Match match = new Match(userEmail, likedUserEmail);
+                    int result = match.InsertMatch();
                     // Return message if the user is already liked
                     return Ok("We have a match!");
                 }
@@ -156,7 +159,24 @@ namespace Make_a_move___Server.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
-       
+
+
+        [HttpPost("AddLike")]
+        public IActionResult AddLike([FromQuery] string userEmail, [FromQuery] string likedUserEmail, [FromQuery] int currentPlace)
+        {
+            try
+            {
+                DBservicesUser dbs = new DBservicesUser();
+                int result = dbs.AddLike(userEmail, likedUserEmail, currentPlace);
+                return Ok(result); // Assuming you want to return the result of the operation
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                return StatusCode(500, $"Error inserting Like: {ex.Message}");
+            }
+        }
+
         [HttpGet("ReadUsersByPreference")]
         public async Task< Dictionary<string, Tuple<double, double>>> ReadUsersByPreference(string userEmail)
         {
@@ -182,65 +202,6 @@ namespace Make_a_move___Server.Controllers
 
             return serializedResult;
         }
-
-        //[HttpPut]
-        //[Route("changeImages/{email}")]
-        //public int ChangeImages([FromRoute] string email, [FromForm] List<IFormFile> images)
-        //{
-        //    List<string> imageLinks = new List<string>();
-
-        //    string path = System.IO.Directory.GetCurrentDirectory();
-
-        //    long size = images.Sum(f => f.Length);
-
-        //    foreach (var formFile in images)
-        //    {
-        //        if (formFile.Length > 0)
-        //        {
-        //            var filePath = Path.Combine(path, "uploadedFiles/" + formFile.FileName);
-
-        //            using (var stream = System.IO.File.Create(filePath))
-        //            {
-        //                 formFile.CopyToAsync(stream);
-        //            }
-        //            imageLinks.Add(formFile.FileName);
-        //        }
-        //    }
-        //    string[] imageLinksArray = imageLinks.ToArray();
-        //    User user = new User();
-        //    return user.ChangeImages(email, imageLinksArray);
-        //}
-
-
-
-
-        //[HttpPut]
-        //[Route("changeImages/{email}")]
-        //public int ChangeImages([FromRoute] string email, [FromForm] List<IFormFile> images)
-        //{
-        //    List<string> imageLinks = new List<string>();
-
-        //    string path = System.IO.Directory.GetCurrentDirectory();
-
-        //    long size = images.Sum(f => f.Length);
-
-        //    foreach (var formFile in images)
-        //    {
-        //        if (formFile.Length > 0)
-        //        {
-        //            var filePath = Path.Combine(path, "uploadedFiles/" + formFile.FileName);
-
-        //            using (var stream = System.IO.File.Create(filePath))
-        //            {
-        //                 formFile.CopyToAsync(stream);
-        //            }
-        //            imageLinks.Add(formFile.FileName);
-        //        }
-        //    }
-        //    string[] imageLinksArray = imageLinks.ToArray();
-        //    User user = new User();
-        //    return user.ChangeImages(email, imageLinksArray);
-        //}
 
         [HttpPost]
         [Route("changeImages/{email}")]
@@ -345,14 +306,14 @@ namespace Make_a_move___Server.Controllers
             return u.checkExistingUserByKeyAndValue(key, value);
         }
 
-        [HttpPost("EditPreferences")]
-        public User EditPreferences([FromBody] User user)
-        {
+        //[HttpPost("EditPreferences")]
+        //public User EditPreferences([FromBody] User user)
+        //{
 
-            User u = new();
+        //    User u = new();
 
-            return u.EditPreferences(user);
-        }
+        //    return u.EditPreferences(user);
+        //}
 
         [HttpGet("getEmails")]
         public List<string> GetUsersEmails()
@@ -394,6 +355,8 @@ namespace Make_a_move___Server.Controllers
                 return BadRequest($"Failed to retrieve user interests: {ex.Message}");
             }
         }
+
+
 
 
     }
