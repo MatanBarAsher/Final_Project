@@ -46,7 +46,7 @@ export default function FCSideMenu({ name, image }) {
           <p>המלצות</p>
         </a>
         <a
-          onClick={() => Navigate("/updatePreferenes")}
+          onClick={() => Navigate("/updatePreferences")}
           className="side-menu-option"
         >
           <ModeEditOutlineOutlinedIcon color="white" />
