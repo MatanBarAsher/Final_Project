@@ -82,7 +82,7 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@userIds", match.UserIds);
 
-            cmd.Parameters.AddWithValue("@isMatch", match.IsMatch);
+            //cmd.Parameters.AddWithValue("@isMatch", match.IsMatch);
 
             cmd.Parameters.AddWithValue("@feedback", match.Feedback);
 
@@ -120,7 +120,7 @@ namespace Make_a_move___Server.DAL
                 {
                    Match m = new Match();
                     m.UserIds = dataReader["userIds"].ToString();
-                    m.IsMatch = Convert.ToBoolean(dataReader["isMatch"]);
+                    //m.IsMatch = Convert.ToBoolean(dataReader["isMatch"]);
                     m.Feedback = dataReader["feedback"].ToString();
                     
                     matchesList.Add(m);
@@ -165,97 +165,6 @@ namespace Make_a_move___Server.DAL
         ////--------------------------------------------------------------------------------------------------
         //// This method Updates a city at Cities table 
         ////--------------------------------------------------------------------------------------------------
-
-        //public City UpdateCity(City city)
-        //{
-        //    SqlConnection con;
-        //    SqlCommand cmd;
-
-        //    try
-        //    {
-        //        con = connect("myProjDB"); // create the connection
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // write to log
-        //        throw (ex);
-        //    }
-
-        //    cmd = CreateCityUpdateCommandWithStoredProcedure("SP_UpdateCity", con, city);             // create the command
-
-        //    try
-        //    {
-        //        SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-        //        City c = null; // Initialize the City object
-
-        //        while (dataReader.Read())
-        //        {
-        //            c = new City
-        //            {
-        //                CityCode = Convert.ToInt32(dataReader["cityCode"]),
-        //                CityName = dataReader["cityName"].ToString(),
-
-        //            };
-        //        }
-
-        //        if (c != null)
-        //        {
-        //            // Login successful
-        //            return c;
-        //        }
-        //        else
-        //        {
-        //            // Login failed, return null or throw an exception as needed
-        //            return null;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // write to log
-        //        throw (ex);
-        //    }
-
-        //    finally
-        //    {
-        //        if (con != null)
-        //        {
-        //            // close the db connection
-        //            con.Close();
-        //        }
-        //    }
-
-        //}
-
-
-        ////---------------------------------------------------------------------------------
-        //// Create the SqlCommand using a stored procedure
-        ////---------------------------------------------------------------------------------
-        ////---------------------------------------------------------------------------------
-        //private SqlCommand CreateCityUpdateCommandWithStoredProcedure(String spName, SqlConnection con, City city)
-        //{
-
-        //    SqlCommand cmd = new SqlCommand(); // create the command object
-
-        //    cmd.Connection = con;              // assign the connection to the command object
-
-        //    cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
-
-        //    cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
-
-        //    cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
-
-        //    cmd.Parameters.AddWithValue("@cityCode", city.CityCode);
-
-        //    cmd.Parameters.AddWithValue("@cityName", city.CityName);
-
-
-
-        //    return cmd;
-        //}
-
-
-
 
 
 
