@@ -7,9 +7,14 @@ import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import WavingHandOutlinedIcon from "@mui/icons-material/WavingHandOutlined";
 import { Navigate, useNavigate } from "react-router";
 import FCMyProfile from "./FCMyProfile/components/FCMyProfile";
+import { makeAmoveUserServer } from "../services";
 
-export default function FCSideMenu({ name, image }) {
+export default function FCSideMenu({ name }) {
   const Navigate = useNavigate();
+  const email = JSON.parse(localStorage.getItem("current-email"));
+  console.log(email);
+  makeAmoveUserServer.GetImagesByEmail(email).then((res) => console.log(res));
+
   return (
     <div className="side-menu">
       <FCCustomX color="white" />

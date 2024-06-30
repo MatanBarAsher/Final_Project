@@ -500,6 +500,20 @@ using System.Net.Http;
             }
         }
 
+        public User GetUserDetailsToDisplay(string email)
+        {
+            try 
+            {
+                User user = GetUserByEmail(email);
+                user.password = "";
+                return user;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error getting user to show by email", ex);
+            }
+        }
 
         public User GetUserPreferencesByEmail(string email)
         {
@@ -677,7 +691,19 @@ using System.Net.Http;
             }
         }
 
-      
+        public string[] getImagesByEmail(string email)
+        {
+             try
+            {
+                DBservicesUser dbs = new DBservicesUser();
+                return dbs.GetUserByEmail(email).image;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error getting Image", ex);
+            }
+        }
     }
 
 

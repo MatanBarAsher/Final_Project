@@ -14,10 +14,7 @@ export default function FCMap({ location }) {
 
   useEffect(() => {
     const fetchUserDetails = async () => {
-      let userEmail = localStorage.getItem("current-email");
-      if (userEmail && userEmail.startsWith('"')) {
-        userEmail = userEmail.replaceAll('"', "");
-      }
+      let userEmail = JSON.parse(localStorage.getItem("current-email"));
 
       if (userEmail) {
         try {
@@ -26,10 +23,13 @@ export default function FCMap({ location }) {
           );
           const userDetails = await Promise.all(
             Object.keys(userEmails).map(async (email) => {
-              const user = await makeAmoveUserServer.GetUserByEmail(email);
+              const user = await makeAmoveUserServer.GetUserNoPasswordByEmail(
+                email
+              );
               return { ...user, email };
             })
           );
+          console.log(userDetails);
 
           setUsers(renderIconsByGender(userDetails));
         } catch (error) {
