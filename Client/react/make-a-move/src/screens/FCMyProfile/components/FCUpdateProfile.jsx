@@ -13,27 +13,52 @@ import { FCMultiSelect } from "../../../components";
 import { PERSONAL_INTERESTS, SIGNUP_INIT_DATA } from "../../../constants";
 import { useAsync } from "../../../hooks";
 import { makeAmoveUserServer } from "../../../services";
+import { LogoDev } from "@mui/icons-material";
 
 export const FCUpdateProfile = () => {
   const Navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [changedKey, setChangedKey] = useState(null);
-  const [updateUserData, setUpdateUserData] = useState(SIGNUP_INIT_DATA);
+  const [updatedUserData, setUpdatedUserData] = useState({});
   const [cityOptions, setCityOptions] = useState([]);
   const [filteredCities, setFilteredCities] = useState([]);
   const [cityMap, setCityMap] = useState({});
 
-  //   const userEmail = localStorage.getItem("current-email");
+  const userEmail = JSON.parse(localStorage.getItem("current-email"));
+  console.log(userEmail);
 
-  //   const getUserFunc = useCallback(() =>
-  //     makeAmoveUserServer.GetUserByEmail(userEmail)
-  //   );
+  const getUserFunc = useCallback(async () =>
+    makeAmoveUserServer
+      .getUserByEmail(userEmail)
+      .then((res) => {
+        console.log(res);
+        setUpdatedUserData(res);
+      })
+      .catch((res) => console.log(res))
+  );
 
-  //   const { value: userData } = useAsync(
-  //     getUserFunc // to select user data
-  //   );
+  useEffect(() => {
+    getUserFunc();
+  }, []);
 
-  //   useEffect(() => setUpdateUserData(userData), [userData]); // to set user data
+  // makeAmoveUserServer
+  //       .getUserByEmail(userEmail)
+  //       .then((res) => {
+  //         console.log(res);
+  //         setUpdatedUserData(res);
+  //       })
+  //       .catch((res) => console.log(res));
+
+  const changeUpdatedUserData = (key, value) =>
+    setUpdatedUserData((prev) => ({ ...prev, [key]: value }));
+
+  // const userData = useAsync(
+  //   getUserFunc, // to select user data
+  //   []
+  // );
+  // console.log(userData);
+
+  // useEffect(() => setUpdateUserData(userData), [userData]); // to set user data
 
   //   useEffect(() => {
   //     if (changedKey) {
@@ -48,25 +73,25 @@ export const FCUpdateProfile = () => {
   //   }, [updateUserData, changedKey]);
 
   const handlePhoneCreation = (e) => {
-    setUpdateUserData("phoneNumber", e.target.value);
+    changeUpdatedUserData("phoneNumber", e.target.value);
     setChangedKey("phoneNumber");
   };
 
   const handleEmailCreation = (e) => {
-    setUpdateUserData("email", e.target.value);
+    changeUpdatedUserData("email", e.target.value);
     setChangedKey("email");
   };
 
   const handlePasswordCreation = (e) => {
-    setUpdateUserData("password", e.target.value);
+    changeUpdatedUserData("password", e.target.value);
     setChangedKey("password");
   };
 
   const handleFirstNameCreation = (e) => {
-    setUpdateUserData("firstName", e.target.value);
+    changeUpdatedUserData("firstName", e.target.value);
   };
   const handleLastNameCreation = (e) => {
-    setUpdateUserData("lastName", e.target.value);
+    changeUpdatedUserData("lastName", e.target.value);
   };
 
   var genders = [
@@ -77,35 +102,35 @@ export const FCUpdateProfile = () => {
   const [gender, setGender] = useState(null);
   const handleGenderCreation = (id) => {
     setGender(id);
-    setUpdateUserData("gender", id);
+    changeUpdatedUserData("gender", id);
   };
   const handleHeightCreation = (e) => {
-    setUpdateUserData("height", e.target.value);
+    changeUpdatedUserData("height", e.target.value);
   };
 
   const handleBirthdayCreation = (e) => {
-    setUpdateUserData("birthday", e.target.value);
+    changeUpdatedUserData("birthday", e.target.value);
   };
 
   const handleCityCreation = (citySymbol, cityName) => {
-    setUpdateUserData("city", `${citySymbol}`);
+    changeUpdatedUserData("city", `${citySymbol}`);
     console.log(citySymbol);
     document.getElementById("cityName").value = cityName;
     document.getElementById("myDropdown").classList.toggle("show");
   };
   const handleDescriptionCreation = (e) => {
-    setUpdateUserData("description", e.target.value);
+    changeUpdatedUserData("description", e.target.value);
   };
 
-  const handlePersonalInterestsIdsChange = (event) => {
-    const {
-      target: { value },
-    } = event || {};
-    setUpdateUserData(
-      "personalInterestsIds",
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+  //   const handlePersonalInterestsIdsChange = (event) => {
+  //     const {
+  //       target: { value },
+  //     } = event || {};
+  //     setUpdateUserData(
+  //       "personalInterestsIds",
+  //       typeof value === "string" ? value.split(",") : value
+  //     );
+  //   };
 
   const fetchCities = async () => {
     try {
@@ -123,6 +148,7 @@ export const FCUpdateProfile = () => {
       console.error("Error fetching data:", error);
     }
   };
+
   useEffect(() => {
     fetchCities();
   }, []);
@@ -141,13 +167,13 @@ export const FCUpdateProfile = () => {
     const newErrors = [];
 
     // Validate phone number
-    const phoneNumber = updateUserData["phoneNumber"];
+    const phoneNumber = updatedUserData["phoneNumber"];
     if (!/^\d{10}$/.test(phoneNumber)) {
       newErrors.push("phoneNumber");
     }
 
     // Validate password
-    const password = updateUserData["password"];
+    const password = updatedUserData["password"];
     if (password.length < 8) {
       newErrors.push("password");
     }
@@ -174,7 +200,7 @@ export const FCUpdateProfile = () => {
         <p className="update-p">דוא"ל:</p>
         <FCCustomMailInp
           ph={"דוא''ל"}
-          value={updateUserData["email"]}
+          value={updatedUserData["email"]}
           error={!!errors.find((error) => error === "email")}
           onChange={handleEmailCreation}
           required
@@ -182,7 +208,7 @@ export const FCUpdateProfile = () => {
         />
         <p className="update-p">טלפון:</p>
         <FCCustomPhoneInp
-          value={updateUserData["phoneNumber"]}
+          value={updatedUserData["phoneNumber"]}
           ph={"מס' טלפון"}
           onChange={handlePhoneCreation}
           error={!!errors.find((error) => error === "phoneNumber")}
@@ -198,7 +224,7 @@ export const FCUpdateProfile = () => {
         <p className="update-p">סיסמה:</p>
         <FCCustomPasswordInp
           ph={"סיסמה"}
-          value={updateUserData["password"]}
+          value={updatedUserData["password"]}
           error={!!errors.find((error) => error === "password")}
           onChange={handlePasswordCreation}
           required
@@ -213,14 +239,14 @@ export const FCUpdateProfile = () => {
           ph="שם פרטי"
           onChange={handleFirstNameCreation}
           required
-          value={updateUserData["firstName"]}
+          value={updatedUserData["firstName"]}
         />
         <p className="update-p">שם משפחה:</p>
         <FCCustomTxtInp
           ph="שם משפחה"
           onChange={handleLastNameCreation}
           required
-          value={updateUserData["lastName"]}
+          value={updatedUserData["lastName"]}
         />
         <div className="gender-inp">
           {genders.map((g) => (
@@ -263,24 +289,24 @@ export const FCUpdateProfile = () => {
         <FCCustomDateInp
           ph="dd/mm/yyyy"
           onChange={handleBirthdayCreation}
-          value={updateUserData["birthday"]}
+          value={updatedUserData["birthday"]}
           required
         />
         <p className="update-p">גובה (ס''מ):</p>
         <FCCustomNumberInp
-          value={updateUserData["height"]}
+          value={updatedUserData["height"]}
           ph="ס''מ"
           min={0}
           onChange={handleHeightCreation}
           required
         />
         <p className="update-p">מה את/ה אוהב/ת לעשות בזמנך הפנוי?</p>
-        <FCMultiSelect
+        {/* <FCMultiSelect
           label="תחומי עיניין"
           options={PERSONAL_INTERESTS}
           onChange={handlePersonalInterestsIdsChange}
-          value={updateUserData["personalInterestsIds"]}
-        />
+          //   value={updateUserData["personalInterestsIds"]}
+        /> */}
         <p className="update-p">
           ספר/י על עצמך:
           <span style={{ fontWeight: "200" }}></span>
@@ -290,7 +316,7 @@ export const FCUpdateProfile = () => {
           ph="כאן מספרים..."
           onChange={handleDescriptionCreation}
           required
-          value={updateUserData["description"]}
+          value={updatedUserData["description"]}
         />
         <div
           style={{

@@ -396,7 +396,7 @@ input[name="gender"] {
   color: white;
   margin: 20px 40px 10px 10px;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: bold;
 }
 .pref-h1 {
   margin-bottom: 50px;
@@ -583,3 +583,9 @@ input {
   background-color: #efe1d1;
   border-radius: 10px;
 }
+.location-home{
+  color:white;
+  margin-top: 100px;
+  
+}
+

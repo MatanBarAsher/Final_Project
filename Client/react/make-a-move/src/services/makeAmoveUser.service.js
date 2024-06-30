@@ -186,7 +186,7 @@ export const makeAmoveUserServer = {
     }
   },
 
-  GetUserByEmail: (email) =>
+  getUserByEmail: (email) =>
     axios
       .get(
         `${
