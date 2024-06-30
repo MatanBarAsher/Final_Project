@@ -157,9 +157,9 @@ using System.Net.Http;
                     userToUpdate.birthday = newUser.birthday;
                     userToUpdate.phoneNumber = newUser.phoneNumber;
                     userToUpdate.city = newUser.city;
-                    userToUpdate.personalInterestsIds = newUser.personalInterestsIds;
+                    //userToUpdate.personalInterestsIds = newUser.personalInterestsIds;
                     userToUpdate.currentPlace = newUser.currentPlace;
-                    userToUpdate.preferencesDictionary = newUser.preferencesDictionary;
+                    //userToUpdate.preferencesDictionary = newUser.preferencesDictionary;
                     userToUpdate.persoalText = newUser.persoalText;
 
 
@@ -167,6 +167,7 @@ using System.Net.Http;
 
                     // Update in the database (assuming DBservices has an UpdateUser method)
                     DBservicesUser dbs = new DBservicesUser();
+                    
                     return dbs.UpdateUser(userToUpdate);
                 }
                 else
@@ -508,7 +509,7 @@ using System.Net.Http;
 
         public User GetUserDetailsToDisplay(string email)
         {
-            try 
+            try
             {
                 User user = GetUserByEmail(email);
                 user.password = "";

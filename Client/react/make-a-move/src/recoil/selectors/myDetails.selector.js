@@ -9,7 +9,7 @@ export const myDetailsState = selector({
       city: "חרב לאת",
       height: 180,
       interests: "אופנועים, קפה, כדורגל",
-      aboutMe: "jdnvksdjnv;pdsjnv;k",
+      aboutMe: "פה אני מספר קצת על עצמי",
     };
     return DETAILS_MOCK;
   }, //get my details from service makeAmoveService.getMyDetails().then(( data ) => data )

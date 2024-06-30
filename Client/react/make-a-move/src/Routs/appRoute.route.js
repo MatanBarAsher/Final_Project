@@ -17,6 +17,7 @@ import { FCLoad } from "../loading/FCLoad";
 import { FCRecommendations } from "../screens/FCRecommendations";
 import FCMatchList from "../screens/FCMatchList";
 import FCMyProfile from "../screens/FCMyProfile/components/FCMyProfile";
+import FCCarousel from "../screens/FCCarousel";
 
 export const ROUTER = [
   { path: "/", Element: FCWellcome },
@@ -36,4 +37,5 @@ export const ROUTER = [
   { path: "/recommendations", Element: FCRecommendations },
   { path: "/matches", Element: FCMatchList },
   { path: "/updateProfile", Element: FCUpdateProfile },
+  { path: "/carousel", Element: FCCarousel },
 ];

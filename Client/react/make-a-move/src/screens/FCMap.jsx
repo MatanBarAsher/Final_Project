@@ -4,8 +4,10 @@ import locationPin from "../assets/images/locationPin1.png";
 import WomanIcon from "@mui/icons-material/Woman";
 import ManIcon from "@mui/icons-material/Man";
 import WcIcon from "@mui/icons-material/Wc";
+import FCCarousel from "./FCCarousel";
 import { useNavigate } from "react-router-dom";
 import { makeAmoveUserServer } from "../services";
+import { border } from "@mui/system";
 
 export default function FCMap({ location }) {
   const [users, setUsers] = useState([]);
@@ -26,10 +28,12 @@ export default function FCMap({ location }) {
               const user = await makeAmoveUserServer.GetUserNoPasswordByEmail(
                 email
               );
-              return { ...user, email };
+              let percentage = userEmails[email]["item1"];
+              return { ...user, percentage };
             })
           );
           console.log(userDetails);
+          console.log(userEmails);
 
           setUsers(renderIconsByGender(userDetails));
         } catch (error) {
@@ -44,25 +48,27 @@ export default function FCMap({ location }) {
   }, []);
 
   const renderIconsByGender = (users) => {
-    return users.map((user, index) => (
-      <div
-        key={user.email + index} // Ensure each icon has a unique key
-        className="icon"
-        style={{
-          top: `${Math.random() * 80}%`,
-          left: `${Math.random() * 80}%`,
-        }}
-        onClick={() => showUserDetails(user)}
-      >
-        {user.gender === 2 ? (
-          <ManIcon style={{ color: "white", fontSize: "100px" }} />
-        ) : user.gender === 1 ? (
-          <WomanIcon style={{ color: "pink", fontSize: "100px" }} />
-        ) : (
-          <WcIcon style={{ color: "grey", fontSize: "100px" }} />
-        )}
-      </div>
-    ));
+    // return users.map((user, index) => (
+    //   <div
+    //     key={user.email + index} // Ensure each icon has a unique key
+    //     className="icon"
+    //     style={{
+    //       top: `${Math.random() * 80}%`,
+    //       left: `${Math.random() * 80}%`,
+    //     }}
+    //     onClick={() => showUserDetails(user)}
+    //   >
+    //     {user.gender === 2 ? (
+    //       <ManIcon style={{ color: "white", fontSize: "100px" }} />
+    //     ) : user.gender === 1 ? (
+    //       <WomanIcon style={{ color: "pink", fontSize: "100px" }} />
+    //     ) : (
+    //       <WcIcon style={{ color: "grey", fontSize: "100px" }} />
+    //     )}
+    //   </div>
+    // ));
+    console.log(users);
+    return <FCCarousel users={users} />;
   };
 
   const showUserDetails = (user) => {

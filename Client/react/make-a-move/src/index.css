@@ -409,7 +409,7 @@ input[name="gender"] {
   position: absolute;
 }
 .icon-container {
-  padding: 50px;
+  /* padding: 50px; */
   position: absolute;
   /* top: 0;
   bottom: 200px;

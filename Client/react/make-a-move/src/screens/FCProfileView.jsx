@@ -9,27 +9,28 @@ import { useAsync } from "../hooks";
 import FCBackArrow from "../components/FCBackArrow";
 import { useRecoilValue } from "recoil";
 import { myDetailsState } from "../recoil/selectors";
+import { Percent } from "@mui/icons-material";
 
 export default function FCProfileView(userToShow) {
-  // need to use useAsync to cut the async await circular and to get the value from the async function. also have error and loading
-  const { value: user } = useAsync(
-    makeAmoveUserServer.readUsersByPreference,
-    []
-  );
-
-  const myDetails = useRecoilValue(myDetailsState);
-  console.log(myDetails);
-  const { name, age, height, city, interests, aboutMe } = myDetails;
+  console.log(userToShow);
+  // const myDetails = useRecoilValue(myDetailsState);
+  const myDetails = userToShow.userToShow;
+  const { name, age, height, image, city, interests, aboutMe, percentage } =
+    myDetails;
 
   const nextImage = () => {};
 
+  console.log(myDetails);
   return (
     <div className="overlay">
       <div className="profile-container">
         <div
           className="pBackground"
           style={{
-            backgroundImage: `url(.${background})`,
+            // backgroundImage: `url(.${background})`,
+            backgroundImage: `url(${import.meta.env.VITE_SERVER_IMAGE_SRC_URL}${
+              myDetails.image[0]
+            })`,
           }}
           onClick={nextImage}
         >
@@ -37,7 +38,7 @@ export default function FCProfileView(userToShow) {
         </div>
         <div className="bottomP">
           {/* <FCBackArrow color="white" /> */}
-          <FCMatchScore score={89} />
+          <FCMatchScore score={percentage} />
           <h2>{name}</h2>
           <p>
             <b>גיל: </b>
