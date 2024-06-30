@@ -7,13 +7,15 @@ import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import WavingHandOutlinedIcon from "@mui/icons-material/WavingHandOutlined";
 import { Navigate, useNavigate } from "react-router";
 
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 
 export default function FCSideMenu({ name, image }) {
   const Navigate = useNavigate();
   return (
     <div className="side-menu">
-      <FCCustomX color="white" />
+      <a onClick={() => Navigate("/home")}>
+        <FCCustomX color="white" />
+      </a>
       <div className="upper-side-menu">
         <h2>{name}</h2>
         <div
@@ -43,13 +45,13 @@ export default function FCSideMenu({ name, image }) {
           <StarBorderRoundedIcon />
           <p>המלצות</p>
         </a>
-        {/* <a
-          onClick={() => Navigate("")}
+        <a
+          onClick={() => Navigate("/updateProfile")}
           className="side-menu-option"
         >
-          <LocationOnOutlinedIcon />
-          <p>אימות מיקום</p>
-        </a> */}
+          <ModeEditOutlineOutlinedIcon color="white" />
+          <p>עריכת העדפות</p>
+        </a>
       </div>
       <div className="footer-side-menu">
         <a className="side-menu-option">

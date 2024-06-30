@@ -589,3 +589,8 @@ input {
   
 }
 
+.matchName{
+  width: 150px;
+  direction: rtl;
+  margin-left: 50px;
+}
