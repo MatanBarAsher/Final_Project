@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FCCustomNumberInp from "../components/FCCustomNumberInp";
-import { FCMultiSelect } from "../components/MultiSelect";
-import { PERSONAL_INTERESTS } from "../constants";
-import FCCustomBtn from "../components/FCCustomBtn";
+import FCCustomNumberInp from "../../../components/FCCustomNumberInp";
+import { FCMultiSelect } from "../../../components/MultiSelect";
+import { PERSONAL_INTERESTS } from "../../../constants";
+import FCCustomBtn from "../../../components/FCCustomBtn";
 import { Slider } from "@mui/material";
-import { makeAmoveUserServer } from "../services";
+import { makeAmoveUserServer } from "../../../services";
 
 export const FCPrecerences = () => {
   const navigate = useNavigate("");
