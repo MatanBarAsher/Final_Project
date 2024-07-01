@@ -12,7 +12,7 @@ using System.Net.Http;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+//For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Make_a_move___Server.Controllers
 {
@@ -57,10 +57,10 @@ namespace Make_a_move___Server.Controllers
 
         [HttpPost]
         [Route("UpdatePlace/{email}")]
-        public User UpdateUserCurrentPlace([FromRoute] string email, [FromBody] string placeName)
-        {   User user = new User(); 
-            return user.UpdateUserCurrentPlace(email, placeName);
-        }
+      //  public User UpdateUserCurrentPlace([FromRoute] string email, [FromBody] string placeName)
+      //  {   User user = new User(); 
+      //      return user.UpdateUserCurrentPlace(email, placeName);
+      //  }
 
 
         //// POST: api/User/AddUserToDictionary
@@ -356,6 +356,35 @@ namespace Make_a_move___Server.Controllers
             }
         }
 
+        [HttpGet("GetAllUserData/{email}")]
+        public IActionResult GetAllUserData(string email)
+        {
+            DBservicesUser dbs = new DBservicesUser();
+            try
+            {
+                // Call the function that retrieves the user details
+                User user = dbs.GetUserPreferencesByEmail(email);
+
+
+                // Call the function that retrieves the user's interest codes
+                List<string> interestCodes = dbs.GetUserInterestCodesByEmail(email);
+
+                // Create an object that contains the data
+                var result = new
+                {
+                    User = user,
+                    InterestCodes = interestCodes
+                };
+
+                // Return the result as an OK response
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // In case of an error, return a bad request with the error message
+                return BadRequest($"Failed to retrieve user data: {ex.Message}");
+            }
+        }
 
 
 
