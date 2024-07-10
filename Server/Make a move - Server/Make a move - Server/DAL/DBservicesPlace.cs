@@ -84,7 +84,7 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@name", place.Name);
 
-            cmd.Parameters.AddWithValue("@adress", place.Adress);
+            cmd.Parameters.AddWithValue("@address", place.Address);
 
             cmd.Parameters.AddWithValue("@typeOfPlace", place.TypeOfPlace);
 
@@ -122,8 +122,8 @@ namespace Make_a_move___Server.DAL
                     Place p = new Place();
                     p.PlaceCode = Convert.ToInt32(dataReader["placeCode"]);
                     p.Name = dataReader["name"].ToString();
-                    p.Adress = dataReader["adress"].ToString();
-                    p.TypeOfPlace = dataReader["adress"].ToString();
+                    p.Address = dataReader["address"].ToString();
+                    p.TypeOfPlace = dataReader["typeOfPlace"].ToString();
 
                     placeList.Add(p);
                 }
@@ -197,8 +197,8 @@ namespace Make_a_move___Server.DAL
                     {
                         PlaceCode = Convert.ToInt32(dataReader["placeCode"]),
                         Name = dataReader["name"].ToString(),
-                        Adress = dataReader["adress"].ToString(),
-                        TypeOfPlace = dataReader["adress"].ToString()
+                        Address = dataReader["address"].ToString(),
+                        TypeOfPlace = dataReader["typeOfPlace"].ToString()
                 };
                 }
 
@@ -252,7 +252,7 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@name", place.Name);
 
-            cmd.Parameters.AddWithValue("@adress", place.Adress);
+            cmd.Parameters.AddWithValue("@address", place.Address);
 
             cmd.Parameters.AddWithValue("@typeOfPlace", place.TypeOfPlace);
 

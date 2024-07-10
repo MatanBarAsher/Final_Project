@@ -38,7 +38,7 @@ namespace Make_a_move___Server.DAL
                 throw (ex);
             }
 
-            cmd = CreateFeedbackInsertCommandWithStoredProcedure("SP_InsertNewFeedback", con, feedback);  // create the command
+            cmd = CreateFeedbackInsertCommandWithStoredProcedure("InsertFeedback", con, feedback);  // create the command
 
             try
             {
@@ -80,13 +80,13 @@ namespace Make_a_move___Server.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
-            cmd.Parameters.AddWithValue("@serialNumber", feedback.SerialNumber);
-            cmd.Parameters.AddWithValue("@feedbackDescription", feedback.FeddbackDescription);
-            cmd.Parameters.AddWithValue("@firstOption", feedback.FirstOption);
-            cmd.Parameters.AddWithValue("@secontOption", feedback.SecontOption);
-            cmd.Parameters.AddWithValue("@thirdOption", feedback.ThirdOption);
-            cmd.Parameters.AddWithValue("@fourthdOption", feedback.FourthdOption);
-            cmd.Parameters.AddWithValue("@required", feedback.Required);
+            cmd.Parameters.AddWithValue("@email", feedback.Email);
+            cmd.Parameters.AddWithValue("@matchId", feedback.MatchId);
+            cmd.Parameters.AddWithValue("@בעל_מאפיינים_דומים_למה_שאני_מחפשת", feedback.Q11);
+            cmd.Parameters.AddWithValue("@התמונות_תואמות_למציאות", feedback.Q21);
+            cmd.Parameters.AddWithValue("@תחומי_העניין_ששתיפ_ה_עזרו_לי_לפתח_איתו_ה_שיחה", feedback.Q31);
+            cmd.Parameters.AddWithValue("@הייתי_רוצה_להיפגש_איתו_שוב", feedback.Q41);
+            cmd.Parameters.AddWithValue("@עם_מי_בילית_היום", feedback.Name);
 
             return cmd;
         }
@@ -120,15 +120,15 @@ namespace Make_a_move___Server.DAL
                 while (dataReader.Read())
                 {
                     Feedback f = new Feedback();
-                    f.SerialNumber= Convert.ToInt32(dataReader["serialNumber"]);
-                    f.FeddbackDescription = dataReader["feedbackDescription"].ToString();
-                    f.FirstOption = dataReader["firstOption"].ToString();
-                    f.SecontOption = dataReader["secontOption"].ToString();
-                    f.ThirdOption = dataReader["thirdOption"].ToString();
-                    f.FourthdOption = dataReader["FourthdOption"].ToString();
-                    f.Required = Convert.ToBoolean(dataReader["required"]);
-                    
-    
+                    f.Email = dataReader["Email"].ToString();
+                    f.MatchId = Convert.ToInt32(dataReader["matchId"]);
+                    f.Q11 = Convert.ToInt32(dataReader["בעל מאפיינים דומים למה שאני מחפשת"]);
+                    f.Q21 = Convert.ToInt32(dataReader["התמונות תואמות למציאות"]);
+                    f.Q31 = Convert.ToInt32(dataReader["[תחומי העניין ששתיפ_ה עזרו לי לפתח איתו_ה שיחה]"]);
+                    f.Q41 = Convert.ToInt32(dataReader["הייתי רוצה להיפגש איתו שוב"]);
+                    f.Name = dataReader["FourthdOption"].ToString();
+
+
 
 
                     feedbackList.Add(f);
@@ -199,15 +199,18 @@ namespace Make_a_move___Server.DAL
 
                 while (dataReader.Read())
                 {
-                    f = new Feedback            
+                    f = new Feedback
                     {
-                    SerialNumber = Convert.ToInt32(dataReader["serialNumber"]),
-                    FeddbackDescription = dataReader["feedbackDescription"].ToString(),
-                    FirstOption = dataReader["firstOption"].ToString(),
-                    SecontOption = dataReader["secontOption"].ToString(),
-                    ThirdOption = dataReader["thirdOption"].ToString(),
-                    FourthdOption = dataReader["FourthdOption"].ToString(),
-                    Required = Convert.ToBoolean(dataReader["required"])
+                    Email = dataReader["Email"].ToString(),
+                    MatchId = Convert.ToInt32(dataReader["matchId"]),
+                    Q11 = Convert.ToInt32(dataReader["בעל מאפיינים דומים למה שאני מחפשת"]),
+                    Q21 = Convert.ToInt32(dataReader["התמונות תואמות למציאות"]),
+                    Q31 = Convert.ToInt32(dataReader["[תחומי העניין ששתיפ_ה עזרו לי לפתח איתו_ה שיחה]"]),
+                    Q41 = Convert.ToInt32(dataReader["הייתי רוצה להיפגש איתו שוב"]),
+                    Name = dataReader["FourthdOption"].ToString()
+
+
+
 
                 };
                 }
@@ -257,13 +260,15 @@ namespace Make_a_move___Server.DAL
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
 
-            cmd.Parameters.AddWithValue("@serialNumber", feedback.SerialNumber);
-            cmd.Parameters.AddWithValue("@feedbackDescription", feedback.FeddbackDescription);
-            cmd.Parameters.AddWithValue("@firstOption", feedback.FirstOption);
-            cmd.Parameters.AddWithValue("@secontOption", feedback.SecontOption);
-            cmd.Parameters.AddWithValue("@thirdOption", feedback.ThirdOption);
-            cmd.Parameters.AddWithValue("@fourthdOption", feedback.FourthdOption);
-            cmd.Parameters.AddWithValue("@required", feedback.Required);
+
+            cmd.Parameters.AddWithValue("@email", feedback.Email);
+            cmd.Parameters.AddWithValue("@matchId", feedback.MatchId);
+            cmd.Parameters.AddWithValue("@בעל_מאפיינים_דומים_למה_שאני_מחפשת", feedback.Q11);
+            cmd.Parameters.AddWithValue("@התמונות_תואמות_למציאות", feedback.Q21);
+            cmd.Parameters.AddWithValue("@תחומי_העניין_ששתיפ_ה_עזרו_לי_לפתח_איתו_ה_שיחה", feedback.Q31);
+            cmd.Parameters.AddWithValue("@הייתי_רוצה_להיפגש_איתו_שוב", feedback.Q41);
+            cmd.Parameters.AddWithValue("@עם_מי_בילית_היום", feedback.Name);
+
 
 
             return cmd;

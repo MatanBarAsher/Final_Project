@@ -17,7 +17,7 @@ namespace Make_a_move___Server.DAL
             return con;
         }
 
-      
+     
        //--------------------------------------------------------------------------------------------------
        // This method Inserts a User to the Users table 
        // --------------------------------------------------------------------------------------------------
@@ -156,7 +156,7 @@ namespace Make_a_move___Server.DAL
                     //u.PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString());
                     u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]);
                     u.PersoalText = dataReader["persoalText"].ToString();
-                    
+                     
 
                     usersList.Add(u);
                 }
@@ -775,8 +775,6 @@ namespace Make_a_move___Server.DAL
                     con.Close();
                 }
             }
-
-
         }
 
 
@@ -919,9 +917,6 @@ namespace Make_a_move___Server.DAL
 
         return cmd;
     }
-
-
-
 
     public int AddImage(byte[] imageData, string mimeType)
         {
@@ -1236,9 +1231,59 @@ namespace Make_a_move___Server.DAL
         }
 
 
+        public List<string> GetFriendsNames(string email)
+        {
+            SqlConnection con = null;
+            SqlCommand cmd;
+            List<string> friendsList = new List<string>();
+
+            try
+            {
+                con = connect("myProjDB");
+                cmd = CreateSelectFriendsWithStoredProcedure("SP_getFrinedsList", con, email);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string friendName = reader["עם מי בילית היום"].ToString();
+                    friendsList.Add(friendName);
+                }
+
+                reader.Close();
+                return friendsList;
+            }
+            catch (Exception ex)
+            {
+                // Handle exception, log error, etc.
+                throw ex;
+            }
+            finally
+            {
+                if (con != null && con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
+        }
+
+        private SqlCommand CreateSelectFriendsWithStoredProcedure(string spName, SqlConnection con, string email)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = CommandType.StoredProcedure; // the type of the command, can also be text
+
+            cmd.Parameters.AddWithValue("@email", email); // Add parameter for email
+
+            return cmd;
+        }
 
 
-
-
-    }
+        }
 }

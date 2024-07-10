@@ -26,11 +26,11 @@ namespace Make_a_move___Server.Controllers
         }
 
 
-        [HttpPut("Update")]
-        public Feedback Update([FromBody] Feedback feedback)
-        {
-            return feedback.UpdateFeedback(feedback);
-        }
+        //[HttpPut("Update")]
+        //public Feedback Update([FromBody] Feedback feedback)
+        //{
+        //    return feedback.UpdateFeedback(feedback);
+        //}
 
     }
 }
