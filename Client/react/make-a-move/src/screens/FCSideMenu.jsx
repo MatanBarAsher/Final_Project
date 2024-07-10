@@ -5,8 +5,18 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import WavingHandOutlinedIcon from "@mui/icons-material/WavingHandOutlined";
+import { Navigate, useNavigate } from "react-router";
+import FCMyProfile from "./FCMyProfile/components/FCMyProfile";
+import { makeAmoveUserServer } from "../services";
 
-export default function FCSideMenu({ name, image }) {
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+
+export default function FCSideMenu({ name }) {
+  const Navigate = useNavigate();
+  const email = JSON.parse(localStorage.getItem("current-email"));
+  console.log(email);
+  makeAmoveUserServer.GetImagesByEmail(email).then((res) => console.log(res));
+
   return (
     <div className="side-menu">
       <FCCustomX color="white" />
@@ -24,18 +34,28 @@ export default function FCSideMenu({ name, image }) {
         ></div>
       </div>
       <div className="lower-side-menu">
-        <a className="side-menu-option">
+        <a onClick={() => Navigate("/myProfile")} className="side-menu-option">
           <PersonOutlineOutlinedIcon />
           <p>אזור אישי</p>
         </a>
-        <a className="side-menu-option">
+        <a onClick={() => Navigate("/matches")} className="side-menu-option">
           <FavoriteBorderIcon />
           <p>רשימת התאמות</p>
         </a>
-        <a className="side-menu-option">
+        <a
+          onClick={() => Navigate("/recommendations")}
+          className="side-menu-option"
+        >
           <StarBorderRoundedIcon />
           <p>המלצות</p>
         </a>
+        {/* <a
+          onClick={() => Navigate("")}
+          className="side-menu-option"
+        >
+          <LocationOnOutlinedIcon />
+          <p>אימות מיקום</p>
+        </a> */}
       </div>
       <div className="footer-side-menu">
         <a className="side-menu-option">

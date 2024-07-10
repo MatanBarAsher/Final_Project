@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { SIGNUP_INIT_DATA } from "./constants/signup.constants";
+import { SIGNUP_INIT_DATA } from "../../constants";
 
 const SignUpContext = createContext();
 

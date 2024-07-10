@@ -59,7 +59,7 @@ const FCSignIn = () => {
             open={showSuccessModal}
             setClose={() => {
               setShowSuccessModal(false);
-              navigate("/location");
+              navigate("/home");
             }}
           />
           <ErrorDialog

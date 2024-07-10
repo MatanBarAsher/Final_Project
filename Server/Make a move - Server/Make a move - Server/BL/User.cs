@@ -162,6 +162,7 @@ using System.Net.Http;
 
                     // Update in the database (assuming DBservices has an UpdateUser method)
                     DBservicesUser dbs = new DBservicesUser();
+                    
                     return dbs.UpdateUser(userToUpdate);
                 }
                 else
@@ -500,6 +501,20 @@ using System.Net.Http;
             }
         }
 
+        public User GetUserDetailsToDisplay(string email)
+        {
+            try
+            {
+                User user = GetUserByEmail(email);
+                user.password = "";
+                return user;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error getting user to show by email", ex);
+            }
+        }
 
         public User GetUserPreferencesByEmail(string email)
         {
@@ -677,17 +692,33 @@ using System.Net.Http;
             }
         }
 
+        public string[] getImagesByEmail(string email)
+        {
+             try
+            {
+                DBservicesUser dbs = new DBservicesUser();
+                return dbs.GetUserByEmail(email).image;
+            } 
+            
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error getting Image", ex);
+            }
+        }
+
+
         public int AddLike(string userEmail, string likedUserEmail, int currentplace)
         {
             try
             {
                 DBservicesUser dbs = new DBservicesUser();
                 return dbs.AddLike(userEmail, likedUserEmail, currentplace);
-            }
-            catch (Exception ex)
+            }    
+             catch (Exception ex)
             {
                 // Log or handle the exception appropriately
-                throw new Exception("Error inserting Image", ex);
+                throw new Exception("Error adding like", ex);
             }
 
         }

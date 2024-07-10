@@ -291,11 +291,18 @@ namespace Make_a_move___Server.Controllers
 
         [HttpGet]
         [Route("GetUserByEmail/{email}")]
-
         public User GetUserByEmail([FromRoute] string email)
         {
             User _service = new();
             return _service.GetUserByEmail(email);
+        }
+
+        [HttpGet]
+        [Route("GetUserDetailsNoPasswordByEmail/{email}")]
+        public User GetUserDetailsByEmail([FromRoute] string email)
+        {
+            User _service = new();  
+            return _service.GetUserDetailsToDisplay(email);
         }
 
         [HttpPost]
@@ -385,7 +392,13 @@ namespace Make_a_move___Server.Controllers
                 return BadRequest($"Failed to retrieve user data: {ex.Message}");
             }
         }
+        [HttpGet("getImagesByEmail/{email}")]
 
+        public string[] getImagesByEmail(string email)
+        {
+            User user = new();
+            return user.getImagesByEmail(email);
+        }
 
 
     }
