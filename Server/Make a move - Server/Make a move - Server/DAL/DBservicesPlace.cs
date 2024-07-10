@@ -122,8 +122,8 @@ namespace Make_a_move___Server.DAL
                     Place p = new Place();
                     p.PlaceCode = Convert.ToInt32(dataReader["placeCode"]);
                     p.Name = dataReader["name"].ToString();
-                    p.Adress = dataReader["adress"].ToString();
-                    p.TypeOfPlace = dataReader["adress"].ToString();
+                    p.Adress = dataReader["address"].ToString();
+                    p.TypeOfPlace = dataReader["address"].ToString();
 
                     placeList.Add(p);
                 }

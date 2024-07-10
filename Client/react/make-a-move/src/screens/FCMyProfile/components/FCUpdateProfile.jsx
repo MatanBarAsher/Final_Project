@@ -26,6 +26,7 @@ export const FCUpdateProfile = () => {
 
   const userEmail = JSON.parse(localStorage.getItem("current-email"));
   console.log(userEmail);
+  console.log(updatedUserData);
 
   const getUserFunc = useCallback(async () =>
     makeAmoveUserServer

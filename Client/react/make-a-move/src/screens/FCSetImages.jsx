@@ -14,7 +14,7 @@ export default function FCSetImages() {
     const currentEmail = JSON.parse(localStorage.getItem("current-email"));
     if (currentEmail) {
       makeAmoveUserServer
-        .GetUserByEmail(currentEmail)
+        .getUserByEmail(currentEmail)
         .then((userData) => {
           setUser(userData); // Set user state with retrieved data
         })

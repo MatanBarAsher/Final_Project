@@ -17,6 +17,7 @@ export default function FCProfileView(userToShow) {
   const myDetails = userToShow.userToShow;
   const { name, age, height, image, city, interests, aboutMe, percentage } =
     myDetails;
+  console.log(myDetails);
 
   const nextImage = () => {};
 

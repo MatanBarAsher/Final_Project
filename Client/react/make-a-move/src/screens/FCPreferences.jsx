@@ -163,7 +163,7 @@ export const FCPrecerences = () => {
             max={250}
           /> */}
         {/* </span> */}
-        <p className="preference-p">
+        {/* <p className="preference-p">
           שאוהבת
           <br />
           (במידה ולא יוגדר נחפש התאמות לפרופילים עם תחומי עניין דומים לשלך)
@@ -174,7 +174,7 @@ export const FCPrecerences = () => {
           options={PERSONAL_INTERESTS}
           onChange={handleInterestsCreation}
           value={precerencesData["preferedInterests"]}
-        />
+        /> */}
         <div
           style={{
             display: "flex",
