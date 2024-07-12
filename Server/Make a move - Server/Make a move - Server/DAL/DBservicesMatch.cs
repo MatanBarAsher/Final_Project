@@ -84,6 +84,8 @@ namespace Make_a_move___Server.DAL
 
             //cmd.Parameters.AddWithValue("@isMatch", match.IsMatch);
 
+            cmd.Parameters.AddWithValue("@placeCode", match.PlaceCode);
+
             cmd.Parameters.AddWithValue("@feedback", match.Feedback);
 
 

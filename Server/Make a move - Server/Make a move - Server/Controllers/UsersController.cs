@@ -12,7 +12,7 @@ using System.Net.Http;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+//For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Make_a_move___Server.Controllers
 {
@@ -58,26 +58,27 @@ namespace Make_a_move___Server.Controllers
         [HttpPost]
         [Route("UpdatePlace/{email}")]
         public User UpdateUserCurrentPlace([FromRoute] string email, [FromBody] string placeName)
-        {   User user = new User(); 
+        {
+            User user = new User();
             return user.UpdateUserCurrentPlace(email, placeName);
         }
 
 
-        //// POST: api/User/AddUserToDictionary
-        //[HttpPost("AddUserToDictionary")]
-        //public IActionResult AddUserToDictionary(string firstEmail, string secondEmail)
-        //{
-        //    try
-        //    {
-        //        User user = new User { Email = firstEmail };
-        //        user.AddToDictionary(firstEmail,secondEmail);
-        //        return Ok("User added to dictionary successfully.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"An error occurred: {ex.Message}");
-        //    }
-        //}
+        // POST: api/User/AddUserToDictionary
+        [HttpPost("AddUserToDictionary")]
+        public IActionResult AddUserToDictionary(string firstEmail, string secondEmail)
+        {
+            try
+            {
+                User user = new User { Email = firstEmail };
+                user.AddToDictionary(firstEmail, secondEmail);
+                return Ok("User added to dictionary successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
 
         [HttpPost("RemoveFromDictionary")]
         public IActionResult RemoveFromDictionary(string email)
@@ -130,7 +131,7 @@ namespace Make_a_move___Server.Controllers
         }
 
         [HttpPost("LikeUser")]
-        public IActionResult LikeUser(string userEmail, string likedUserEmail)
+        public IActionResult LikeUser(string userEmail, string likedUserEmail, int currentplace)
         {
             try
             {
@@ -142,7 +143,7 @@ namespace Make_a_move___Server.Controllers
 
                 if (isLiked)
                 {
-                    Match match = new Match(userEmail, likedUserEmail);
+                    Match match = new Match(userEmail, likedUserEmail, currentplace);
                     int result = match.InsertMatch();
                     // Return message if the user is already liked
                     return Ok("We have a match!");
@@ -363,6 +364,35 @@ namespace Make_a_move___Server.Controllers
             }
         }
 
+        [HttpGet("GetAllUserData/{email}")]
+        public IActionResult GetAllUserData(string email)
+        {
+            DBservicesUser dbs = new DBservicesUser();
+            try
+            {
+                // Call the function that retrieves the user details
+                User user = dbs.GetUserPreferencesByEmail(email);
+
+
+                // Call the function that retrieves the user's interest codes
+                List<string> interestCodes = dbs.GetUserInterestCodesByEmail(email);
+
+                // Create an object that contains the data
+                var result = new
+                {
+                    User = user,
+                    InterestCodes = interestCodes
+                };
+
+                // Return the result as an OK response
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // In case of an error, return a bad request with the error message
+                return BadRequest($"Failed to retrieve user data: {ex.Message}");
+            }
+        }
         [HttpGet("getImagesByEmail/{email}")]
 
         public string[] getImagesByEmail(string email)
@@ -371,9 +401,32 @@ namespace Make_a_move___Server.Controllers
             return user.getImagesByEmail(email);
         }
 
+        
+
+        // GET api/user/friends/{email}
+        [HttpGet("friends/{email}")]
+        public IActionResult GetFriendsNames(string email)
+        {
+            DBservicesUser dbs = new DBservicesUser();
+            try
+            {
+                List<string> friendsList = dbs.GetFriendsNames(email);
+                return Ok(friendsList);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Failed to retrieve user friendsList: {ex.Message}");
+            }
+        }
+
+
+
+
+
 
     }
 
-}
+
+        }
 
 

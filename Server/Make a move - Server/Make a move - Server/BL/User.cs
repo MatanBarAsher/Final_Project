@@ -37,7 +37,7 @@ using System.Net.Http;
 
         public User() { }
 
-        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, string[] personalInterestsIds, int currentPlace, string persoalText, Dictionary<string, string> preferencesDictionary)
+        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, int currentPlace, string persoalText, Dictionary<string, string> preferencesDictionary, string[] personalInterestsIds)
         {
             this.email = email;
             this.firstName = firstName;
@@ -67,12 +67,11 @@ using System.Net.Http;
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public bool IsActive { get => isActive; set => isActive = value; }
         public string City { get => city; set => city = value; }
-        public string[] PersonalInterestsIds { get => personalInterestsIds; set => personalInterestsIds = value; }
+       // public string[] PersonalInterestsIds { get => personalInterestsIds; set => personalInterestsIds = value; }
         public int CurrentPlace { get => currentPlace; set => currentPlace = value; }
         public string PersoalText { get => persoalText; set => persoalText = value; }
         public Dictionary<string, string> PreferencesDictionary { get => preferencesDictionary; set => preferencesDictionary = value; }
 
-        
 
 
         public int InsertUser()
@@ -105,9 +104,6 @@ using System.Net.Http;
         }
 
 
-
-
-
         public User CheckLogin()
         {
             try
@@ -137,7 +133,6 @@ using System.Net.Http;
         public User UpdateUser(User newUser)
         {
             try
-
             {
                 DBservicesUser dbs1 = new DBservicesUser();
                 List<User> list = dbs1.ReadUsers();
@@ -146,7 +141,7 @@ using System.Net.Http;
 
                 if (userToUpdate != null)
                 {
-                    // Update user information
+                    // Update user informationYarin@gmail.com
                     userToUpdate.FirstName = newUser.FirstName;
                     userToUpdate.LastName = newUser.LastName;
                     userToUpdate.Password = newUser.Password;
@@ -197,7 +192,6 @@ using System.Net.Http;
                 if (userToUpdate != null)
                 {
                         Place place = new Place();
-
                         // Update the currentPlace field
                         userToUpdate.CurrentPlace = place.checkExistingPlaceByName(placeName);
 
@@ -315,6 +309,8 @@ using System.Net.Http;
             double response = await user.GetData(cityCode1, cityCode2);
             return response;
         }
+
+
 
         public async Task< Dictionary<User, Tuple<double, double>>> CalculateMatchPercentage(User u)
         {
