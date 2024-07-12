@@ -21,7 +21,7 @@ export const FCPrecerences = () => {
     maxDistance: 0,
     preferedInterests: [],
     ageRange: [18, 80],
-    minHeight: [120, 250],
+    heightRange: [120, 250],
   });
   console.log(precerencesData);
 
@@ -42,7 +42,7 @@ export const FCPrecerences = () => {
     setPrecerencesData((prev) => ({ ...prev, ["ageRange"]: newValue }));
   };
   const handleHeightRangeChange = (event, newValue) => {
-    setPrecerencesData((prev) => ({ ...prev, ["minHeight"]: newValue }));
+    setPrecerencesData((prev) => ({ ...prev, ["heightRange"]: newValue }));
   };
 
   const handleInterestsCreation = (event) => {
@@ -64,10 +64,9 @@ export const FCPrecerences = () => {
       if (response) {
         console.log("success");
         console.log(response);
-        navigate("/profile");
+        navigate("/home");
       } else {
         console.log("failure");
-        navigate("/home");
       }
     });
   };
@@ -135,7 +134,7 @@ export const FCPrecerences = () => {
         <span className="range">
           <Slider
             getAriaLabel={() => "Temperature range"}
-            value={precerencesData["minHeight"]}
+            value={precerencesData["heightRange"]}
             onChange={handleHeightRangeChange}
             valueLabelDisplay="on"
             className="slider"

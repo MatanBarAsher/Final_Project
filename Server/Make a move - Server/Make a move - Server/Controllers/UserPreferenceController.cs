@@ -9,11 +9,13 @@ using Microsoft.AspNetCore.Http;
 
 namespace Make_a_move___Server.Controllers
 {
-    public class UserPreferenceController : Controller
+        [Route("api/[controller]")]
+        [ApiController]
+    public class UserPreferenceController : ControllerBase
     {
 
         // GET:  api/<UserPreferenceController>
-        [HttpGet("Read")]
+        [HttpGet]
         public List<UserPreferences> ReadUserPreference()
         {
             UserPreferences userPreferences = new UserPreferences();
@@ -21,22 +23,22 @@ namespace Make_a_move___Server.Controllers
         }
 
         // POST :  api/<UserPreferenceController>
-        [HttpPost("Insert")]
+        [HttpPost]
         public int Post([FromBody] UserPreferences userPreferences)
         {
             return userPreferences.InsertUserPreference();
         }
 
-        [HttpPut("Update")]
+        [HttpPut]
         public UserPreferences Update([FromBody] UserPreferences userPreferences)
         {
             return userPreferences.UpdateUserPreferences(userPreferences);
         }
 
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
     }
 }

@@ -178,7 +178,7 @@ using System.Net.Http;
             }
         }
 
-        public User UpdateUserCurrentPlace(string email, string placeName)
+        public User UpdateUserCurrentPlace(string email, Place place)
         {
             try
             {
@@ -191,9 +191,21 @@ using System.Net.Http;
 
                 if (userToUpdate != null)
                 {
-                        Place place = new Place();
+                        Place place1 = new Place();
+                    // check if this place exists
+                    DBservicesPlace dbs2 = new DBservicesPlace();
+                    List<Place> places = dbs2.ReadPlaces();
+                    Place retrivePlace = new Place();
+                    if (places.Find(p => string.Equals(p.Name.Trim()+p.Address.Trim(), place.Name.Trim()+place.Address.Trim())) == null)
+                    { 
+                        userToUpdate.CurrentPlace = dbs2.InsertPlace(place);
+                    }
+                    else {
+                        retrivePlace = places.Find(p => string.Equals(p.Name.Trim() + p.Address.Trim(), place.Name.Trim() + place.Address.Trim()));
                         // Update the currentPlace field
-                        userToUpdate.CurrentPlace = place.checkExistingPlaceByName(placeName);
+                        userToUpdate.CurrentPlace = retrivePlace.PlaceCode;
+                    }
+
 
                         // Update in the database
                         DBservicesUser dbs = new DBservicesUser();

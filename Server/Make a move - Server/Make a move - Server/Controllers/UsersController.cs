@@ -57,10 +57,10 @@ namespace Make_a_move___Server.Controllers
 
         [HttpPost]
         [Route("UpdatePlace/{email}")]
-        public User UpdateUserCurrentPlace([FromRoute] string email, [FromBody] string placeName)
+        public User UpdateUserCurrentPlace([FromRoute] string email, [FromBody] Place place)
         {
             User user = new User();
-            return user.UpdateUserCurrentPlace(email, placeName);
+            return user.UpdateUserCurrentPlace(email, place);
         }
 
 

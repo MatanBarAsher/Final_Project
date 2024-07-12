@@ -36,6 +36,10 @@ namespace Make_a_move___Server.BL
             try
             {
                 DBservicesPlace dbs = new DBservicesPlace();
+                List<Place> places = dbs.ReadPlaces();
+                Console.WriteLine(places.Count);
+                int newCode = places[places.Count].placeCode + 1;
+                this.placeCode = newCode;
                 placesList.Add(this);
                 return dbs.InsertPlace(this);
             }

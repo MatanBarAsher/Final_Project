@@ -14,7 +14,19 @@ const FCLocation = () => {
   const navigate = useNavigate();
 
   const handleLocationChange = (e) => {
-    setValue(e.value.description);
+    const tempDetails = e.value.description.split(",");
+    let tempString = "";
+    tempDetails.forEach((element) => {
+      if (tempDetails.indexOf(element) > 0) {
+        tempString += element + ", ";
+      }
+    });
+    const placeToAdd = {
+      name: tempDetails[0],
+      address: tempString,
+    };
+    console.log(placeToAdd);
+    setValue(placeToAdd);
     console.log(e.value.description);
   };
 
