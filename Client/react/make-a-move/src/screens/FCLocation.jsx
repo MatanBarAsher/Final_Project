@@ -56,7 +56,7 @@ const FCLocation = () => {
 
       {!isLoading && ( // Render the form and other content only if isLoading is false
         <>
-          <FCHamburger />
+          {/* <FCHamburger /> */}
           <img src={"." + logo} className="logoSM" />
           <h1>אישור מיקום:</h1>
           <div>

@@ -6,7 +6,7 @@ import {
 } from "../screens";
 import FCLocation from "../screens/FCLocation";
 import FCMap from "../screens/FCMap";
-import { FCPrecerences } from "../screens/FCPreferences";
+import { FCPrecerences } from "../screens/Preferences/components/FCPreferences";
 import FCProfileView from "../screens/FCProfileView";
 import FCSetImages from "../screens/FCSetImages";
 import FCSignIn from "../screens/SignIn/FCSign-in";
@@ -19,6 +19,7 @@ import FCMatchList from "../screens/FCMatchList";
 import FCMyProfile from "../screens/FCMyProfile/components/FCMyProfile";
 import FCCarousel from "../screens/FCCarousel";
 import { FCHome } from "../screens/FCHome";
+import { FCUpdatePreferences } from "../screens/Preferences/components/FCUpdatePreferences";
 
 export const ROUTER = [
   { path: "/", Element: FCWellcome },
@@ -39,5 +40,6 @@ export const ROUTER = [
   { path: "/matches", Element: FCMatchList },
   { path: "/updateProfile", Element: FCUpdateProfile },
   { path: "/carousel", Element: FCCarousel },
+  { path: "/updatePreferences", Element: FCUpdatePreferences },
   { path: "/home", Element: FCHome },
 ];

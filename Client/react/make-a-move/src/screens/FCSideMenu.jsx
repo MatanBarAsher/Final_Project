@@ -9,7 +9,7 @@ import { Navigate, useNavigate } from "react-router";
 import FCMyProfile from "./FCMyProfile/components/FCMyProfile";
 import { makeAmoveUserServer } from "../services";
 
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 
 export default function FCSideMenu({ name }) {
   const Navigate = useNavigate();
@@ -19,7 +19,9 @@ export default function FCSideMenu({ name }) {
 
   return (
     <div className="side-menu">
-      <FCCustomX color="white" />
+      <a onClick={() => Navigate("/home")}>
+        <FCCustomX color="white" />
+      </a>
       <div className="upper-side-menu">
         <h2>{name}</h2>
         <div
@@ -49,13 +51,13 @@ export default function FCSideMenu({ name }) {
           <StarBorderRoundedIcon />
           <p>המלצות</p>
         </a>
-        {/* <a
-          onClick={() => Navigate("")}
+        <a
+          onClick={() => Navigate("/updatePreferences")}
           className="side-menu-option"
         >
-          <LocationOnOutlinedIcon />
-          <p>אימות מיקום</p>
-        </a> */}
+          <ModeEditOutlineOutlinedIcon color="white" />
+          <p>עריכת העדפות</p>
+        </a>
       </div>
       <div className="footer-side-menu">
         <a className="side-menu-option">

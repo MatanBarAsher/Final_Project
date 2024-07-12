@@ -185,6 +185,13 @@ export const FCUpdateProfile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    changeUpdatedUserData("personalInterestsIds", ["1"]);
+    makeAmoveUserServer
+      .updateUser(updatedUserData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((res) => console.log(res));
 
     // if (validateForm()) {
     //   setCurrentStep((prev) => prev + 1);
@@ -197,7 +204,7 @@ export const FCUpdateProfile = () => {
         <FCCustomX color="white" />
         <h1>עריכת פרופיל</h1>
       </div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <p className="update-p">דוא"ל:</p>
         <FCCustomMailInp
           ph={"דוא''ל"}
@@ -214,7 +221,6 @@ export const FCUpdateProfile = () => {
           onChange={handlePhoneCreation}
           error={!!errors.find((error) => error === "phoneNumber")}
           required
-          readOnly
         />
         {errors.includes("phoneNumber") && (
           <p className="error-message">

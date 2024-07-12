@@ -19,8 +19,12 @@ export default function FCMatchList() {
             marginRight: 210,
             border: "4px solid white",
             borderRadius: "50%",
+            float: "left",
           }}
         ></div>
+        <div className="matchName" style={{ marginLeft: 110 }}>
+          <p> מתן בר אשר</p>
+        </div>
       </div>
     </div>
   );
