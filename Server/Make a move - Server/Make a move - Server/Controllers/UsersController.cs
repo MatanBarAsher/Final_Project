@@ -331,8 +331,9 @@ namespace Make_a_move___Server.Controllers
         }
 
         // POST api/user/addpersonalinterests
-        [HttpPost("addpersonalinterests")]
-        public IActionResult AddPersonalInterests(string email, List<int> interestCodes)
+        [HttpPost]
+        [Route("addpersonalinterests/{email}")]
+        public IActionResult AddPersonalInterests([FromRoute] string email,[FromBody] List<int> interestCodes)
         {
             DBservicesUser dbs = new DBservicesUser();
             try

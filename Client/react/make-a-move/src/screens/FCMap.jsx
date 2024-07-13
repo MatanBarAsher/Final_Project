@@ -90,7 +90,7 @@ export default function FCMap({ location }) {
             style={{ margin: 15 }}
             alt="Location Pin"
           />
-          <h3>{location ? location : currentPlace.placeName}</h3>
+          <h3>{location ? location : currentPlace.name}</h3>
         </div>
       </div>
     </>

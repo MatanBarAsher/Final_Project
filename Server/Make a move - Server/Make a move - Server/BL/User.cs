@@ -198,7 +198,8 @@ using System.Net.Http;
                     Place retrivePlace = new Place();
                     if (places.Find(p => string.Equals(p.Name.Trim()+p.Address.Trim(), place.Name.Trim()+place.Address.Trim())) == null)
                     { 
-                        userToUpdate.CurrentPlace = dbs2.InsertPlace(place);
+                        int counter = place.InsertPlace();
+                        userToUpdate.CurrentPlace = counter;
                     }
                     else {
                         retrivePlace = places.Find(p => string.Equals(p.Name.Trim() + p.Address.Trim(), place.Name.Trim() + place.Address.Trim()));

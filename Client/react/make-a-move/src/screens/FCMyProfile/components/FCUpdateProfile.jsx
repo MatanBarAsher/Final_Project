@@ -33,7 +33,10 @@ export const FCUpdateProfile = () => {
       .getUserByEmail(userEmail)
       .then((res) => {
         console.log(res);
+        res.birthday = res.birthday.split("T")[0];
+        console.log(res);
         setUpdatedUserData(res);
+        setGender(res.gender);
       })
       .catch((res) => console.log(res))
   );
@@ -42,6 +45,16 @@ export const FCUpdateProfile = () => {
     getUserFunc();
   }, []);
 
+  var genders = [
+    { label: "אישה", id: 1 },
+    { label: "גבר", id: 2 },
+    { label: "אחר", id: 3 },
+  ];
+  const [gender, setGender] = useState(null);
+  const handleGenderCreation = (id) => {
+    setGender(id);
+    changeUpdatedUserData("gender", id);
+  };
   // makeAmoveUserServer
   //       .getUserByEmail(userEmail)
   //       .then((res) => {
@@ -95,16 +108,6 @@ export const FCUpdateProfile = () => {
     changeUpdatedUserData("lastName", e.target.value);
   };
 
-  var genders = [
-    { label: "אישה", id: 1 },
-    { label: "גבר", id: 2 },
-    { label: "אחר", id: 3 },
-  ];
-  const [gender, setGender] = useState(null);
-  const handleGenderCreation = (id) => {
-    setGender(id);
-    changeUpdatedUserData("gender", id);
-  };
   const handleHeightCreation = (e) => {
     changeUpdatedUserData("height", e.target.value);
   };
@@ -120,7 +123,7 @@ export const FCUpdateProfile = () => {
     document.getElementById("myDropdown").classList.toggle("show");
   };
   const handleDescriptionCreation = (e) => {
-    changeUpdatedUserData("description", e.target.value);
+    changeUpdatedUserData("persoalText", e.target.value);
   };
 
   //   const handlePersonalInterestsIdsChange = (event) => {
@@ -145,6 +148,10 @@ export const FCUpdateProfile = () => {
       });
       setCityMap(cityMap);
       setCityOptions(Object.keys(cityMap));
+      console.log(
+        Object.entries(cityMap).find(([key, val]) => val === 103)?.[0]
+      );
+      console.log(cityMap);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -260,6 +267,7 @@ export const FCUpdateProfile = () => {
             <span key={g.id}>
               <input
                 checked={gender === g.id}
+                // checked={true}
                 id={"gender_" + g.id}
                 type="radio"
                 value={g.id}
@@ -275,7 +283,16 @@ export const FCUpdateProfile = () => {
             type="text"
             id="cityName"
             className="text-inp"
-            placeholder="חפש..."
+            value={
+              Object.entries(cityMap).find(
+                ([key, val]) => val === parseInt(updatedUserData.city)
+              )?.[0]
+            }
+            defaultValue={
+              Object.entries(cityMap).find(
+                ([key, val]) => val === updatedUserData.city
+              )?.[0]
+            }
             onChange={filterCities}
           />
           {filteredCities.length > 0 && (
@@ -323,7 +340,7 @@ export const FCUpdateProfile = () => {
           ph="כאן מספרים..."
           onChange={handleDescriptionCreation}
           required
-          value={updatedUserData["description"]}
+          value={updatedUserData["persoalText"]}
         />
         <div
           style={{

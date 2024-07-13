@@ -242,4 +242,28 @@ export const makeAmoveUserServer = {
         throw error; // Rethrow the error to be caught by the caller}
       });
   },
+
+  GetPersonalInterests: () => {
+    return axios
+      .get(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/PersonalInterests`)
+      .then((res) => res.data) //returning data
+      .catch((error) => {
+        console.error("Error fetching PersonalInterests:", error);
+        throw error; // Rethrow the error to be caught by the caller}
+      });
+  },
+
+  postPersonalInterests: (email, selections) => {
+    return axios
+      .post(
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/Users/addpersonalinterests/${email}`,
+        {
+          selections,
+        }
+      )
+      .then((res) => res.data)
+      .catch((res) => res.data);
+  },
 };

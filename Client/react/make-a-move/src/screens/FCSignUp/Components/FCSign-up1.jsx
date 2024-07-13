@@ -45,15 +45,15 @@ export const FCSignUp1 = ({ setCurrentStep, currentStep, length }) => {
 
     // Validate phone number
     const phoneNumber = signUpData["phoneNumber"];
-    if (!/^\d{10}$/.test(phoneNumber)) {
-      newErrors.push("phoneNumber");
-    }
+    // if (!/^\d{10}$/.test(phoneNumber)) {
+    //   newErrors.push("phoneNumber");
+    // }
 
     // Validate password
     const password = signUpData["password"];
-    if (password.length < 8) {
-      newErrors.push("password");
-    }
+    // if (password.length < 8) {
+    //   newErrors.push("password");
+    // }
 
     setErrors(newErrors);
     return newErrors.length === 0;
@@ -78,7 +78,7 @@ export const FCSignUp1 = ({ setCurrentStep, currentStep, length }) => {
           ph={"מס' טלפון"}
           onChange={handlePhoneCreation}
           error={!!errors.find((error) => error === "phoneNumber")}
-          required
+          // required
         />
         {errors.includes("phoneNumber") && (
           <p className="error-message">
@@ -91,7 +91,7 @@ export const FCSignUp1 = ({ setCurrentStep, currentStep, length }) => {
           value={signUpData["email"]}
           error={!!errors.find((error) => error === "email")}
           onChange={handleEmailCreation}
-          required
+          // required
         />
         <p className="signup-p">סיסמה</p>
         <FCCustomPasswordInp
@@ -99,7 +99,7 @@ export const FCSignUp1 = ({ setCurrentStep, currentStep, length }) => {
           value={signUpData["password"]}
           error={!!errors.find((error) => error === "password")}
           onChange={handlePasswordCreation}
-          required
+          // required
         />
         {errors.includes("password") && (
           <p className="error-message">

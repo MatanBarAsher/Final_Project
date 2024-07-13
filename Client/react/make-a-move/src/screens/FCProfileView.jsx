@@ -21,7 +21,6 @@ export default function FCProfileView(userToShow) {
 
   const nextImage = () => {};
 
-  console.log(myDetails);
   return (
     <div className="overlay">
       <div className="profile-container">

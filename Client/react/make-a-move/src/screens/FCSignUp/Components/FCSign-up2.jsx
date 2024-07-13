@@ -85,14 +85,14 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
         <FCCustomTxtInp
           ph="שם פרטי"
           onChange={handleFirstNameCreation}
-          required
+          // required
           value={signUpData["firstName"]}
         />
         <p className="signup2-p">שם משפחה:</p>
         <FCCustomTxtInp
           ph="שם משפחה"
           onChange={handleLastNameCreation}
-          required
+          // required
           value={signUpData["lastName"]}
         />
         <div className="gender-inp">
@@ -137,7 +137,7 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
           ph="dd/mm/yyyy"
           onChange={handleBirthdayCreation}
           value={signUpData["birthday"]}
-          required
+          // required
         />
         <p className="signup2-p">גובה (ס''מ):</p>
         <FCCustomNumberInp
@@ -145,7 +145,7 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
           ph="ס''מ"
           min={0}
           onChange={handleHeightCreation}
-          required
+          // required
         />
         <div
           style={{

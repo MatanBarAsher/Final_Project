@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import { PERSONAL_INTERESTS } from "../../../constants";
@@ -15,6 +15,7 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
   const [showErrorModal, setShowErrorModal] = useState(false); // State to manage modal visibility
   const [isLoading, setIsLoading] = useState(false);
   const { signUpData, updateSignUpData } = useSignUpContext();
+  const [personalInterstsOptions, setPersonalInterstsOptions] = useState([]);
   console.log(signUpData);
 
   const handleDescriptionCreation = (e) => {
@@ -25,10 +26,25 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
     const {
       target: { value },
     } = event || {};
-    updateSignUpData(
-      "personalInterestsIds",
-      typeof value === "string" ? value.split(",") : value
+    const tempArr = typeof value === "string" ? value.split(",") : value;
+    const tempArr2 = [];
+    tempArr.forEach((p) =>
+      personalInterstsOptions.forEach((element) =>
+        element.interestDesc === p ? tempArr2.push(element.interestCode) : 0
+      )
     );
+    const tempArr3 = tempArr2.filter((item) => item > 0);
+    console.log(tempArr);
+    console.log(tempArr2);
+    console.log(tempArr3);
+    makeAmoveUserServer.postPersonalInterests(
+      "dana.mizrahi@example.com",
+      tempArr
+    );
+    // updateSignUpData(
+    //   "personalInterestsIds",
+    //   typeof value === "string" ? value.split(",") : value
+    // );
   };
 
   const handleSubmit = async (e) => {
@@ -48,6 +64,14 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
       setIsLoading(false); // Set loading to false after the API call completes
     }
   };
+
+  useEffect(() => {
+    makeAmoveUserServer
+      .GetPersonalInterests()
+      .then((res) => setPersonalInterstsOptions(res));
+  }, []);
+  console.log(personalInterstsOptions);
+
   // navigate("/setImages");
 
   return (
@@ -75,10 +99,12 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
             <p className="signup2-p">מה את/ה אוהב/ת לעשות בזמנך הפנוי?</p>
             <FCMultiSelect
               label="תחומי עיניין"
-              options={PERSONAL_INTERESTS}
+              // options={PERSONAL_INTERESTS}
+              options={personalInterstsOptions.map((o) => o.interestDesc)}
               onChange={handlePersonalInterestsIdsChange}
-              value={signUpData["personalInterestsIds"]}
+              value={["PersonalInterests"]}
             />
+
             <p className="signup2-p">
               ספר/י לנו קצת על עצמך:
               <span style={{ fontWeight: "200" }}>
