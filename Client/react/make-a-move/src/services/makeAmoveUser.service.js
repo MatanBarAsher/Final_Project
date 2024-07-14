@@ -25,7 +25,6 @@ export const makeAmoveUserServer = {
         phoneNumber: data.phoneNumber,
         isActive: true,
         city: data.city,
-        personalInterestsIds: data.personalInterestsIds,
         preferencesIds: [""],
         currentPlace: 0,
         persoalText: data.description,
@@ -259,9 +258,30 @@ export const makeAmoveUserServer = {
         `${
           import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
         }/Users/addpersonalinterests/${email}`,
-        {
-          selections,
-        }
+        selections
+      )
+      .then((res) => res.data)
+      .catch((res) => res.data);
+  },
+
+  GetPersonalInterestsByEmail: (email) => {
+    return axios
+      .get(
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/Users/interests/${email}`
+      )
+      .then((res) => res.data)
+      .catch((res) => res.data);
+  },
+
+  UpdatePersonalInterestsByEmail: (email, selections) => {
+    return axios
+      .put(
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/Users/UpdatePersonalInterestsByEmail/${email}`,
+        selections
       )
       .then((res) => res.data)
       .catch((res) => res.data);

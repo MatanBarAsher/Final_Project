@@ -1,0 +1,16 @@
+export const SIGNUP_INIT_DATA_DEMO = {
+  email: "mail111@gmail.com",
+  firstName: "Demo",
+  lastName: "Demo",
+  password: "12345678",
+  gender: 1,
+  image: [""],
+  height: 170,
+  birthday: "1999-01-01",
+  phoneNumber: "05022222222",
+  isActive: true,
+  city: "103",
+  preferencesIds: [""],
+  currentPlace: 0,
+  description: "Hey",
+};

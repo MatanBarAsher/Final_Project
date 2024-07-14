@@ -15,11 +15,13 @@ export default function FCSideMenu({ name }) {
   const Navigate = useNavigate();
   const email = JSON.parse(localStorage.getItem("current-email"));
   console.log(email);
+  const origin = JSON.parse(localStorage.getItem("origin"));
   makeAmoveUserServer.GetImagesByEmail(email).then((res) => console.log(res));
+  console.log(window.refferer);
 
   return (
     <div className="side-menu">
-      <a onClick={() => Navigate("/home")}>
+      <a onClick={() => Navigate(`/${origin}`)}>
         <FCCustomX color="white" />
       </a>
       <div className="upper-side-menu">

@@ -3,21 +3,32 @@ import EditIcon from "@mui/icons-material/Edit";
 
 export default function FCCustomEdit(color) {
   return (
-    <button
-      className="x-btn"
-      style={{
-        background: "none",
-        color: "white",
-        height: 30,
-        width: 30,
-        position: "absolute",
-        top: 15,
-        left: 45,
-        text: "עריכה",
-      }}
-    >
-      <EditIcon />
-      <h3 className="editProf">עריכה</h3>
-    </button>
+    <>
+      <p
+        style={{
+          fontSize: 16,
+          color: "white",
+          position: "absolute",
+          margin: 0,
+          top: 15,
+          left: 25,
+        }}
+      >
+        עריכה
+      </p>
+      <button
+        className="x-btn"
+        style={{
+          background: "none",
+          color: "white",
+          fontSize: 16,
+          position: "absolute",
+          top: 10,
+          left: 65,
+        }}
+      >
+        <EditIcon />
+      </button>
+    </>
   );
 }

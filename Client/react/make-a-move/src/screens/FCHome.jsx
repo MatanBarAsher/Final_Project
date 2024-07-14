@@ -5,6 +5,7 @@ import FCCustomBtn from "../components/FCCustomBtn";
 
 export const FCHome = () => {
   const Navigate = useNavigate();
+  localStorage.setItem("origin", JSON.stringify("Home"));
   return (
     <>
       <FCHamburger />

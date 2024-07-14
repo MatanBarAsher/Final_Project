@@ -1110,11 +1110,60 @@ namespace Make_a_move___Server.DAL
         }
 
 
-        public List<string> GetUserInterestCodesByEmail(string email)
+        public void DeleteUserPersonalInterests(string email)
+        {
+            SqlConnection con = null;
+            SqlCommand cmd = null;
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+
+                cmd = CreateDeletePersonalInterestCommand("SP_DeleteUserPersonalInterests", con, email); // create the command
+
+                // Execute the command
+                cmd.ExecuteNonQuery();
+            
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw ex;
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+        private SqlCommand CreateDeletePersonalInterestCommand(string spName, SqlConnection con, string email)
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;      // stored procedure name
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution, default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+
+            cmd.Parameters.AddWithValue("@email", email);
+
+            return cmd;
+        }
+
+
+
+        public List<int> GetUserInterestCodesByEmail(string email)
         {
             SqlConnection con = null;
             SqlCommand cmd;
-            List<string> interestCodes = new List<string>();
+            List<int> interestCodes = new List<int>();
 
             try
             {
@@ -1125,7 +1174,7 @@ namespace Make_a_move___Server.DAL
 
                 while (reader.Read())
                 {
-                    string interestDesc = reader["interestDesc"].ToString();
+                    int interestDesc = Convert.ToInt32(reader["interestCode"]);
                     interestCodes.Add(interestDesc);
                 }
 

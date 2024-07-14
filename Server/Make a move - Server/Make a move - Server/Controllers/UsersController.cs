@@ -356,12 +356,29 @@ namespace Make_a_move___Server.Controllers
             DBservicesUser dbs = new DBservicesUser();
             try
             {
-                List<string> interestCodes = dbs.GetUserInterestCodesByEmail(email);
+                List<int> interestCodes = dbs.GetUserInterestCodesByEmail(email);
                 return Ok(interestCodes);
             }
             catch (Exception ex)
             {
                 return BadRequest($"Failed to retrieve user interests: {ex.Message}");
+            }
+        }
+
+        [HttpPut]
+        [Route(("UpdatePersonalInterestsByEmail/{email}"))]
+        public IActionResult UpdatePersonalInterestsByEmail([FromRoute] string email, [FromBody] List<int> interestCodes)
+        {
+            DBservicesUser dbs = new();
+            try
+            {
+                dbs.DeleteUserPersonalInterests(email);
+                dbs.InsertUserPersonalInterests(email, interestCodes);
+                return Ok("Personal interests updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Failed to Update personal interests: {ex.Message}");
             }
         }
 
@@ -376,7 +393,7 @@ namespace Make_a_move___Server.Controllers
 
 
                 // Call the function that retrieves the user's interest codes
-                List<string> interestCodes = dbs.GetUserInterestCodesByEmail(email);
+                List<int> interestCodes = dbs.GetUserInterestCodesByEmail(email);
 
                 // Create an object that contains the data
                 var result = new
@@ -402,7 +419,6 @@ namespace Make_a_move___Server.Controllers
             return user.getImagesByEmail(email);
         }
 
-        
 
         // GET api/user/friends/{email}
         [HttpGet("friends/{email}")]

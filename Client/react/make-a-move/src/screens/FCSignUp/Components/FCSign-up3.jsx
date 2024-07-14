@@ -16,13 +16,18 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { signUpData, updateSignUpData } = useSignUpContext();
   const [personalInterstsOptions, setPersonalInterstsOptions] = useState([]);
+  const [selectedInterests, setSelectedInterests] = useState([]);
+  const [selectedInterestsIndexes, setSelectedInterestsIndexes] = useState([]);
   console.log(signUpData);
+
+  let tempArr3 = [];
 
   const handleDescriptionCreation = (e) => {
     updateSignUpData("description", e.target.value);
   };
 
   const handlePersonalInterestsIdsChange = (event) => {
+    console.log(event.target);
     const {
       target: { value },
     } = event || {};
@@ -33,23 +38,19 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
         element.interestDesc === p ? tempArr2.push(element.interestCode) : 0
       )
     );
-    const tempArr3 = tempArr2.filter((item) => item > 0);
+    tempArr3 = tempArr2.filter((item) => item > 0);
+    setSelectedInterests([...tempArr]);
+    setSelectedInterestsIndexes(tempArr3);
     console.log(tempArr);
     console.log(tempArr2);
     console.log(tempArr3);
-    makeAmoveUserServer.postPersonalInterests(
-      "dana.mizrahi@example.com",
-      tempArr
-    );
-    // updateSignUpData(
-    //   "personalInterestsIds",
-    //   typeof value === "string" ? value.split(",") : value
-    // );
+    console.log(selectedInterests);
   };
 
   const handleSubmit = async (e) => {
     setIsLoading(true);
     try {
+      handleInterestsSelection();
       const response = await makeAmoveUserServer.createUser(signUpData);
       if (response) {
         localStorage.setItem("current-email", JSON.stringify(signUpData.email));
@@ -71,6 +72,21 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
       .then((res) => setPersonalInterstsOptions(res));
   }, []);
   console.log(personalInterstsOptions);
+
+  const handleInterestsSelection = () => {
+    console.log(selectedInterestsIndexes);
+    makeAmoveUserServer
+      .postPersonalInterests(signUpData.email, selectedInterestsIndexes)
+      .then((res) => console.log(res))
+      .catch((res) => console.log(res));
+    console.log(selectedInterests);
+  };
+
+  // useEffect(() => {
+  //   makeAmoveUserServer
+  //     .GetPersonalInterestsByEmail(signUpData.email)
+  //     .then((res) => res);
+  // }, []);
 
   // navigate("/setImages");
 
@@ -102,7 +118,7 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
               // options={PERSONAL_INTERESTS}
               options={personalInterstsOptions.map((o) => o.interestDesc)}
               onChange={handlePersonalInterestsIdsChange}
-              value={["PersonalInterests"]}
+              value={[selectedInterests][0]}
             />
 
             <p className="signup2-p">

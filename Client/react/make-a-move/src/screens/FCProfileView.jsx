@@ -13,6 +13,7 @@ import { Percent } from "@mui/icons-material";
 
 export default function FCProfileView(userToShow) {
   console.log(userToShow);
+  localStorage.setItem("origin", JSON.stringify("ProfileView"));
   // const myDetails = useRecoilValue(myDetailsState);
   const myDetails = userToShow.userToShow;
   const { name, age, height, image, city, interests, aboutMe, percentage } =

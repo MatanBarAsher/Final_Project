@@ -12,6 +12,7 @@ const FCLocation = () => {
   const [isLoading, setIsLoading] = useState(false);
   const userEmail = JSON.parse(localStorage.getItem("current-email"));
   const navigate = useNavigate();
+  localStorage.setItem("origin", JSON.stringify("Location"));
 
   const handleLocationChange = (e) => {
     const tempDetails = e.value.description.split(",");

@@ -23,27 +23,59 @@ export const FCUpdateProfile = () => {
   const [cityOptions, setCityOptions] = useState([]);
   const [filteredCities, setFilteredCities] = useState([]);
   const [cityMap, setCityMap] = useState({});
+  const [personalInterstsOptions, setPersonalInterstsOptions] = useState([]);
+  const [selectedInterests, setSelectedInterests] = useState([]);
+  const [selectedInterestsIndexes, setSelectedInterestsIndexes] = useState([]);
 
   const userEmail = JSON.parse(localStorage.getItem("current-email"));
-  console.log(userEmail);
-  console.log(updatedUserData);
+  // console.log(userEmail);
+  // console.log(updatedUserData);
+  // console.log(personalInterstsOptions);
 
   const getUserFunc = useCallback(async () =>
     makeAmoveUserServer
       .getUserByEmail(userEmail)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         res.birthday = res.birthday.split("T")[0];
-        console.log(res);
+        // console.log(res);
         setUpdatedUserData(res);
         setGender(res.gender);
       })
       .catch((res) => console.log(res))
   );
 
+  // const getInterestsFunc = useCallback(async () =>
+  //   makeAmoveUserServer.GetPersonalInterestsByEmail(userEmail).then((res) => {
+  //     setSelectedInterestsIndexes(res);
+  //     setSelectedInterests(getInterestDescByCodes(res));
+  //     console.log(selectedInterestsIndexes);
+  //     console.log(selectedInterests);
+  //   })
+  // );
+
   useEffect(() => {
     getUserFunc();
+
+    // getInterestsFunc();
+
+    makeAmoveUserServer
+      .GetPersonalInterests()
+      .then((res) => setPersonalInterstsOptions(res));
+
+    setSelectedInterests(getInterestDescByCodes(selectedInterestsIndexes));
+    // console.log(selectedInterestsIndexes);
+    // console.log(selectedInterests);
   }, []);
+
+  useEffect(() => {
+    makeAmoveUserServer.GetPersonalInterestsByEmail(userEmail).then((res) => {
+      setSelectedInterestsIndexes(res);
+      setSelectedInterests(getInterestDescByCodes(res));
+      console.log(selectedInterestsIndexes);
+      console.log(selectedInterests);
+    });
+  }, [updatedUserData]);
 
   var genders = [
     { label: "אישה", id: 1 },
@@ -118,7 +150,7 @@ export const FCUpdateProfile = () => {
 
   const handleCityCreation = (citySymbol, cityName) => {
     changeUpdatedUserData("city", `${citySymbol}`);
-    console.log(citySymbol);
+    // console.log(citySymbol);
     document.getElementById("cityName").value = cityName;
     document.getElementById("myDropdown").classList.toggle("show");
   };
@@ -148,10 +180,10 @@ export const FCUpdateProfile = () => {
       });
       setCityMap(cityMap);
       setCityOptions(Object.keys(cityMap));
-      console.log(
-        Object.entries(cityMap).find(([key, val]) => val === 103)?.[0]
-      );
-      console.log(cityMap);
+      // console.log(
+      //   Object.entries(cityMap).find(([key, val]) => val === 103)?.[0]
+      // );
+      // console.log(cityMap);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -192,17 +224,65 @@ export const FCUpdateProfile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    changeUpdatedUserData("personalInterestsIds", ["1"]);
+    // changeUpdatedUserData("personalInterestsIds", ["1"]);
+
+    handleInterestsSelection();
+
     makeAmoveUserServer
       .updateUser(updatedUserData)
       .then((res) => {
         console.log(res);
+        Navigate("/MyProfile");
       })
       .catch((res) => console.log(res));
 
     // if (validateForm()) {
     //   setCurrentStep((prev) => prev + 1);
     // }
+  };
+
+  let tempArr3 = [];
+
+  const handlePersonalInterestsIdsChange = (event) => {
+    console.log(event.target);
+    const {
+      target: { value },
+    } = event || {};
+    const tempArr = typeof value === "string" ? value.split(",") : value;
+    const tempArr2 = [];
+    tempArr.forEach((p) =>
+      personalInterstsOptions.forEach((element) =>
+        element.interestDesc === p ? tempArr2.push(element.interestCode) : 0
+      )
+    );
+    tempArr3 = tempArr2.filter((item) => item > 0);
+    setSelectedInterests([...tempArr]);
+    setSelectedInterestsIndexes(tempArr3);
+    console.log(tempArr);
+    console.log(tempArr2);
+    console.log(tempArr3);
+    console.log(selectedInterests);
+  };
+
+  const handleInterestsSelection = () => {
+    console.log(selectedInterestsIndexes);
+    makeAmoveUserServer
+      .UpdatePersonalInterestsByEmail(userEmail, selectedInterestsIndexes)
+      .then((res) => console.log(res))
+      .catch((res) => console.log(res));
+    console.log(selectedInterests);
+  };
+
+  const getInterestDescByCodes = (codesArr) => {
+    const temp = [];
+    codesArr.forEach((index) => {
+      personalInterstsOptions.forEach((option) => {
+        if (option.interestCode === index) {
+          temp.push(option.interestDesc);
+        }
+      });
+    });
+    return temp;
   };
 
   return (
@@ -325,12 +405,12 @@ export const FCUpdateProfile = () => {
           required
         />
         <p className="update-p">מה את/ה אוהב/ת לעשות בזמנך הפנוי?</p>
-        {/* <FCMultiSelect
+        <FCMultiSelect
           label="תחומי עיניין"
-          options={PERSONAL_INTERESTS}
+          options={personalInterstsOptions.map((o) => o.interestDesc)}
           onChange={handlePersonalInterestsIdsChange}
-          //   value={updateUserData["personalInterestsIds"]}
-        /> */}
+          value={[selectedInterests][0]}
+        />
         <p className="update-p">
           ספר/י על עצמך:
           <span style={{ fontWeight: "200" }}></span>

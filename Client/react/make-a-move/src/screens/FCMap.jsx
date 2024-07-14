@@ -13,6 +13,7 @@ export default function FCMap({ location }) {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   const currentPlace = JSON.parse(localStorage.getItem("current-place"));
+  localStorage.setItem("origin", JSON.stringify("Map"));
 
   useEffect(() => {
     const fetchUserDetails = async () => {

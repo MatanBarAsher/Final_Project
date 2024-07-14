@@ -216,25 +216,30 @@ option {
   
 } */
 .lower-side-prof {
-  flex: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
+  /* flex: 100%; */
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  /* gap: 40px; */
   padding: 40px 30px;
   border-top: 1px solid white;
-  margin-bottom: 200px;
   width: 100%;
-  height: 100px;
+  height: 290px;
+  text-align: right;
 }
-.prof-details {
-  font-weight: bold;
+
+.lower-side-prof > h3 {
+  margin-bottom: 20px;
+}
+
+/* .prof-details {
+  font-weight: 600;
   color: white;
   font-size: medium;
   margin: 0px;
-  width: 100%;
-  font-family: "Inter", sans-serif;
+  flex: 100%;
+  font-family: "Heebo", sans-serif;
   text-align: right;
-}
+} */
 
 .side-menu-option {
   display: flex;
@@ -583,13 +588,12 @@ input {
   background-color: #efe1d1;
   border-radius: 10px;
 }
-.location-home{
-  color:white;
+.location-home {
+  color: white;
   margin-top: 100px;
-  
 }
 
-.matchName{
+.matchName {
   width: 150px;
   direction: rtl;
   margin-left: 50px;
