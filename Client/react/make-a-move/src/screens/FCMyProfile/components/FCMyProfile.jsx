@@ -22,12 +22,15 @@ export default function FCMyProfile() {
         setUserData(res);
       })
       .catch((res) => console.log(res));
-    console.log(UserData.image[0]);
-    setFirstImage(UserData.image[0]);
-    console.log(firstImage);
+    console.log(UserData);
   }, []);
 
   useEffect(() => {
+    if (UserData.image) {
+      console.log(UserData.image[0]);
+      setFirstImage(UserData.image[0]);
+      console.log(firstImage);
+    }
     fetchCities();
   }, [UserData]);
 

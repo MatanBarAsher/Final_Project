@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
 import FCHamburger from "../components/FCHamburger";
 import FCMatchScore from "../components/FCMatchScore";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -10,17 +10,115 @@ import FCBackArrow from "../components/FCBackArrow";
 import { useRecoilValue } from "recoil";
 import { myDetailsState } from "../recoil/selectors";
 import { Percent } from "@mui/icons-material";
+import axios from "axios";
 
 export default function FCProfileView(userToShow) {
+  const [cityMap, setCityMap] = useState({});
+  const [tempCity, setTempCity] = useState("");
+  const [personalInterstsOptions, setPersonalInterstsOptions] = useState([]);
+  const [selectedInterests, setSelectedInterests] = useState([]);
+  const [selectedInterestsIndexes, setSelectedInterestsIndexes] = useState([]);
+  const [currentImage, setCurrentImage] = useState("");
   console.log(userToShow);
   localStorage.setItem("origin", JSON.stringify("ProfileView"));
+  const currentEmail = JSON.parse(localStorage.getItem("current-email"));
   // const myDetails = useRecoilValue(myDetailsState);
   const myDetails = userToShow.userToShow;
-  const { name, age, height, image, city, interests, aboutMe, percentage } =
-    myDetails;
+  const {
+    email,
+    firstName,
+    lastName,
+    age,
+    height,
+    image,
+    city,
+    persoalText,
+    percentage,
+  } = myDetails;
   console.log(myDetails);
 
-  const nextImage = () => {};
+  const nextImage = () => {
+    const currentIndex = image.indexOf(currentImage);
+    if (currentIndex < image.length - 1) {
+      setCurrentImage(image[currentIndex + 1]);
+    } else {
+      setCurrentImage(myDetails.image[0]);
+    }
+  };
+
+  useEffect(() => {
+    fetchCities();
+    makeAmoveUserServer
+      .GetPersonalInterests()
+      .then((res) => setPersonalInterstsOptions(res));
+
+    setSelectedInterests(getInterestDescByCodes(selectedInterestsIndexes));
+
+    setCurrentImage(myDetails.image[0]);
+  }, [myDetails]);
+
+  useEffect(() => {
+    makeAmoveUserServer.GetPersonalInterestsByEmail(email).then((res) => {
+      setSelectedInterestsIndexes(res);
+      setSelectedInterests(getInterestDescByCodes(res));
+      console.log(selectedInterestsIndexes);
+      console.log(selectedInterests);
+    });
+  }, []);
+
+  const getInterestDescByCodes = (codesArr) => {
+    const temp = [];
+    codesArr.forEach((index) => {
+      personalInterstsOptions.forEach((option) => {
+        if (option.interestCode === index) {
+          temp.push(option.interestDesc);
+        }
+      });
+    });
+    return temp;
+  };
+
+  const calculateAge = () => {
+    const today = new Date();
+    const birthDate = new Date(myDetails.birthday);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
+
+  const ageCalc = calculateAge();
+
+  const fetchCities = async () => {
+    try {
+      const response = await axios.get(
+        "https://data.gov.il/api/3/action/datastore_search?resource_id=b282b438-0066-47c6-b11f-8277b3f5a0dc&limit=2000"
+      );
+      const citiesData = response.data.result.records;
+      const cityMap = {};
+      citiesData.forEach((city) => {
+        cityMap[city["תיאור ישוב"]] = city["סמל ישוב"];
+      });
+      setCityMap(cityMap);
+      console.log(cityMap);
+      setTempCity(
+        Object.entries(cityMap).find(
+          ([key, val]) => val === parseInt(myDetails.city)
+        )?.[0]
+      );
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleLike = () => {
+    console.log(currentEmail + " Likes " + myDetails.email);
+  };
+  const handleUnlike = () => {
+    console.log(currentEmail + " Unlikes " + myDetails.email);
+  };
 
   return (
     <div className="overlay">
@@ -29,9 +127,9 @@ export default function FCProfileView(userToShow) {
           className="pBackground"
           style={{
             // backgroundImage: `url(.${background})`,
-            backgroundImage: `url(${import.meta.env.VITE_SERVER_IMAGE_SRC_URL}${
-              myDetails.image[0]
-            })`,
+            backgroundImage: `url(${
+              import.meta.env.VITE_SERVER_IMAGE_SRC_URL
+            }${currentImage})`,
           }}
           onClick={nextImage}
         >
@@ -39,11 +137,13 @@ export default function FCProfileView(userToShow) {
         </div>
         <div className="bottomP">
           {/* <FCBackArrow color="white" /> */}
-          <FCMatchScore score={percentage} />
-          <h2>{name}</h2>
+          <FCMatchScore score={Math.round(percentage)} />
+          <h2>
+            {firstName} {lastName}
+          </h2>
           <p>
             <b>גיל: </b>
-            {age}
+            {ageCalc}
           </p>
           <p>
             <b>גובה: </b>
@@ -51,28 +151,35 @@ export default function FCProfileView(userToShow) {
           </p>
           <p>
             <b>מאיפה: </b>
-            {city}
+            {tempCity}
           </p>
           <p>
             <b>תחומי עניין: </b>
-            {interests}
+            {selectedInterests.join(", ")}
             <br />
             <br />
           </p>
           <p>
             <b>על עצמי: </b>
             <br />
-            {aboutMe}
+            {persoalText}
           </p>
+
           <FavoriteBorderIcon
             fontSize="large"
             sx={{ color: "#ffffff", display: "", margin: 5 }}
+            onClick={handleLike}
           />
           <FavoriteIcon
             fontSize="large"
-            sx={{ color: "#ffffff", display: "none" }}
+            sx={{
+              color: "#ffffff",
+              display: "inline-block",
+              margin: 5,
+            }}
+            onClick={handleUnlike}
           />
-          {/* when viewed user is liked -> change display to "block" */}
+          {/* when viewed user is liked -> change display to "inline-block" */}
         </div>
       </div>
     </div>

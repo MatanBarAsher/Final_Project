@@ -33,7 +33,6 @@ const FCSignIn = () => {
       if (response) {
         saveCurrentUserToLocalStorage(loginData["email"]);
         setShowSuccessModal(true); // Show modal on successful login
-        navigate("/location");
       } else {
         setShowErrorModal(true);
       }

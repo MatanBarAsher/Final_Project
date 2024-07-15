@@ -83,7 +83,7 @@ export default function FCMap({ location }) {
       <div className="map-container">
         <FCHamburger />
         <div className="icon-container">{users}</div>
-        <div className="map-footer">
+        {/* <div className="map-footer">
           <img
             src={"." + locationPin}
             width={"32px"}
@@ -92,7 +92,7 @@ export default function FCMap({ location }) {
             alt="Location Pin"
           />
           <h3>{location ? location : currentPlace.name}</h3>
-        </div>
+        </div> */}
       </div>
     </>
   );
