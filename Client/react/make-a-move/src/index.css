@@ -598,3 +598,42 @@ input {
   direction: rtl;
   margin-left: 50px;
 }
+
+.match-modal {
+  border: none;
+  border-radius: 10px;
+  background-color: #efe1d1;
+  height: 400px;
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.match-modal > h2 {
+  flex: 100%;
+  font-weight: bold;
+  font-size: 30px;
+  color: #3c0753;
+}
+
+.match-modal > img {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  border-radius: 100px;
+  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.25);
+  border: 5px solid #fff;
+}
+
+.match-modal > button {
+  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.25);
+  font-family: "Heebo";
+}
+
+.match-modal-x {
+  color: black;
+  padding-right: 270px;
+}

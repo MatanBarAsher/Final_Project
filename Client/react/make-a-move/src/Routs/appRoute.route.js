@@ -20,6 +20,7 @@ import FCMyProfile from "../screens/FCMyProfile/components/FCMyProfile";
 import FCCarousel from "../screens/FCCarousel";
 import { FCHome } from "../screens/FCHome";
 import { FCUpdatePreferences } from "../screens/Preferences/components/FCUpdatePreferences";
+import FCMatchModal from "../screens/FCMatchModal";
 
 export const ROUTER = [
   { path: "/", Element: FCWellcome },
@@ -42,4 +43,5 @@ export const ROUTER = [
   { path: "/carousel", Element: FCCarousel },
   { path: "/updatePreferences", Element: FCUpdatePreferences },
   { path: "/home", Element: FCHome },
+  { path: "/matchModal", Element: FCMatchModal },
 ];

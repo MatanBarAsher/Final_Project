@@ -115,9 +115,14 @@ export default function FCProfileView(userToShow) {
 
   const handleLike = () => {
     console.log(currentEmail + " Likes " + myDetails.email);
+    handleMatch();
   };
   const handleUnlike = () => {
     console.log(currentEmail + " Unlikes " + myDetails.email);
+  };
+
+  const handleMatch = () => {
+    console.log("Match");
   };
 
   return (
