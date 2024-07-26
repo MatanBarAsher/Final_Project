@@ -4,7 +4,7 @@ import FCMatchScore from "../components/FCMatchScore";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import background from "../assets/images/Matan.jpg";
-import { makeAmoveUserServer } from "../services";
+import { makeAmoveMatchServer, makeAmoveUserServer } from "../services";
 import { useAsync } from "../hooks";
 import FCBackArrow from "../components/FCBackArrow";
 import { useRecoilValue } from "recoil";
@@ -114,7 +114,16 @@ export default function FCProfileView(userToShow) {
 
   const handleLike = () => {
     console.log(currentEmail + " Likes " + myDetails.email);
-    handleMatch();
+
+    makeAmoveUserServer
+      .handleNewLike(currentEmail, myDetails.email, myDetails.currentPlace)
+      .then((res) => {
+        console.log(res);
+        if (res === 1) {
+          handleMatch();
+        }
+      })
+      .catch((res) => console.log(res));
   };
   const handleUnlike = () => {
     console.log(currentEmail + " Unlikes " + myDetails.email);
@@ -124,6 +133,10 @@ export default function FCProfileView(userToShow) {
     console.log("Match");
     setMatchDetails(myDetails);
   };
+
+  makeAmoveMatchServer
+    .getMatchesByEmail(currentEmail)
+    .then((res) => console.log(res));
 
   return (
     <div className="overlay">

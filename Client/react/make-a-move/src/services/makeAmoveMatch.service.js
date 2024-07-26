@@ -17,4 +17,18 @@ export const makeAmoveMatchServer = {
         console.error("Error create match", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
+
+  getMatchesByEmail: (email) => {
+    return axios
+      .get(
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/matches/ReadMatchesByEmail?inputEmail=${email}`
+      )
+      .then((res) => res.data)
+      .catch((res) => {
+        console.error("Error reading matchs", error);
+        throw error; // Rethrow the error to be caught by the caller
+      });
+  },
 };

@@ -287,17 +287,14 @@ export const makeAmoveUserServer = {
       .catch((res) => res.data);
   },
 
-  // handleNewLike: (userA, userB, currentPlace) => {
-  //   axios
-  //     .post(
-  //       `${
-  //         import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
-  //       }/Users/aaaaaaaaaaaa/${email}`,
-  //       userA,
-  //       userB,
-  //       currentPlace
-  //     )
-  //     .then()
-  //     .catch();
-  // },
+  handleNewLike: (userA, userB, currentPlace) => {
+    return axios
+      .post(
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/Users/AddLike/?userEmail=${userA}&likedUserEmail=${userB}&currentPlace=${currentPlace}`
+      )
+      .then((res) => res.data)
+      .catch((res) => res.data);
+  },
 };

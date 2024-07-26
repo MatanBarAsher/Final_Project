@@ -103,7 +103,7 @@ export const FCFeedback = () => {
 
     console.log(feebackData);
     //go to server with precerencesData as prop
-    makeAmoveFeedbackServerdbackServer.post(feebackData).then((response) => {
+    makeAmoveFeedbackServer.createFeedback(feebackData).then((response) => {
       if (response) {
         console.log("success");
         console.log(response);
