@@ -118,8 +118,6 @@ using System.Net.Http;
                 }
                 else
                 {
-                    // If login fails (user is not found), remove the user from the dictionary
-                    RemoveFromDictionary(this.Email);
                     return null;
                 }
             }
@@ -551,55 +549,55 @@ using System.Net.Http;
             }
         }
 
-        public void AddToDictionary(string userEmail, string likedUserEmail)
-        {
-            try
-            {
-                if (!likedRelationships.ContainsKey(userEmail))
-                {
-                    likedRelationships[userEmail] = new List<string>();
-                }
+        //public void AddToDictionary(string userEmail, string likedUserEmail)
+        //{
+        //    try
+        //    {
+        //        if (!likedRelationships.ContainsKey(userEmail))
+        //        {
+        //            likedRelationships[userEmail] = new List<string>();
+        //        }
 
-                if (!likedRelationships[userEmail].Contains(likedUserEmail))
-                {
-                    likedRelationships[userEmail].Add(likedUserEmail);
-                }
-                else
-                {
-                    Console.WriteLine($"The email {likedUserEmail} is already liked by {userEmail}.");
-                }
-            }
-            catch (ArgumentException ex)
-            {
-                // Handle the case where the key already exists in the dictionary
-                // You can log the error or handle it as needed
-                throw new Exception("User with the same email already exists in the dictionary.", ex);
-            }
-        }
+        //        if (!likedRelationships[userEmail].Contains(likedUserEmail))
+        //        {
+        //            likedRelationships[userEmail].Add(likedUserEmail);
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine($"The email {likedUserEmail} is already liked by {userEmail}.");
+        //        }
+        //    }
+        //    catch (ArgumentException ex)
+        //    {
+        //        // Handle the case where the key already exists in the dictionary
+        //        // You can log the error or handle it as needed
+        //        throw new Exception("User with the same email already exists in the dictionary.", ex);
+        //    }
+        //}
 
         // Method to remove a user from the dictionary
-        public void RemoveFromDictionary(string userEmail)
-        {
-            likedRelationships.Remove(userEmail);
-        }
+        //public void RemoveFromDictionary(string userEmail)
+        //{
+        //    likedRelationships.Remove(userEmail);
+        //}
 
-        public static bool SearchUserByEmail(string userEmail, string targetUserEmail)
-        {
-            if (likedRelationships.TryGetValue(userEmail, out List<string> likedUsers))
-            {
-                return likedUsers.Contains(targetUserEmail);
-            }
-            else
-            {
-                // Handle the case where the user with the specified email is not found
-                return false;
-            }
-        }
+        //public static bool SearchUserByEmail(string userEmail, string targetUserEmail)
+        //{
+        //    if (likedRelationships.TryGetValue(userEmail, out List<string> likedUsers))
+        //    {
+        //        return likedUsers.Contains(targetUserEmail);
+        //    }
+        //    else
+        //    {
+        //        // Handle the case where the user with the specified email is not found
+        //        return false;
+        //    }
+        //}
 
-        public static Dictionary<string, List<string>> GetDictionary()
-        {
-            return likedRelationships;
-        }
+        //public static Dictionary<string, List<string>> GetDictionary()
+        //{
+        //    return likedRelationships;
+        //}
 
         public string ChangeImages(string email, List<string> images)
         {
@@ -620,14 +618,14 @@ using System.Net.Http;
             }
         }
 
-        public bool LikeUser(string userEmail, string likedUserEmail)
-        {
-            // Call AddToDictionary to add the liked user
-            AddToDictionary(userEmail, likedUserEmail);
+        //public bool LikeUser(string userEmail, string likedUserEmail)
+        //{
+        //    // Call AddToDictionary to add the liked user
+        //    AddToDictionary(userEmail, likedUserEmail);
 
-            // Call SearchUserByEmail to check if there is a match
-            return SearchUserByEmail(likedUserEmail, userEmail);
-        }
+        //    // Call SearchUserByEmail to check if there is a match
+        //    return SearchUserByEmail(likedUserEmail, userEmail);
+        //}
          
         public int checkExistingUserByKeyAndValue(string key,string value)
         {
