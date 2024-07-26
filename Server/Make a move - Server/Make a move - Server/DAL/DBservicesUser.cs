@@ -1334,5 +1334,133 @@ namespace Make_a_move___Server.DAL
         }
 
 
+        public IEnumerable<dynamic> ReadLikesByEmail(string inputEmail)
+            {
+
+            SqlConnection con;
+            SqlCommand cmd;
+            List<Object> likesList = new List<Object>();
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            cmd = CreateSelectLikesByEmailWithStoredProcedure("SP_ReadLikesByEmail", con, inputEmail);             // create the command
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    var like = new
+                    {
+                        //FirstEmail = dataReader["FirstEmail"].ToString(),
+                        SecondEmail = dataReader["SecondEmail"].ToString(),
+                        PlaceCode = Convert.ToInt32(dataReader["PlaceCode"])
+                    };
+
+                    likesList.Add(like);
+                };
+                return likesList;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
         }
+
+        public IEnumerable<dynamic> GetlikesForMe(string inputEmail)
+        {
+
+            SqlConnection con;
+            SqlCommand cmd;
+            List<Object> likesList = new List<Object>();
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            cmd = CreateSelectLikesByEmailWithStoredProcedure("SP_ReadLikesForMe", con, inputEmail);             // create the command
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    var like = new
+                    {
+                        FirstEmail = dataReader["FirstEmail"].ToString(),
+                        //SecondEmail = dataReader["SecondEmail"].ToString(),
+                        PlaceCode = Convert.ToInt32(dataReader["PlaceCode"])
+                    };
+
+                    likesList.Add(like);
+                };
+                return likesList;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+        }
+
+        //---------------------------------------------------------------------------------
+        // Create the SqlCommand using a stored procedure
+        //---------------------------------------------------------------------------------
+        private SqlCommand CreateSelectLikesByEmailWithStoredProcedure(String spName, SqlConnection con, string inputEmail)
+        {
+
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+
+            cmd.Parameters.AddWithValue("@inputEmail", inputEmail);
+            return cmd;
+        }
+
+      
+    }
+
 }
