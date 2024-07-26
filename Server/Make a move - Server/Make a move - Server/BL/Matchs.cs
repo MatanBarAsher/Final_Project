@@ -1,52 +1,47 @@
 ﻿using Make_a_move___Server.DAL;
+using Microsoft.Extensions.Primitives;
 using System;
 namespace Make_a_move___Server.BL
 {
     public class Match
     {
-        private string userIds;
+        private string firstemail;
+        private string secondemail;
         private DateTime timeStamp;
         private int placeCode;
-        private string feedback;
+        private int matchNum;
         private static List<Match> matchesList = new List<Match>();
 
-        public Match() { }
-        public Match(string userIds, DateTime timeStam, int serialNumber, int placeCode, string feedback)
-        {
-            this.userIds = userIds;
-            this.timeStamp = timeStamp;
-            this.placeCode = placeCode;
-            this.feedback = feedback;
-        }
-
-        public string UserIds { get => userIds; set => userIds = value; }
+        public string Firstemail { get => firstemail; set => firstemail = value; }
+        public string Secondemail { get => secondemail; set => secondemail = value; }
         public DateTime TimeStamp { get => timeStamp; set => timeStamp = value; }
-       // public bool IsMatch { get => isMatch; set => isMatch = value; }
-        public string Feedback { get => feedback; set => feedback = value; }
         public int PlaceCode { get => placeCode; set => placeCode = value; }
+        public int MatchNum { get => matchNum; set => matchNum = value; }
 
-        public Match(string userEmail, string likedUserEmail, int placeCode)
+        public Match() { }
+
+        public Match(string firstemail, string secondemail, int placeCode, int matchNum)
         {
-            this.userIds = $"{userEmail}&{likedUserEmail}";
-            this.timeStamp = DateTime.Now;
-            this.feedback = "";
-            this.placeCode = placeCode;  
+            this.Firstemail = firstemail;
+            this.Secondemail = secondemail;
+            this.PlaceCode = placeCode;
+            this.MatchNum = matchNum;
         }
 
-        public int InsertMatch()
-        {
-            try
-            {
-                DBservicesMatch dbs = new DBservicesMatch();
-                matchesList.Add(this);
-                return dbs.InsertMatch(this);
-            }
-            catch (Exception ex)
-            {
-                // Log or handle the exception appropriately
-                throw new Exception("Error inserting match", ex);
-            }
-        }
+        //public int InsertMatch()
+        //{
+        //    try
+        //    {
+        //        DBservicesMatch dbs = new DBservicesMatch();
+        //        matchesList.Add(this);
+        //        return dbs.InsertMatch(this);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log or handle the exception appropriately
+        //        throw new Exception("Error inserting match", ex);
+        //    }
+        //}
 
         public List<Match> ReadMatches()
         {
@@ -61,5 +56,23 @@ namespace Make_a_move___Server.BL
                 throw new Exception("Error reading matches", ex);
             }
         }
+
+
+
+        public List<Match> ReadMatchesByEmail(string inputemail)
+        {
+            try
+            {
+                DBservicesMatch dbs = new DBservicesMatch();
+                return dbs.ReadMatchesByEmail(inputemail);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error reading matches", ex);
+            }
+        }
+
+
     }
 }

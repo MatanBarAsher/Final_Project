@@ -124,9 +124,9 @@ namespace Make_a_move___Server.DAL
                     f.MatchId = Convert.ToInt32(dataReader["matchId"]);
                     f.Q11 = Convert.ToInt32(dataReader["בעל מאפיינים דומים למה שאני מחפשת"]);
                     f.Q21 = Convert.ToInt32(dataReader["התמונות תואמות למציאות"]);
-                    f.Q31 = Convert.ToInt32(dataReader["[תחומי העניין ששתיפ_ה עזרו לי לפתח איתו_ה שיחה]"]);
+                    f.Q31 = Convert.ToInt32(dataReader["תחומי העניין ששתיפ_ה עזרו לי לפתח איתו_ה שיחה"]);
                     f.Q41 = Convert.ToInt32(dataReader["הייתי רוצה להיפגש איתו שוב"]);
-                    f.Name = dataReader["FourthdOption"].ToString();
+                    f.Name = dataReader["עם מי בילית היום"].ToString();
 
 
 
@@ -205,9 +205,9 @@ namespace Make_a_move___Server.DAL
                     MatchId = Convert.ToInt32(dataReader["matchId"]),
                     Q11 = Convert.ToInt32(dataReader["בעל מאפיינים דומים למה שאני מחפשת"]),
                     Q21 = Convert.ToInt32(dataReader["התמונות תואמות למציאות"]),
-                    Q31 = Convert.ToInt32(dataReader["[תחומי העניין ששתיפ_ה עזרו לי לפתח איתו_ה שיחה]"]),
+                    Q31 = Convert.ToInt32(dataReader["תחומי העניין ששתיפ_ה עזרו לי לפתח איתו_ה שיחה"]),
                     Q41 = Convert.ToInt32(dataReader["הייתי רוצה להיפגש איתו שוב"]),
-                    Name = dataReader["FourthdOption"].ToString()
+                    Name = dataReader["עם מי בילית היום"].ToString()
 
 
 
