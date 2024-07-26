@@ -5,8 +5,19 @@ import background from "../assets/images/Matan.jpg";
 
 export default function FCMatchList() {
   const Navigate = useNavigate();
+
+  const temp = {
+    name: "Yael",
+    matchID: 2,
+  };
+
+  const handleMatchClick = () => {
+    localStorage.setItem("matched-user", JSON.stringify(temp));
+    Navigate("/feedback");
+  };
+
   return (
-    <div onClick={() => Navigate("/sideMenu")} className="match-list">
+    <div onClick={handleMatchClick} className="match-list">
       <FCCustomX color="white" />
       <h1>התאמות</h1>
       <div className="match">
@@ -22,9 +33,6 @@ export default function FCMatchList() {
             float: "left",
           }}
         ></div>
-        <div className="matchName" style={{ marginLeft: 110 }}>
-          <p> מתן בר אשר</p>
-        </div>
       </div>
     </div>
   );
