@@ -287,6 +287,20 @@ export const makeAmoveUserServer = {
       .catch((res) => res.data);
   },
 
+  getMyLikesByEmail: (email) => {
+    return axios
+      .get(
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/Users/getMylikes?email=${email}`
+      )
+      .then((res) => res.data) //returning data
+      .catch((error) => {
+        console.error("Error fetching likes:", error);
+        throw error; // Rethrow the error to be caught by the caller}
+      });
+  },
+
   handleNewLike: (userA, userB, currentPlace) => {
     return axios
       .post(
