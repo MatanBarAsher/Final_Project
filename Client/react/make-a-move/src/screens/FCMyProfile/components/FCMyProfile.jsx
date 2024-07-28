@@ -4,6 +4,7 @@ import FCCustomX from "../../../components/FCCustomX";
 import FCCustomEdit from "../../../components/FCCustomEdit";
 import WavingHandOutlinedIcon from "@mui/icons-material/WavingHandOutlined";
 import { makeAmoveUserServer } from "../../../services";
+import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router";
 import axios from "axios";
 
@@ -92,7 +93,12 @@ export default function FCMyProfile() {
               border: "4px solid white",
               borderRadius: "50%",
             }}
-          ></div>
+          >
+            <div className="setImg" onClick={() => Navigate("/setImages")}>
+              <AddIcon color="white" />
+            </div>
+          </div>
+
           <div className="myName">
             <h1>{UserData.firstName}</h1>
           </div>
