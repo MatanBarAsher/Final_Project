@@ -436,10 +436,68 @@ namespace Make_a_move___Server.Controllers
             }
         }
 
+        [HttpGet("getMylikes")]
+        public IActionResult GetLikesByEmail(string email)
+        {
+
+            DBservicesUser dbs = new DBservicesUser();
+            try
+            {
+                IEnumerable<dynamic> likes = dbs.ReadLikesByEmail(email);
+
+                // Return the data as JSON (ASP.NET Core)
+                return Ok(likes);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use any logging mechanism you prefer)
+                // e.g., _logger.LogError(ex, "An error occurred while getting likes.");
+                return StatusCode(500, "Internal server error.");
+            }
+        }
+
+
+        [HttpGet("getWhoLikesMe")]
+        public IActionResult GetlikesForMe(string email)
+        {
+
+            DBservicesUser dbs = new DBservicesUser();
+            try
+            {
+                IEnumerable<dynamic> likes = dbs.GetlikesForMe(email);
+
+                // Return the data as JSON (ASP.NET Core)
+                return Ok(likes);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use any logging mechanism you prefer)
+                // e.g., _logger.LogError(ex, "An error occurred while getting likes.");
+                return StatusCode(500, "Internal server error.");
+            }
+        }
 
 
 
+        [HttpGet("getUserAnalysis")]
+        public IActionResult GetUserAnalysisl(string email)
+        {
 
+            DBservicesUser dbs = new DBservicesUser();
+            try
+            {
+                IEnumerable<dynamic> data = dbs.ReadAnalysisByEmail(email);
+
+                // Return the data as JSON (ASP.NET Core)
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use any logging mechanism you prefer)
+                // e.g., _logger.LogError(ex, "An error occurred while getting likes.");
+                return StatusCode(500, "Internal server error.");
+            }
+        }
 
     }
 
