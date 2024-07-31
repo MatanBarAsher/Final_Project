@@ -20,6 +20,7 @@ export default function FCProfileView(userToShow) {
   const [personalInterstsOptions, setPersonalInterstsOptions] = useState([]);
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [selectedInterestsIndexes, setSelectedInterestsIndexes] = useState([]);
+  const [likedUsersEmails, setLikedUsersEmails] = useState([]);
   const [currentImage, setCurrentImage] = useState("");
   const [matchDetails, setMatchDetails] = useState(null);
 
@@ -57,6 +58,8 @@ export default function FCProfileView(userToShow) {
     setSelectedInterests(getInterestDescByCodes(selectedInterestsIndexes));
 
     setCurrentImage(myDetails.image[0]);
+
+    getLikesByEmail();
   }, [myDetails]);
 
   useEffect(() => {
@@ -134,9 +137,21 @@ export default function FCProfileView(userToShow) {
     setMatchDetails(myDetails);
   };
 
-  makeAmoveMatchServer
-    .getMatchesByEmail(currentEmail)
-    .then((res) => console.log(res));
+  const getLikesByEmail = () => {
+    makeAmoveUserServer.getMyLikesByEmail(currentEmail).then((res) => {
+      let emailList = [];
+      emailList = res.map((u) => u.secondEmail);
+      setLikedUsersEmails(emailList);
+      console.log(res);
+      console.log(likedUsersEmails);
+    });
+  };
+
+  const getMatches = () => {
+    makeAmoveMatchServer
+      .getMatchesByEmail(currentEmail)
+      .then((res) => console.log(res));
+  };
 
   return (
     <div className="overlay">
@@ -182,21 +197,23 @@ export default function FCProfileView(userToShow) {
             <br />
             {persoalText}
           </p>
-
-          <FavoriteBorderIcon
-            fontSize="large"
-            sx={{ color: "#ffffff", display: "", margin: 5 }}
-            onClick={handleLike}
-          />
-          <FavoriteIcon
-            fontSize="large"
-            sx={{
-              color: "#ffffff",
-              display: "inline-block",
-              margin: 5,
-            }}
-            onClick={handleUnlike}
-          />
+          {likedUsersEmails.includes(myDetails.email) ? (
+            <FavoriteBorderIcon
+              fontSize="large"
+              sx={{ color: "#ffffff", display: "", margin: 5 }}
+              onClick={handleLike}
+            />
+          ) : (
+            <FavoriteIcon
+              fontSize="large"
+              sx={{
+                color: "#ffffff",
+                display: "inline-block",
+                margin: 5,
+              }}
+              onClick={handleUnlike}
+            />
+          )}
           {/* when viewed user is liked -> change display to "inline-block" */}
         </div>
       </div>
