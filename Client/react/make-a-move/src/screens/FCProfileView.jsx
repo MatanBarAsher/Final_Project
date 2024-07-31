@@ -13,6 +13,7 @@ import { Percent } from "@mui/icons-material";
 import axios from "axios";
 import FCMatchModal from "./FCMatchModal";
 import { AlertDialog } from "../components";
+import { keyframes } from "@emotion/react";
 
 export default function FCProfileView(userToShow) {
   const [cityMap, setCityMap] = useState({});
@@ -21,6 +22,7 @@ export default function FCProfileView(userToShow) {
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [selectedInterestsIndexes, setSelectedInterestsIndexes] = useState([]);
   const [likedUsersEmails, setLikedUsersEmails] = useState([]);
+  const [emailsThatLikesMe, setEmailsThatLikesMe] = useState([]);
   const [currentImage, setCurrentImage] = useState("");
   const [matchDetails, setMatchDetails] = useState(null);
 
@@ -67,6 +69,10 @@ export default function FCProfileView(userToShow) {
       setSelectedInterestsIndexes(res);
       setSelectedInterests(getInterestDescByCodes(res));
     });
+
+    getLikesByEmail(myDetails.email);
+
+    getEmailsThatLikesMe();
   }, []);
 
   const getInterestDescByCodes = (codesArr) => {
@@ -117,13 +123,16 @@ export default function FCProfileView(userToShow) {
 
   const handleLike = () => {
     console.log(currentEmail + " Likes " + myDetails.email);
+    setLikedUsersEmails([...likedUsersEmails, myDetails.email]);
+    console.log([...likedUsersEmails, myDetails.email]);
 
     makeAmoveUserServer
       .handleNewLike(currentEmail, myDetails.email, myDetails.currentPlace)
       .then((res) => {
         console.log(res);
-        if (res === 1) {
+        if (res === 2) {
           handleMatch();
+        } else if (res === 1) {
         }
       })
       .catch((res) => console.log(res));
@@ -147,11 +156,46 @@ export default function FCProfileView(userToShow) {
     });
   };
 
+  const getEmailsThatLikesMe = () => {
+    makeAmoveUserServer.getEmailsThatLikesMe(currentEmail).then((res) => {
+      let emailList = [];
+      emailList = res.map((u) => u.firstEmail);
+      console.log("Emails that likes me: " + emailList);
+      setEmailsThatLikesMe(emailList);
+      console.log(res);
+      console.log(emailsThatLikesMe);
+    });
+  };
+
   const getMatches = () => {
     makeAmoveMatchServer
       .getMatchesByEmail(currentEmail)
       .then((res) => console.log(res));
   };
+
+  const pressLike = keyframes`
+  0% {
+    animation-timing-function: ease-out;
+    transform: scale(1);
+    transform-origin: center center;
+  }
+  10% {
+    animation-timing-function: ease-in;
+    transform: scale(0.91);
+  }
+  17% {
+    animation-timing-function: ease-out;
+    transform: scale(0.98);
+  }
+  33% {
+    animation-timing-function: ease-in;
+    transform: scale(0.87);
+  }
+  45% {
+    animation-timing-function: ease-out;
+    transform: scale(1);
+  }
+`;
 
   return (
     <div className="overlay">
@@ -198,20 +242,26 @@ export default function FCProfileView(userToShow) {
             {persoalText}
           </p>
           {likedUsersEmails.includes(myDetails.email) ? (
-            <FavoriteBorderIcon
-              fontSize="large"
-              sx={{ color: "#ffffff", display: "", margin: 5 }}
-              onClick={handleLike}
-            />
-          ) : (
             <FavoriteIcon
               fontSize="large"
               sx={{
                 color: "#ffffff",
                 display: "inline-block",
                 margin: 5,
+                "&:active": {
+                  animation: `${pressLike} 2s linear 0s 1 normal forwards`,
+                },
               }}
               onClick={handleUnlike}
+            />
+          ) : (
+            <FavoriteBorderIcon
+              fontSize="large"
+              sx={{
+                color: "#ffffff",
+                margin: 5,
+              }}
+              onClick={handleLike}
             />
           )}
           {/* when viewed user is liked -> change display to "inline-block" */}

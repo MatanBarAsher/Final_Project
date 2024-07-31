@@ -37,12 +37,12 @@ export default function FCMatchList() {
   };
 
   return (
-    <>
+    <div className="matches-container">
+      <h1>התאמות</h1>
+      <FCCustomX color="white" />
       {matchedUsers.length > 0 ? (
         matchedUsers.map((u) => (
           <div onClick={(u) => handleMatchClick} className="match-list">
-            <FCCustomX color="white" />
-            <h1>התאמות</h1>
             <div className="match">
               <div
                 className="profile-image"
@@ -50,7 +50,6 @@ export default function FCMatchList() {
                   backgroundImage: `url(.${background})`,
                   height: 60,
                   width: 60,
-                  marginRight: 210,
                   border: "4px solid white",
                   borderRadius: "50%",
                   float: "left",
@@ -63,6 +62,6 @@ export default function FCMatchList() {
       ) : (
         <></>
       )}
-    </>
+    </div>
   );
 }
