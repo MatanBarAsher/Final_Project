@@ -670,3 +670,10 @@ input {
   left: 39px;
   z-index: 0;
 }
+.setImg{
+  background-color: #fff;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  text-align: center;
+}

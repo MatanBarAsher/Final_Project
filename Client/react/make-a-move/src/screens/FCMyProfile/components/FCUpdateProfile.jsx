@@ -16,6 +16,9 @@ import { makeAmoveUserServer } from "../../../services";
 import { LogoDev } from "@mui/icons-material";
 
 export const FCUpdateProfile = () => {
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // State to manage modal visibility
+  const [showErrorModal, setShowErrorModal] = useState(false); // State to manage modal visibility
+  const [isLoading, setIsLoading] = useState(false);
   const Navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [changedKey, setChangedKey] = useState(null);
