@@ -84,6 +84,38 @@ export const makeAmoveUserServer = {
         console.error("Error on setting Preferences:", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
+  setPreferences: (data) =>
+    axios
+      .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/UserPreference`, {
+        email: data.email,
+        preferenceGender: data.preferedGender,
+        minAge: `${data.ageRange[0]}`,
+        maxAge: `${data.ageRange[1]}`,
+        minHeight: `${data.heightRange[0]}`,
+        maxHeight: `${data.heightRange[1]}`,
+        maxDistance: `${data.maxDistance}`,
+      })
+      .then((res) => res.data) //returning data
+      .catch((error) => {
+        console.error("Error on setting Preferences:", error);
+        throw error; // Rethrow the error to be caught by the caller
+      }),
+  updatePreferences: (data) =>
+    axios
+      .put(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/UserPreference`, {
+        email: data.email,
+        preferenceGender: data.preferedGender,
+        minAge: `${data.ageRange[0]}`,
+        maxAge: `${data.ageRange[1]}`,
+        minHeight: `${data.heightRange[0]}`,
+        maxHeight: `${data.heightRange[1]}`,
+        maxDistance: `${data.maxDistance}`,
+      })
+      .then((res) => res.data) //returning data
+      .catch((error) => {
+        console.error("Error on updating Preferences:", error);
+        throw error; // Rethrow the error to be caught by the caller
+      }),
 
   setLocationValue: async (place, user) => {
     try {

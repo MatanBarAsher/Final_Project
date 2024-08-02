@@ -65,7 +65,7 @@ export const FCUpdatePreferences = () => {
     setIsLoading(true);
     try {
       //go to server with precerencesData as prop
-      const response = await makeAmoveUserServer.setPreferences(
+      const response = await makeAmoveUserServer.updatePreferences(
         precerencesData
       );
       if (response) {
