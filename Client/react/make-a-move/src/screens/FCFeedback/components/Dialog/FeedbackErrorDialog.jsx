@@ -3,13 +3,13 @@ import { AlertDialog } from "../../../../components";
 import FCCustomBtn from "../../../../components/FCCustomBtn";
 import { Padding } from "@mui/icons-material";
 
-export const FeedbackSuccessDialog = ({ open, setClose }) => {
+export const FeedbackErrorDialog = ({ open, setClose }) => {
   return (
     <AlertDialog
       open={open}
       confirmButtonAction={setClose}
-      title={"תודה על המשוב!"}
-      content={"נשמח להיות איתך בקשר בעתיד על מנת לבדוק אם זה ה - Match!"}
+      title={"המשוב לא נקלט!"}
+      content={"אנא נסה שוב על מנת שנוכל לשפר להמליץ לך בעתיד"}
       confirmButtonText={<FCCustomBtn title={"סגור"} />}
     />
   );

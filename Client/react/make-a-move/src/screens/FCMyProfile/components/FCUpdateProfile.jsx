@@ -10,10 +10,11 @@ import FCCustomDateInp from "../../../components/FCCustomDateInp";
 import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import axios from "axios";
 import { FCMultiSelect } from "../../../components";
-import { PERSONAL_INTERESTS, SIGNUP_INIT_DATA } from "../../../constants";
 import { useAsync } from "../../../hooks";
 import { makeAmoveUserServer } from "../../../services";
-import { LogoDev } from "@mui/icons-material";
+import { ProfileErrorDialog } from "../components/DialogsProfiles/profileErrorDialog";
+import { ProfileSuccessDialog } from "../components/DialogsProfiles/profileSuccessDialog";
+import { FCLoad } from "../../../loading/FCLoad";
 
 export const FCUpdateProfile = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false); // State to manage modal visibility
@@ -225,23 +226,28 @@ export const FCUpdateProfile = () => {
     return newErrors.length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+
     // changeUpdatedUserData("personalInterestsIds", ["1"]);
+    try {
+      handleInterestsSelection();
 
-    handleInterestsSelection();
-
-    makeAmoveUserServer
-      .updateUser(updatedUserData)
-      .then((res) => {
-        console.log(res);
-        Navigate("/MyProfile");
-      })
-      .catch((res) => console.log(res));
-
-    // if (validateForm()) {
-    //   setCurrentStep((prev) => prev + 1);
-    // }
+      const response = await makeAmoveUserServer.updateUser(updatedUserData);
+      if (response) {
+        console.log(response);
+        setShowSuccessModal(true);
+        // Navigate("/MyProfile");
+      } else {
+        setShowErrorModal(true);
+      }
+    } catch (error) {
+      console.error("Error updating profile", error);
+      setShowErrorModal(true);
+    } finally {
+      setIsLoading(false); // Set loading to false after the API call completes
+    }
   };
 
   let tempArr3 = [];
@@ -289,157 +295,179 @@ export const FCUpdateProfile = () => {
   };
 
   return (
-    <div>
-      <div onClick={() => Navigate("/myProfile")}>
-        <FCCustomX color="white" />
-        <h1>עריכת פרופיל</h1>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <p className="update-p">דוא"ל:</p>
-        <FCCustomMailInp
-          ph={"דוא''ל"}
-          value={updatedUserData["email"]}
-          error={!!errors.find((error) => error === "email")}
-          onChange={handleEmailCreation}
-          required
-          disabled
-        />
-        <p className="update-p">טלפון:</p>
-        <FCCustomPhoneInp
-          value={updatedUserData["phoneNumber"]}
-          ph={"מס' טלפון"}
-          onChange={handlePhoneCreation}
-          error={!!errors.find((error) => error === "phoneNumber")}
-          required
-        />
-        {errors.includes("phoneNumber") && (
-          <p className="error-message">
-            * מספר הטלפון חייב להיות באורך 10 ספרות
-          </p>
-        )}
+    <span>
+      <ProfileSuccessDialog />
+      {isLoading && <FCLoad />}
 
-        <p className="update-p">סיסמה:</p>
-        <FCCustomPasswordInp
-          ph={"סיסמה"}
-          value={updatedUserData["password"]}
-          error={!!errors.find((error) => error === "password")}
-          onChange={handlePasswordCreation}
-          required
-        />
-        {errors.includes("password") && (
-          <p className="error-message">
-            * הסיסמה חייבת להיות באורך של לפחות 8 תווים
-          </p>
-        )}
-        <p className="update-p">שם פרטי:</p>
-        <FCCustomTxtInp
-          ph="שם פרטי"
-          onChange={handleFirstNameCreation}
-          required
-          value={updatedUserData["firstName"]}
-        />
-        <p className="update-p">שם משפחה:</p>
-        <FCCustomTxtInp
-          ph="שם משפחה"
-          onChange={handleLastNameCreation}
-          required
-          value={updatedUserData["lastName"]}
-        />
-        <div className="gender-inp">
-          {genders.map((g) => (
-            <span key={g.id}>
-              <input
-                checked={gender === g.id}
-                // checked={true}
-                id={"gender_" + g.id}
-                type="radio"
-                value={g.id}
-                onClick={() => handleGenderCreation(g.id)}
-              />
-              <label htmlFor={"gender_" + g.id}>{g.label}</label>
-            </span>
-          ))}
-        </div>
-        <p className="update-p">מאיפה אתה?</p>
-        <div className="dropdown">
-          <input
-            type="text"
-            id="cityName"
-            className="text-inp"
-            value={
-              Object.entries(cityMap).find(
-                ([key, val]) => val === parseInt(updatedUserData.city)
-              )?.[0]
-            }
-            defaultValue={
-              Object.entries(cityMap).find(
-                ([key, val]) => val === updatedUserData.city
-              )?.[0]
-            }
-            onChange={filterCities}
+      {!isLoading && (
+        <>
+          <ProfileSuccessDialog
+            open={showSuccessModal}
+            setClose={() => {
+              setShowSuccessModal(false);
+              Navigate("/myProfile");
+            }}
           />
-          {filteredCities.length > 0 && (
-            <div id="myDropdown" className="dropdown-content show">
-              {filteredCities.map((city, index) => (
-                <div
-                  key={index}
-                  onClick={() => handleCityCreation(cityMap[city], city)}
-                  className="dropdown-item"
-                >
-                  {city}
-                </div>
-              ))}
+          <ProfileErrorDialog
+            open={showErrorModal}
+            setClose={() => {
+              setShowErrorModal(false);
+            }}
+          />
+          <div>
+            <div>
+              <FCCustomX color="white" />
+              <h1>עריכת פרופיל</h1>
             </div>
-          )}
-        </div>
-        <p className="update-p">תאריך לידה:</p>
-        <FCCustomDateInp
-          ph="dd/mm/yyyy"
-          onChange={handleBirthdayCreation}
-          value={updatedUserData["birthday"]}
-          required
-        />
-        <p className="update-p">גובה (ס''מ):</p>
-        <FCCustomNumberInp
-          value={updatedUserData["height"]}
-          ph="ס''מ"
-          min={0}
-          onChange={handleHeightCreation}
-          required
-        />
-        <p className="update-p">מה את/ה אוהב/ת לעשות בזמנך הפנוי?</p>
-        <FCMultiSelect
-          label="תחומי עיניין"
-          options={personalInterstsOptions.map((o) => o.interestDesc)}
-          onChange={handlePersonalInterestsIdsChange}
-          value={[selectedInterests][0]}
-        />
-        <p className="update-p">
-          ספר/י על עצמך:
-          <span style={{ fontWeight: "200" }}></span>
-        </p>
-        <FCCustomTxtInp
-          className="description-inp"
-          ph="כאן מספרים..."
-          onChange={handleDescriptionCreation}
-          required
-          value={updatedUserData["persoalText"]}
-        />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row-reverse",
-            justifyContent: "center",
-            width: "25rem",
-          }}
-        >
-          <FCCustomBtn
-            style={{ width: "15rem", color: "black" }}
-            title={"סיום"}
-            type="submit"
-          />
-        </div>
-      </form>
-    </div>
+            <form onSubmit={handleSubmit}>
+              <p className="update-p">דוא"ל:</p>
+              <FCCustomMailInp
+                ph={"דוא''ל"}
+                value={updatedUserData["email"]}
+                error={!!errors.find((error) => error === "email")}
+                onChange={handleEmailCreation}
+                required
+                disabled
+              />
+              <p className="update-p">טלפון:</p>
+              <FCCustomPhoneInp
+                value={updatedUserData["phoneNumber"]}
+                ph={"מס' טלפון"}
+                onChange={handlePhoneCreation}
+                error={!!errors.find((error) => error === "phoneNumber")}
+                required
+              />
+              {errors.includes("phoneNumber") && (
+                <p className="error-message">
+                  * מספר הטלפון חייב להיות באורך 10 ספרות
+                </p>
+              )}
+
+              <p className="update-p">סיסמה:</p>
+              <FCCustomPasswordInp
+                ph={"סיסמה"}
+                value={updatedUserData["password"]}
+                error={!!errors.find((error) => error === "password")}
+                onChange={handlePasswordCreation}
+                required
+              />
+              {errors.includes("password") && (
+                <p className="error-message">
+                  * הסיסמה חייבת להיות באורך של לפחות 8 תווים
+                </p>
+              )}
+              <p className="update-p">שם פרטי:</p>
+              <FCCustomTxtInp
+                ph="שם פרטי"
+                onChange={handleFirstNameCreation}
+                required
+                value={updatedUserData["firstName"]}
+              />
+              <p className="update-p">שם משפחה:</p>
+              <FCCustomTxtInp
+                ph="שם משפחה"
+                onChange={handleLastNameCreation}
+                required
+                value={updatedUserData["lastName"]}
+              />
+              <div className="gender-inp">
+                {genders.map((g) => (
+                  <span key={g.id}>
+                    <input
+                      checked={gender === g.id}
+                      // checked={true}
+                      id={"gender_" + g.id}
+                      type="radio"
+                      value={g.id}
+                      onClick={() => handleGenderCreation(g.id)}
+                    />
+                    <label htmlFor={"gender_" + g.id}>{g.label}</label>
+                  </span>
+                ))}
+              </div>
+              <p className="update-p">מאיפה אתה?</p>
+              <div className="dropdown">
+                <input
+                  type="text"
+                  id="cityName"
+                  className="text-inp"
+                  value={
+                    Object.entries(cityMap).find(
+                      ([key, val]) => val === parseInt(updatedUserData.city)
+                    )?.[0]
+                  }
+                  defaultValue={
+                    Object.entries(cityMap).find(
+                      ([key, val]) => val === updatedUserData.city
+                    )?.[0]
+                  }
+                  onChange={filterCities}
+                />
+                {filteredCities.length > 0 && (
+                  <div id="myDropdown" className="dropdown-content show">
+                    {filteredCities.map((city, index) => (
+                      <div
+                        key={index}
+                        onClick={() => handleCityCreation(cityMap[city], city)}
+                        className="dropdown-item"
+                      >
+                        {city}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <p className="update-p">תאריך לידה:</p>
+              <FCCustomDateInp
+                ph="dd/mm/yyyy"
+                onChange={handleBirthdayCreation}
+                value={updatedUserData["birthday"]}
+                required
+              />
+              <p className="update-p">גובה (ס''מ):</p>
+              <FCCustomNumberInp
+                value={updatedUserData["height"]}
+                ph="ס''מ"
+                min={0}
+                onChange={handleHeightCreation}
+                required
+              />
+              <p className="update-p">מה את/ה אוהב/ת לעשות בזמנך הפנוי?</p>
+              <FCMultiSelect
+                label="תחומי עיניין"
+                options={personalInterstsOptions.map((o) => o.interestDesc)}
+                onChange={handlePersonalInterestsIdsChange}
+                value={[selectedInterests][0]}
+              />
+              <p className="update-p">
+                ספר/י על עצמך:
+                <span style={{ fontWeight: "200" }}></span>
+              </p>
+              <FCCustomTxtInp
+                className="description-inp"
+                ph="כאן מספרים..."
+                onChange={handleDescriptionCreation}
+                required
+                value={updatedUserData["persoalText"]}
+              />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row-reverse",
+                  justifyContent: "center",
+                  width: "25rem",
+                }}
+              >
+                <FCCustomBtn
+                  style={{ width: "15rem", color: "black" }}
+                  title={"סיום"}
+                  type="submit"
+                />
+              </div>
+            </form>
+          </div>
+        </>
+      )}
+    </span>
   );
 };

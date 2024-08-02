@@ -6,14 +6,15 @@ import { FCMultiSelect } from "../../../components";
 import FCCustomBtn from "../../../components/FCCustomBtn";
 import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import { FCLoad } from "../../../loading/FCLoad";
-import { SuccessDialog } from "./Dialog/FeedbackSuccessDialog";
-import background from "../../../assets/images/Matan.jpg";
+import { FeedbackSuccessDialog } from "./Dialog/FeedbackSuccessDialog";
+import { FeedbackErrorDialog } from "./Dialog/FeedbackErrorDialog";
 import { makeAmoveFeedbackServer } from "../../../services";
 import { Feedback } from "@mui/icons-material";
 
 export const FCFeedback = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
   const navigate = useNavigate();
 
   console.log(JSON.parse(localStorage.getItem("matched-user")));
@@ -81,8 +82,9 @@ export const FCFeedback = () => {
     // updateFeedbackData("Q1", id);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     // setIsLoading(true);
     setShowSuccessModal(true);
 
@@ -103,16 +105,24 @@ export const FCFeedback = () => {
 
     console.log(feebackData);
     //go to server with precerencesData as prop
-    makeAmoveFeedbackServer.createFeedback(feebackData).then((response) => {
+    try {
+      const response = await makeAmoveFeedbackServer.createFeedback(
+        feebackData
+      );
       if (response) {
+        setShowSuccessModal(true);
         console.log("success");
         console.log(response);
-        // navigate("/profile");
+        navigate("/matches");
       } else {
-        console.log("failure");
-        // navigate("/map");
+        setShowErrorModal(true);
       }
-    });
+    } catch (error) {
+      console.error("Error signing up:", error);
+      setShowErrorModal(true);
+    } finally {
+      setIsLoading(false); // Set loading to false after the API call completes
+    }
   };
   return (
     <span>
@@ -120,14 +130,20 @@ export const FCFeedback = () => {
 
       {!isLoading && (
         <>
-          <SuccessDialog
+          <FeedbackSuccessDialog
             open={showSuccessModal}
             setClose={() => {
               setShowSuccessModal(false);
               // navigate("/");
             }}
           />
-          <form onSubmit={() => navigate("/feedback2")}>
+          <FeedbackErrorDialog
+            open={showErrorModal}
+            setClose={() => {
+              setShowErrorModal(false);
+            }}
+          />
+          <form>
             <h1 className="pref-h1">משוב</h1>
 
             <h3>דרג/י את מידת ההסכמה שלך:</h3>
