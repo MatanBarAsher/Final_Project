@@ -585,11 +585,13 @@ input {
   font-size: 16px;
 }
 .match {
+  display: flex;
   height: 70px;
   width: 290px;
   padding: 5px;
   background-color: #efe1d1;
   border-radius: 10px;
+  gap: 15px;
 }
 .location-home {
   color: white;
@@ -670,10 +672,78 @@ input {
   left: 39px;
   z-index: 0;
 }
-.setImg{
+.setImg {
   background-color: #fff;
   width: 18px;
   height: 18px;
   border-radius: 5px;
   text-align: center;
+}
+
+.matches-container {
+  display: flex;
+  direction: ltr;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 0vh;
+}
+
+.match .profile-image {
+  min-width: 60px;
+}
+
+.matches-container p {
+  font-size: 18px;
+  /* font-weight: 600; */
+  max-width: 240px;
+  font-family: "Heebo";
+  color: #331d2c;
+  margin: 25px 0;
+}
+
+/* Carousle swipe effects */
+@keyframes swipeLeftEnter {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes swipeRightEnter {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes swipeLeftExit {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes swipeRightExit {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 }
