@@ -6,7 +6,8 @@ import { FCMultiSelect } from "../../../components";
 import FCCustomBtn from "../../../components/FCCustomBtn";
 import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import { FCLoad } from "../../../loading/FCLoad";
-import { SuccessDialog } from "./Dialog/FeedbackSuccessDialog";
+import { FeedbackSuccessDialog } from "./Dialog/FeedbackSuccessDialog";
+import { FeedbackErrorDialog } from "./Dialog/FeedbackErrorDialog";
 
 export const FCFeedbackContinue = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -75,11 +76,17 @@ export const FCFeedbackContinue = () => {
 
       {!isLoading && (
         <>
-          <SuccessDialog
+          <FeedbackSuccessDialog
             open={showSuccessModal}
             setClose={() => {
               setShowSuccessModal(false);
               // navigate("/");
+            }}
+          />
+          <FeedbackErrorDialog
+            open={showErrorModal}
+            setClose={() => {
+              setShowErrorModal(false);
             }}
           />
           <form onSubmit={() => navigate("/feedback2")}>
