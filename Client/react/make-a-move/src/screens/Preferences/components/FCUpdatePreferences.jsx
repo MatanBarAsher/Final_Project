@@ -4,9 +4,15 @@ import FCCustomNumberInp from "../../../components/FCCustomNumberInp";
 import FCCustomBtn from "../../../components/FCCustomBtn";
 import { Slider } from "@mui/material";
 import { makeAmoveUserServer } from "../../../services";
+import { PreferenceErrorDialog } from "./Dialog/PreferenceErrorDialog";
+import { PreferenceSuccessDialog } from "./Dialog/PreferenceSuccessDialog";
+import { FCLoad } from "../../../loading/FCLoad";
 
 export const FCUpdatePreferences = () => {
   const navigate = useNavigate("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // State to manage modal visibility
+  const [showErrorModal, setShowErrorModal] = useState(false); // State to manage modal visibility
+  const [isLoading, setIsLoading] = useState(false);
   let email = localStorage
     .getItem("current-email")
     .replace('"', "")
@@ -54,107 +60,137 @@ export const FCUpdatePreferences = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    //go to server with precerencesData as prop
-    makeAmoveUserServer.setPreferences(precerencesData).then((response) => {
+    setIsLoading(true);
+    try {
+      //go to server with precerencesData as prop
+      const response = await makeAmoveUserServer.setPreferences(
+        precerencesData
+      );
       if (response) {
+        setShowSuccessModal(true);
         console.log("success");
         console.log(response);
         navigate("/sideMenu");
       } else {
         console.log("failure");
+        setShowErrorModal(true);
       }
-    });
+    } catch (error) {
+      console.error("Error signing up:", error);
+      setShowErrorModal(true);
+    } finally {
+      setIsLoading(false); // Set loading to false after the API call completes
+    }
   };
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <h1 className="pref-h1">העדפות</h1>
-        <p className="preference-p">אני מחפשת:</p>
-        <div className="gender-inp">
-          <span>
-            <input
-              onChecked={precerencesData["preferedGender"] === "male"}
-              id="2"
-              type="radio"
-              name="preferedGender"
-              onChange={handleGenderCreation}
-              required
-            />
-            <label htmlFor="male">גבר</label>
-          </span>
-          <span>
-            <input
-              onChecked={precerencesData["preferedGender"] === "female"}
-              id="1"
-              type="radio"
-              name="preferedGender"
-              onChange={handleGenderCreation}
-              required
-            />
-            <label htmlFor="female">אישה</label>
-          </span>
-          <span>
-            <input
-              onChecked={precerencesData["preferedGender"] === "other"}
-              id="3"
-              type="radio"
-              name="preferedGender"
-              onChange={handleGenderCreation}
-              required
-            />
-            <label htmlFor="other">פתוח להצעות</label>
-          </span>
-        </div>
+    <span>
+      {isLoading && <FCLoad />}
 
-        <p className="preference-p">מרחק מקסימלי (מאיפה שאני גר)</p>
-        <FCCustomNumberInp
-          ph="ק''מ"
-          min={0}
-          onChange={handleDistanceCreation}
-          required
-        />
-        <p className="preference-p">בגיל:</p>
-        <span className="range">
-          <Slider
-            getAriaLabel={() => "Temperature range"}
-            value={precerencesData["ageRange"]}
-            onChange={handleAgeRangeChange}
-            valueLabelDisplay="on"
-            className="slider"
-            min={18}
-            max={80}
+      {!isLoading && (
+        <>
+          <PreferenceSuccessDialog
+            open={showSuccessModal}
+            setClose={() => {
+              setShowSuccessModal(false);
+              navigate("/setImages");
+            }}
           />
-        </span>
-        <p className="preference-p">בגובה: (מינ')</p>
-        <span className="range">
-          <Slider
-            getAriaLabel={() => "Temperature range"}
-            value={precerencesData["heightRange"]}
-            onChange={handleHeightRangeChange}
-            valueLabelDisplay="on"
-            className="slider"
-            min={120}
-            max={250}
+          <PreferenceErrorDialog
+            open={showErrorModal}
+            setClose={() => {
+              setShowErrorModal(false);
+            }}
           />
-        </span>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row-reverse",
-            justifyContent: "center",
-            width: "25rem",
-          }}
-        >
-          <FCCustomBtn
-            style={{ width: "15rem", color: "black", margin: "30px 0" }}
-            title={"סיום"}
-            type="submit"
-          />
-        </div>
-      </form>
-    </>
+
+          <form onSubmit={handleSubmit}>
+            <h1 className="pref-h1">העדפות</h1>
+            <p className="preference-p">אני מחפשת:</p>
+            <div className="gender-inp">
+              <span>
+                <input
+                  onChecked={precerencesData["preferedGender"] === "male"}
+                  id="2"
+                  type="radio"
+                  name="preferedGender"
+                  onChange={handleGenderCreation}
+                  required
+                />
+                <label htmlFor="male">גבר</label>
+              </span>
+              <span>
+                <input
+                  onChecked={precerencesData["preferedGender"] === "female"}
+                  id="1"
+                  type="radio"
+                  name="preferedGender"
+                  onChange={handleGenderCreation}
+                  required
+                />
+                <label htmlFor="female">אישה</label>
+              </span>
+              <span>
+                <input
+                  onChecked={precerencesData["preferedGender"] === "other"}
+                  id="3"
+                  type="radio"
+                  name="preferedGender"
+                  onChange={handleGenderCreation}
+                  required
+                />
+                <label htmlFor="other">פתוח להצעות</label>
+              </span>
+            </div>
+
+            <p className="preference-p">מרחק מקסימלי (מאיפה שאני גר)</p>
+            <FCCustomNumberInp
+              ph="ק''מ"
+              min={0}
+              onChange={handleDistanceCreation}
+              required
+            />
+            <p className="preference-p">בגיל:</p>
+            <span className="range">
+              <Slider
+                getAriaLabel={() => "Temperature range"}
+                value={precerencesData["ageRange"]}
+                onChange={handleAgeRangeChange}
+                valueLabelDisplay="on"
+                className="slider"
+                min={18}
+                max={80}
+              />
+            </span>
+            <p className="preference-p">בגובה: (מינ')</p>
+            <span className="range">
+              <Slider
+                getAriaLabel={() => "Temperature range"}
+                value={precerencesData["heightRange"]}
+                onChange={handleHeightRangeChange}
+                valueLabelDisplay="on"
+                className="slider"
+                min={120}
+                max={250}
+              />
+            </span>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row-reverse",
+                justifyContent: "center",
+                width: "25rem",
+              }}
+            >
+              <FCCustomBtn
+                style={{ width: "15rem", color: "black", margin: "30px 0" }}
+                title={"סיום"}
+                type="submit"
+              />
+            </div>
+          </form>
+        </>
+      )}
+    </span>
   );
 };
