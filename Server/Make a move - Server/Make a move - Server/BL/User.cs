@@ -494,6 +494,33 @@ using System.Net.Http;
             return result;
         }
 
+        public async Task<Dictionary<User, Tuple<double, double>>> GetMatchPercantegeByEmails(string email1, string email2)
+        {
+            User u1 = GetUserByEmail(email1);
+            User u2 = GetUserByEmail(email2);
+            //List<User> list = this.ReadUsersByPlace(this.CurrentPlace);
+            Dictionary<User, Tuple<double, double>> result = new Dictionary<User, Tuple<double, double>>();
+
+                // Calculate the match percentage
+                var match = await u1.CalculateMatchPercentage(u2);
+
+                // Add matched users to the result
+                foreach (var kvp in match)
+                {
+                    var matchedUser = kvp.Key;
+                    var matchPercentages = kvp.Value;
+
+                    // Add only users with a valid match percentage
+                    if (matchPercentages.Item1 > 0)
+                    {
+                        result[matchedUser] = matchPercentages;
+                    }
+                }
+            
+
+            return result;
+        }
+
         public User GetUserByEmail(string email)
         {
             try
@@ -502,7 +529,8 @@ using System.Net.Http;
                 DBservicesUser dbs = new DBservicesUser();
 
                 // Call the method in your DAL to retrieve the user by email
-                User user = dbs.GetUserByEmail(email);
+                //User user = dbs.GetUserByEmail(email);
+                User user = dbs.GetUserPreferencesByEmail(email);
 
                 // Return the user fetched from the database
                 return user;

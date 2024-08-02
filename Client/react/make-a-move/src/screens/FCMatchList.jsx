@@ -3,10 +3,12 @@ import FCCustomX from "../components/FCCustomX";
 import { Navigate, useNavigate } from "react-router";
 import background from "../assets/images/Matan.jpg";
 import { makeAmoveMatchServer, makeAmoveUserServer } from "../services";
+import FCMatchedUser from "../components/FCMatchedUser";
 
 export default function FCMatchList() {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const [matchedUsers, setMatchedUsers] = useState([]);
+  const [matchedUsersDetails, setMatchedUsersDetails] = useState([]);
 
   const currentEmail = JSON.parse(localStorage.getItem("current-email"));
 
@@ -14,54 +16,51 @@ export default function FCMatchList() {
     getMatches();
   }, []);
 
-  const getMatches = () => {
-    makeAmoveMatchServer
-      .getMatchesByEmail(currentEmail)
-      .then((res) => setMatchedUsers(res));
+  useEffect(() => {
+    if (matchedUsers.length > 0) {
+      GetMatchedUsersDetails();
+    }
+  }, [matchedUsers]);
 
-    matchedUsers.forEach((user) =>
-      makeAmoveUserServer
-        .GetUserNoPasswordByEmail(user.firstemail)
-        .then((res) => console.log(res))
-    );
+  const getMatches = async () => {
+    try {
+      const res = await makeAmoveMatchServer.getMatchesByEmail(currentEmail);
+      setMatchedUsers(res);
+    } catch (error) {
+      console.error("Error fetching matches:", error);
+    }
   };
 
-  const temp = {
-    name: "Yael",
-    matchID: 2,
+  const GetMatchedUsersDetails = async () => {
+    try {
+      const userDetailPromises = matchedUsers.map((u) =>
+        makeAmoveUserServer.GetUserNoPasswordByEmail(u.secondemail)
+      );
+      const usersDetails = await Promise.all(userDetailPromises);
+      setMatchedUsersDetails(usersDetails);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
   };
 
   const handleMatchClick = (clickedUser) => {
     localStorage.setItem("matched-user", JSON.stringify(clickedUser));
-    Navigate("/feedback");
+    navigate("/feedback");
   };
 
   return (
     <div className="matches-container">
-      <h1>התאמות</h1>
+      <h1 style={{ flex: "100%" }}>התאמות</h1>
       <FCCustomX color="white" />
-      {matchedUsers.length > 0 ? (
-        matchedUsers.map((u) => (
-          <div onClick={(u) => handleMatchClick} className="match-list">
-            <div className="match">
-              <div
-                className="profile-image"
-                style={{
-                  backgroundImage: `url(.${background})`,
-                  height: 60,
-                  width: 60,
-                  border: "4px solid white",
-                  borderRadius: "50%",
-                  float: "left",
-                }}
-              ></div>
-              <p>{u.firstemail}</p>
-            </div>
-          </div>
-        ))
-      ) : (
-        <></>
-      )}
+      {matchedUsersDetails.map((u, index) => (
+        <FCMatchedUser
+          key={index}
+          user={u}
+          func={handleMatchClick}
+          image={u.image[0]}
+          currentEmail={currentEmail}
+        />
+      ))}
     </div>
   );
 }

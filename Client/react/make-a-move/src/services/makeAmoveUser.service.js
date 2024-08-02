@@ -325,4 +325,18 @@ export const makeAmoveUserServer = {
       .then((res) => res.data)
       .catch((res) => res.data);
   },
+
+  getMatchScoreByEmails: (email1, email2) => {
+    return axios
+      .get(
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/users/GetMatchPercentage?email1=${email1}&email2=${email2}`
+      )
+      .then((res) => res.data)
+      .catch((error) => {
+        console.error("Error fetching score:", error);
+        throw error; // Rethrow the error to be caught by the caller}
+      });
+  },
 };

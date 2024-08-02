@@ -204,6 +204,20 @@ namespace Make_a_move___Server.Controllers
             return serializedResult;
         }
 
+        [HttpGet("GetMatchPercentage")]
+
+        public async Task<double> GetMatchPercentage(string email1, string email2) {
+            User u = new();
+            // Call ReadUsersByPreference to get users matching the preferences of the current user
+            Dictionary<User, Tuple<double, double>> result = await u.GetMatchPercantegeByEmails(email1, email2);
+
+            double b = result.Values.FirstOrDefault().Item2;
+            return result.Values.FirstOrDefault().Item1;
+
+             
+
+        }
+
         [HttpPost]
         [Route("changeImages/{email}")]
 
