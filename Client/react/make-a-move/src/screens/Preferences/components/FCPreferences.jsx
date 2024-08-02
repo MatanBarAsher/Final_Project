@@ -119,6 +119,7 @@ export const FCPrecerences = () => {
         <p className="preference-p">בגיל:</p>
         <span className="range">
           <Slider
+            sx={{ color: "#efe1d1" }}
             getAriaLabel={() => "Temperature range"}
             value={precerencesData["ageRange"]}
             onChange={handleAgeRangeChange}
@@ -131,6 +132,7 @@ export const FCPrecerences = () => {
         <p className="preference-p">בגובה: (מינ')</p>
         <span className="range">
           <Slider
+            sx={{ color: "#efe1d1" }}
             getAriaLabel={() => "Temperature range"}
             value={precerencesData["heightRange"]}
             onChange={handleHeightRangeChange}

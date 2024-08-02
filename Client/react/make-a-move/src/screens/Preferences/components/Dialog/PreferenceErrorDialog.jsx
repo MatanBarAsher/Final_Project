@@ -6,7 +6,7 @@ export const PreferenceErrorDialog = ({ open, setClose }) => {
     <AlertDialog
       open={open}
       confirmButtonAction={setClose}
-      confirmButtonText={"נסה שוב"}
+      confirmButtonText={"נסה שוב "}
       title={"!העדכון נכשל"}
       content={"ההעדפות שהגדרת לא עודכנו בפרופיל שלך"}
     />
