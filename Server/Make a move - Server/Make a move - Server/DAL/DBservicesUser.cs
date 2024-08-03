@@ -1517,6 +1517,107 @@ namespace Make_a_move___Server.DAL
 
         }
 
+
+        public IEnumerable<dynamic> ReadPreferenceAnalysisByEmail(string inputEmail)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+            List<dynamic> results = new List<dynamic>();
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            cmd = CreateSelectDataByEmailWithStoredProcedure("SP_GetUserPreferenceAnalysis", con, inputEmail); // create the command
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    var data = new
+                    {
+                        UserEmail = dataReader["UserEmail"].ToString(),
+                        HeightMatchPercentage = Convert.ToDouble(dataReader["HeightMatchPercentage"]),
+                        HeightMismatchPercentage = Convert.ToDouble(dataReader["HeightMismatchPercentage"]),
+                        AgeMatchPercentage = Convert.ToDouble(dataReader["AgeMatchPercentage"]),
+                        AgeMismatchPercentage = Convert.ToDouble(dataReader["AgeMismatchPercentage"])
+                    };
+                    results.Add(data);
+                }
+                return results;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+        public IEnumerable<dynamic> ReadPersonalInterestAnalysisByEmail(string inputEmail)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+            List<dynamic> results = new List<dynamic>();
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            cmd = CreateSelectDataByEmailWithStoredProcedure("SP_GetInterestAnalysis", con, inputEmail); // create the command
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    var data = new
+                    {
+                        CommonInterest = dataReader["CommonInterest"].ToString(),
+                        HeightMatchPercentage = Convert.ToDouble(dataReader["InterestPercentage"])
+                        
+                    };
+                    results.Add(data);
+                }
+                return results;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+        }
+
+
         //---------------------------------------------------------------------------------
         // Create the SqlCommand using a stored procedure
         //---------------------------------------------------------------------------------
