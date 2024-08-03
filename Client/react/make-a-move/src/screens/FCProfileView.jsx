@@ -4,13 +4,15 @@ import FCMatchScore from "../components/FCMatchScore";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import background from "../assets/images/Matan.jpg";
-import { makeAmoveUserServer } from "../services";
+import { makeAmoveMatchServer, makeAmoveUserServer } from "../services";
 import { useAsync } from "../hooks";
 import FCBackArrow from "../components/FCBackArrow";
 import { useRecoilValue } from "recoil";
 import { myDetailsState } from "../recoil/selectors";
 import { Percent } from "@mui/icons-material";
 import axios from "axios";
+import FCMatchModal from "./FCMatchModal";
+import { AlertDialog } from "../components";
 
 export default function FCProfileView(userToShow) {
   const [cityMap, setCityMap] = useState({});
@@ -19,7 +21,8 @@ export default function FCProfileView(userToShow) {
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [selectedInterestsIndexes, setSelectedInterestsIndexes] = useState([]);
   const [currentImage, setCurrentImage] = useState("");
-  console.log(userToShow);
+  const [matchDetails, setMatchDetails] = useState(null);
+
   localStorage.setItem("origin", JSON.stringify("ProfileView"));
   const currentEmail = JSON.parse(localStorage.getItem("current-email"));
   // const myDetails = useRecoilValue(myDetailsState);
@@ -35,7 +38,6 @@ export default function FCProfileView(userToShow) {
     persoalText,
     percentage,
   } = myDetails;
-  console.log(myDetails);
 
   const nextImage = () => {
     const currentIndex = image.indexOf(currentImage);
@@ -61,8 +63,6 @@ export default function FCProfileView(userToShow) {
     makeAmoveUserServer.GetPersonalInterestsByEmail(email).then((res) => {
       setSelectedInterestsIndexes(res);
       setSelectedInterests(getInterestDescByCodes(res));
-      console.log(selectedInterestsIndexes);
-      console.log(selectedInterests);
     });
   }, []);
 
@@ -102,7 +102,6 @@ export default function FCProfileView(userToShow) {
         cityMap[city["תיאור ישוב"]] = city["סמל ישוב"];
       });
       setCityMap(cityMap);
-      console.log(cityMap);
       setTempCity(
         Object.entries(cityMap).find(
           ([key, val]) => val === parseInt(myDetails.city)
@@ -115,7 +114,16 @@ export default function FCProfileView(userToShow) {
 
   const handleLike = () => {
     console.log(currentEmail + " Likes " + myDetails.email);
-    handleMatch();
+
+    makeAmoveUserServer
+      .handleNewLike(currentEmail, myDetails.email, myDetails.currentPlace)
+      .then((res) => {
+        console.log(res);
+        if (res === 1) {
+          handleMatch();
+        }
+      })
+      .catch((res) => console.log(res));
   };
   const handleUnlike = () => {
     console.log(currentEmail + " Unlikes " + myDetails.email);
@@ -123,7 +131,12 @@ export default function FCProfileView(userToShow) {
 
   const handleMatch = () => {
     console.log("Match");
+    setMatchDetails(myDetails);
   };
+
+  makeAmoveMatchServer
+    .getMatchesByEmail(currentEmail)
+    .then((res) => console.log(res));
 
   return (
     <div className="overlay">
@@ -187,6 +200,16 @@ export default function FCProfileView(userToShow) {
           {/* when viewed user is liked -> change display to "inline-block" */}
         </div>
       </div>
+
+      {/* Conditional rendering of MatchDialog */}
+      {matchDetails && (
+        <FCMatchModal
+          open
+          details={matchDetails}
+          onClose={() => setMatchDetails(null)}
+        />
+      )}
+      {/* <AlertDialog open /> */}
     </div>
   );
 }

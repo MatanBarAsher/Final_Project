@@ -8,11 +8,17 @@ import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import { FCLoad } from "../../../loading/FCLoad";
 import { SuccessDialog } from "./Dialog/FeedbackSuccessDialog";
 import background from "../../../assets/images/Matan.jpg";
+import { makeAmoveFeedbackServer } from "../../../services";
+import { Feedback } from "@mui/icons-material";
 
 export const FCFeedback = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const navigate = useNavigate();
+
+  console.log(JSON.parse(localStorage.getItem("matched-user")));
+  const matchedUser = JSON.parse(localStorage.getItem("matched-user"));
+
   var options1 = [
     { label: "1", id: 1 },
     { label: "2", id: 2 },
@@ -69,22 +75,44 @@ export const FCFeedback = () => {
     // updateFeedbackData("Q1", id);
   };
 
+  const [friendName, setFriendName] = useState(null);
+  const handleFriendCreation = (e) => {
+    setFriendName(e.target.value);
+    // updateFeedbackData("Q1", id);
+  };
+
   const handleSubmit = (e) => {
+    e.preventDefault();
     // setIsLoading(true);
     setShowSuccessModal(true);
-    //   e.preventDefault();
 
-    //   //go to server with precerencesData as prop
-    // //   makeAmoveUserServer.setPreferences(precerencesData).then((response) => {
-    // //     if (response) {
-    // //       console.log("success");
-    // //       console.log(response);
-    // //       navigate("/profile");
-    // //     } else {
-    // //       console.log("failure");
-    // //       navigate("/map");
-    // //     }
-    // //   });
+    console.log(option1);
+    console.log(option2);
+    console.log(option3);
+    console.log(option4);
+    console.log(friendName);
+    const feebackData = {
+      matchId: matchedUser.matchID,
+      q11: option1,
+      q21: option2,
+      q31: option3,
+      q41: option4,
+      name: "יוסי",
+      email: JSON.parse(localStorage.getItem("current-email")),
+    };
+
+    console.log(feebackData);
+    //go to server with precerencesData as prop
+    makeAmoveFeedbackServer.createFeedback(feebackData).then((response) => {
+      if (response) {
+        console.log("success");
+        console.log(response);
+        // navigate("/profile");
+      } else {
+        console.log("failure");
+        // navigate("/map");
+      }
+    });
   };
   return (
     <span>
@@ -102,22 +130,9 @@ export const FCFeedback = () => {
           <form onSubmit={() => navigate("/feedback2")}>
             <h1 className="pref-h1">משוב</h1>
 
-            <div className="match">
-        <div
-          className="profile-image"
-          style={{
-            backgroundImage: `url(.${background})`,
-            height: 60,
-            width: 60,
-            marginRight: 210,
-            border: "4px solid white",
-            borderRadius: "50%",
-          }}
-        ></div>
-      </div>
             <h3>דרג/י את מידת ההסכמה שלך:</h3>
             <p className="feedback-p">
-              1. __בעל מאפיינים דומים למה שאני מחפש/ת:
+              <b>{matchedUser.name}</b> בעל מאפיינים דומים למה שאני מחפש/ת:
             </p>
             <div className="gender-inp">
               {options1.map((o1) => (
@@ -133,7 +148,9 @@ export const FCFeedback = () => {
                 </span>
               ))}
             </div>
-            <p className="feedback-p">2. התמונות של __ תואמות למציאות:</p>
+            <p className="feedback-p">
+              התמונות של <b>{matchedUser.name}</b> תואמות למציאות:
+            </p>
             <div className="gender-inp">
               {options2.map((o2) => (
                 <span key={o2.id}>
@@ -149,7 +166,8 @@ export const FCFeedback = () => {
               ))}
             </div>
             <p className="feedback-p">
-              3. תחומי העניין ששיתפ/ת עזרו לי לפתח איתו/ה שיחה:
+              תחומי העניין ששיתפ/ת עזרו לי לפתח עם <b>{matchedUser.name}</b>{" "}
+              שיחה:
             </p>
             <div className="gender-inp">
               {options3.map((o3) => (
@@ -166,7 +184,9 @@ export const FCFeedback = () => {
               ))}
             </div>
 
-            <p className="feedback-p">4. הייתי רוצה להיפגש איתו/ה שוב:</p>
+            <p className="feedback-p">
+              הייתי רוצה להיפגש עם <b>{matchedUser.name}</b> שוב:
+            </p>
             <div className="gender-inp">
               {options4.map((o4) => (
                 <span key={o4.id}>
@@ -181,9 +201,9 @@ export const FCFeedback = () => {
                 </span>
               ))}
             </div>
-            <p className="feedback-p">5. עם מי בילית היום?</p>
+            <p className="feedback-p">עם מי בילית היום?</p>
 
-            <FCCustomTxtInp />
+            <FCCustomTxtInp onChange={(value) => handleFriendCreation} />
 
             <div
               style={{
