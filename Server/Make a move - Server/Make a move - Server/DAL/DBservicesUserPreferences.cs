@@ -170,6 +170,88 @@ namespace Make_a_move___Server.DAL
             return cmd;
         }
 
+
+        //--------------------------------------------------------------------------------------------------
+        // This method reads preference from the database by email
+        //--------------------------------------------------------------------------------------------------
+        public UserPreferences ReadUserPreferencesByEmail(string email)
+        {
+
+            SqlConnection con;
+            SqlCommand cmd;
+            UserPreferences usersPreferences = new UserPreferences();
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            cmd = CreateSelectUserPreferenceListByEmailWithStoredProcedure("SP_ReadUserPreferencesByEmail", con, email);             // create the command
+
+            try
+            {
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    UserPreferences up = new UserPreferences();
+
+                    up.Email = dataReader["email"].ToString();
+                    up.PreferenceGender = Convert.ToInt32(dataReader["preferenceGender"]);
+                    up.MinAge = Convert.ToInt32(dataReader["minAge"]);
+                    up.MaxAge = Convert.ToInt32(dataReader["maxAge"]);
+                    up.MinHeight = Convert.ToInt32(dataReader["minHeight"]);
+                    up.MaxHeight = Convert.ToInt32(dataReader["maxHeight"]);
+                    up.MaxDistance = Convert.ToInt32(dataReader["maxDistance"]);
+
+                    usersPreferences = up;
+                }
+                return usersPreferences;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+        }
+        //---------------------------------------------------------------------------------
+        // Create the SqlCommand using a stored procedure
+        //---------------------------------------------------------------------------------
+        private SqlCommand CreateSelectUserPreferenceListByEmailWithStoredProcedure(String spName, SqlConnection con, string email)
+        {
+
+            SqlCommand cmd = new SqlCommand(); // create the command object
+
+            cmd.Connection = con;              // assign the connection to the command object
+
+            cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+
+            cmd.Parameters.AddWithValue("@email", email);
+
+            return cmd;
+        }
+
+
+
         //--------------------------------------------------------------------------------------------------
         // This method Updates a preference at Preference table 
         //--------------------------------------------------------------------------------------------------

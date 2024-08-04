@@ -94,7 +94,7 @@ export const FCFeedback = () => {
     console.log(option4);
     console.log(friendName);
     const feebackData = {
-      matchId: matchedUser.matchID,
+      matchId: matchedUser.matchNum,
       q11: option1,
       q21: option2,
       q31: option3,
@@ -148,7 +148,7 @@ export const FCFeedback = () => {
 
             <h3>דרג/י את מידת ההסכמה שלך:</h3>
             <p className="feedback-p">
-              <b>{matchedUser.name}</b> בעל מאפיינים דומים למה שאני מחפש/ת:
+              <b>{matchedUser.firstName}</b> בעל מאפיינים דומים למה שאני מחפש/ת:
             </p>
             <div className="gender-inp">
               {options1.map((o1) => (
@@ -165,7 +165,7 @@ export const FCFeedback = () => {
               ))}
             </div>
             <p className="feedback-p">
-              התמונות של <b>{matchedUser.name}</b> תואמות למציאות:
+              התמונות של <b>{matchedUser.firstName}</b> תואמות למציאות:
             </p>
             <div className="gender-inp">
               {options2.map((o2) => (
@@ -182,8 +182,8 @@ export const FCFeedback = () => {
               ))}
             </div>
             <p className="feedback-p">
-              תחומי העניין ששיתפ/ת עזרו לי לפתח עם <b>{matchedUser.name}</b>{" "}
-              שיחה:
+              תחומי העניין ששיתפ/ת עזרו לי לפתח עם{" "}
+              <b>{matchedUser.firstName}</b> שיחה:
             </p>
             <div className="gender-inp">
               {options3.map((o3) => (
@@ -201,7 +201,7 @@ export const FCFeedback = () => {
             </div>
 
             <p className="feedback-p">
-              הייתי רוצה להיפגש עם <b>{matchedUser.name}</b> שוב:
+              הייתי רוצה להיפגש עם <b>{matchedUser.firstName}</b> שוב:
             </p>
             <div className="gender-inp">
               {options4.map((o4) => (

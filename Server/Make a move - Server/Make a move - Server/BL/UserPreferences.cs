@@ -108,6 +108,22 @@ namespace Make_a_move___Server.BL
                 throw new Exception("Error updating user", ex);
             }
         }
+
+        public static UserPreferences ReadUserPreferencesByEmail(string email)
+        {
+            try
+            {
+                DBservicesUserPreferences dbs = new DBservicesUserPreferences();
+                UserPreferences up = new UserPreferences();
+                up = dbs.ReadUserPreferencesByEmail(email);
+                return up;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error reading user preferences", ex);
+            }
+        }
     }
 }
 

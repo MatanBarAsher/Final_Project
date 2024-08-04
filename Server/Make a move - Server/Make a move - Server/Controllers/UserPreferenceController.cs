@@ -35,10 +35,11 @@ namespace Make_a_move___Server.Controllers
             return userPreferences.UpdateUserPreferences(userPreferences);
         }
 
-
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+        [HttpGet("ReadUserPreferencesByEmail")]
+        public UserPreferences ReadUserPreferencesByEmail([FromQuery] string email)
+        {
+            UserPreferences userPreferences = new UserPreferences();
+            return UserPreferences.ReadUserPreferencesByEmail(email);
+        }
     }
 }

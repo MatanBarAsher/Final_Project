@@ -17,7 +17,7 @@ export default function FCMatchedUser({ user, func, image, currentEmail }) {
   }, []);
 
   return (
-    <div onClick={(user) => func} className="match">
+    <div onClick={() => func(user)} className="match">
       <div style={{ position: "relative", width: 80 }}>
         <div
           className="profile-image"

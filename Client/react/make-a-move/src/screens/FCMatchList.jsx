@@ -17,6 +17,7 @@ export default function FCMatchList() {
   }, []);
 
   useEffect(() => {
+    console.log(matchedUsers);
     if (matchedUsers.length > 0) {
       GetMatchedUsersDetails();
     }
@@ -33,17 +34,31 @@ export default function FCMatchList() {
 
   const GetMatchedUsersDetails = async () => {
     try {
-      const userDetailPromises = matchedUsers.map((u) =>
-        makeAmoveUserServer.GetUserNoPasswordByEmail(u.secondemail)
-      );
+      // Create an array of promises to fetch user details
+      const userDetailPromises = matchedUsers.map(async (u) => {
+        const email =
+          u.secondemail === currentEmail ? u.firstemail : u.secondemail;
+        const userDetails = await makeAmoveUserServer.GetUserNoPasswordByEmail(
+          email
+        );
+        return { ...userDetails, matchNum: u.matchNum }; // Combine user details with matchNum
+      });
+
+      // Wait for all promises to resolve
       const usersDetails = await Promise.all(userDetailPromises);
+
+      // Update state with the combined user details
       setMatchedUsersDetails(usersDetails);
+
+      // Log the combined user details
+      console.log(usersDetails);
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
   };
 
   const handleMatchClick = (clickedUser) => {
+    console.log(clickedUser);
     localStorage.setItem("matched-user", JSON.stringify(clickedUser));
     navigate("/feedback");
   };

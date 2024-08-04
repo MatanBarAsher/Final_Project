@@ -47,8 +47,7 @@
               "ViewState": "AQIAAB4AAAAAAAAAAAAkwCQAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-13T11:46:29.589Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -61,8 +60,7 @@
               "ViewState": "AQIAAO0BAAAAAAAAAAAuwPgBAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-05T15:27:53.943Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -82,8 +80,7 @@
               "RelativeToolTip": "Make a move - Server\\BL\\Matchs.cs",
               "ViewState": "AQIAACUAAAAAAAAAAAAwwAkAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T11:01:17.964Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T11:01:17.964Z"
             },
             {
               "$type": "Document",
@@ -95,8 +92,7 @@
               "RelativeToolTip": "Make a move - Server\\DAL\\DBservicesUser.cs",
               "ViewState": "AQIAALECAAAAAAAAAAAAALgCAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-09T11:26:37.713Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-09T11:26:37.713Z"
             },
             {
               "$type": "Document",
@@ -108,8 +104,7 @@
               "RelativeToolTip": "Make a move - Server\\DAL\\DBservicesPlace.cs",
               "ViewState": "AQIAACoAAAAAAAAAAIAwwFEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-13T11:46:29.568Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-13T11:46:29.568Z"
             },
             {
               "$type": "Document",
