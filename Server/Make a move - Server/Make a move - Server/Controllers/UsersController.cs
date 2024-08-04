@@ -493,23 +493,23 @@ namespace Make_a_move___Server.Controllers
 
 
 
-        [HttpGet("getUserAnalysis")]
-        public IActionResult GetUserAnalysisl(string email)
+        [HttpGet("getAnalysis")]
+        public IActionResult GetAnalysis(string email)
         {
-
-            DBservicesUser dbs = new DBservicesUser();
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest("Email parameter is required.");
+            }
+            User user = new();
             try
             {
-                IEnumerable<dynamic> data = dbs.ReadAnalysisByEmail(email);
-
-                // Return the data as JSON (ASP.NET Core)
-                return Ok(data);
+                var analysisData = user.GetAllAnalysesByEmail(email);
+                return Ok(analysisData);
             }
             catch (Exception ex)
             {
-                // Log the exception (you can use any logging mechanism you prefer)
-                // e.g., _logger.LogError(ex, "An error occurred while getting likes.");
-                return StatusCode(500, "Internal server error.");
+                // Log exception
+                return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
 

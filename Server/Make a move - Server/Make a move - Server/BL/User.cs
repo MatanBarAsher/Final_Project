@@ -765,6 +765,80 @@ using System.Net.Http;
         }
 
 
+        public Dictionary<string, object> GetAllAnalysesByEmail(string inputEmail)
+        {
+            var result = new Dictionary<string, object>();
+            DBservicesUser dbs = new DBservicesUser();
+
+            // Retrieve data from each analysis method
+            var analysisData = dbs.ReadAnalysisByEmail(inputEmail).FirstOrDefault();
+            var preferenceAnalysisData = dbs.ReadPreferenceAnalysisByEmail(inputEmail).FirstOrDefault();
+            
+
+            // Extract specific fields from analysisData
+            if (analysisData != null)
+            {
+                var name = analysisData.MostFrequentFriend;
+                var namePrecentage = analysisData.FriendPercentage;
+                var place = analysisData.MostFrequentPlace;
+                var placePrecentage = analysisData.PlacePercentage;
+                var day = analysisData.MostFrequentWeekday;
+                var dayPrecentage = analysisData.WeekdayPercentage;
+
+                result["Name"] = name;
+                result["NamePrecentage"] = namePrecentage;
+                result["Place"] = place;
+                result["PlacePrecentage"] = placePrecentage;
+                result["Day"] = day;
+                result["DayPrecentage"] = dayPrecentage;
+            }
+
+            // Extract and compare percentage data from preferenceAnalysisData
+            if (preferenceAnalysisData != null)
+            {
+                var heightMatchPercentage = preferenceAnalysisData.HeightMatchPercentage;
+                var nonMatchingHeightPercentage = preferenceAnalysisData.HeightMismatchPercentage;
+                var ageMatchPercentage = preferenceAnalysisData.AgeMatchPercentage;
+                var nonMatchingAgePercentage = preferenceAnalysisData.AgeMismatchPercentage;
+
+                result["HeightMatchPercentage"] = heightMatchPercentage;
+                result["NonMatchingHeightPercentage"] = nonMatchingHeightPercentage;
+
+                result["AgeMatchPercentage"] = ageMatchPercentage;
+                result["NonMatchingAgePercentage"] = nonMatchingAgePercentage;
+            }
+
+            // Combine personalInterestAnalysisData
+            var personalInterestAnalysisData = dbs.ReadPersonalInterestAnalysisByEmail(inputEmail).ToList();
+            if (personalInterestAnalysisData.Any())
+            {
+                // Concatenate all interests and their percentages
+                var interestData = personalInterestAnalysisData
+                    .Select(d => d.CommonInterest)
+                    .Distinct() // Ensure unique interests
+                    .ToList();
+
+                var interestsConcatenated = string.Join(", ", interestData);
+                result["PersonalInterests"] = interestsConcatenated;
+
+                // Add highest percentage
+                var highestInterest = personalInterestAnalysisData
+                    .OrderByDescending(d => d.HeightMatchPercentage) // Assuming interest percentage to sort by
+                    .FirstOrDefault();
+
+                if (highestInterest != null)
+                {
+                    result["HighestInterestPercentage"] = highestInterest.HeightMatchPercentage;
+                }
+            }
+
+            return result;
+            }
+
+
+
+
+
     }
 
 
