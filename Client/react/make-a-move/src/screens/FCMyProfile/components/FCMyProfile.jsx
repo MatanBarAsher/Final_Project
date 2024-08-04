@@ -14,6 +14,7 @@ export default function FCMyProfile() {
   const [cityMap, setCityMap] = useState({});
   const [tempCity, setTempCity] = useState("");
   const [firstImage, setFirstImage] = useState("");
+  localStorage.setItem("origin", JSON.stringify("myProfile"));
 
   useEffect(() => {
     makeAmoveUserServer

@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import FCImageInp from "../components/FCImageInp";
 import FCUpload from "../components/FCUpload";
 import FCGetImage from "../components/FCGetImage";
+import { CleaningServices } from "@mui/icons-material";
 
 export default function FCSetImages() {
   const [user, setUser] = useState({});
   const navigate = useNavigate(); // Assuming you might need this for navigation
+  const origin = JSON.parse(localStorage.getItem("origin"));
 
   useEffect(() => {
     const currentEmail = JSON.parse(localStorage.getItem("current-email"));
@@ -27,7 +29,12 @@ export default function FCSetImages() {
 
   const handleImgInput = (e) => {
     e.preventDefault();
-    navigate("/preferences");
+    console.log(origin);
+    if (origin === "myProfile") {
+      navigate("/myProfile");
+    } else {
+      navigate("/preferences");
+    }
   };
 
   return (

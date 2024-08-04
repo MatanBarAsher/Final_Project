@@ -8,7 +8,7 @@ export const ProfileErrorDialog = ({ open, setClose }) => {
       confirmButtonAction={setClose}
       confirmButtonText={"נסה שוב"}
       title={"העדכון נכשל!"}
-      content={"פריטייך לא התעדכנו "}
+      content={"פרטייך לא התעדכנו "}
     />
   );
 };
