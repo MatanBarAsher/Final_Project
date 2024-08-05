@@ -113,7 +113,6 @@ export const FCFeedback = () => {
         setShowSuccessModal(true);
         console.log("success");
         console.log(response);
-        navigate("/matches");
       } else {
         setShowErrorModal(true);
       }
@@ -134,7 +133,7 @@ export const FCFeedback = () => {
             open={showSuccessModal}
             setClose={() => {
               setShowSuccessModal(false);
-              // navigate("/");
+              navigate("/matches");
             }}
           />
           <FeedbackErrorDialog
