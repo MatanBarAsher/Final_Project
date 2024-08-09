@@ -56,7 +56,7 @@ export const makeAmoveUserServer = {
         height: 0,
         birthday: "2024-05-17T08:24:11.516Z",
         phoneNumber: "string",
-        isActive: true,
+        isActive: data.isActive,
         city: "string",
         personalInterestsIds: ["string"],
         preferencesIds: ["string"],

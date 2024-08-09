@@ -80,6 +80,16 @@ export default function FCMyProfile() {
   const Logout = () => {
     setShowLogoutModal(true);
   };
+  const confirmLogoutUser = () => {
+    let logoutUser = UserData;
+    logoutUser.currentPlace = 0;
+    localStorage.setItem("current-place", JSON.stringify("0"));
+    console.log(logoutUser);
+    makeAmoveUserServer
+      .updateUser(logoutUser)
+      .then((res) => console.log(res))
+      .catch((res) => console.log(res));
+  };
   const deleteProfile = () => {
     setShowDeleteModal(true);
   };
@@ -94,11 +104,13 @@ export default function FCMyProfile() {
       .catch((res) => console.log(res));
     // Navigate("/");
   };
+
   return (
     <>
       <ProfileLogout
         open={showLogoutModal}
         setClose={() => {
+          confirmLogoutUser();
           setShowLogoutModal(false);
           Navigate("/");
         }}
@@ -111,6 +123,7 @@ export default function FCMyProfile() {
         setClose={() => {
           confirmDeleteUser();
           setShowDeleteModal(false);
+          Navigate("/");
         }}
         setCloseCancel={() => {
           setShowDeleteModal(false);
