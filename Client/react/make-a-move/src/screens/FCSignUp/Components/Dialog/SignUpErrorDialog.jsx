@@ -7,7 +7,7 @@ export const ErrorDialog = ({ open, setClose }) => {
       open={open}
       confirmButtonAction={setClose}
       confirmButtonText={"הירשם מחדש"}
-      title={"!הרשמה נכשלה"}
+      title={"הרשמה נכשלה!"}
       content={"לא ניתן להכניס נתונים אלו"}
     />
   );

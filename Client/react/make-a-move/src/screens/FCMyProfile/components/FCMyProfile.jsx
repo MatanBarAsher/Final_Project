@@ -20,6 +20,7 @@ export default function FCMyProfile() {
   localStorage.setItem("origin", JSON.stringify("myProfile"));
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   useEffect(() => {
     makeAmoveUserServer
       .getUserByEmail(userEmail)
