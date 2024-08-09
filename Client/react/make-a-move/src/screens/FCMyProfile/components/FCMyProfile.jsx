@@ -83,6 +83,7 @@ export default function FCMyProfile() {
   const confirmLogoutUser = () => {
     let logoutUser = UserData;
     logoutUser.currentPlace = 0;
+    logoutUser.timeStamp = "1900-01-01T00:24:00";
     localStorage.setItem("current-place", JSON.stringify("0"));
     console.log(logoutUser);
     makeAmoveUserServer
