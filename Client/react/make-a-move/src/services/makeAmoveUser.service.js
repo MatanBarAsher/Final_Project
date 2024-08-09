@@ -56,7 +56,7 @@ export const makeAmoveUserServer = {
         height: 0,
         birthday: "2024-05-17T08:24:11.516Z",
         phoneNumber: "string",
-        isActive: true,
+        isActive: data.isActive,
         city: "string",
         personalInterestsIds: ["string"],
         preferencesIds: ["string"],
@@ -383,4 +383,16 @@ export const makeAmoveUserServer = {
         throw error; // Rethrow the error to be caught by the caller}
       });
   },
+  getAnalysis: (email) =>
+    axios
+      .get(
+        `${
+          import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
+        }/users/getAnalysis?email=${email}`
+      )
+      .then((res) => res.data) //returning data
+      .catch((error) => {
+        console.error("Error fetching user analysis:", error);
+        throw error; // Rethrow the error to be caught by the caller}
+      }),
 };

@@ -7,7 +7,7 @@ export const PreferenceSuccessDialog = ({ open, setClose }) => {
       open={open}
       confirmButtonAction={setClose}
       confirmButtonText={"סגור"}
-      title={"!העדכון נקלט בהצלחה"}
+      title={"העדכון נקלט בהצלחה!"}
       content={"כעת נציע התאמות שתואמות להעדפות החדשות שהגדרת"}
     />
   );

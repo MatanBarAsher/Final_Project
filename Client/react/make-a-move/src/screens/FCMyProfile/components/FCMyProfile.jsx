@@ -7,6 +7,9 @@ import { makeAmoveUserServer } from "../../../services";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { ProfileLogout } from "./DialogsProfiles/profileLogout";
+import { ProfileDelete } from "./DialogsProfiles/profileDelete";
 
 export default function FCMyProfile() {
   const [UserData, setUserData] = useState({});
@@ -15,6 +18,8 @@ export default function FCMyProfile() {
   const [tempCity, setTempCity] = useState("");
   const [firstImage, setFirstImage] = useState("");
   localStorage.setItem("origin", JSON.stringify("myProfile"));
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     makeAmoveUserServer
@@ -72,8 +77,58 @@ export default function FCMyProfile() {
       console.error("Error fetching data:", error);
     }
   };
+  const Logout = () => {
+    setShowLogoutModal(true);
+  };
+  const confirmLogoutUser = () => {
+    let logoutUser = UserData;
+    logoutUser.currentPlace = 0;
+    localStorage.setItem("current-place", JSON.stringify("0"));
+    console.log(logoutUser);
+    makeAmoveUserServer
+      .updateUser(logoutUser)
+      .then((res) => console.log(res))
+      .catch((res) => console.log(res));
+  };
+  const deleteProfile = () => {
+    setShowDeleteModal(true);
+  };
+
+  const confirmDeleteUser = () => {
+    let userToDelete = UserData;
+    userToDelete.isActive = false;
+    console.log(userToDelete);
+    makeAmoveUserServer
+      .updateUser(userToDelete)
+      .then((res) => console.log(res))
+      .catch((res) => console.log(res));
+    // Navigate("/");
+  };
+
   return (
     <>
+      <ProfileLogout
+        open={showLogoutModal}
+        setClose={() => {
+          confirmLogoutUser();
+          setShowLogoutModal(false);
+          Navigate("/");
+        }}
+        setCloseCancel={() => {
+          setShowLogoutModal(false);
+        }}
+      />
+      <ProfileDelete
+        open={showDeleteModal}
+        setClose={() => {
+          confirmDeleteUser();
+          setShowDeleteModal(false);
+          Navigate("/");
+        }}
+        setCloseCancel={() => {
+          setShowDeleteModal(false);
+        }}
+      />
       <div className="side-menu">
         <div onClick={() => Navigate("/updateProfile")}>
           <FCCustomEdit color="white" />
@@ -114,8 +169,17 @@ export default function FCMyProfile() {
         </div>
         <div className="footer-side-menu">
           <a className="side-menu-option">
-            <WavingHandOutlinedIcon color="white" />
+            <WavingHandOutlinedIcon color="white" onClick={() => Logout()} />
             <p>התנתקות</p>
+          </a>
+
+          <a className="side-menu-option">
+            <DeleteOutlineIcon
+              onClick={() => deleteProfile()}
+              color="white"
+              sx={{ width: 22, height: 22, fontSize: 44 }}
+            />
+            <p>מחיקת משתמש</p>
           </a>
         </div>
       </div>

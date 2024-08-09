@@ -115,6 +115,7 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
             open={showErrorModal}
             setClose={() => {
               setShowErrorModal(false);
+              navigate("/");
             }}
           />
 
