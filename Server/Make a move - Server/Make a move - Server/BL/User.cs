@@ -27,6 +27,7 @@ using System.Net.Http;
         private string phoneNumber;
         private bool isActive;
         private string city;
+        private DateTime timeStamp;
         private string[] personalInterestsIds;
         private int currentPlace;
         private string persoalText;
@@ -36,6 +37,26 @@ using System.Net.Http;
 
 
         public User() { }
+
+        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, DateTime timeStamp, int currentPlace, string persoalText, Dictionary<string, string> preferencesDictionary, string[] personalInterestsIds)
+        {
+            this.email = email;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.password = password;
+            this.gender = gender;
+            this.image = image;
+            this.height = height;
+            this.birthday = birthday;
+            this.phoneNumber = phoneNumber;
+            this.isActive = isActive;
+            this.city = city;
+            this.timeStamp = timeStamp;
+            this.personalInterestsIds = personalInterestsIds;
+            this.currentPlace = currentPlace;
+            this.persoalText = persoalText;
+            this.preferencesDictionary = preferencesDictionary;
+        }
 
         public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, int currentPlace, string persoalText, Dictionary<string, string> preferencesDictionary, string[] personalInterestsIds)
         {
@@ -67,7 +88,9 @@ using System.Net.Http;
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public bool IsActive { get => isActive; set => isActive = value; }
         public string City { get => city; set => city = value; }
-       // public string[] PersonalInterestsIds { get => personalInterestsIds; set => personalInterestsIds = value; }
+
+        public DateTime TimeStamp { get => timeStamp; set => timeStamp = value; }
+
         public int CurrentPlace { get => currentPlace; set => currentPlace = value; }
         public string PersoalText { get => persoalText; set => persoalText = value; }
         public Dictionary<string, string> PreferencesDictionary { get => preferencesDictionary; set => preferencesDictionary = value; }
