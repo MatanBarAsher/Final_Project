@@ -250,6 +250,7 @@ option {
   flex: 100%;
 }
 
+
 .lower-side-menu {
   flex: 100%;
   direction: ltr;
@@ -272,10 +273,12 @@ option {
 
 .footer-side-menu {
   flex: 100%;
+  flex-wrap: wrap;
   color: #fff;
   direction: ltr;
   display: flex;
   padding: 0 30px;
+  gap: 10px;
 }
 
 .signup-p {
@@ -301,6 +304,7 @@ option {
   text-align: right;
   max-width: 340px;
 }
+
 
 .gender-inp {
   display: flex;

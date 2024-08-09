@@ -41,6 +41,7 @@ export const AlertDialog = ({
               <Button
                 // style={{ color: "black" }}
                 className="dialogBtn"
+                style={{ color: "#3c0753" }}
                 onClick={cancelButtonAction}
               >
                 {cancelButtonText}

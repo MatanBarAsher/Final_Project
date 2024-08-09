@@ -18,7 +18,11 @@ const FCSignUpFlow = () => {
 
   return (
     <>
-      <Stepper activeStep={currentStep} alternativeLabel>
+      <Stepper
+        sx={{ color: "#efe1d1" }}
+        activeStep={currentStep}
+        alternativeLabel
+      >
         {screens.map((_, index) => (
           <Step key={index}>
             <StepLabel>{index}</StepLabel>
@@ -27,6 +31,7 @@ const FCSignUpFlow = () => {
       </Stepper>
       {
         <Component
+          sx={{ backgroundColor: "#efe1d1" }}
           setCurrentStep={setCurrentStep}
           currentStep={currentStep}
           length={screens.length}
@@ -34,6 +39,7 @@ const FCSignUpFlow = () => {
       }
       <div
         style={{
+          backgroundColor: "#efe1d1",
           display: "flex",
           flexDirection: "row-reverse",
           justifyContent: "center",

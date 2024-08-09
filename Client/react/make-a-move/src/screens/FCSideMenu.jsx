@@ -10,10 +10,12 @@ import FCMyProfile from "./FCMyProfile/components/FCMyProfile";
 import { makeAmoveUserServer } from "../services";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import { ProfileLogout } from "./FCMyProfile/components/DialogsProfiles/profileLogout";
 
 export default function FCSideMenu({ name }) {
   const [UserData, setUserData] = useState({});
   const [firstImage, setFirstImage] = useState("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const Navigate = useNavigate();
   const email = JSON.parse(localStorage.getItem("current-email"));
@@ -41,8 +43,19 @@ export default function FCSideMenu({ name }) {
     }
   }, [UserData]);
 
+  const Logout = () => {
+    setShowSuccessModal(true);
+  };
+
   return (
     <div className="side-menu">
+      <ProfileLogout
+        open={showSuccessModal}
+        setClose={() => {
+          setShowSuccessModal(false);
+          Navigate("/");
+        }}
+      />
       <a onClick={() => Navigate(`/${origin}`)}>
         <FCCustomX color="white" />
       </a>
@@ -91,7 +104,7 @@ export default function FCSideMenu({ name }) {
       </div>
       <div className="footer-side-menu">
         <a className="side-menu-option">
-          <WavingHandOutlinedIcon color="white" />
+          <WavingHandOutlinedIcon color="white" onClick={() => Logout()} />
           <p>התנתקות</p>
         </a>
       </div>
