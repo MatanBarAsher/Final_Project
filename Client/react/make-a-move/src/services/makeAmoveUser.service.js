@@ -372,7 +372,7 @@ export const makeAmoveUserServer = {
       });
   },
 
-  getAnalysis: () =>
+  getAnalysis: (email) =>
     axios
       .get(
         `${

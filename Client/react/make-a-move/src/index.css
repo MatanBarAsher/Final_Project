@@ -590,6 +590,22 @@ input {
   font-family: "Heebo";
   font-weight: bold;
   font-size: 16px;
+  margin-bottom: 50px;;
+}
+.lower-recommend{
+  flex: 100%;
+ text-align: right;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 40px 30px;
+  border-top: 1px solid white;
+  margin-bottom: 40px;
+  
+}
+.recommend-h3{
+  font-size: 17px;
+  font: "heebo";
 }
 .match {
   display: flex;
