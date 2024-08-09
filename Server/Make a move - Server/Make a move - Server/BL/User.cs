@@ -517,11 +517,12 @@ using System.Net.Http;
             return result;
         }
 
-        public async Task<Dictionary<User, Tuple<double, double>>> GetMatchPercantegeByEmails(string email1, string email2)
+        public async Task<Dictionary<User, Tuple<double, double>>> GetMatchPercantegeByEmails(User u1, User u2)
         {
-            User u1 = GetUserByEmail(email1);
-            User u2 = GetUserByEmail(email2);
+            //User u1 = GetUserByEmail(email1);
+            //User u2 = GetUserByEmail(email2);
             //List<User> list = this.ReadUsersByPlace(this.CurrentPlace);
+
             Dictionary<User, Tuple<double, double>> result = new Dictionary<User, Tuple<double, double>>();
 
                 // Calculate the match percentage

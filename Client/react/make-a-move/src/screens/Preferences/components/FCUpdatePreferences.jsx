@@ -8,6 +8,7 @@ import { makeAmoveUserPreferencesServer } from "../../../services";
 import { PreferenceErrorDialog } from "./Dialog/PreferenceErrorDialog";
 import { PreferenceSuccessDialog } from "./Dialog/PreferenceSuccessDialog";
 import { FCLoad } from "../../../loading/FCLoad";
+import FCCustomX from "../../../components/FCCustomX";
 
 export const FCUpdatePreferences = () => {
   const navigate = useNavigate("");
@@ -136,16 +137,18 @@ export const FCUpdatePreferences = () => {
               setShowErrorModal(false);
             }}
           />
-
+          <span onClick={() => navigate("/sideMenu")}>
+            <FCCustomX color="white" />
+          </span>
           <form onSubmit={handleSubmit}>
             <h1 className="pref-h1">העדפות</h1>
-            <p className="preference-p">אני מחפשת:</p>
+            <p className="preference-p">אני מחפש/ת:</p>
             <div className="gender-inp">
               <span>
                 <input
-                  checked={preferencesData["preferenceGender"] === 2}
-                  onChecked={preferencesData["preferenceGender"] === 2}
-                  id="2"
+                  checked={preferencesData["preferenceGender"] === 1}
+                  onChecked={preferencesData["preferenceGender"] === 1}
+                  id="1"
                   type="radio"
                   name="preferenceGender"
                   onChange={handleGenderCreation}
@@ -155,9 +158,9 @@ export const FCUpdatePreferences = () => {
               </span>
               <span>
                 <input
-                  checked={preferencesData["preferenceGender"] === 1}
-                  onChecked={preferencesData["preferenceGender"] === 1}
-                  id="1"
+                  checked={preferencesData["preferenceGender"] === 2}
+                  onChecked={preferencesData["preferenceGender"] === 2}
+                  id="2"
                   type="radio"
                   name="preferenceGender"
                   onChange={handleGenderCreation}

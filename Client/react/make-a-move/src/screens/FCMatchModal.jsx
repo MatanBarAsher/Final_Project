@@ -17,7 +17,7 @@ export default function FCMatchModal({ details, onClose, open }) {
           }`}
           alt=""
         />
-        <FCCustomBtn title={"צפייה בפרופיל"} />
+        <FCCustomBtn title={"צפייה בפרופיל"} onClick={onClose} />
         <div className="match-text-container">
           <div className="match-text" dir="ltr">
             MAKE a MOVE!

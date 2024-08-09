@@ -40,7 +40,7 @@ export const FCUpdateProfile = () => {
     makeAmoveUserServer
       .getUserByEmail(userEmail)
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         res.birthday = res.birthday.split("T")[0];
         // console.log(res);
         setUpdatedUserData(res);
@@ -82,8 +82,8 @@ export const FCUpdateProfile = () => {
   }, [updatedUserData]);
 
   var genders = [
-    { label: "אישה", id: 1 },
-    { label: "גבר", id: 2 },
+    { label: "גבר", id: 1 },
+    { label: "אישה", id: 2 },
     { label: "אחר", id: 3 },
   ];
   const [gender, setGender] = useState(null);
@@ -318,7 +318,9 @@ export const FCUpdateProfile = () => {
           />
           <div>
             <div>
-              <FCCustomX color="white" />
+              <span onClick={() => Navigate("/myProfile")}>
+                <FCCustomX color="white" />
+              </span>
               <h1>עריכת פרופיל</h1>
             </div>
             <form onSubmit={handleSubmit}>

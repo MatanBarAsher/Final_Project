@@ -142,8 +142,8 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
         <p className="signup2-p">גובה (ס''מ):</p>
         <FCCustomNumberInp
           value={signUpData["height"]}
-          ph="ס''מ"
           min={0}
+          ph="ס''מ"
           onChange={handleHeightCreation}
           required
         />

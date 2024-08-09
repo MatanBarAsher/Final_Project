@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 // import { makeAmoveUserServer } from "../services";
@@ -8,17 +8,48 @@ import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import { FCLoad } from "../../../loading/FCLoad";
 import { FeedbackSuccessDialog } from "./Dialog/FeedbackSuccessDialog";
 import { FeedbackErrorDialog } from "./Dialog/FeedbackErrorDialog";
-import { makeAmoveFeedbackServer } from "../../../services";
+import {
+  makeAmoveFeedbackServer,
+  makeAmoveUserServer,
+} from "../../../services";
 import { Feedback } from "@mui/icons-material";
+import AutoCompleteWithAddOption from "../../../components/AutoCompleteWithAddOption";
 
 export const FCFeedback = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [friends, setFriends] = useState([]);
   const navigate = useNavigate();
 
   console.log(JSON.parse(localStorage.getItem("matched-user")));
   const matchedUser = JSON.parse(localStorage.getItem("matched-user"));
+
+  useEffect(() => {
+    getFriends();
+  }, [isLoading]);
+
+  useEffect(() => {
+    console.log(friends);
+  }, [friends]);
+
+  const getFriends = async () => {
+    try {
+      const res = await makeAmoveUserServer
+        .getUserFriendsByEmail(
+          JSON.parse(localStorage.getItem("current-email"))
+        )
+        .then((res) => res)
+        .catch((res) => console.log(res));
+      console.log(res);
+      let res1 = [];
+      res.forEach((r) => res1.push({ value: r, label: r }));
+      console.log(res1);
+      setFriends(res1);
+    } catch (error) {
+      console.error("Error fetching matches:", error);
+    }
+  };
 
   var options1 = [
     { label: "1", id: 1 },
@@ -76,9 +107,9 @@ export const FCFeedback = () => {
     // updateFeedbackData("Q1", id);
   };
 
-  const [friendName, setFriendName] = useState(null);
-  const handleFriendCreation = (e) => {
-    setFriendName(e.target.value);
+  const [friendName, setFriendName] = useState("");
+  const handleFriendCreation = (name) => {
+    setFriendName(name);
     // updateFeedbackData("Q1", id);
   };
 
@@ -99,7 +130,7 @@ export const FCFeedback = () => {
       q21: option2,
       q31: option3,
       q41: option4,
-      name: "יוסי",
+      name: friendName,
       email: JSON.parse(localStorage.getItem("current-email")),
     };
 
@@ -218,8 +249,10 @@ export const FCFeedback = () => {
             </div>
             <p className="feedback-p">עם מי בילית היום?</p>
 
-            <FCCustomTxtInp onChange={(value) => handleFriendCreation} />
-
+            <AutoCompleteWithAddOption
+              friends={friends}
+              onValueChange={handleFriendCreation}
+            />
             <div
               style={{
                 display: "flex",
