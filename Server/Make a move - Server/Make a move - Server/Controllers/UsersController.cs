@@ -208,8 +208,12 @@ namespace Make_a_move___Server.Controllers
 
         public async Task<double> GetMatchPercentage(string email1, string email2) {
             User u = new();
+            DBservicesUser dbs = new DBservicesUser();
             // Call ReadUsersByPreference to get users matching the preferences of the current user
-            Dictionary<User, Tuple<double, double>> result = await u.GetMatchPercantegeByEmails(email1, email2);
+            User user1 = dbs.GetUserPreferencesByEmail(email1);
+            User user2 = dbs.GetUserPreferencesByEmail(email2);
+
+            Dictionary<User, Tuple<double, double>> result = await u.GetMatchPercantegeByEmails(user1, user2);
 
             double b = result.Values.FirstOrDefault().Item2;
             return result.Values.FirstOrDefault().Item1;

@@ -59,23 +59,31 @@ export default function FCMatchList() {
 
   const handleMatchClick = (clickedUser) => {
     console.log(clickedUser);
-    localStorage.setItem("matched-user", JSON.stringify(clickedUser));
-    navigate("/feedback");
+    if (clickedUser.matchNum > 0) {
+      localStorage.setItem("matched-user", JSON.stringify(clickedUser));
+      navigate("/feedback");
+    } else {
+      // להוסיף מודאל שאומר למשתמש ההוא כבר נתן משוב למשתמש הזה
+    }
   };
 
   return (
-    <div className="matches-container">
-      <h1 style={{ flex: "100%" }}>התאמות</h1>
-      <FCCustomX color="white" />
-      {matchedUsersDetails.map((u, index) => (
-        <FCMatchedUser
-          key={index}
-          user={u}
-          func={handleMatchClick}
-          image={u.image[0]}
-          currentEmail={currentEmail}
-        />
-      ))}
-    </div>
+    <>
+      <span onClick={() => navigate("/sideMenu")}>
+        <FCCustomX color="white" />
+      </span>
+      <div className="matches-container">
+        <h1 style={{ flex: "100%" }}>התאמות</h1>
+        {matchedUsersDetails.map((u, index) => (
+          <FCMatchedUser
+            key={index}
+            user={u}
+            func={handleMatchClick}
+            image={u.image[0]}
+            currentEmail={currentEmail}
+          />
+        ))}
+      </div>
+    </>
   );
 }

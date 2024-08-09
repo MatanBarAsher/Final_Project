@@ -48,12 +48,19 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
     console.log(selectedInterests);
   };
 
+  useEffect(() => {
+    console.log(selectedInterestsIndexes);
+  }, [selectedInterestsIndexes]);
+
   const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(selectedInterestsIndexes);
+
     setIsLoading(true);
     try {
-      handleInterestsSelection();
       const response = await makeAmoveUserServer.createUser(signUpData);
       if (response) {
+        handleInterestsSelection();
         localStorage.setItem("current-email", JSON.stringify(signUpData.email));
         setShowSuccessModal(true);
       } else {
@@ -72,10 +79,10 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
       .GetPersonalInterests()
       .then((res) => setPersonalInterstsOptions(res));
   }, []);
-  console.log(personalInterstsOptions);
 
   const handleInterestsSelection = () => {
     console.log(selectedInterestsIndexes);
+    console.log(signUpData.email);
     makeAmoveUserServer
       .postPersonalInterests(signUpData.email, selectedInterestsIndexes)
       .then((res) => console.log(res))

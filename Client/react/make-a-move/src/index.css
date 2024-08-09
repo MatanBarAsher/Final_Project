@@ -707,9 +707,9 @@ input {
   direction: ltr;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-start;
+  align-content: flex-start;
   gap: 15px;
-  margin-bottom: 0vh;
+  min-height: 600px;
 }
 
 .match .profile-image {
@@ -741,6 +741,13 @@ input {
   font-family: "Heebo";
   color: #3c0753;
   margin: 20px 0;
+}
+
+.AutoCompleteWithAddOption {
+  margin: auto;
+  width: 340px;
+  border-radius: 16px;
+  font-family: "Heebo";
 }
 
 /* Carousle swipe effects */

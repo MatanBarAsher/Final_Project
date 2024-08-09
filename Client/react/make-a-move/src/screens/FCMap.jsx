@@ -37,8 +37,12 @@ export default function FCMap({ location }) {
           );
           console.log(userDetails);
           console.log(userEmails);
-
-          setUsers(renderIconsByGender(userDetails));
+          console.log(userDetails.filter((u) => u.email !== userEmail));
+          setUsers(
+            renderIconsByGender(
+              userDetails.filter((u) => u.email !== userEmail)
+            )
+          );
         } catch (error) {
           console.error("Error retrieving user details:", error);
         } finally {
