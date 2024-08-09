@@ -127,7 +127,7 @@ export const FCUpdatePreferences = () => {
             open={showSuccessModal}
             setClose={() => {
               setShowSuccessModal(false);
-              // navigate("/setImages");
+              navigate("/sideMenu");
             }}
           />
           <PreferenceErrorDialog

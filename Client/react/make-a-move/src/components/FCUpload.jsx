@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { makeAmoveUserServer } from "../services";
+import { FCImagesErrorDialog } from "../screens/ImagesDialog/FCImageErrorDialog";
 
 function UploadImage({ obj }) {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
   const [icon, setIcon] = useState("");
+  const [showErrorModal, setShowErrorModal] = useState(false); // State to manage modal visibility
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-    setIcon("✔️");
+    if (e.target.files[0].name.includes(" ")) {
+      setShowErrorModal(true);
+    } else {
+      setFile(e.target.files[0]);
+      setIcon("✔️");
+    }
   };
 
   const handleUpload = async (e) => {
@@ -48,7 +54,7 @@ function UploadImage({ obj }) {
         makeAmoveUserServer
           .updateUser(obj)
           .then((res) => {
-            console.log(res.data + "image added successfuly.");
+            console.log(res + " image added successfuly.");
             location.reload();
           })
           .catch((res) => console.log(res));
@@ -61,6 +67,13 @@ function UploadImage({ obj }) {
 
   return (
     <div style={{ width: "100%" }}>
+      <FCImagesErrorDialog
+        open={showErrorModal}
+        setClose={() => {
+          setShowErrorModal(false);
+        }}
+      />
+
       <label className="custom-file-label">
         + הוסף תמונה<span> {icon}</span>
       </label>

@@ -93,10 +93,11 @@ export default function FCMyProfile() {
               width: 100,
               border: "4px solid white",
               borderRadius: "50%",
+              position: "relative",
             }}
           >
             <div className="setImg" onClick={() => Navigate("/setImages")}>
-              <AddIcon color="white" />
+              <AddIcon />
             </div>
           </div>
 

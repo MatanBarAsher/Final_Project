@@ -230,11 +230,13 @@ export const FCUpdateProfile = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // changeUpdatedUserData("personalInterestsIds", ["1"]);
     try {
       handleInterestsSelection();
 
-      const response = await makeAmoveUserServer.updateUser(updatedUserData);
+      const response = await makeAmoveUserServer
+        .updateUser(updatedUserData)
+        .then((res) => res);
+      console.log(response);
       if (response) {
         console.log(response);
         setShowSuccessModal(true);

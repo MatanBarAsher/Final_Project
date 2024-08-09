@@ -529,8 +529,8 @@ using System.Net.Http;
                 DBservicesUser dbs = new DBservicesUser();
 
                 // Call the method in your DAL to retrieve the user by email
-                //User user = dbs.GetUserByEmail(email);
-                User user = dbs.GetUserPreferencesByEmail(email);
+                User user = dbs.GetUserByEmail(email);
+                //User user = dbs.GetUserPreferencesByEmail(email);
 
                 // Return the user fetched from the database
                 return user;

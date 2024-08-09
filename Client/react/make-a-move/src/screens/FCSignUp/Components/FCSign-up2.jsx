@@ -155,19 +155,19 @@ export const FCSignUp2 = ({ setCurrentStep, currentStep, length }) => {
             width: "25rem",
           }}
         >
-          <FCCustomBtn
-            style={{ width: "10rem", color: "black" }}
-            onClick={() => setCurrentStep((prev) => prev + 1)}
-            title={currentStep === length - 1 ? "סיום" : "הבא"}
-            type="submit"
-          />
           {currentStep !== 0 && (
             <FCCustomBtn
               style={{ width: "10rem", color: "black" }}
               onClick={() => setCurrentStep((prev) => prev - 1)}
               title={"הקודם"}
             />
-          )}
+          )}{" "}
+          <FCCustomBtn
+            style={{ width: "10rem", color: "black" }}
+            onClick={() => setCurrentStep((prev) => prev + 1)}
+            title={currentStep === length - 1 ? "סיום" : "הבא"}
+            type="submit"
+          />
         </div>
       </form>
     </>

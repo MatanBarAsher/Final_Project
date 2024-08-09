@@ -287,7 +287,7 @@ option {
 
 .signup2-p {
   color: white;
-  margin: 20px 7px 0 0;
+  margin: 20px 45px 0 0;
   font-size: 16px;
   font-weight: 400;
   text-align: right;
@@ -304,10 +304,10 @@ option {
 
 .gender-inp {
   display: flex;
+  margin: auto;
   margin-top: 30px;
   justify-content: center;
   max-width: 350px;
-
 }
 
 .gender-inp > span {
@@ -559,6 +559,7 @@ input[name="gender"] {
 .dialog {
   background-color: #efe1d1;
   font-family: "Heebo";
+  direction: rtl;
 }
 #alert-dialog-title,
 #alert-dialog-description {
@@ -676,11 +677,9 @@ input {
   z-index: 0;
 }
 .setImg {
-  background-color: #fff;
-  width: 18px;
-  height: 18px;
-  border-radius: 5px;
-  text-align: center;
+  color: #fff;
+  position: absolute;
+  right: -15px;
 }
 
 .matches-container {

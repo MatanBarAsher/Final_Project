@@ -19,6 +19,7 @@ export default function FCSetImages() {
         .getUserByEmail(currentEmail)
         .then((userData) => {
           setUser(userData); // Set user state with retrieved data
+          console.log(userData);
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -30,6 +31,7 @@ export default function FCSetImages() {
   const handleImgInput = (e) => {
     e.preventDefault();
     console.log(origin);
+    console.log(user);
     if (origin === "myProfile") {
       navigate("/myProfile");
     } else {
@@ -42,7 +44,7 @@ export default function FCSetImages() {
       <h1>תמונות</h1>
       <form onSubmit={handleImgInput}>
         <div className="images-inp-container">
-          <FCUpload obj={user} />
+          {user ? <FCUpload obj={user} /> : <></>}{" "}
           <div className="image-view">
             {/* Render existing images */}
             {user.image && user.image.length > 0 ? (
@@ -55,7 +57,7 @@ export default function FCSetImages() {
                 />
               ))
             ) : (
-              <p>אין תמונות להציג</p>
+              <p onClick={() => console.log(user)}>אין תמונות להציג</p>
             )}
           </div>
         </div>

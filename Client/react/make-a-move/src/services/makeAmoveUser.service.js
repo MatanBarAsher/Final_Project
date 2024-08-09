@@ -39,7 +39,7 @@ export const makeAmoveUserServer = {
   updateUser: (data) =>
     axios
       .put(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/update`, data)
-      .then((res) => res.data) //returning data
+      .then((res) => res.status) //returning data
       .catch((error) => {
         console.error("Error update user:", error);
         throw error; // Rethrow the error to be caught by the caller
