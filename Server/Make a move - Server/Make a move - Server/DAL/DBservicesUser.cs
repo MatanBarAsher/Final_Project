@@ -151,9 +151,6 @@ namespace Make_a_move___Server.DAL
                     u.PhoneNumber = dataReader["phoneNumber"].ToString();
                     u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
                     u.City = dataReader["city"].ToString();
-                   // u.PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString());
-                    //u.PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString());
-                    //u.PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString());
                     u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]);
                     u.PersoalText = dataReader["persoalText"].ToString();
                      
@@ -239,9 +236,6 @@ namespace Make_a_move___Server.DAL
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
                         City = dataReader["city"].ToString(),
-                        //PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
-                        //PreferencesIds = JsonSerializer.Deserialize<string[]>(dataReader["preferencesIds"].ToString()),
-                        //PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString()),
                         CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
                         PersoalText= dataReader["persoalText"].ToString(),
                         
@@ -317,8 +311,7 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@city", user.City);
 
-            //string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
-            //cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
+
 
             cmd.Parameters.AddWithValue("@currentPlace", user.CurrentPlace);
 
@@ -369,6 +362,7 @@ namespace Make_a_move___Server.DAL
                         Birthday = Convert.ToDateTime(dataReader["birthday"]),
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
+                        TimeStamp = Convert.ToDateTime(dataReader["timeStamp"]),
                         City = dataReader["city"].ToString(),
                         CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
                         PersoalText = dataReader["persoalText"].ToString(),
@@ -376,7 +370,7 @@ namespace Make_a_move___Server.DAL
                     };
                 }
 
-                if (u != null)
+                if (u != null && u.IsActive)
                 {
                     // Login successful
                     return u;
@@ -647,8 +641,7 @@ namespace Make_a_move___Server.DAL
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
                         City = dataReader["city"].ToString(),
-                        //PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
-                        //PreferencesDictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(dataReader["preferencesIds"].ToString()),
+                        TimeStamp = Convert.ToDateTime(dataReader["timeStamp"]),
                         CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
                         PersoalText = dataReader["persoalText"].ToString(),
 
