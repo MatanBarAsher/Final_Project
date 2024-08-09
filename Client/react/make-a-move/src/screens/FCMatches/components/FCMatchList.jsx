@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from "react";
-import FCCustomX from "../components/FCCustomX";
-import { Navigate, useNavigate } from "react-router";
-import background from "../assets/images/Matan.jpg";
-import { makeAmoveMatchServer, makeAmoveUserServer } from "../services";
-import FCMatchedUser from "../components/FCMatchedUser";
+import FCCustomX from "../../../components/FCCustomX";
+import { useNavigate } from "react-router";
+
+import {
+  makeAmoveMatchServer,
+  makeAmoveUserServer,
+  makeAmoveFeedbackServer,
+} from "../../../services";
+import FCMatchedUser from "../../../components/FCMatchedUser";
+import { ProfileDelete } from "../../FCMyProfile/components/DialogsProfiles/profileDelete";
 
 export default function FCMatchList() {
   const navigate = useNavigate();
   const [matchedUsers, setMatchedUsers] = useState([]);
   const [matchedUsersDetails, setMatchedUsersDetails] = useState([]);
+  const [showMatchModal, setShowMatchModal] = useState(false);
+  const [feedbacks, setFeedbacks] = useState([]);
 
   const currentEmail = JSON.parse(localStorage.getItem("current-email"));
 
   useEffect(() => {
     getMatches();
+    // getFeedbacks();
   }, []);
 
   useEffect(() => {
@@ -26,6 +34,16 @@ export default function FCMatchList() {
   const getMatches = async () => {
     try {
       const res = await makeAmoveMatchServer.getMatchesByEmail(currentEmail);
+      setMatchedUsers(res);
+    } catch (error) {
+      console.error("Error fetching matches:", error);
+    }
+  };
+
+  const getFeedbacks = async () => {
+    try {
+      const res = await makeAmoveFeedbackServer.getFeedbacks();
+      console.log(res);
       setMatchedUsers(res);
     } catch (error) {
       console.error("Error fetching matches:", error);
@@ -59,16 +77,24 @@ export default function FCMatchList() {
 
   const handleMatchClick = (clickedUser) => {
     console.log(clickedUser);
+
     if (clickedUser.matchNum > 0) {
       localStorage.setItem("matched-user", JSON.stringify(clickedUser));
       navigate("/feedback");
     } else {
       // להוסיף מודאל שאומר למשתמש ההוא כבר נתן משוב למשתמש הזה
+      setShowMatchModal(true);
     }
   };
 
   return (
     <>
+      <ProfileDelete
+        open={showMatchModal}
+        setClose={() => {
+          setShowMatchModal(false);
+        }}
+      />
       <span onClick={() => navigate("/sideMenu")}>
         <FCCustomX color="white" />
       </span>
