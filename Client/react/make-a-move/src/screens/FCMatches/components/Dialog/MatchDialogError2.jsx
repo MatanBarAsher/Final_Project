@@ -1,16 +1,16 @@
 import React from "react";
 import { AlertDialog } from "../../../../components";
 
-export const matchDialog = ({ open, setClose }) => {
+export const MatchDialogError2 = ({ open, setClose }) => {
   return (
     <AlertDialog
-      className="match-modal"
-      sx={{ backgroundColor: "none", textAline: "center" }}
+      // className="match-modal"
+      // sx={{ backgroundColor: "none", textAline: "center" }}
       open={open}
       confirmButtonAction={setClose}
       confirmButtonText={" סגור"}
       title={"הכניסה למשוב כשלה!"}
-      content={"כבר קיים משוב עבור התאמה זו"}
+      content={"כבר קיימים 2 משובים עבור התאמה זו"}
     />
   );
 };

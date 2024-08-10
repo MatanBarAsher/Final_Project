@@ -8,13 +8,15 @@ import {
   makeAmoveFeedbackServer,
 } from "../../../services";
 import FCMatchedUser from "../../../components/FCMatchedUser";
-import { ProfileDelete } from "../../FCMyProfile/components/DialogsProfiles/profileDelete";
+import { MatchDialogError2 } from "./Dialog/MatchDialogError2";
+import { MatchDialogToContinue } from "./Dialog/MatchDialogToContinue";
 
 export default function FCMatchList() {
   const navigate = useNavigate();
   const [matchedUsers, setMatchedUsers] = useState([]);
   const [matchedUsersDetails, setMatchedUsersDetails] = useState([]);
-  const [showMatchModal, setShowMatchModal] = useState(false);
+  const [showMatchModal2, setShowMatchModal2] = useState(false);
+  const [showMatchModalContinue, setShowMatchModalContinue] = useState(false);
   const [feedbackMap, setFeedbackMap] = useState({});
   const [continueFeedbackMap, setContinueFeedbackMap] = useState({});
 
@@ -91,12 +93,13 @@ export default function FCMatchList() {
     ) {
       console.log("1 + 2");
     } else if (feedbackMap[clickedUser.matchNum]) {
-      navigate("/feedbackContinue");
+      setShowMatchModalContinue(true);
+      // navigate("/feedbackContinue");
     } else {
       navigate("/feedback");
     }
 
-    setShowMatchModal(true);
+    setShowMatchModal2(true);
   };
 
   const checkFeedbackStatus = () => {
@@ -115,15 +118,25 @@ export default function FCMatchList() {
 
   return (
     <>
-      <ProfileDelete
-        open={showMatchModal}
-        setClose={() => {
-          setShowMatchModal(false);
-        }}
-      />
       <span onClick={() => navigate("/sideMenu")}>
         <FCCustomX color="white" />
       </span>
+      <MatchDialogError2
+        open={showMatchModal2}
+        setClose={() => {
+          setShowMatchModal2(false);
+        }}
+      />
+      <MatchDialogToContinue
+        open={showMatchModalContinue}
+        setClose={() => {
+          setShowMatchModalContinue(false);
+          navigate("/feedbackContinue");
+        }}
+        setCloseCancel={() => {
+          setShowMatchModalContinue(false);
+        }}
+      />
       <div className="matches-container">
         <h1 style={{ flex: "100%" }}>התאמות</h1>
         {matchedUsersDetails.map((u, index) => (

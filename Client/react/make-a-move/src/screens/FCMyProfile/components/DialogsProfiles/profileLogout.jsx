@@ -12,7 +12,7 @@ export const ProfileLogout = ({ open, setClose, setCloseCancel }) => {
       cancelButtonAction={setCloseCancel}
       cancelButtonText={"בטל"}
       title={"התנתקות מהאפליקציה"}
-      content={"בטוח שתרצה להתנתק? באישור לא תהיה עוד מחובר ומיקומך ימחק"}
+      content={"בטוח שתרצי/ה להתנתק? באישור לא תהי/ה עוד מחובר/ת ומיקומך ימחק"}
     />
   );
 };
