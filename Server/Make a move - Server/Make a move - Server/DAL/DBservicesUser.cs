@@ -235,6 +235,7 @@ namespace Make_a_move___Server.DAL
                         Birthday = Convert.ToDateTime(dataReader["birthday"]),
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
+                        TimeStamp = Convert.ToDateTime(dataReader["timeStamp"]),
                         City = dataReader["city"].ToString(),
                         CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
                         PersoalText= dataReader["persoalText"].ToString(),
@@ -309,9 +310,9 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("isActive", user.IsActive);
 
+            cmd.Parameters.AddWithValue("@timeStamp", user.TimeStamp);
+
             cmd.Parameters.AddWithValue("@city", user.City);
-
-
 
             cmd.Parameters.AddWithValue("@currentPlace", user.CurrentPlace);
 
