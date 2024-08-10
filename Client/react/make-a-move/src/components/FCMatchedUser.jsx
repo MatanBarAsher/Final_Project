@@ -8,6 +8,7 @@ export default function FCMatchedUser({
   currentEmail,
   isFeedbacked,
   isContinueFeedbacked,
+  id,
 }) {
   const [score, setScore] = useState(0);
 
@@ -24,7 +25,7 @@ export default function FCMatchedUser({
   }, []);
 
   return (
-    <div onClick={() => func(user)} className="match">
+    <div onClick={() => func(user)} className="match" id={id}>
       <div style={{ position: "relative", width: 80 }}>
         <div
           className="profile-image"
@@ -42,11 +43,15 @@ export default function FCMatchedUser({
         </div>
       </div>
       <p>{user.firstName}</p>
-      <div className="feedbacks-index">
-        <span>משובים:</span>
-        <span>1 {isFeedbacked ? " ✔️" : " ➖"}</span>
-        <span>2{isContinueFeedbacked ? " ✔️" : " ➖"}</span>
-      </div>
+      {!id ? (
+        <div className="feedbacks-index">
+          <span>משובים:</span>
+          <span>1 {isFeedbacked ? " ✔️" : " ➖"}</span>
+          <span>2{isContinueFeedbacked ? " ✔️" : " ➖"}</span>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

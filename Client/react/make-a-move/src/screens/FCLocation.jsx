@@ -6,6 +6,7 @@ import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { makeAmoveUserServer } from "../services";
 import { useNavigate } from "react-router-dom";
 import { FCLoad } from "../loading/FCLoad";
+import FCCustomX from "../components/FCCustomX";
 
 const FCLocation = () => {
   const [value, setValue] = useState(null);
@@ -70,6 +71,9 @@ const FCLocation = () => {
       {!isLoading && ( // Render the form and other content only if isLoading is false
         <>
           {/* <FCHamburger /> */}
+          <span onClick={() => navigate("/home")}>
+            <FCCustomX />
+          </span>
           <img src={"." + logo} className="logoSM" />
           <h1>אישור מיקום:</h1>
           <div>

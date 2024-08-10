@@ -12,8 +12,10 @@ import {
   makeAmoveFeedbackServer,
   makeAmoveUserServer,
 } from "../../../services";
-import { Feedback } from "@mui/icons-material";
+import { Feedback, Margin } from "@mui/icons-material";
 import AutoCompleteWithAddOption from "../../../components/AutoCompleteWithAddOption";
+import FCMatchedUser from "../../../components/FCMatchedUser";
+import FCCustomX from "../../../components/FCCustomX";
 
 export const FCFeedback = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,6 +26,7 @@ export const FCFeedback = () => {
 
   console.log(JSON.parse(localStorage.getItem("matched-user")));
   const matchedUser = JSON.parse(localStorage.getItem("matched-user"));
+  const currentEmail = JSON.parse(localStorage.getItem("current-email"));
 
   useEffect(() => {
     getFriends();
@@ -116,7 +119,6 @@ export const FCFeedback = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setShowSuccessModal(true);
 
     console.log(option1);
     console.log(option2);
@@ -144,6 +146,7 @@ export const FCFeedback = () => {
         console.log("success");
         console.log(response);
       } else {
+        console.log("error");
         setShowErrorModal(true);
       }
     } catch (error) {
@@ -159,6 +162,9 @@ export const FCFeedback = () => {
 
       {!isLoading && (
         <>
+          <span onClick={() => navigate("/matches")}>
+            <FCCustomX />
+          </span>
           <FeedbackSuccessDialog
             open={showSuccessModal}
             setClose={() => {
@@ -172,9 +178,14 @@ export const FCFeedback = () => {
               setShowErrorModal(false);
             }}
           />
+          <h1 className="pref-h1">משוב</h1>
+          <FCMatchedUser
+            id="match-in-feedback"
+            user={matchedUser}
+            image={matchedUser.image[0]}
+            currentEmail={currentEmail}
+          />
           <form>
-            <h1 className="pref-h1">משוב</h1>
-
             <h3>דרג/י את מידת ההסכמה שלך:</h3>
             <p className="feedback-p">
               <b>{matchedUser.firstName}</b> בעל מאפיינים דומים למה שאני מחפש/ת:
