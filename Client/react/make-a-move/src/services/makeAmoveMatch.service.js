@@ -27,7 +27,7 @@ export const makeAmoveMatchServer = {
       )
       .then((res) => res.data)
       .catch((res) => {
-        console.error("Error reading matchs", error);
+        console.error("Error reading matchs", res);
         throw error; // Rethrow the error to be caught by the caller
       });
   },

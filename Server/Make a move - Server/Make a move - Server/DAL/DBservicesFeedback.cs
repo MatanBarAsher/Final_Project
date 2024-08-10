@@ -209,9 +209,6 @@ namespace Make_a_move___Server.DAL
                     Q41 = Convert.ToInt32(dataReader["הייתי רוצה להיפגש איתו שוב"]),
                     Name = dataReader["עם מי בילית היום"].ToString()
 
-
-
-
                 };
                 }
 
@@ -270,9 +267,68 @@ namespace Make_a_move___Server.DAL
             cmd.Parameters.AddWithValue("@עם_מי_בילית_היום", feedback.Name);
 
 
-
             return cmd;
         }
+
+
+        public List<Feedback> ReadFeedbackByEmail(string email)
+        {
+            SqlConnection con = null;
+            SqlCommand cmd;
+            List<Feedback> feedbackList = new List<Feedback>();
+
+            try
+            {
+                con = connect("myProjDB"); // create the connection
+                cmd = CreateSelectFeedbackByEmailWithStoredProcedure("SP_GetFeedbackByEmail", con, email); // create the command
+                SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dataReader.Read())
+                {
+                    Feedback f = new Feedback
+                    {
+                        Email = dataReader["email"].ToString(),
+                        MatchId = Convert.ToInt32(dataReader["matchId"]),
+                        Q11 = Convert.ToInt32(dataReader["בעל מאפיינים דומים למה שאני מחפשת"]),
+                        Q21 = Convert.ToInt32(dataReader["התמונות תואמות למציאות"]),
+                        Q31 = Convert.ToInt32(dataReader["תחומי העניין ששתיפ_ה עזרו לי לפתח איתו_ה שיחה"]),
+                        Q41 = Convert.ToInt32(dataReader["הייתי רוצה להיפגש איתו שוב"]),
+                        Name = dataReader["עם מי בילית היום"].ToString()
+                    };
+
+                    feedbackList.Add(f);
+                }
+                return feedbackList;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (for example, using a logger)
+                throw new Exception("Error retrieving feedback data", ex);
+            }
+            finally
+            {
+                con?.Close(); // close the db connection
+            }
+        }
+
+        //---------------------------------------------------------------------------------
+        // Create the SqlCommand using a stored procedure
+        //---------------------------------------------------------------------------------
+        private SqlCommand CreateSelectFeedbackByEmailWithStoredProcedure(string spName, SqlConnection con, string email)
+        {
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = con,              // assign the connection to the command object
+                CommandText = spName,          // can be Select, Insert, Update, Delete 
+                CommandTimeout = 10,           // Time to wait for the execution; the default is 30 seconds
+                CommandType = System.Data.CommandType.StoredProcedure // the type of the command, can also be text
+            };
+
+            cmd.Parameters.AddWithValue("@Email", email);
+            return cmd;
+        }
+
+
 
 
 

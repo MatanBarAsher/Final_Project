@@ -7,8 +7,7 @@ namespace Make_a_move___Server.BL
         private int placeCode;
         private string name;
         private string address;
-        //private string userIds;
-        //private DateTime timeStamp;
+        
         private string typeOfPlace;
         private static List<Place> placesList = new List<Place>();
 
@@ -19,16 +18,14 @@ namespace Make_a_move___Server.BL
             this.placeCode = placeCode;
             this.name = name;
             this.address = address;
-            //this.userIds = userIds;
-            //this.timeStamp = timeStamp;
+           
             this.typeOfPlace = typeOfPlace;
         }
 
         public int PlaceCode { get => placeCode; set => placeCode = value; }
         public string Name { get => name; set => name = value; }
         public string Address { get => address; set => address = value; }
-        //public string UserIds { get => userIds; set => userIds = value; }
-        //public DateTime TimeStamp { get => timeStamp; set => timeStamp = value; }
+        
         public string TypeOfPlace { get => typeOfPlace; set => typeOfPlace = value; }
 
         public int InsertPlace()
@@ -79,8 +76,7 @@ namespace Make_a_move___Server.BL
                     placeToUpdate.Name = newplace.Name;
                     placeToUpdate.PlaceCode = newplace.PlaceCode;
                     placeToUpdate.Address = newplace.Address;
-                   // placeToUpdate.UserIds = newplace.UserIds;
-                   // placeToUpdate.TimeStamp = newplace.TimeStamp;
+                  
                     placeToUpdate.TypeOfPlace = newplace.TypeOfPlace;
 
                     // Update in the database (assuming DBservices has an UpdatePlace method)

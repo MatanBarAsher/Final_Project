@@ -26,5 +26,26 @@ namespace Make_a_move___Server.Controllers
         {
             return secondFeedback.InsertFeedback();
         }
+
+
+
+        // GET: api/SecondFeedbacksController/email/{email}
+        [HttpGet("email/{email}")]
+        public IActionResult GetFeedbackByEmail(string email)
+        {
+            SecondFeedback secondFeedback = new SecondFeedback();
+            List<SecondFeedback> feedbackList = secondFeedback.ReadFeedbackByEmail(email);
+
+            if (feedbackList == null || feedbackList.Count == 0)
+            {
+                return NotFound("No feedback found for the given email.");
+            }
+
+            return Ok(feedbackList);
+        }
+
+
+
+
     }
 }

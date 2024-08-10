@@ -15,21 +15,26 @@ export default function FCMatchList() {
   const [matchedUsers, setMatchedUsers] = useState([]);
   const [matchedUsersDetails, setMatchedUsersDetails] = useState([]);
   const [showMatchModal, setShowMatchModal] = useState(false);
-  const [feedbacks, setFeedbacks] = useState([]);
+  const [feedbackMap, setFeedbackMap] = useState({});
+  const [continueFeedbackMap, setContinueFeedbackMap] = useState({});
 
   const currentEmail = JSON.parse(localStorage.getItem("current-email"));
 
   useEffect(() => {
     getMatches();
-    // getFeedbacks();
+    getFeedbacks();
+    getContinueFeedbacks();
   }, []);
 
   useEffect(() => {
-    console.log(matchedUsers);
     if (matchedUsers.length > 0) {
       GetMatchedUsersDetails();
     }
   }, [matchedUsers]);
+
+  useEffect(() => {
+    checkFeedbackStatus();
+  }, [matchedUsersDetails]);
 
   const getMatches = async () => {
     try {
@@ -40,19 +45,20 @@ export default function FCMatchList() {
     }
   };
 
-  const getFeedbacks = async () => {
-    try {
-      const res = await makeAmoveFeedbackServer.getFeedbacks();
-      console.log(res);
-      setMatchedUsers(res);
-    } catch (error) {
-      console.error("Error fetching matches:", error);
-    }
+  const getFeedbacks = () => {
+    makeAmoveFeedbackServer
+      .getFeedbacksByEmail(currentEmail)
+      .then((res) => setFeedbackMap(mapFeedbacks(res)));
+  };
+
+  const getContinueFeedbacks = () => {
+    makeAmoveFeedbackServer
+      .getContinueFeedbacksByEmail(currentEmail)
+      .then((res) => setContinueFeedbackMap(mapFeedbacks(res)));
   };
 
   const GetMatchedUsersDetails = async () => {
     try {
-      // Create an array of promises to fetch user details
       const userDetailPromises = matchedUsers.map(async (u) => {
         const email =
           u.secondemail === currentEmail ? u.firstemail : u.secondemail;
@@ -62,29 +68,49 @@ export default function FCMatchList() {
         return { ...userDetails, matchNum: u.matchNum }; // Combine user details with matchNum
       });
 
-      // Wait for all promises to resolve
       const usersDetails = await Promise.all(userDetailPromises);
-
-      // Update state with the combined user details
       setMatchedUsersDetails(usersDetails);
-
-      // Log the combined user details
-      console.log(usersDetails);
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
   };
 
-  const handleMatchClick = (clickedUser) => {
-    console.log(clickedUser);
+  const mapFeedbacks = (feedbacks) => {
+    return feedbacks.reduce((map, feedback) => {
+      map[feedback.matchId] = true;
+      return map;
+    }, {});
+  };
 
-    if (clickedUser.matchNum > 0) {
-      localStorage.setItem("matched-user", JSON.stringify(clickedUser));
-      navigate("/feedback");
+  const handleMatchClick = (clickedUser) => {
+    localStorage.setItem("matched-user", JSON.stringify(clickedUser));
+
+    if (
+      feedbackMap[clickedUser.matchNum] &&
+      continueFeedbackMap[clickedUser.matchNum]
+    ) {
+      console.log("1 + 2");
+    } else if (feedbackMap[clickedUser.matchNum]) {
+      navigate("/feedbackContinue");
     } else {
-      // להוסיף מודאל שאומר למשתמש ההוא כבר נתן משוב למשתמש הזה
-      setShowMatchModal(true);
+      navigate("/feedback");
     }
+
+    setShowMatchModal(true);
+  };
+
+  const checkFeedbackStatus = () => {
+    matchedUsersDetails.forEach((u) => {
+      setFeedbackMap((prev) => ({
+        ...prev,
+        [u.matchNum]: feedbackMap[u.matchNum] || false,
+      }));
+
+      setContinueFeedbackMap((prev) => ({
+        ...prev,
+        [u.matchNum]: continueFeedbackMap[u.matchNum] || false,
+      }));
+    });
   };
 
   return (
@@ -107,6 +133,8 @@ export default function FCMatchList() {
             func={handleMatchClick}
             image={u.image[0]}
             currentEmail={currentEmail}
+            isFeedbacked={!!feedbackMap[u.matchNum]}
+            isContinueFeedbacked={!!continueFeedbackMap[u.matchNum]}
           />
         ))}
       </div>

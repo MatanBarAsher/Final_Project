@@ -25,17 +25,5 @@ namespace Make_a_move___Server.Controllers
         }
 
 
-        //// POST api/<MatchesController>
-        //[HttpPost]
-        //public int Post([FromBody] Match match)
-        //{
-        //    return match.InsertMatch();
-        //}
-
-        //[HttpPut("Update")]
-        //public Match Update([FromBody] Match match)
-        //{
-        //    return match.UpdateMatch(match);
-        //}
     }
 }

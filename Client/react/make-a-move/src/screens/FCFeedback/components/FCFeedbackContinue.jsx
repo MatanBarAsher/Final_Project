@@ -5,13 +5,15 @@ import { FCLoad } from "../../../loading/FCLoad";
 import { FeedbackSuccessDialog } from "./Dialog/FeedbackSuccessDialog";
 import { FeedbackErrorDialog } from "./Dialog/FeedbackErrorDialog";
 import { makeAmoveFeedbackServer } from "../../../services";
-
+import FCCustomX from "../../../components/FCCustomX";
+import FCMatchedUser from "../../../components/FCMatchedUser";
 export const FCFeedbackContinue = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const navigate = useNavigate();
   const matchedUser = JSON.parse(localStorage.getItem("matched-user"));
+  const currentEmail = JSON.parse(localStorage.getItem("current-email"));
 
   var options5 = [
     { label: "כן", id: 1 },
@@ -55,7 +57,6 @@ export const FCFeedbackContinue = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setShowSuccessModal(true);
 
     const feedbackContinueData = {
       matchId: matchedUser.matchNum,
@@ -90,11 +91,14 @@ export const FCFeedbackContinue = () => {
 
       {!isLoading && (
         <>
+          <span onClick={() => navigate("/matches")}>
+            <FCCustomX />
+          </span>
           <FeedbackSuccessDialog
             open={showSuccessModal}
             setClose={() => {
               setShowSuccessModal(false);
-              // navigate("/");
+              navigate("/matches");
             }}
           />
           <FeedbackErrorDialog
@@ -103,11 +107,19 @@ export const FCFeedbackContinue = () => {
               setShowErrorModal(false);
             }}
           />
+          <h1 className="pref-h1">משוב המשך</h1>
+          <FCMatchedUser
+            id="match-in-feedback"
+            user={matchedUser}
+            image={matchedUser.image[0]}
+            currentEmail={currentEmail}
+          />
           <form>
-            <h1 className="pref-h1">משוב</h1>
             <h3>דרג/י את מידת ההסכמה שלך:</h3>
 
-            <p className="feedback-p">1. אני ו__ נפגשנו שוב:</p>
+            <p className="feedback-p">
+              1. אני ו- <b>{matchedUser.firstName}</b> נפגשנו שוב:
+            </p>
             <div className="gender-inp">
               {options5.map((o5) => (
                 <span key={o5.id}>
