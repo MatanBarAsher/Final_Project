@@ -357,7 +357,6 @@ namespace Make_a_move___Server.DAL
                         LastName = dataReader["lastName"].ToString(),
                         Password = dataReader["password"].ToString(),
                         Image = JsonSerializer.Deserialize<string[]>(dataReader["image"].ToString()),
-                        //Image = dataReader["image"].ToString(),
                         Gender = Convert.ToInt32(dataReader["gender"]),
                         Height = Convert.ToInt32(dataReader["height"]),
                         Birthday = Convert.ToDateTime(dataReader["birthday"]),
@@ -489,9 +488,6 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("@city", user.City);
 
-            //string PersonalInterestsIdsS = JsonSerializer.Serialize(user.PersonalInterestsIds);
-           // cmd.Parameters.AddWithValue("@personalInterestsIds", PersonalInterestsIdsS);
-
             cmd.Parameters.AddWithValue("@currentPlace", user.CurrentPlace);
 
             cmd.Parameters.AddWithValue("@persoalText", user.PersoalText);
@@ -501,12 +497,8 @@ namespace Make_a_move___Server.DAL
         }
 
 
-
-
         // Reading users by place
-            
-
-
+           
         public List<User> ReadUsersByPlace(int placeToLook)
         {
 
@@ -541,8 +533,6 @@ namespace Make_a_move___Server.DAL
                     u.Gender = Convert.ToInt32(dataReader["gender"]);
                     u.Height = Convert.ToInt32(dataReader["height"]);
                     u.Birthday = Convert.ToDateTime(dataReader["birthday"]);
-                    //u.PhoneNumber = dataReader["phoneNumber"].ToString();
-                    //u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
                     u.City = dataReader["city"].ToString();
                     u.PreferencesDictionary = new Dictionary<string, string>
                     {
@@ -556,11 +546,8 @@ namespace Make_a_move___Server.DAL
                     u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]); ;
                     u.PersoalText = dataReader["persoalText"].ToString();
 
-
-
                     usersList.Add(u);
                     
-
                 }
                 return usersList;
             }
@@ -645,9 +632,6 @@ namespace Make_a_move___Server.DAL
                         TimeStamp = Convert.ToDateTime(dataReader["timeStamp"]),
                         CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]),
                         PersoalText = dataReader["persoalText"].ToString(),
-
-
-
                     };
                 }
 
@@ -664,15 +648,7 @@ namespace Make_a_move___Server.DAL
                 // Rethrow the exception or return null
                 throw; // Rethrow the exception to propagate it to the caller
             }
-            // catch (Exception ex)
-            // {
-            //     // Log other types of exceptions
-            //     Console.WriteLine($"An error occurred: {ex.Message}");
-            //     // Additional error handling logic...
-
-            //     // Rethrow the exception or return null
-            //     throw; // Rethrow the exception to propagate it to the caller
-            // }
+            
             finally
             {
                 if (con != null)
@@ -752,15 +728,7 @@ namespace Make_a_move___Server.DAL
                 // Rethrow the exception or return null
                 throw; // Rethrow the exception to propagate it to the caller
             }
-            // catch (Exception ex)
-            // {
-            //     // Log other types of exceptions
-            //     Console.WriteLine($"An error occurred: {ex.Message}");
-            //     // Additional error handling logic...
-
-            //     // Rethrow the exception or return null
-            //     throw; // Rethrow the exception to propagate it to the caller
-            // }
+           
             finally
             {
                 if (con != null)
@@ -788,63 +756,6 @@ namespace Make_a_move___Server.DAL
 
             return cmd;
         }
-
-        //    public int ChangeUserImages(string email, string[] images)
-        //{
-        //    SqlConnection con;
-        //    SqlCommand cmd;
-
-        //    try
-        //    {
-        //        con = connect("myProjDB"); // create the connection
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // write to log
-        //        throw (ex);
-        //    }
-
-        //        cmd = CreateChangeUserImagesCommandWithStoredProcedure("SP_ChangeUserImages", con, email, images); // Create the command
-
-        //    try
-        //    {
-        //        //Execute the command
-        //        int numEffected = cmd.ExecuteNonQuery();
-        //        return numEffected;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Write to log
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        if (con != null)
-        //        {
-        //            // close the db connection
-        //            con.Close();
-        //        }
-        //    }
-
-        //}
-        //private SqlCommand CreateSelectUserByEmailCommand(String spName, SqlConnection con, string email)
-        //{
-
-        //    SqlCommand cmd = new SqlCommand(); // create the command object
-
-        //    cmd.Connection = con;              // assign the connection to the command object
-
-        //    cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
-
-        //    cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
-
-        //    cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
-
-        //    cmd.Parameters.AddWithValue("@inputEmail", email); // Add parameter for email
-
-        //    return cmd;
-
-        //}
 
 
 

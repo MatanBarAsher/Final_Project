@@ -65,46 +65,20 @@ namespace Make_a_move___Server.BL
             }
         }
 
-        //public Feedback UpdateFeedback(Feedback newFeedback)
-        //{
-        //    try
-        //    {
-        //        // Find the Feedback in the FeedbacksList by SerialNumber
-        //        DBservicesFeedback dbs1 = new DBservicesFeedback();
-        //        List<Feedback> list = dbs1.ReadFeedback();
-        //        Feedback feedbackToUpdate = list.Find(f => f.SerialNumber.Equals(newFeedback.SerialNumber));
+        public List<Feedback> ReadFeedbackByEmail(string email)
+        {
+            try
+            {
+                DBservicesFeedback dbs = new DBservicesFeedback();
+                return dbs.ReadFeedbackByEmail(email);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error reading feedback", ex);
+            }
+        }
 
-
-
-        //        if (feedbackToUpdate != null)
-        //        {
-        //            // Update user information
-        //            feedbackToUpdate.SerialNumber = newFeedback.SerialNumber;
-        //            feedbackToUpdate.matchId = newFeedback.MatchId;
-        //            feedbackToUpdate.Q1 = newFeedback.Q1;
-        //            feedbackToUpdate.Q2 = newFeedback.Q2;
-        //            feedbackToUpdate.Q3 = newFeedback.Q3;
-        //            feedbackToUpdate.Q4 = newFeedback.Q4;
-        //            feedbackToUpdate.Name = newFeedback.Name;
-
-
-
-        //            // Update in the database (assuming DBservices has an UpdateUser method)
-        //            DBservicesFeedback dbs = new DBservicesFeedback();
-        //            return dbs.UpdateFeedback(feedbackToUpdate);
-        //        }
-        //        else
-        //        {
-        //            // User not found, handle the case appropriately (return null, throw an exception, etc.)
-        //            return null; // Or throw new Exception("Feedback not found");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Log or handle the exception appropriately
-        //        throw new Exception("Error updating Feedback", ex);
-        //    }
-        //}
 
 
 

@@ -59,5 +59,24 @@ namespace Make_a_move___Server.BL
                     throw new Exception("Error reading feedback", ex);
                 }
             }
+
+
+        public List<SecondFeedback> ReadFeedbackByEmail(string email)
+        {
+            try
+            {
+                DBservicesSecondFeedback dbs = new DBservicesSecondFeedback();
+                return dbs.ReadSecondFeedbackByEmail(email);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                throw new Exception("Error reading feedback", ex);
+            }
         }
+
+
+
+
+    }
 }

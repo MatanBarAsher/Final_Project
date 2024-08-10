@@ -26,11 +26,20 @@ namespace Make_a_move___Server.Controllers
         }
 
 
-        //[HttpPut("Update")]
-        //public Feedback Update([FromBody] Feedback feedback)
-        //{
-        //    return feedback.UpdateFeedback(feedback);
-        //}
+        // GET: api/Feedbacks/email/{email}
+        [HttpGet("email/{email}")]
+        public IActionResult GetFeedbackByEmail(string email)
+        {
+            Feedback feedback = new Feedback();
+            List<Feedback> feedbackList = feedback.ReadFeedbackByEmail(email);
+
+            if (feedbackList == null || feedbackList.Count == 0)
+            {
+                return NotFound("No feedback found for the given email.");
+            }
+
+            return Ok(feedbackList);
+        }
 
     }
 }
