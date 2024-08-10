@@ -16,20 +16,27 @@ export default function FCMatchList() {
   const [matchedUsersDetails, setMatchedUsersDetails] = useState([]);
   const [showMatchModal, setShowMatchModal] = useState(false);
   const [feedbacks, setFeedbacks] = useState([]);
+  const [isFeedbacked, setIsFeedbacked] = useState(false);
+  const [isContinueFeedbacked, setIsContinueFeedbacked] = useState(false);
 
   const currentEmail = JSON.parse(localStorage.getItem("current-email"));
 
   useEffect(() => {
     getMatches();
-    // getFeedbacks();
+    getFeedbacks();
   }, []);
 
   useEffect(() => {
+    console.log(feedbacks);
     console.log(matchedUsers);
     if (matchedUsers.length > 0) {
       GetMatchedUsersDetails();
     }
   }, [matchedUsers]);
+
+  useEffect(() => {
+    checkFeedbackStatus();
+  }, [matchedUsersDetails]);
 
   const getMatches = async () => {
     try {
@@ -40,14 +47,8 @@ export default function FCMatchList() {
     }
   };
 
-  const getFeedbacks = async () => {
-    try {
-      const res = await makeAmoveFeedbackServer.getFeedbacks();
-      console.log(res);
-      setMatchedUsers(res);
-    } catch (error) {
-      console.error("Error fetching matches:", error);
-    }
+  const getFeedbacks = () => {
+    makeAmoveFeedbackServer.getFeedbacks().then((res) => setFeedbacks(res));
   };
 
   const GetMatchedUsersDetails = async () => {
@@ -87,6 +88,16 @@ export default function FCMatchList() {
     }
   };
 
+  const checkFeedbackStatus = () => {
+    matchedUsersDetails.forEach((u) => {
+      feedbacks.forEach((f) => {
+        if (f.matchId === u.matchNum) {
+          setIsFeedbacked(true);
+        }
+      });
+    });
+  };
+
   return (
     <>
       <ProfileDelete
@@ -107,6 +118,8 @@ export default function FCMatchList() {
             func={handleMatchClick}
             image={u.image[0]}
             currentEmail={currentEmail}
+            isFeedbacked={isFeedbacked}
+            isContinueFeedbacked={isContinueFeedbacked}
           />
         ))}
       </div>

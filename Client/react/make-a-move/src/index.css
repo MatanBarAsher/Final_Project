@@ -748,6 +748,17 @@ input {
   font-family: "Heebo";
 }
 
+.feedbacks-index {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  direction: rtl;
+  font-size: 10px;
+  font-weight: 600;
+  margin-left: auto;
+  margin-right: 5px;
+}
+
 /* Carousle swipe effects */
 @keyframes swipeLeftEnter {
   from {

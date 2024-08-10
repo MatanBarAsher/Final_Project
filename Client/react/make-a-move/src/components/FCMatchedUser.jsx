@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { makeAmoveUserServer } from "../services";
 
-export default function FCMatchedUser({ user, func, image, currentEmail }) {
+export default function FCMatchedUser({
+  user,
+  func,
+  image,
+  currentEmail,
+  isFeedbacked,
+  isContinueFeedbacked,
+}) {
   const [score, setScore] = useState(0);
 
   useEffect(() => {
@@ -35,6 +42,11 @@ export default function FCMatchedUser({ user, func, image, currentEmail }) {
         </div>
       </div>
       <p>{user.firstName}</p>
+      <div className="feedbacks-index">
+        <span>משובים:</span>
+        <span>1 {isFeedbacked ? " ✔️" : " ➖"}</span>
+        <span>2{isContinueFeedbacked ? " ✔️" : " ➖"}</span>
+      </div>
     </div>
   );
 }
