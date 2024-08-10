@@ -372,6 +372,17 @@ export const makeAmoveUserServer = {
       });
   },
 
+  getUserFriendsByEmail: (email) => {
+    return axios
+      .get(
+        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/friends/${email}`
+      )
+      .then((res) => res.data)
+      .catch((error) => {
+        console.error("Error fetching score:", error);
+        throw error; // Rethrow the error to be caught by the caller}
+      });
+  },
   getAnalysis: (email) =>
     axios
       .get(
@@ -384,15 +395,4 @@ export const makeAmoveUserServer = {
         console.error("Error fetching user analysis:", error);
         throw error; // Rethrow the error to be caught by the caller}
       }),
-  getUserFriendsByEmail: (email) => {
-    return axios
-      .get(
-        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/users/friends/${email}`
-      )
-      .then((res) => res.data)
-      .catch((error) => {
-        console.error("Error fetching score:", error);
-        throw error; // Rethrow the error to be caught by the caller}
-      });
-  },
 };

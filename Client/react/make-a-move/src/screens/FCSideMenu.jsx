@@ -102,12 +102,12 @@ export default function FCSideMenu({ name }) {
           <p>עדכון מיקום</p>
         </a>
       </div>
-      <div className="footer-side-menu">
+      {/* <div className="footer-side-menu">
         <a className="side-menu-option">
           <WavingHandOutlinedIcon color="white" onClick={() => Logout()} />
           <p>התנתקות</p>
         </a>
-      </div>
+      </div> */}
     </div>
   );
 }
