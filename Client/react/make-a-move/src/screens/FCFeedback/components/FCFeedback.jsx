@@ -116,7 +116,6 @@ export const FCFeedback = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    // setIsLoading(true);
     setShowSuccessModal(true);
 
     console.log(option1);
@@ -148,7 +147,7 @@ export const FCFeedback = () => {
         setShowErrorModal(true);
       }
     } catch (error) {
-      console.error("Error signing up:", error);
+      console.error("Error create feedback:", error);
       setShowErrorModal(true);
     } finally {
       setIsLoading(false); // Set loading to false after the API call completes

@@ -6,7 +6,7 @@ export const makeAmoveFeedbackServer = {
       .post(`${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/feedbacks`, data)
       .then((res) => res.data) //returning data
       .catch((error) => {
-        console.error("Error create match", error);
+        console.error("Error create feedback", error);
         throw error; // Rethrow the error to be caught by the caller
       }),
 
@@ -17,5 +17,17 @@ export const makeAmoveFeedbackServer = {
       .catch((error) => {
         console.error("Error fetching feedbacks:", error);
         throw error; // Rethrow the error to be caught by the caller}
+      }),
+
+  createFeedbackContinue: (data) =>
+    axios
+      .post(
+        `${import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL}/secondFeedback`,
+        data
+      )
+      .then((res) => res.data) //returning data
+      .catch((error) => {
+        console.error("Error create feedback", error);
+        throw error; // Rethrow the error to be caught by the caller
       }),
 };
