@@ -9,7 +9,7 @@ export const FeedbackErrorDialog = ({ open, setClose }) => {
       open={open}
       confirmButtonAction={setClose}
       title={"המשוב לא נקלט!"}
-      content={"אנא נסה שוב על מנת שנוכל לשפר להמליץ לך בעתיד"}
+      content={"אנא נסה שוב על מנת שנוכל לשפר ולהמליץ לך בעתיד"}
       confirmButtonText={<FCCustomBtn title={"סגור"} />}
     />
   );

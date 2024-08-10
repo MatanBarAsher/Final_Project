@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-// import { makeAmoveUserServer } from "../services";
-import { FCMultiSelect } from "../../../components";
 import FCCustomBtn from "../../../components/FCCustomBtn";
-import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import { FCLoad } from "../../../loading/FCLoad";
 import { FeedbackSuccessDialog } from "./Dialog/FeedbackSuccessDialog";
 import { FeedbackErrorDialog } from "./Dialog/FeedbackErrorDialog";
 import { makeAmoveFeedbackServer } from "../../../services";
+
 export const FCFeedbackContinue = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);

@@ -84,10 +84,10 @@ export default function FCSideMenu({ name }) {
           <FavoriteBorderIcon />
           <p>רשימת התאמות</p>
         </a>
-        <a onClick={() => Navigate("/matches")} className="side-menu-option">
+        {/* <a onClick={() => Navigate("/matches")} className="side-menu-option">
           <GradingIcon />
           <p>משוב המשך</p>
-        </a>
+        </a> */}
         <a
           onClick={() => Navigate("/recommendations")}
           className="side-menu-option"

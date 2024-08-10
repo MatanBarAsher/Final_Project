@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-// import { makeAmoveUserServer } from "../services";
 import { FCMultiSelect } from "../../../components";
 import FCCustomBtn from "../../../components/FCCustomBtn";
 import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
