@@ -18,80 +18,7 @@ namespace Make_a_move___Server.DAL
             return con;
         }
 
-        //--------------------------------------------------------------------------------------------------
-        // This method Inserts a Match to the Matches table 
-        // --------------------------------------------------------------------------------------------------
-
-        //public int InsertMatch(Match match)
-        //{
-
-        //    SqlConnection con;
-        //    SqlCommand cmd;
-
-        //    try
-        //    {
-        //        // create the connection
-        //        con = connect("myProjDB");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // write to log
-        //        throw (ex);
-        //    }
-
-        //    cmd = CreateMatchInsertCommandWithStoredProcedure("SP_InsertNewMatch", con, match);  // create the command
-
-        //    try
-        //    {
-        //        // execute the command
-        //        int numEffected = cmd.ExecuteNonQuery();
-        //        return numEffected;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // write to log
-        //        throw (ex);
-        //    }
-
-        //    finally
-        //    {
-        //        if (con != null)
-        //        {
-        //            // close the db connection
-        //            con.Close();
-        //        }
-        //    }
-
-        //}
-
-        ////---------------------------------------------------------------------------------
-        //// Create the SqlCommand for insrting new match using a stored procedure
-        ////---------------------------------------------------------------------------------
-
-        //private SqlCommand CreateMatchInsertCommandWithStoredProcedure(String spName, SqlConnection con, Match match)
-        //{
-
-        //    SqlCommand cmd = new SqlCommand(); // create the command object
-
-        //    cmd.Connection = con;              // assign the connection to the command object
-
-        //    cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
-
-        //    cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
-
-        //    cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
-
-        //    cmd.Parameters.AddWithValue("@userIds", match.UserIds);
-
-        //    //cmd.Parameters.AddWithValue("@isMatch", match.IsMatch);
-
-        //    cmd.Parameters.AddWithValue("@placeCode", match.PlaceCode);
-
-        //    cmd.Parameters.AddWithValue("@feedback", match.Feedback);
-
-
-        //    return cmd;
-        //}
+      
 
         //--------------------------------------------------------------------------------------------------
         // This method reads matches from the database 
@@ -245,10 +172,7 @@ namespace Make_a_move___Server.DAL
 
 
 
-        ////--------------------------------------------------------------------------------------------------
-        //// This method Updates a city at Cities table 
-        ////--------------------------------------------------------------------------------------------------
-
+   
 
 
 

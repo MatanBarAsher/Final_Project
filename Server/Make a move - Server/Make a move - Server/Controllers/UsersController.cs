@@ -64,104 +64,6 @@ namespace Make_a_move___Server.Controllers
         }
 
 
-        //// POST: api/User/AddUserToDictionary
-        //[HttpPost("AddUserToDictionary")]
-        //public IActionResult AddUserToDictionary(string firstEmail, string secondEmail)
-        //{
-        //    try
-        //    {
-        //        User user = new User { Email = firstEmail };
-        //        user.AddToDictionary(firstEmail, secondEmail);
-        //        return Ok("User added to dictionary successfully.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"An error occurred: {ex.Message}");
-        //    }
-        //}
-
-        //[HttpPost("RemoveFromDictionary")]
-        //public IActionResult RemoveFromDictionary(string email)
-        //{
-        //    try
-        //    {
-        //        User user = new User { Email = email };
-        //        user.RemoveFromDictionary(email); // Provide the email parameter
-        //        return Ok("User removed from dictionary successfully.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"An error occurred: {ex.Message}");
-        //    }
-        //}
-
-        //[HttpPost("SearchUserByEmail")]
-        //public IActionResult SearchUserByEmail(string email, string valueToCheck)
-        //{
-        //    try
-        //    {
-        //        bool userExists = Make_a_move___Server.BL.User.SearchUserByEmail(email, valueToCheck);
-        //        if (userExists)
-        //        {
-        //            return Ok("User found in the dictionary.");
-        //        }
-        //        else
-        //        {
-        //            return NotFound("User not found in the dictionary.");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"An error occurred: {ex.Message}");
-        //    }
-        //}
-
-        //[HttpGet("GetDictionary")]
-        //public IActionResult GetDictionary()
-        //{
-        //    try
-        //    {
-        //        Dictionary<string, List<string>> dictionary = Make_a_move___Server.BL.User.GetDictionary();
-        //        return Ok(dictionary);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"An error occurred: {ex.Message}");
-        //    }
-        //}
-
-        //[HttpPost("LikeUser")]
-        //public IActionResult LikeUser(string userEmail, string likedUserEmail, int currentplace)
-        //{
-        //    try
-        //    {
-        //        // Create an instance of the User class
-        //        User user = new User();
-
-        //        // Call the LikeUser method on the instance
-        //        bool isLiked = user.LikeUser(userEmail, likedUserEmail);
-
-        //        if (isLiked)
-        //        {
-        //            Match match = new Match(userEmail, likedUserEmail, currentplace);
-        //            int result = match.InsertMatch();
-        //            // Return message if the user is already liked
-        //            return Ok("We have a match!");
-        //        }
-        //        else
-        //        {
-        //            // Return message if the like was added
-        //            return Ok("Like added successfully.");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Return error message if an exception occurs
-        //        return StatusCode(500, $"An error occurred: {ex.Message}");
-        //    }
-        //}
-
-
         [HttpPost("AddLike")]
         public IActionResult AddLike([FromQuery] string userEmail, [FromQuery] string likedUserEmail, [FromQuery] int currentPlace)
         {
@@ -314,14 +216,7 @@ namespace Make_a_move___Server.Controllers
             return u.checkExistingUserByKeyAndValue(key, value);
         }
 
-        //[HttpPost("EditPreferences")]
-        //public User EditPreferences([FromBody] User user)
-        //{
-
-        //    User u = new();
-
-        //    return u.EditPreferences(user);
-        //}
+      
 
         [HttpGet("getEmails")]
         public List<string> GetUsersEmails()
