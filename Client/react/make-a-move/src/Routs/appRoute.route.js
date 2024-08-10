@@ -15,12 +15,11 @@ import FCSideMenu from "../screens/FCSideMenu";
 import FCCities from "../screens/FCCities";
 import { FCLoad } from "../loading/FCLoad";
 import { FCRecommendations } from "../screens/FCRecommendations";
-import FCMatchList from "../screens/FCMatchList";
+import FCMatchList from "../screens/FCMatches/components/FCMatchList";
 import FCMyProfile from "../screens/FCMyProfile/components/FCMyProfile";
 import FCCarousel from "../screens/FCCarousel";
 import { FCHome } from "../screens/FCHome";
 import { FCUpdatePreferences } from "../screens/Preferences/components/FCUpdatePreferences";
-import FCMatchModal from "../screens/FCMatchModal";
 
 export const ROUTER = [
   { path: "/", Element: FCWellcome },
@@ -43,5 +42,4 @@ export const ROUTER = [
   { path: "/carousel", Element: FCCarousel },
   { path: "/updatePreferences", Element: FCUpdatePreferences },
   { path: "/home", Element: FCHome },
-  { path: "/matchModal", Element: FCMatchModal },
 ];

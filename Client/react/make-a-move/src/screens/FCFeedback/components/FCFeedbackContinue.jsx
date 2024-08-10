@@ -8,11 +8,13 @@ import FCCustomTxtInp from "../../../components/FCCustomTxtInp";
 import { FCLoad } from "../../../loading/FCLoad";
 import { FeedbackSuccessDialog } from "./Dialog/FeedbackSuccessDialog";
 import { FeedbackErrorDialog } from "./Dialog/FeedbackErrorDialog";
-
+import { makeAmoveFeedbackServer } from "../../../services";
 export const FCFeedbackContinue = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
   const navigate = useNavigate();
+  const matchedUser = JSON.parse(localStorage.getItem("matched-user"));
 
   var options5 = [
     { label: "כן", id: 1 },
@@ -53,22 +55,37 @@ export const FCFeedbackContinue = () => {
     // updateFeedbackData("Q1", id);
   };
 
-  const handleSubmit = (e) => {
-    // setIsLoading(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
     setShowSuccessModal(true);
-    //   e.preventDefault();
 
-    //   //go to server with precerencesData as prop
-    // //   makeAmoveUserServer.setPreferences(precerencesData).then((response) => {
-    // //     if (response) {
-    // //       console.log("success");
-    // //       console.log(response);
-    // //       navigate("/profile");
-    // //     } else {
-    // //       console.log("failure");
-    // //       navigate("/map");
-    // //     }
-    // //   });
+    const feedbackContinueData = {
+      matchId: matchedUser.matchNum,
+      q11: option5,
+      q21: option6,
+      q31: option7,
+      email: JSON.parse(localStorage.getItem("current-email")),
+    };
+    console.log(feedbackContinueData);
+    //go to server with precerencesData as prop
+    try {
+      const response = await makeAmoveFeedbackServer.createFeedbackContinue(
+        feedbackContinueData
+      );
+      if (response) {
+        setShowSuccessModal(true);
+        console.log("success");
+        console.log(response);
+      } else {
+        setShowErrorModal(true);
+      }
+    } catch (error) {
+      console.error("Error create feedback:", error);
+      setShowErrorModal(true);
+    } finally {
+      setIsLoading(false); // Set loading to false after the API call completes
+    }
   };
   return (
     <span>
@@ -89,7 +106,7 @@ export const FCFeedbackContinue = () => {
               setShowErrorModal(false);
             }}
           />
-          <form onSubmit={() => navigate("/feedback2")}>
+          <form>
             <h1 className="pref-h1">משוב</h1>
             <h3>דרג/י את מידת ההסכמה שלך:</h3>
 
