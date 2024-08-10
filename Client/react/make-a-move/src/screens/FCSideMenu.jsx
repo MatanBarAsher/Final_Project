@@ -11,6 +11,7 @@ import { makeAmoveUserServer } from "../services";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import { ProfileLogout } from "./FCMyProfile/components/DialogsProfiles/profileLogout";
+import GradingIcon from "@mui/icons-material/Grading";
 
 export default function FCSideMenu({ name }) {
   const [UserData, setUserData] = useState({});
@@ -82,6 +83,10 @@ export default function FCSideMenu({ name }) {
         <a onClick={() => Navigate("/matches")} className="side-menu-option">
           <FavoriteBorderIcon />
           <p>רשימת התאמות</p>
+        </a>
+        <a onClick={() => Navigate("/matches")} className="side-menu-option">
+          <GradingIcon />
+          <p>משוב המשך</p>
         </a>
         <a
           onClick={() => Navigate("/recommendations")}
