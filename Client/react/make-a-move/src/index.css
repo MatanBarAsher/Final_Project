@@ -250,7 +250,6 @@ option {
   flex: 100%;
 }
 
-
 .lower-side-menu {
   flex: 100%;
   direction: ltr;
@@ -304,7 +303,6 @@ option {
   text-align: right;
   max-width: 340px;
 }
-
 
 .gender-inp {
   display: flex;
@@ -590,20 +588,19 @@ input {
   font-family: "Heebo";
   font-weight: bold;
   font-size: 16px;
-  margin-bottom: 50px;;
+  margin-bottom: 50px;
 }
-.lower-recommend{
+.lower-recommend {
   flex: 100%;
- text-align: right;
+  text-align: right;
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
   padding: 40px 30px;
   border-top: 1px solid white;
   margin-bottom: 40px;
-  
 }
-.recommend-h3{
+.recommend-h3 {
   font-size: 17px;
   font: "heebo";
 }
@@ -710,6 +707,7 @@ input {
   align-content: flex-start;
   gap: 15px;
   min-height: 600px;
+  padding-bottom: 50px;
 }
 
 .match .profile-image {
