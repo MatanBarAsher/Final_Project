@@ -172,12 +172,10 @@ using System.Net.Http;
                     userToUpdate.height = newUser.height;
                     userToUpdate.birthday = newUser.birthday;
                     userToUpdate.phoneNumber = newUser.phoneNumber;
+                    userToUpdate.timeStamp = newUser.timeStamp;
                     userToUpdate.city = newUser.city;
-                    //userToUpdate.personalInterestsIds = newUser.personalInterestsIds;
                     userToUpdate.currentPlace = newUser.currentPlace;
-                    //userToUpdate.preferencesDictionary = newUser.preferencesDictionary;
                     userToUpdate.persoalText = newUser.persoalText;
-
 
 
 
@@ -249,32 +247,7 @@ using System.Net.Http;
             }
         }
 
-        //public async Task LoadPreferencesAsync()
-        //{
-        //    try
-        //    {
-        //        DBservicesUserPreferences dbs = new DBservicesUserPreferences();
-        //        UserPreferences userPreferences = await dbs.GetUserPreferencesByEmail(this.Email);
-
-        //        if (userPreferences != null)
-        //        {
-        //            this.PreferencesDictionary = new Dictionary<string, string>
-        //    {
-        //        { "preferenceGender", userPreferences.PreferenceGender.ToString() },
-        //        { "minAge", userPreferences.MinAge.ToString() },
-        //        { "maxAge", userPreferences.MaxAge.ToString() },
-        //        { "minHeight", userPreferences.MinHeight.ToString() },
-        //        { "maxHeight", userPreferences.MaxHeight.ToString() },
-        //        { "maxDistance", userPreferences.MaxDistance.ToString() }
-        //    };
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Log or handle the exception appropriately
-        //        throw new Exception("Error loading user preferences", ex);
-        //    }
-        //}
+        
 
         public List<User> ReadUsersByPlace(int placeCode)
         {
