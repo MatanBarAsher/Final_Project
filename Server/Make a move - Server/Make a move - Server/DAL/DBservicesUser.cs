@@ -150,6 +150,7 @@ namespace Make_a_move___Server.DAL
                     u.Birthday = Convert.ToDateTime(dataReader["birthday"]);
                     u.PhoneNumber = dataReader["phoneNumber"].ToString();
                     u.IsActive = Convert.ToBoolean(dataReader["isActive"]);
+                    u.TimeStamp = Convert.ToDateTime(dataReader["timeStamp"]);
                     u.City = dataReader["city"].ToString();
                     u.CurrentPlace = Convert.ToInt32(dataReader["currentPlace"]);
                     u.PersoalText = dataReader["persoalText"].ToString();
@@ -486,6 +487,8 @@ namespace Make_a_move___Server.DAL
 
             cmd.Parameters.AddWithValue("isActive", user.IsActive);
 
+            cmd.Parameters.AddWithValue("@timeStamp", user.TimeStamp);
+
             cmd.Parameters.AddWithValue("@city", user.City);
 
             cmd.Parameters.AddWithValue("@currentPlace", user.CurrentPlace);
@@ -528,11 +531,12 @@ namespace Make_a_move___Server.DAL
                     u.Email = dataReader["email"].ToString();
                     u.FirstName = dataReader["firstName"].ToString();
                     u.LastName = dataReader["lastName"].ToString();
-                    //u.Password = dataReader["password"].ToString();
+                    u.Password = dataReader["password"].ToString();
                     u.Image = JsonSerializer.Deserialize<string[]>(dataReader["image"].ToString());
                     u.Gender = Convert.ToInt32(dataReader["gender"]);
                     u.Height = Convert.ToInt32(dataReader["height"]);
                     u.Birthday = Convert.ToDateTime(dataReader["birthday"]);
+                    u.TimeStamp = Convert.ToDateTime(dataReader["timeStamp"]);
                     u.City = dataReader["city"].ToString();
                     u.PreferencesDictionary = new Dictionary<string, string>
                     {
@@ -699,7 +703,7 @@ namespace Make_a_move___Server.DAL
                         PhoneNumber = dataReader["phoneNumber"].ToString(),
                         IsActive = Convert.ToBoolean(dataReader["isActive"]),
                         City = dataReader["city"].ToString(),
-                        //PersonalInterestsIds = JsonSerializer.Deserialize<string[]>(dataReader["personalInterestsIds"].ToString()),
+                        TimeStamp = Convert.ToDateTime(dataReader["timeStamp"]),
                         PreferencesDictionary = new Dictionary<string, string>
                         {
                             { "preferenceGender", dataReader["preferenceGender"].ToString() },

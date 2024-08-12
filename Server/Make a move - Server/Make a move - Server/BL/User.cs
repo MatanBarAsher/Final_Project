@@ -58,24 +58,24 @@ using System.Net.Http;
             this.preferencesDictionary = preferencesDictionary;
         }
 
-        public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, int currentPlace, string persoalText, Dictionary<string, string> preferencesDictionary, string[] personalInterestsIds)
-        {
-            this.email = email;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.password = password;
-            this.gender = gender;
-            this.image = image;
-            this.height = height;
-            this.birthday = birthday;
-            this.phoneNumber = phoneNumber;
-            this.isActive = isActive;
-            this.city = city;
-            this.personalInterestsIds = personalInterestsIds;
-            this.currentPlace = currentPlace;
-            this.persoalText = persoalText;
-            this.preferencesDictionary = preferencesDictionary;
-        }
+        //public User(string email, string firstName, string lastName, string password, int gender, string[] image, int height, DateTime birthday, string phoneNumber, bool isActive, string city, int currentPlace, string persoalText, Dictionary<string, string> preferencesDictionary, string[] personalInterestsIds)
+        //{
+        //    this.email = email;
+        //    this.firstName = firstName;
+        //    this.lastName = lastName;
+        //    this.password = password;
+        //    this.gender = gender;
+        //    this.image = image;
+        //    this.height = height;
+        //    this.birthday = birthday;
+        //    this.phoneNumber = phoneNumber;
+        //    this.isActive = isActive;
+        //    this.city = city;
+        //    this.personalInterestsIds = personalInterestsIds;
+        //    this.currentPlace = currentPlace;
+        //    this.persoalText = persoalText;
+        //    this.preferencesDictionary = preferencesDictionary;
+        //}
 
         public string Email { get => email; set => email = value; }
         public string FirstName { get => firstName; set => firstName = value; }
