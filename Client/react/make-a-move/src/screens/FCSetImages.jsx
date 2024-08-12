@@ -10,7 +10,7 @@ import { CleaningServices } from "@mui/icons-material";
 export default function FCSetImages() {
   const [user, setUser] = useState({});
   const navigate = useNavigate(); // Assuming you might need this for navigation
-  const origin = JSON.parse(localStorage.getItem("origin"));
+  const origin = JSON.parse(localStorage.getItem("imageOrigin"));
 
   useEffect(() => {
     const currentEmail = JSON.parse(localStorage.getItem("current-email"));
