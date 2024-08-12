@@ -11,8 +11,8 @@ export const MatchDialogToContinue = ({ open, setClose , setCloseCancel }) => {
       confirmButtonText={" המשך"}
       cancelButtonAction={setCloseCancel}
       cancelButtonText={"בטל"}
-      title={"!משוב ראשון כבר מלא"}
-      content={"עברו כמה ימים אם תרצה/י למלא משוב שני על ההתאמה לחץ/י המשך"}
+      title={"משוב ראשון כבר מלא!"}
+      content={"אם עברו כמה ימים ותרצה/י למלא משוב שני על ההתאמה לחץ/י המשך"}
     />
   );
 };

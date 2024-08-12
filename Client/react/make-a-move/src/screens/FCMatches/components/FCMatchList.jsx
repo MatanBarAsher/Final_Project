@@ -91,6 +91,7 @@ export default function FCMatchList() {
       feedbackMap[clickedUser.matchNum] &&
       continueFeedbackMap[clickedUser.matchNum]
     ) {
+      setShowMatchModal2(true);
       console.log("1 + 2");
     } else if (feedbackMap[clickedUser.matchNum]) {
       setShowMatchModalContinue(true);
@@ -98,8 +99,6 @@ export default function FCMatchList() {
     } else {
       navigate("/feedback");
     }
-
-    setShowMatchModal2(true);
   };
 
   const checkFeedbackStatus = () => {
