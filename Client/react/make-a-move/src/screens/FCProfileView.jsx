@@ -26,7 +26,7 @@ export default function FCProfileView(userToShow) {
   const [currentImage, setCurrentImage] = useState("");
   const [matchDetails, setMatchDetails] = useState(null);
 
-  localStorage.setItem("origin", JSON.stringify("ProfileView"));
+  localStorage.setItem("origin", JSON.stringify("map"));
   const currentEmail = JSON.parse(localStorage.getItem("current-email"));
   // const myDetails = useRecoilValue(myDetailsState);
   const myDetails = userToShow.userToShow;

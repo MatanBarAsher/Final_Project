@@ -17,7 +17,8 @@ export default function FCMyProfile() {
   const [cityMap, setCityMap] = useState({});
   const [tempCity, setTempCity] = useState("");
   const [firstImage, setFirstImage] = useState("");
-  localStorage.setItem("origin", JSON.stringify("myProfile"));
+  //localStorage.setItem("origin", JSON.stringify("myProfile"));
+  localStorage.setItem("imageOrigin", JSON.stringify("myProfile"));
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 

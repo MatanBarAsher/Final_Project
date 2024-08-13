@@ -19,7 +19,8 @@ export const FCSignUp3 = ({ setCurrentStep, currentStep, length }) => {
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [selectedInterestsIndexes, setSelectedInterestsIndexes] = useState([]);
   console.log(signUpData);
-  localStorage.setItem("origin", JSON.stringify("signUp"));
+
+  localStorage.setItem("imageOrigin", JSON.stringify("signUp"));
 
   let tempArr3 = [];
 
