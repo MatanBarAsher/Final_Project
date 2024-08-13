@@ -37,10 +37,16 @@ export default function FCMap({ location }) {
           );
           console.log(userDetails);
           console.log(userEmails);
-          console.log(userDetails.filter((u) => u.email !== userEmail));
+          console.log(
+            userDetails.filter(
+              (u) => u.email !== userEmail && u.currentPlace === currentPlace
+            )
+          );
           setUsers(
             renderIconsByGender(
-              userDetails.filter((u) => u.email !== userEmail)
+              userDetails.filter(
+                (u) => u.email !== userEmail && u.currentPlace === currentPlace
+              )
             )
           );
         } catch (error) {
@@ -57,8 +63,12 @@ export default function FCMap({ location }) {
   }, []);
 
   const renderIconsByGender = (users) => {
-    console.log(users);
-    return <FCCarousel users={users} />;
+    console.log(users.length);
+    if (users.length > 0) {
+      return <FCCarousel users={users} />;
+    } else {
+      return <h3 style={{ marginTop: 200 }}>אין משתמשים זמינים כרגע</h3>;
+    }
   };
 
   const showUserDetails = (user) => {

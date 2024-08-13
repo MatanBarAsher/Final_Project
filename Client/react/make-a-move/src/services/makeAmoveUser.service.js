@@ -124,7 +124,6 @@ export const makeAmoveUserServer = {
           import.meta.env.VITE_MAKE_A_MOVE_SERVER_URL
         }/Users/UpdatePlace/${user}`,
         {
-          placeCode: 0,
           name: place.name,
           address: place.address,
           typeOfPlace: "",

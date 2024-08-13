@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ErrorDialog, SuccessDialog } from "./components";
 import FCCustomTxtInp from "../../components/FCCustomTxtInp";
 import FCCustomBtn from "../../components/FCCustomBtn";
-import { makeAmoveUserServer } from "../../services";
+import { makeAmoveUserServer, makeAmoveMatchServer } from "../../services";
 import FCSignInGoogle from "../../google/FCSignInGoogle";
 import { FCLoad } from "../../loading/FCLoad";
 
@@ -44,8 +44,14 @@ const FCSignIn = () => {
     }
   };
 
-  const saveCurrentUserToLocalStorage = (email) => {
+  const saveCurrentUserToLocalStorage = async (email) => {
     localStorage.setItem("current-email", JSON.stringify(email));
+    try {
+      const res = await makeAmoveMatchServer.getMatchesByEmail(email);
+      localStorage.setItem("number-of-matches", res.length);
+    } catch (error) {
+      console.error("Error fetching matches:", error);
+    }
   };
 
   return (
@@ -86,10 +92,10 @@ const FCSignIn = () => {
             />
             <FCCustomBtn type="submit" title={"התחברות"} />
           </form>
-          <div className="google-signin-container">
+          {/* <div className="google-signin-container">
             <p style={{ color: "white" }}>או</p>
             <FCSignInGoogle />
-          </div>
+          </div> */}
         </>
       )}
     </span>

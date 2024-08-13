@@ -58,6 +58,7 @@ const FCLocation = () => {
         updateTimeStamp();
         console.log("success");
         console.log(response);
+        makeAmoveUserServer.updateUser(response.data);
         localStorage.setItem(
           "current-place",
           JSON.stringify({
