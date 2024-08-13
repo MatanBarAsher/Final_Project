@@ -236,7 +236,7 @@ export const FCUpdateProfile = () => {
       const response = await makeAmoveUserServer
         .updateUser(updatedUserData)
         .then((res) => res);
-      console.log(response); 
+      console.log(response);
       if (response) {
         console.log(response);
         setShowSuccessModal(true);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FCCustomBtn from "../components/FCCustomBtn";
 import logo from "../assets/images/Logo.png";
 import FCHamburger from "../components/FCHamburger";
@@ -13,7 +13,19 @@ const FCLocation = () => {
   const [isLoading, setIsLoading] = useState(false);
   const userEmail = JSON.parse(localStorage.getItem("current-email"));
   const navigate = useNavigate();
+  const [UserData, setUserData] = useState({});
   localStorage.setItem("origin", JSON.stringify("Location"));
+
+  useEffect(() => {
+    makeAmoveUserServer
+      .getUserByEmail(userEmail)
+      .then((res) => {
+        console.log(res);
+        setUserData(res);
+      })
+      .catch((res) => console.log(res));
+    console.log(UserData);
+  }, []);
 
   const handleLocationChange = (e) => {
     const tempDetails = e.value.description.split(",");
@@ -43,6 +55,7 @@ const FCLocation = () => {
         userEmail
       );
       if (response) {
+        updateTimeStamp();
         console.log("success");
         console.log(response);
         localStorage.setItem(
@@ -62,6 +75,20 @@ const FCLocation = () => {
     } finally {
       setIsLoading(false); // Set loading to false after the API call completes
     }
+  };
+
+  const updateTimeStamp = () => {
+    let logoutUser = UserData;
+    logoutUser.currentPlace = 0;
+    const date = new Date();
+    const formattedDate = date.toISOString().split(".")[0];
+    console.log(formattedDate);
+    logoutUser.timeStamp = formattedDate;
+    console.log(logoutUser);
+    makeAmoveUserServer
+      .updateUser(logoutUser)
+      .then((res) => console.log(res))
+      .catch((res) => console.log(res));
   };
 
   return (

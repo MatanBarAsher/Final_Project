@@ -8,7 +8,23 @@ import {
 import { RecoilRoot } from "recoil";
 import { ROUTER } from "./Routs";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
+  const notify = () =>
+    toast(`יש לנו Match! אפשר לראות אותו עכשיו במסך ההתאמות`, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      onClick: console.log("click"),
+    });
+
   return (
     <RecoilRoot>
       <HashRouter>
@@ -18,6 +34,20 @@ function App() {
           ))}
         </Routes>
       </HashRouter>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition:Slide
+      />
+      <button onClick={notify}>Notify!</button>
     </RecoilRoot>
   );
 }
