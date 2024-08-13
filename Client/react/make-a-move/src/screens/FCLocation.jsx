@@ -61,10 +61,11 @@ const FCLocation = () => {
         makeAmoveUserServer.updateUser(response.data);
         localStorage.setItem(
           "current-place",
-          JSON.stringify({
-            placeCode: response.data.currentPlace,
-            placeName: value,
-          })
+          response.data.currentPlace
+          // JSON.stringify({
+          // placeCode: response.data.currentPlace,
+          // placeName: value,
+          // })
         );
         navigate("/map");
       } else {

@@ -13,6 +13,7 @@ import { FCLoad } from "../loading/FCLoad";
 export default function FCMap({ location }) {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+
   const currentPlace = JSON.parse(localStorage.getItem("current-place"));
   localStorage.setItem("origin", JSON.stringify("Map"));
   const [isLoading, setIsLoading] = useState(false);
@@ -31,22 +32,13 @@ export default function FCMap({ location }) {
               const user = await makeAmoveUserServer.GetUserNoPasswordByEmail(
                 email
               );
-              let percentage = userEmails[email]["item1"];
+              const percentage = userEmails[email]["item1"];
               return { ...user, percentage };
             })
           );
-          console.log(userDetails);
-          console.log(userEmails);
-          console.log(
-            userDetails.filter(
-              (u) => u.email !== userEmail && u.currentPlace === currentPlace
-            )
-          );
           setUsers(
-            renderIconsByGender(
-              userDetails.filter(
-                (u) => u.email !== userEmail && u.currentPlace === currentPlace
-              )
+            userDetails.filter(
+              (u) => u.email !== userEmail && +u.currentPlace === +currentPlace
             )
           );
         } catch (error) {
@@ -62,20 +54,11 @@ export default function FCMap({ location }) {
     fetchUserDetails();
   }, []);
 
-  const renderIconsByGender = (users) => {
-    console.log(users.length);
-    if (users.length > 0) {
-      return <FCCarousel users={users} />;
-    } else {
-      return <h3 style={{ marginTop: 200 }}>אין משתמשים זמינים כרגע</h3>;
-    }
-  };
-
-  const showUserDetails = (user) => {
-    console.log("User details:", user);
-    localStorage.setItem("user-to-show", JSON.stringify(user));
-    navigate("/profile");
-  };
+  // const showUserDetails = (user) => {
+  //   console.log("User details:", user);
+  //   localStorage.setItem("user-to-show", JSON.stringify(user));
+  //   navigate("/profile");
+  // };
 
   return (
     <span>
@@ -85,7 +68,13 @@ export default function FCMap({ location }) {
         <>
           <div className="map-container">
             <FCHamburger />
-            <div className="icon-container">{users}</div>
+            <div className="icon-container">
+              {users.length > 0 ? (
+                <FCCarousel users={users} />
+              ) : (
+                <h3 style={{ marginTop: 200 }}>אין משתמשים זמינים כרגע</h3>
+              )}
+            </div>
           </div>
         </>
       )}

@@ -3,12 +3,12 @@ import FCProfileView from "./FCProfileView";
 import FCBackArrow from "../components/FCBackArrow";
 import FCNextArrow from "../components/FCNextArrow";
 
-export default function FCCarousel(users) {
+export default function FCCarousel(props) {
   const [index, setIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(null);
   const [direction, setDirection] = useState(null);
   const [key, setKey] = useState(0); // Added to force re-render
-  const usersList = users.users;
+  const usersList = props.users;
 
   const nextProfile = () => {
     setDirection("next");
