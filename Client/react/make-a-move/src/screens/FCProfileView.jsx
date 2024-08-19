@@ -52,28 +52,48 @@ export default function FCProfileView(userToShow) {
   };
 
   useEffect(() => {
+    // Fetch cities
     fetchCities();
-    makeAmoveUserServer
-      .GetPersonalInterests()
-      .then((res) => setPersonalInterstsOptions(res));
 
-    setSelectedInterests(getInterestDescByCodes(selectedInterestsIndexes));
+    // Fetch personal interests
+    makeAmoveUserServer.GetPersonalInterests().then((res) => {
+      setPersonalInterstsOptions(res);
 
+      // After personalInterstsOptions is set, update selectedInterests
+      setSelectedInterests(getInterestDescByCodes(selectedInterestsIndexes));
+    });
+
+    // Set the initial image
     setCurrentImage(myDetails.image[0]);
 
+    // Get likes for the current user
     getLikesByEmail();
   }, [myDetails]);
 
+  // This effect updates selectedInterests whenever selectedInterestsIndexes or personalInterstsOptions change
   useEffect(() => {
-    makeAmoveUserServer.GetPersonalInterestsByEmail(email).then((res) => {
-      setSelectedInterestsIndexes(res);
-      setSelectedInterests(getInterestDescByCodes(res));
-    });
+    if (personalInterstsOptions.length > 0) {
+      setSelectedInterests(getInterestDescByCodes(selectedInterestsIndexes));
+    }
+  }, [personalInterstsOptions, selectedInterestsIndexes]);
 
-    getLikesByEmail(myDetails.email);
+  useEffect(() => {
+    const fetchData = async () => {
+      const interests = await makeAmoveUserServer.GetPersonalInterests();
+      setPersonalInterstsOptions(interests);
 
-    getEmailsThatLikesMe();
-  }, []);
+      const selectedIndexes =
+        await makeAmoveUserServer.GetPersonalInterestsByEmail(email);
+      setSelectedInterestsIndexes(selectedIndexes);
+      console.log(selectedIndexes);
+      setSelectedInterests(getInterestDescByCodes(selectedIndexes));
+      console.log(selectedInterests);
+      getLikesByEmail(myDetails.email);
+      getEmailsThatLikesMe();
+    };
+
+    fetchData();
+  }, [email, myDetails.email]);
 
   const getInterestDescByCodes = (codesArr) => {
     const temp = [];
@@ -84,6 +104,7 @@ export default function FCProfileView(userToShow) {
         }
       });
     });
+    console.log(temp);
     return temp;
   };
 

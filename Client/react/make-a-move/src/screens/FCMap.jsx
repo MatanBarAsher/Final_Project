@@ -14,13 +14,13 @@ export default function FCMap({ location }) {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
+  const userEmail = JSON.parse(localStorage.getItem("current-email"));
   const currentPlace = JSON.parse(localStorage.getItem("current-place"));
   localStorage.setItem("origin", JSON.stringify("Map"));
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
-      let userEmail = JSON.parse(localStorage.getItem("current-email"));
       setIsLoading(true);
       if (userEmail) {
         try {

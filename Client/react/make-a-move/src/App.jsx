@@ -40,6 +40,7 @@ function App() {
       console.log(res);
       console.log(currentNumOfMatches);
       if (res.length > currentNumOfMatches) {
+        localStorage.setItem("number-of-matches", res.length);
         notify();
       }
     } catch (error) {

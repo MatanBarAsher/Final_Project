@@ -7,10 +7,7 @@ import { makeAmoveUserServer } from "../../../services";
 
 export const FCPrecerences = () => {
   const navigate = useNavigate("");
-  let email = localStorage
-    .getItem("current-email")
-    .replace('"', "")
-    .replace('"', "");
+  let email = JSON.parse(localStorage.getItem("current-email"));
   console.log(email);
 
   const [precerencesData, setPrecerencesData] = useState({
@@ -77,7 +74,7 @@ export const FCPrecerences = () => {
           <span>
             <input
               onChecked={precerencesData["preferedGender"] === "male"}
-              id="2"
+              id="1"
               type="radio"
               name="preferedGender"
               onChange={handleGenderCreation}
@@ -88,7 +85,7 @@ export const FCPrecerences = () => {
           <span>
             <input
               onChecked={precerencesData["preferedGender"] === "female"}
-              id="1"
+              id="2"
               type="radio"
               name="preferedGender"
               onChange={handleGenderCreation}
@@ -129,7 +126,7 @@ export const FCPrecerences = () => {
             max={80}
           />
         </span>
-        <p className="preference-p">בגובה: (מינ')</p>
+        <p className="preference-p">בגובה:</p>
         <span className="range">
           <Slider
             sx={{ color: "#efe1d1" }}

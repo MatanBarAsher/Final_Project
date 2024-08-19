@@ -18,7 +18,7 @@ const FCSignUpFlow = () => {
 
   return (
     <>
-      <Stepper
+      {/* <Stepper
         sx={{ color: "#efe1d1" }}
         activeStep={currentStep}
         alternativeLabel
@@ -28,7 +28,7 @@ const FCSignUpFlow = () => {
             <StepLabel>{index}</StepLabel>
           </Step>
         ))}
-      </Stepper>
+      </Stepper> */}
       {
         <Component
           sx={{ backgroundColor: "#efe1d1" }}

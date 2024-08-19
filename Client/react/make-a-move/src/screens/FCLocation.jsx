@@ -45,6 +45,7 @@ const FCLocation = () => {
   };
 
   const handleSubmit = async (e) => {
+    // e.preventDefault();
     console.log(userEmail);
     console.log(value);
     setIsLoading(true); // Set loading to true before making the API call
@@ -57,8 +58,10 @@ const FCLocation = () => {
       if (response) {
         updateTimeStamp();
         console.log("success");
-        console.log(response);
-        makeAmoveUserServer.updateUser(response.data);
+        console.log(response.data);
+        makeAmoveUserServer
+          .updateUser(response.data)
+          .then((res) => console.log(res));
         localStorage.setItem(
           "current-place",
           response.data.currentPlace
@@ -67,6 +70,7 @@ const FCLocation = () => {
           // placeName: value,
           // })
         );
+        console.log(localStorage.getItem("current-place"));
         navigate("/map");
       } else {
         console.log("failure");
